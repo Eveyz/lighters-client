@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "materialize-css": "^0.100.2",
     "next": "^6.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-materialize": "^2.4.5",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -16,7 +18,7 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "tui-calendar": "^1.6.0"
+    "tui-calendar": "^1.7.0"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
@@ -24,5 +26,6 @@
     "build": "next build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }

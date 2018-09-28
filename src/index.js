@@ -11,12 +11,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from "react-redux";
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk';
 
 import createHistory from 'history/createBrowserHistory'
 // // import { Route } from 'react-router'
 
-import { routerReducer, routerMiddleware } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux'
 
 import { Router, Route } from 'react-router'
 // import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
@@ -33,17 +34,19 @@ import 'materialize-css/dist/css/materialize.min.css';
 const history = createHistory()
 
 // Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history)
+// const middleware = routerMiddleware(history)
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
+
 const store = createStore(
   combineReducers({
     rootReducer,
     router: routerReducer
   }),
-  applyMiddleware(middleware)
-)
+  compose(applyMiddleware(thunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+));
 
 ReactDOM.render(
   <Provider store={store}>

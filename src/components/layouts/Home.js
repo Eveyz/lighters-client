@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import Header from './Header';
 
@@ -28,6 +29,7 @@ class Home extends Component {
         </header>
         <main>
           <h2>LOL</h2>
+          <Link to="/books">Books</Link>
         </main>
       </div>
     );
