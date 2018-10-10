@@ -6,7 +6,7 @@ import { getBooks, addBook, deleteBook } from "../../actions/books_actions.js";
 import Book from '../../components/books/book';
 import Header from '../../components/layouts/Header';
 
-class BooksList extends React.Component {
+class StudentList extends React.Component {
 
   componentWillMount() {
     this.props.fetchBooks();
@@ -75,4 +75,4 @@ const mapDispatchToProps = dispatch => {
   }; // this.props.doSearch will become the result of headSearch
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BooksList);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentList);

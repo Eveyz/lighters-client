@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 
-import createHistory from 'history/createBrowserHistory'
+import history from './history';
 // // import { Route } from 'react-router'
 
 import { routerReducer } from 'react-router-redux'
@@ -25,13 +25,10 @@ import { Router, Route } from 'react-router'
 import rootReducer from './reducers/index';
 
 import registerServiceWorker from './registerServiceWorker';
-import App from './components/App';
+import App from './containers/AppContainer';
 
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
-
-// Create a history of your choosing (we're using a browser history in this case)
-const history = createHistory()
 
 // Build the middleware for intercepting and dispatching navigation actions
 // const middleware = routerMiddleware(history)

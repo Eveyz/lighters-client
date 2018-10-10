@@ -11,7 +11,7 @@ const Book = props => (
     <td>{props.book.name}</td>
     <td>{props.book.quantity}</td>
     <td>
-      <Dropdown trigger={
+      <Dropdown id={props.id} trigger={
         <Button>更多</Button>
       }>
         <NavItem>查看</NavItem>

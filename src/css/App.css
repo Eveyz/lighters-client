@@ -1,28 +1,82 @@
-.App {
-  text-align: center;
+.no-margin {
+  margin: 0px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.required {
+  color: red;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+* {
+  font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+.chinese-font {
+  font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+.flat-font {
+  color: rgba(0,0,0,.6);
+  font-weight: 700;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.bg-light-green {
+  background-color: #F2F6F6;
+}
+
+.bg-light-grey {
+  background-color: #FFFFFF;
+}
+
+.page-min-height {
+  min-height: 80vh;
+}
+
+.m-box-shadow {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(141, 50, 50, 0.2);
+}
+
+/* robin style */
+.r-box-shadow {
+  box-shadow: 0 0 4px 1px rgba(0,0,0,.01), 0 3px 24px rgba(48,51,51,.09) !important;
+}
+
+.r-box-shadow.link:hover {
+  background-color: #FAFAFA;
+}
+
+.r-link-color {
+  color: #f45531;
+}
+
+.r-green-color {
+  color: #30CD9A;
+}
+
+/* // ---------- */
+
+.flash-notice {
+  position: absolute;
+  top: 15%;
   color: white;
+  padding: 20px 50px 20px 50px !important;
 }
 
-.App-title {
-  font-size: 1.5em;
+.flash-notice.success {
+  background-color: #2ecc71;
 }
 
-.App-intro {
-  font-size: large;
+.flash-notice.info {
+  background-color: #3498db;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.flash-notice.alert {
+  background-color: #e74c3c;
 }

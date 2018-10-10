@@ -1,0 +1,64 @@
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import '../../css/App.css';
+
+class Breadcrumb extends Component {
+  render() {
+    let links = "";
+    let action = this.props.action;
+    if(action === "dashboard") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}>Dashboard</span>
+              </div>
+    } else if(action === "students") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > 学生管理</span>
+                <h5 style={{marginTop: "10px"}}><b>学生管理</b></h5>
+              </div>
+    } else if(action === "courses") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > 课程管理</span>
+                <h5 style={{marginTop: "10px"}}><b>课程管理</b></h5>
+              </div>
+    } else if(action === "teachers") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > 教师管理</span>
+                <h5 style={{marginTop: "10px"}}><b>教师管理</b></h5>
+              </div>
+    } else if(action === "books") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > 绘本管理</span>
+                <h5 style={{marginTop: "10px"}}><b>绘本管理</b></h5>
+              </div>
+    } else if(action === "addStudents") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > <Link to="/courses">课程管理</Link> > 添加学生</span>
+                <h5 style={{marginTop: "10px"}}><b>添加学生</b></h5>
+              </div>
+    } else if(action === "addBooks") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > <Link to="/courses">课程管理</Link> > 添加绘本</span>
+                <h5 style={{marginTop: "10px"}}><b>添加绘本</b></h5>
+              </div>
+    } else if(action === "addCourse") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > <Link to="/courses">课程管理</Link> > 添加课程</span>
+                <h5 style={{marginTop: "10px"}}><b>添加课程</b></h5>
+              </div>
+    }
+
+    return (
+      <div style={{backgroundColor: "white", padding: "20px 0px 20px 0px"}} className="r-box-shadow">
+        <div className="container">
+          <div className="row no-margin">
+            <div className="col m12">
+              {links}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Breadcrumb;

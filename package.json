@@ -4,7 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "materialize-css": "^0.100.2",
+    "jquery": "^3.3.1",
+    "jsonwebtoken": "^8.3.0",
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.11",
+    "materialize-css": "^1.0.0-rc.2",
     "next": "^6.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
