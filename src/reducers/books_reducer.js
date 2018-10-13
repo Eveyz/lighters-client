@@ -1,26 +1,35 @@
-export default (state = [], action) => {
+const initialState = {
+  currentBook: {course: false},
+  books: []
+}
+
+export default (state = initialState, action) => {
   switch(action.type) {
     case 'GET_BOOKS':
-      return [...action.payload];
+      return {
+        currentBook: {},
+        books: [...action.payload]
+      }
     case 'ADD_BOOK':
-      return [...state, ...action.payload];
+      return {
+        currentBook: action.payload,
+        books: [...state, ...action.payload]
+      }
     case 'DELETE_BOOK': 
-      const currentBookToDelete = state;
-      const indexToDelete = currentBookToDelete.findIndex(
-        function(book) {
-          return book.id === action.payload.id;
-        }
-      )
-      return [...currentBookToDelete.slice(0, indexToDelete), ...currentBookToDelete.slice(indexToDelete + 1)];
+      return {
+        currentBook: {},
+        books: state.filter(book => book._id !== action.payload)
+      }
     case 'UPDATE_BOOK':
-      const currentBookToUpdate = state;
-      const indexToUpdate = currentBookToUpdate.findIndex(
-        function(book) {
-          return book.id === action.payload.book.id;
-        }
-      )
-      const newBookToUpdate = action.payload.book
-      return [...currentBookToUpdate.slice(0, indexToUpdate), newBookToUpdate, ...currentBookToUpdate.slice(indexToUpdate + 1)]
+      const idx = state.findIndex(book => book._id === action.payload._id);
+      return {
+        currentBook: action.payload,
+        books: [
+                    ...state.slice(0, idx), // everything before current obj
+                    action.payload,
+                    ...state.slice(idx + 1), // everything after current obj
+                  ]
+      }
     default:
       return state;
   }

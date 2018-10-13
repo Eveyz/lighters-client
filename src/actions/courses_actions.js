@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { GET_COURSES, GET_COURSE_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, DELETE_COURSE_FAILURE, COURSE_ADD_STUDENT, COURSE_ADD_STUDENT_FAILURE, DELETE_STUDENT } from './constants';
+import { GET_COURSES, GET_COURSE_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, DELETE_COURSE_FAILURE, COURSE_ADD_STUDENT, COURSE_ADD_STUDENT_FAILURE, DELETE_STUDENT, SELECT_COURSE } from './constants';
 // import { getToken } from '../ultis';
 // import setAuthToken from '../helper/setAuthToken';
 
@@ -55,18 +55,31 @@ export const deleteCourse = id => {
   }
 };
 
-export const addStudent = (id, student) => {
+export const selectCourse = (course) => {
+  return (dispatch) => {
+    dispatch({type: SELECT_COURSE, payload: course});
+  }
+}
+
+export const addStudent = (id) => {
   return function(dispatch) {
-    axios.post("/courses/:_id", student)
-      .then(function(response){
-        dispatch({type: COURSE_ADD_STUDENT, payload: response.data})
-        history.push("/courses");
-      })
-      .catch(function(err){
-        dispatch({type: COURSE_ADD_STUDENT_FAILURE, payload: "there was an error while adding a new student"})
-      })
+    dispatch(selectCourse(id));
+    history.push(`/courses/${id}/add_student`);
   }
 };
+
+// export const addStudent = (id, student) => {
+//   return function(dispatch) {
+//     axios.post("/courses/:_id", student)
+//       .then(function(response){
+//         dispatch({type: COURSE_ADD_STUDENT, payload: response.data})
+//         history.push("/courses");
+//       })
+//       .catch(function(err){
+//         dispatch({type: COURSE_ADD_STUDENT_FAILURE, payload: "there was an error while adding a new student"})
+//       })
+//   }
+// };
 
 export const deleteStudent = id => {
   return (dispatch) => {

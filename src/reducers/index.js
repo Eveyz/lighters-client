@@ -11,10 +11,10 @@ import StatusReducer from './status_reducer';
 
 const rootReducer = combineReducers({
   identity: UserReducer,
-  books: BookReducer,
-  courses: CourseReducer,
-  teachers: TeacherReducer,
-  students: StudentReducer,
+  booksData: BookReducer,
+  coursesData: CourseReducer,
+  teachersData: TeacherReducer,
+  studentsData: StudentReducer,
   auth: AuthReducer,
   status: StatusReducer
 });

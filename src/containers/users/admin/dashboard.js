@@ -15,7 +15,9 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    this.props.adminInit();
+    if(this.props.courses.length === 0 && this.props.students.length === 0 && this.props.teachers.length === 0 && this.props.books.length === 0) {
+      this.props.adminInit();
+    }
   }
 
   logout() {
@@ -100,10 +102,10 @@ const mapStateToProps = state => {
   return {
     identity: state.rootReducer.identity,
     auth: state.rootReducer.auth,
-    books: state.rootReducer.books,
-    courses: state.rootReducer.courses,
-    teachers: state.rootReducer.teachers,
-    students: state.rootReducer.students,
+    books: state.rootReducer.booksData.books,
+    courses: state.rootReducer.coursesData.courses,
+    teachers: state.rootReducer.teachersData.teachers,
+    students: state.rootReducer.studentsData.students,
     loading: state.rootReducer.status.loading
   };
 }

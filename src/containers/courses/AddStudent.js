@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addStudent, deleteStudent } from "../../actions/courses_actions";
+import { addStudent, deleteStudent, selectCourse } from "../../actions/courses_actions";
 import '../../css/App.css';
 import CourseForm from './CourseForm';
 import Header from '../../components/layouts/Header';
@@ -21,7 +21,7 @@ class AddStudent extends React.Component {
             <br/>
             <div className="row">
               <div className="col m12">
-                
+
               </div>
             </div>
 

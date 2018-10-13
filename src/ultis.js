@@ -5,3 +5,12 @@ export const getToken = () => {
   }
   return token;
 }
+
+export const fetchFromArr = (id, arr) => {
+  for(var item in arr) {
+    if(item._id === id) {
+      return item;
+    }
+    return null;
+  }
+}
