@@ -23,6 +23,7 @@ import { Router, Route } from 'react-router'
 // import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import rootReducer from './reducers/index';
+import { saveToLocalStorage, loadFromLocalStorage } from './ultis';
 
 import registerServiceWorker from './registerServiceWorker';
 import App from './containers/AppContainer';
@@ -36,14 +37,19 @@ import 'materialize-css/dist/css/materialize.min.css';
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
 
+const persistedState = loadFromLocalStorage(); 
+
 const store = createStore(
   combineReducers({
     rootReducer,
+    persistedState,
     router: routerReducer
   }),
   compose(applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ));
+
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>

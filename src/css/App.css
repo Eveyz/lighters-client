@@ -80,3 +80,9 @@
 .flash-notice.alert {
   background-color: #e74c3c;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

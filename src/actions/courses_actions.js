@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../history';
 import { GET_COURSES, GET_COURSE_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, DELETE_COURSE_FAILURE, COURSE_ADD_STUDENT, COURSE_ADD_STUDENT_FAILURE, DELETE_STUDENT, SELECT_COURSE } from './constants';
-// import { getToken } from '../ultis';
+import { fetchFromArr } from '../ultis';
 // import setAuthToken from '../helper/setAuthToken';
 
 export const getCourses = () => {
@@ -61,10 +61,10 @@ export const selectCourse = (course) => {
   }
 }
 
-export const addStudent = (id) => {
+export const addStudent = (course) => {
   return function(dispatch) {
-    dispatch(selectCourse(id));
-    history.push(`/courses/${id}/add_student`);
+    dispatch(selectCourse(course));
+    history.push(`/courses/${course._id}/add_student`);
   }
 };
 

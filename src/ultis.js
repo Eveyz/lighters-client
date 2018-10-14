@@ -11,6 +11,26 @@ export const fetchFromArr = (id, arr) => {
     if(item._id === id) {
       return item;
     }
-    return null;
+  }
+  return null;
+}
+
+export const saveToLocalStorage = (state) => {
+  console.log("saved to localstorage");
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('state', serializedState);
+  } catch (e) {
+    throw e;
+  }
+}
+
+export const loadFromLocalStorage = () => {
+  try {
+    const serializedState = localStorage.getItem('state');
+    if(serializedState === null) return undefined;
+    return JSON.parse(serializedState);
+  } catch (e) {
+    throw e;
   }
 }

@@ -7,6 +7,7 @@ import CourseForm from './CourseForm';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
+import { stat } from 'fs';
 
 class AddStudent extends React.Component {
   
@@ -21,7 +22,9 @@ class AddStudent extends React.Component {
             <br/>
             <div className="row">
               <div className="col m12">
-
+                <h3>{this.props.course.name}</h3>
+                <p>{this.props.course.level}</p>
+                <p>{this.props.course.capacity}</p>
               </div>
             </div>
 
@@ -36,7 +39,8 @@ class AddStudent extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    courses: state.rootReducer.courses
+    course: state.rootReducer.coursesData.currentCourse,
+    courses: state.rootReducer.coursesData.courses
   };
 }
 

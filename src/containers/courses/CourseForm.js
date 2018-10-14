@@ -120,9 +120,9 @@ class CourseForm extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    courses: state.rootReducer.courses,
-    teachers: state.rootReducer.teachers,
-    students: state.rootReducer.students
+    courses: state.rootReducer.coursesData.courses,
+    teachers: state.rootReducer.teachersData.teachers,
+    students: state.rootReducer.studentsData.students
   };
 }
 

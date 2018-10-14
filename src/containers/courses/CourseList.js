@@ -63,7 +63,7 @@ class CourseList extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    courses: state.rootReducer.courses
+    courses: state.rootReducer.coursesData.courses
   };
 }
 

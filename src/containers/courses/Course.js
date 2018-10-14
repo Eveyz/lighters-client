@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../css/App.css';
 import { deleteCourse, addStudent } from '../../actions/courses_actions';
+import { fetchFromArr } from '../../ultis';
+
 
 class Course extends React.Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class Course extends React.Component {
   }
 
   addStudent() {
-    this.props.addStudent(this.props.id);
+    this.props.addStudent(this.props.course);
   }
 
   deleteCourse() {
@@ -54,7 +56,7 @@ class Course extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    currentCourse: null,
+    currentCourse: {},
     teachers: state.rootReducer.teachersData.teachers,
     students: state.rootReducer.studentsData.students
   };
