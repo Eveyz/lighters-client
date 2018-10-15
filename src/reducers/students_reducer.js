@@ -1,11 +1,11 @@
 const initialState = {
-  currentStudent: {course: false},
+  currentStudent: {},
   students: []
 }
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case 'GET_students':
+    case 'GET_STUDENTS':
       return {
         currentStudent: {},
         students: [...action.payload]

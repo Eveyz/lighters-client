@@ -7,7 +7,6 @@ import CourseReducer from './courses_reducer';
 import TeacherReducer from './teachers_reducer';
 import StudentReducer from './students_reducer';
 import AuthReducer from './auth_reducer';
-import AdminReducer from './admin_reducer';
 import StatusReducer from './status_reducer';
 
 const rootReducer = combineReducers({

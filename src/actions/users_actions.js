@@ -130,7 +130,7 @@ export const userFromToken = (token) => {
 
 export const logout = () => {
   return dispatch => {
-    localStorage.removeItem('jwtToken');
+    localStorage.clear();
     setAuthToken(false);
     dispatch(setCurrentUser({}));
     history.push('/');

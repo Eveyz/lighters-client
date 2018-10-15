@@ -1,5 +1,6 @@
 const initialState = {
-  currentCourse: {course: false},
+  currentCourse: {},
+  searchStudent: true,
   courses: []
 }
 
@@ -8,22 +9,26 @@ export default (state = initialState, action = {}) => {
     case "GET_COURSES":
       return {
         currentCourse: {},
+        searchStudent: true,
         courses: [...action.payload]
       }
     case "ADD_COURSE":
       return {
         currentCourse: action.payload,
+        searchStudent: true,
         courses: [...state, action.payload]
       }
     case "DELETE_COURSE":
       return {
         currentCourse: {},
+        searchStudent: true,
         courses: state.filter(course => course._id !== action.payload)
       }
     case "UPDATE_COURSE":
       const idx = state.findIndex(course => course._id === action.payload._id);
       return {
         currentCourse: action.payload,
+        searchStudent: true,
         courses: [
                     ...state.slice(0, idx), // everything before current obj
                     action.payload,
@@ -33,7 +38,25 @@ export default (state = initialState, action = {}) => {
     case "SELECT_COURSE":
       return {
         currentCourse: action.payload,
+        searchStudent: true,
         courses: state.courses
+      }
+    case "SWITCH_MODE":
+      return {
+        currentCourse: state.currentCourse,
+        searchStudent: action.payload,
+        courses: state.courses
+      }
+    case "COURSE_POST_STUDENT":
+      const index = state.findIndex(course => course._id === action.payload._id);
+      return {
+        currentCourse: action.payload,
+        searchStudent: true,
+        courses: [
+                    ...state.slice(0, index), // everything before current obj
+                    action.payload,
+                    ...state.slice(index + 1), // everything after current obj
+                  ]
       }
     default:
       return state;

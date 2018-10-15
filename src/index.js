@@ -11,13 +11,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from "react-redux";
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 
 import history from './history';
 // // import { Route } from 'react-router'
-
-import { routerReducer } from 'react-router-redux'
 
 import { Router, Route } from 'react-router'
 // import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
