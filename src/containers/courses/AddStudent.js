@@ -23,8 +23,9 @@ class AddStudent extends React.Component {
             <div className="row">
               <div className="col m12">
                 <h3>{this.props.course.name}</h3>
-                <p>{this.props.course.level}</p>
-                <p>{this.props.course.capacity}</p>
+                <p>授课老师: {this.props.course.name}</p>
+                <p>课程级别: {this.props.course.level}</p>
+                <p>课程容量: {this.props.course.capacity}</p>
               </div>
             </div>
 
@@ -39,8 +40,8 @@ class AddStudent extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    course: state.rootReducer.coursesData.currentCourse,
-    courses: state.rootReducer.coursesData.courses
+    course: state.coursesData.currentCourse,
+    courses: state.coursesData.courses
   };
 }
 

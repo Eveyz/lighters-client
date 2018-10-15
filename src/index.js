@@ -37,14 +37,11 @@ import 'materialize-css/dist/css/materialize.min.css';
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
 
-const persistedState = loadFromLocalStorage(); 
+const persistedState = loadFromLocalStorage();
 
 const store = createStore(
-  combineReducers({
-    rootReducer,
-    persistedState,
-    router: routerReducer
-  }),
+  rootReducer,
+  persistedState,
   compose(applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ));

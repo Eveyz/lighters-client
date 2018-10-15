@@ -5,7 +5,7 @@ import App from '../components/App';
 const mapStateToProps = state => {
   // this.props.search
   return {
-    auth: state.rootReducer.auth,
+    auth: state.auth,
   };
 }
 

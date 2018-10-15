@@ -59,7 +59,7 @@ class TeacherList extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    books: state.rootReducer.books
+    books: state.books
   };
 }
 

@@ -16,7 +16,6 @@ export const fetchFromArr = (id, arr) => {
 }
 
 export const saveToLocalStorage = (state) => {
-  console.log("saved to localstorage");
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);

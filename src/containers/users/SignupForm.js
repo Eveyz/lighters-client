@@ -157,8 +157,8 @@ class SignupForm extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    identity: state.rootReducer.identy,
-    auth: state.rootReducer.auth
+    identity: state.identy,
+    auth: state.auth
   };
 }
 

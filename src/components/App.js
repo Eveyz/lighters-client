@@ -16,7 +16,7 @@ import TeacherList from '../containers/teachers/TeacherList';
 class App extends Component {
   
   componentWillMount() {
-    this.props.loadUserFromToken();
+    // this.props.loadUserFromToken();
   }
   
   componentWillReceiveProps(nextProps){

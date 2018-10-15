@@ -104,13 +104,13 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    identity: state.rootReducer.identity,
-    auth: state.rootReducer.auth,
-    books: state.rootReducer.booksData.books,
-    courses: state.rootReducer.coursesData.courses,
-    teachers: state.rootReducer.teachersData.teachers,
-    students: state.rootReducer.studentsData.students,
-    loading: state.rootReducer.status.loading
+    identity: state.identity,
+    auth: state.auth,
+    books: state.booksData.books,
+    courses: state.coursesData.courses,
+    teachers: state.teachersData.teachers,
+    students: state.studentsData.students,
+    loading: state.status.loading
   };
 }
 

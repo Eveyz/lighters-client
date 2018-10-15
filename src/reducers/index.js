@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux'
 
 import UserReducer from './users_reducer';
 import BookReducer from './books_reducer';
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   teachersData: TeacherReducer,
   studentsData: StudentReducer,
   auth: AuthReducer,
-  status: StatusReducer
+  status: StatusReducer,
+  router: routerReducer
 });
 
 export default rootReducer;

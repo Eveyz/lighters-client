@@ -127,7 +127,7 @@ class LoginForm extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    login: state.rootReducer.login
+    login: state.login
   };
 }
 

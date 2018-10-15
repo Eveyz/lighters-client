@@ -59,8 +59,8 @@ class Header extends Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    identity: state.rootReducer.identity,
-    auth: state.rootReducer.auth
+    identity: state.identity,
+    auth: state.auth
   };
 }
 

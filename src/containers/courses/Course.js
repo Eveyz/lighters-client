@@ -57,8 +57,8 @@ const mapStateToProps = state => {
   // this.props.search
   return {
     currentCourse: {},
-    teachers: state.rootReducer.teachersData.teachers,
-    students: state.rootReducer.studentsData.students
+    teachers: state.teachersData.teachers,
+    students: state.studentsData.students
   };
 }
 
