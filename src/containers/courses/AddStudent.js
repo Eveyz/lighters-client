@@ -2,15 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'react-materialize';
 
-import { addStudent, deleteStudent, selectCourse, switchMode } from "../../actions/courses_actions";
+import { addStudent, deleteStudent, switchMode } from "../../actions/courses_actions";
 import '../../css/App.css';
-import CourseForm from './CourseForm';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 import StudentItem from './Student';
 import Tag from '../../containers/Tag';
-import Student from './Student';
 
 class AddStudent extends React.Component {
   constructor(props) {

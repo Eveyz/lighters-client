@@ -37,7 +37,7 @@ class Course extends React.Component {
               <span className="card-title cyan-text" style={{fontWeight: "400"}}><b>{ this.props.course.name }</b></span>
               <p>授课老师: {nameList}</p>
               <p>课程级别: { this.props.course.level }</p>
-              <p>学生数量: { this.props.course.capacity }</p>
+              <p>学生数量: { this.props.course.students.length }</p>
               <p>绘本数量: { this.props.course.books.length }</p>
             </div>
             <div className="card-action">

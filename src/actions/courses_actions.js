@@ -72,6 +72,7 @@ export const postStudent = (courseID, studentID) => {
   return dispatch => {
     return axios.post(`/courses/${courseID}/post_student`, studentID)
       .then(response => {
+        console.log(response.data);
         dispatch({type: COURSE_POST_STUDENT, payload: response.data});
       })
       .catch(err => {

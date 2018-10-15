@@ -8,37 +8,37 @@ export default (state = initialState, action = {}) => {
   switch(action.type) {
     case "GET_COURSES":
       return {
-        currentCourse: {},
-        searchStudent: true,
+        currentCourse: state.currentCourse,
+        searchStudent: state.searchStudent,
         courses: [...action.payload]
       }
     case "ADD_COURSE":
       return {
         currentCourse: action.payload,
-        searchStudent: true,
+        searchStudent: state.searchStudent,
         courses: [...state, action.payload]
       }
     case "DELETE_COURSE":
       return {
-        currentCourse: {},
-        searchStudent: true,
+        currentCourse: state.currentCourse,
+        searchStudent: state.searchStudent,
         courses: state.filter(course => course._id !== action.payload)
       }
     case "UPDATE_COURSE":
-      const idx = state.findIndex(course => course._id === action.payload._id);
+      const idx = state.courses.findIndex(course => course._id === action.payload._id);
       return {
         currentCourse: action.payload,
-        searchStudent: true,
+        searchStudent: state.searchStudent,
         courses: [
-                    ...state.slice(0, idx), // everything before current obj
+                    ...state.courses.slice(0, idx), // everything before current obj
                     action.payload,
-                    ...state.slice(idx + 1), // everything after current obj
+                    ...state.courses.slice(idx + 1), // everything after current obj
                   ]
       }
     case "SELECT_COURSE":
       return {
         currentCourse: action.payload,
-        searchStudent: true,
+        searchStudent: state.searchStudent,
         courses: state.courses
       }
     case "SWITCH_MODE":
@@ -48,14 +48,14 @@ export default (state = initialState, action = {}) => {
         courses: state.courses
       }
     case "COURSE_POST_STUDENT":
-      const index = state.findIndex(course => course._id === action.payload._id);
+      const index = state.courses.findIndex(course => course._id === action.payload._id);
       return {
         currentCourse: action.payload,
-        searchStudent: true,
+        searchStudent: state.searchStudent,
         courses: [
-                    ...state.slice(0, index), // everything before current obj
+                    ...state.courses.slice(0, index), // everything before current obj
                     action.payload,
-                    ...state.slice(index + 1), // everything after current obj
+                    ...state.courses.slice(index + 1), // everything after current obj
                   ]
       }
     default:
