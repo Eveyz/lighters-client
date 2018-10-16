@@ -29,6 +29,8 @@ export const DELETE_COURSE = 'DELETE_COURSE';
 export const DELETE_COURSE_FAILURE = 'DELETE_COURSE_FAILURE';
 export const SELECT_COURSE = 'SELECT_COURSE';
 export const SWITCH_MODE = 'SWITCH_MODE';
+export const COURSE_ADD_BOOK = 'COURSE_ADD_BOOK';
+export const COURSE_REMOVE_BOOK = 'COURSE_REMOVE_BOOK';
 
 // Book Actions
 export const GET_BOOKS = 'GET_BOOKS';
@@ -63,3 +65,8 @@ export const DELETE_STUDENT_FAILURE = 'DELETE_STUDENT_FAILURE';
 // Status Actions
 export const SET_ERR_MSG = 'SET_ERR_MSG';
 export const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
+
+// Select books widget actions
+export const GROUPED_BOOKS = 'GROUPED_BOOKS';
+export const SELECT_CATEGORY = 'SELECT_CATEGORY';
+export const SELECT_SERIAL = 'SELECT_SERIAL';

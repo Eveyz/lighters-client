@@ -33,3 +33,32 @@ export const loadFromLocalStorage = () => {
     throw e;
   }
 }
+
+export const groupBooks = (books) => {
+  var groupBooks = {};
+
+  // group books by category
+  books.forEach(function(book) {
+    if(!(book.category in groupBooks)) {
+      groupBooks[book.category] = [];
+    }
+    groupBooks[book.category].push(book);
+  });
+
+  // group books by serials name
+  var serialsBooks;
+  for(var category in groupBooks) {
+    serialsBooks = {};
+    if (groupBooks.hasOwnProperty(category)) {
+      groupBooks[category].forEach(function(book) {
+        var serialsName = book.serials;
+        if(!(serialsName in serialsBooks)) {
+          serialsBooks[serialsName] = [];
+        }
+        serialsBooks[serialsName].push(book);
+      });
+      groupBooks[category] = serialsBooks;
+    }
+  }
+  return { groupedBooks: groupBooks, categories: Object.keys(groupBooks) };
+}

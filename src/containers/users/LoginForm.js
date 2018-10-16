@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Input } from 'react-materialize';
 import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 

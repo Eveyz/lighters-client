@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { userFromToken, resetToken, adminInit } from '../actions/users_actions';
+import { selectCategory } from '../actions/select_book_actions';
 import App from '../components/App';
 
 const mapStateToProps = state => {
@@ -27,7 +28,8 @@ const mapDispatchToProps = (dispatch) => {
     },
     resetMe: () => { // logout
       dispatch(resetToken());
-    }
+    },
+    selectCategory: (category) => dispatch(selectCategory(category))
   }
 }
 

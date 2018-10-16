@@ -11,7 +11,7 @@ class Tag extends React.Component {
   }
 
   remove() {
-
+    this.props.remove(this.props.id, this.props.object._id);
   }
 
   render() {
@@ -26,7 +26,7 @@ class Tag extends React.Component {
 
 const mapDispatchtoProps = dispatch => {
   return {
-    remove: (id, student) => dispatch(deleteStudent(id, student))
+    remove: (id, studentID) => dispatch(deleteStudent(id, studentID))
   }
 }
 

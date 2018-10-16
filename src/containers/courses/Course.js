@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import '../../css/App.css';
-import { deleteCourse, addStudent } from '../../actions/courses_actions';
-import { fetchFromArr } from '../../ultis';
+import { deleteCourse, addStudent, addBook } from '../../actions/courses_actions';
 
 
 class Course extends React.Component {
@@ -12,10 +10,16 @@ class Course extends React.Component {
 
     this.deleteCourse = this.deleteCourse.bind(this);
     this.addStudent = this.addStudent.bind(this);
+    this.addStudent = this.addStudent.bind(this);
+    this.addBook = this.addBook.bind(this);
   }
 
   addStudent() {
     this.props.addStudent(this.props.course);
+  }
+
+  addBook() {
+    this.props.addBook(this.props.course);
   }
 
   deleteCourse() {
@@ -43,7 +47,7 @@ class Course extends React.Component {
             <div className="card-action">
               <a>编辑课程</a>
               <a onClick={this.addStudent} href="javascript:;">添加学生</a>
-              <Link to={`courses/${this.props.id}/add_book`}>添加绘本</Link>
+              <a onClick={this.addBook} href="javascript:;">添加绘本</a>
               <a onClick={this.deleteCourse} href="javascript:;">删除</a>
             </div>
           </div>
@@ -70,6 +74,9 @@ const mapDispatchToProps = dispatch => {
     },
     addStudent: (courseID) => {
       dispatch(addStudent(courseID))
+    },
+    addBook: (courseID) => {
+      dispatch(addBook(courseID))
     }
   }; // this.props.doSearch will become the result of headSearch
 }

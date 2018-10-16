@@ -8,6 +8,7 @@ import TeacherReducer from './teachers_reducer';
 import StudentReducer from './students_reducer';
 import AuthReducer from './auth_reducer';
 import StatusReducer from './status_reducer';
+import SelectBookReducer from './select_books_reducer';
 
 const rootReducer = combineReducers({
   identity: UserReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   studentsData: StudentReducer,
   auth: AuthReducer,
   status: StatusReducer,
+  selectBooks: SelectBookReducer,
   router: routerReducer
 });
 

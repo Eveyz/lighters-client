@@ -1,8 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { GET_COURSES, GET_COURSE_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, DELETE_COURSE_FAILURE, COURSE_ADD_STUDENT, COURSE_ADD_STUDENT_FAILURE, DELETE_STUDENT, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT } from './constants';
-import { fetchFromArr } from '../ultis';
-// import setAuthToken from '../helper/setAuthToken';
+import { GET_COURSES, GET_COURSE_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK } from './constants';
 
 export const getCourses = () => {
   return function(dispatch){
@@ -81,9 +79,9 @@ export const postStudent = (courseID, studentID) => {
   }
 }
 
-export const deleteStudent = (id, student) => {
+export const deleteStudent = (id, studentID) => {
   return dispatch => {
-    return axios.delete(`/course/${id}/deleteStudent`)
+    return axios.put(`/courses/${id}/delete_student`, {"studentID": studentID})
       .then(response => {
         dispatch({type: COURSE_DELETE_STUDENT, payload: response.data});
       })
@@ -98,3 +96,34 @@ export const switchMode = (mode) => {
     dispatch({type: SWITCH_MODE, payload: mode})
   }
 }
+
+export const addBook = (course) => {
+  return (dispatch) => {
+    dispatch(selectCourse(course));
+    history.push(`/courses/${course._id}/add_book`);
+  }
+};
+
+export const postBook = (id, bookID) => {
+  return dispatch => {
+    return axios.post(`/courses/${id}/post_book`, {"bookID": bookID})
+      .then(response => {
+        dispatch({type: COURSE_ADD_BOOK, payload: response.data});
+      })
+      .catch(err => {
+        if(err) throw(err);
+      });
+  }
+};
+
+export const removeBook = (id, bookID) => {
+  return dispatch => {
+    return axios.put(`/courses/${id}/delete_book`, {"bookID": bookID})
+      .then(response => {
+        dispatch({type: COURSE_REMOVE_BOOK, payload: response.data});
+      })
+      .catch(err => {
+        if(err) throw(err);
+      });
+  }
+};

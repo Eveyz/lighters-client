@@ -10,15 +10,7 @@ const Book = props => (
     <td>{props.book.serials}</td>
     <td>{props.book.name}</td>
     <td>{props.book.quantity}</td>
-    <td>
-      <Dropdown id={props.id} trigger={
-        <Button>更多</Button>
-      }>
-        <NavItem>查看</NavItem>
-        <NavItem>编辑</NavItem>
-        <NavItem>删除</NavItem>
-      </Dropdown>
-    </td>
+    <td></td>
   </tr>
 )
 

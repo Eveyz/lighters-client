@@ -4,7 +4,21 @@ const initialState = {
   courses: []
 }
 
+const updateCourse = (state, action, idx) => {
+  idx = state.courses.findIndex(course => course._id === action.payload._id);
+  return {
+    currentCourse: action.payload,
+    searchStudent: state.searchStudent,
+    courses: [
+                ...state.courses.slice(0, idx), // everything before current obj
+                action.payload,
+                ...state.courses.slice(idx + 1), // everything after current obj
+              ]
+  }
+}
+
 export default (state = initialState, action = {}) => {
+  let idx;
   switch(action.type) {
     case "GET_COURSES":
       return {
@@ -16,7 +30,7 @@ export default (state = initialState, action = {}) => {
       return {
         currentCourse: action.payload,
         searchStudent: state.searchStudent,
-        courses: [...state, action.payload]
+        courses: [...state.courses, action.payload]
       }
     case "DELETE_COURSE":
       return {
@@ -25,7 +39,7 @@ export default (state = initialState, action = {}) => {
         courses: state.filter(course => course._id !== action.payload)
       }
     case "UPDATE_COURSE":
-      const idx = state.courses.findIndex(course => course._id === action.payload._id);
+      idx = state.courses.findIndex(course => course._id === action.payload._id);
       return {
         currentCourse: action.payload,
         searchStudent: state.searchStudent,
@@ -48,16 +62,13 @@ export default (state = initialState, action = {}) => {
         courses: state.courses
       }
     case "COURSE_POST_STUDENT":
-      const index = state.courses.findIndex(course => course._id === action.payload._id);
-      return {
-        currentCourse: action.payload,
-        searchStudent: state.searchStudent,
-        courses: [
-                    ...state.courses.slice(0, index), // everything before current obj
-                    action.payload,
-                    ...state.courses.slice(index + 1), // everything after current obj
-                  ]
-      }
+      return updateCourse(state, action, idx);
+    case "COURSE_DELETE_STUDENT":
+      return updateCourse(state, action, idx);
+    case "COURSE_ADD_BOOK":
+      return updateCourse(state, action, idx);
+    case "COURSE_REMOVE_BOOK":
+      return updateCourse(state, action, idx);
     default:
       return state;
   }

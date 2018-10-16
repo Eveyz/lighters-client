@@ -8,10 +8,6 @@ import Header from '../../components/layouts/Header';
 
 class BooksList extends React.Component {
 
-  componentWillMount() {
-    this.props.fetchBooks();
-  }
-
   render() {
     let bookList;
     if(this.props.books.length > 0) {
@@ -59,7 +55,7 @@ class BooksList extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    books: state.books
+    books: state.booksData.books
   };
 }
 

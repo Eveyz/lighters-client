@@ -10,7 +10,7 @@ import Breadcrumb from '../../components/layouts/Breadcrumb';
 import StudentItem from './Student';
 import Tag from '../../containers/Tag';
 
-class AddStudent extends React.Component {
+class CourseAddStudents extends React.Component {
   constructor(props) {
     super(props)
 
@@ -46,7 +46,7 @@ class AddStudent extends React.Component {
     if(this.props.course.students.length > 0) {
       students = this.props.course.students.map((student, index) => {
         return (
-          <Tag content={student.lastname + student.firstname} key={index} />
+          <Tag object={student} content={student.lastname + student.firstname} id={this.props.course._id} key={index} />
         )
       });
     }
@@ -149,4 +149,4 @@ const mapDispatchToProps = dispatch => {
   }; // this.props.doSearch will become the result of headSearch
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddStudent);
+export default connect(mapStateToProps, mapDispatchToProps)(CourseAddStudents);

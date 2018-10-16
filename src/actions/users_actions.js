@@ -2,7 +2,8 @@ import axios from 'axios';
 import setAuthToken from '../helper/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import history from '../history';
-import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES, GET_BOOKS, GET_TEACHERS, GET_STUDENTS, ADMIN_INIT_FAILURE, SET_LOADING_STATUS } from './constants';
+import { groupBooks } from '../ultis';
+import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES, GET_BOOKS, GET_TEACHERS, GET_STUDENTS, ADMIN_INIT_FAILURE, SET_LOADING_STATUS, GROUPED_BOOKS } from './constants';
 
 export const setCurrentUser = (user) => {
   return {
@@ -144,6 +145,7 @@ export const adminInit = (token) => {
     axios.get("/users/admin/init", token)
       .then(function(response) {
         dispatch({type: GET_BOOKS, payload: response.data.books});
+        dispatch({type: GROUPED_BOOKS, payload: groupBooks(response.data.books)});
         dispatch({type: GET_COURSES, payload: response.data.courses});
         dispatch({type: GET_TEACHERS, payload: response.data.teachers});
         dispatch({type: GET_STUDENTS, payload: response.data.students});
