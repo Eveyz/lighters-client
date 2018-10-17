@@ -4,7 +4,7 @@ import { Row, Col, Button } from 'react-materialize';
 import M from 'materialize-css';
 
 import '../../css/App.css';
-import { addCourse } from "../../actions/courses_actions";
+import { addCourse, updateCourse } from "../../actions/courses_actions";
 import Option from '../../components/Option';
 
 class CourseForm extends React.Component {
@@ -26,6 +26,12 @@ class CourseForm extends React.Component {
     var selectElem = this.teachersSelect.current;
     M.FormSelect.init(selectElem, {});
     M.Timepicker.init(timePicker, {});
+    M.AutoInit();
+    M.updateTextFields();
+  }
+
+  componentWillMount() {
+    this.initMaterilize();
   }
 
   componentDidMount() {
@@ -38,31 +44,52 @@ class CourseForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    let courseID = this.props.currentCourse._id;
     const course = {
       name: this.nameInput.current.value,
       level: this.levelInput.current.value,
       capacity: this.capacityInput.current.value,
       course_hours: this.hoursInput.current.value,
+      // timeInput: this.timeInput.current.value,
       teacher: this.teachersSelect.current.value
+    };
+
+    if(this.props.type === "ADD") {
+      this.props.addCourse(course);
+    } else if (this.props.type === "EDIT") {
+      this.props.updateCourse(courseID, course);
     }
-    this.props.addCourse(course);
   }
 
   render() {
-    var disabled = true;
-    var defaultOption = <option value="default" disabled>目前没有老师可以选择</option>;
+    let disabled = true;
+    let defaultOption = <option value="default" disabled>目前没有老师可以选择</option>;
     if(this.props.teachers.length > 0) {
       disabled = false;
       defaultOption = <option value="default" disabled>选择教师</option>;
     }
-    var options = this.props.teachers.map((teacher, index) => {
+    let options = this.props.teachers.map((teacher, index) => {
       return (
         <Option key={index} id={teacher._id} value={teacher.lastname + teacher.firstname} />
       );
     });
 
-    var selectEle = <div className="input-field col s12">
-                      <select defaultValue="default" ref={this.teachersSelect} disabled={disabled}>
+    let nameVal = "";
+    let levelVal = "";
+    let capacityVal = "";
+    let coursehoursVal = "";
+    let timeInputVal = "";
+    let teacherVal = "";
+    if(this.props.type === "EDIT" && this.props.currentCourse !== {}) {
+      nameVal = this.props.currentCourse.name;
+      levelVal = this.props.currentCourse.level;
+      capacityVal = this.props.currentCourse.capacity;
+      coursehoursVal = this.props.currentCourse.course_hours;
+      teacherVal = this.props.currentCourse.teachers[0];
+    }
+
+    let selectEle = <div className="input-field col s12">
+                      <select defaultValue={teacherVal} ref={this.teachersSelect} disabled={disabled}>
                         {defaultOption}
                         {options}
                       </select>
@@ -77,31 +104,31 @@ class CourseForm extends React.Component {
             <div className="card-content" style={{padding: "50px"}}>
               <Row>
                 <div className="col input-field s12">
-                  <input type="text" ref={this.nameInput} id="name" />
+                  <input type="text" defaultValue={nameVal} ref={this.nameInput} id="name" />
                   <label htmlFor="name">课程名称</label>
                 </div>
               </Row>
               <Row>
                 <div className="col input-field s12">
-                  <input type="text" ref={this.levelInput} id="level" />
+                  <input type="text" defaultValue={levelVal} ref={this.levelInput} id="level" />
                   <label htmlFor="level">课程评级</label>
                 </div>
               </Row>
               <Row>
                 <div className="col input-field s12">
-                  <input type="number" ref={this.capacityInput} id="capacity" />
+                  <input type="number" defaultValue={capacityVal} ref={this.capacityInput} id="capacity" />
                   <label htmlFor="capacity">课程容量</label>
                 </div>
               </Row>
               <Row>
                 <div className="col input-field s12">
-                  <input type="number" ref={this.hoursInput} id="hours" />
+                  <input type="number" defaultValue={coursehoursVal} ref={this.hoursInput} id="hours" />
                   <label htmlFor="hours">课时</label>
                 </div>
               </Row>
               <Row>
                 <div className="col input-field s12">
-                  <input type="text" className="timepicker" ref={this.timeInput} id="timeInput" />
+                  <input type="text" defaultValue={timeInputVal} className="timepicker" ref={this.timeInput} id="timeInput" />
                   <label htmlFor="timeInput">课程时间</label>
                 </div>
               </Row>
@@ -120,6 +147,7 @@ class CourseForm extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
+    currentCourse: state.coursesData.currentCourse,
     courses: state.coursesData.courses,
     teachers: state.teachersData.teachers,
     students: state.studentsData.students
@@ -132,6 +160,9 @@ const mapDispatchToProps = dispatch => {
   return {
     addCourse: (course) => {
       dispatch(addCourse(course))
+    },
+    updateCourse: (courseID, course) => {
+      dispatch(updateCourse(courseID, course))
     }
   }; // this.props.doSearch will become the result of headSearch
 }

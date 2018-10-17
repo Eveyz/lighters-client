@@ -1,27 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addCourse, deleteCourse } from "../../actions/courses_actions";
+import { updateCourse } from "../../actions/courses_actions";
 import '../../css/App.css';
 import CourseForm from './CourseForm';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 
-class CourseList extends React.Component {
+class EditCourse extends React.Component {
   
   render() {
     return (
       <div>
         <Header />
         <div className="bg-light-grey page-min-height">
-          <Breadcrumb action="addCourse"/>
+          <Breadcrumb action="updateCourse"/>
 
           <div className="container">
             <br/>
             <div className="row">
               <div className="col m12">
-                <CourseForm type="ADD" />
+                <CourseForm type="EDIT" />
               </div>
             </div>
 
@@ -44,9 +44,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   // Whenever search is called, the result should be passed to all reducers
   return {
-    addCourse: () => dispatch(addCourse()),
-    deleteCourse: () => dispatch(deleteCourse())
+    updateCourse: (course) => dispatch(updateCourse(course))
   }; // this.props.doSearch will become the result of headSearch
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
+export default connect(mapStateToProps, mapDispatchToProps)(EditCourse);

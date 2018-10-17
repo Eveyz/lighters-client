@@ -28,6 +28,13 @@ export default (state = initialState, action = {}) => {
         category: state.category,
         serialName: action.payload
       }
+    case 'RESET_SELECT_BOOKS':
+      return {
+        groupedBooks: state.groupedBooks,
+        categories: state.categories,
+        category: "",
+        serialName: ""
+      }
     default:
       return state;
   }

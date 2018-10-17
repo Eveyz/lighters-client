@@ -131,8 +131,7 @@ export const userFromToken = (token) => {
 
 export const logout = () => {
   return dispatch => {
-    localStorage.clear();
-    localStorage.removeItem('state');
+    window.localStorage.clear();
     setAuthToken(false);
     dispatch(setCurrentUser({}));
     history.push('/');

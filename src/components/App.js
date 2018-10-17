@@ -9,6 +9,7 @@ import Dashboard from '../containers/users/admin/dashboard';
 import BookList from '../containers/books/BookList';
 import CourseList from '../containers/courses/CourseList';
 import AddCourse from '../containers/courses/AddCourse';
+import EditCourse from '../containers/courses/EditCourse';
 import CourseAddStudent from '../containers/courses/AddStudent';
 import CourseAddBook from '../containers/courses/AddBook';
 import StudentList from '../containers/students/StudentList';
@@ -31,6 +32,7 @@ class App extends Component {
         <Route exact path="/users/admin/dashboard" component={Dashboard} />
         <Route exact path="/courses" component={CourseList} />
         <Route exact path="/courses/add_course" component={AddCourse} />
+        <Route exact path="/courses/:_id/edit_course" component={EditCourse} />
         <Route exact path="/courses/:_id/add_student" component={CourseAddStudent} />
         <Route exact path="/courses/:_id/add_book" component={CourseAddBook} />
         <Route exact path="/students" component={StudentList} />

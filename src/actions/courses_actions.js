@@ -2,6 +2,12 @@ import axios from 'axios';
 import history from '../history';
 import { GET_COURSES, GET_COURSE_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK } from './constants';
 
+export const selectCourse = (course) => {
+  return (dispatch) => {
+    dispatch({type: SELECT_COURSE, payload: course});
+  }
+}
+
 export const getCourses = () => {
   return function(dispatch){
     axios.get("/courses")
@@ -28,9 +34,16 @@ export const addCourse = (course) => {
   }
 };
 
-export const updateCourse = (course) => {
+export const editCourse = (course) => {
+  return (dispatch) => {
+    dispatch(selectCourse(course));
+    history.push(`/courses/${course._id}/edit_course`);
+  }
+}
+
+export const updateCourse = (courseID, course) => {
   return function(dispatch) {
-    axios.put("/courses/" + course.id)
+    axios.put(`/courses/${courseID}`, course)
       .then(function(response){
         dispatch({type: UPDATE_COURSE, payload: course})
       })
@@ -52,12 +65,6 @@ export const deleteCourse = id => {
       })
   }
 };
-
-export const selectCourse = (course) => {
-  return (dispatch) => {
-    dispatch({type: SELECT_COURSE, payload: course});
-  }
-}
 
 export const addStudent = (course) => {
   return (dispatch) => {

@@ -4,7 +4,7 @@ import '../../css/App.css';
 import { deleteCourse, addStudent, addBook, editCourse } from '../../actions/courses_actions';
 
 
-class Course extends React.Component {
+class Student extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,32 +32,18 @@ class Course extends React.Component {
   }
 
   render() {
-    var nameList = this.props.course.teachers.map((teacher, index) => {
-      return (
-        <span key={index}>{teacher.lastname + teacher.firstname}</span>
-      )
-    });
-
     return(
-      <div className="row">
-        <div className="col s12 m12">
-          <div className="card r-box-shadow">
-            <div className="card-content">
-              <span className="card-title cyan-text" style={{fontWeight: "400"}}><b>{ this.props.course.name }</b></span>
-              <p>授课老师: {nameList}</p>
-              <p>课程级别: { this.props.course.level }</p>
-              <p>学生数量: { this.props.course.students.length }</p>
-              <p>绘本数量: { this.props.course.books.length }</p>
-            </div>
-            <div className="card-action">
-              <a onClick={this.editCourse} href="javascript:;">编辑课程</a>
-              <a onClick={this.addStudent} href="javascript:;">添加学生</a>
-              <a onClick={this.addBook} href="javascript:;">添加绘本</a>
-              <a onClick={this.deleteCourse} href="javascript:;">删除</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <tr>
+        <td>{this.props.student.lastname}</td>
+        <td>{this.props.student.firstname}</td>
+        <td>{this.props.student.age}</td>
+        <td>{this.props.student.birthday}</td>
+        <td>{this.props.student.gender}</td>
+        <td>{this.props.student.status}</td>
+        <td><a>查看</a></td>
+        <td><a>编辑</a></td>
+        <td><a>注销</a></td>
+      </tr>
     )
   }
 }
@@ -88,4 +74,4 @@ const mapDispatchToProps = dispatch => {
   }; // this.props.doSearch will become the result of headSearch
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Course);
+export default connect(mapStateToProps, mapDispatchToProps)(Student);

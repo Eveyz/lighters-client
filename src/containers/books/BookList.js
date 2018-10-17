@@ -5,6 +5,7 @@ import { Row, Col, Table } from 'react-materialize';
 import { getBooks, addBook, deleteBook } from "../../actions/books_actions.js";
 import Book from '../../components/books/book';
 import Header from '../../components/layouts/Header';
+import Breadcrumb from '../../components/layouts/Breadcrumb';
 
 class BooksList extends React.Component {
 
@@ -21,8 +22,15 @@ class BooksList extends React.Component {
     return (
       <div>
         <Header />
+        <Breadcrumb action="books" />
         <div className="container">
-          <br/>
+          <br />
+          <br />
+          <Row>
+            <Col m={12}>
+              <button className="btn">添加绘本</button>
+            </Col>
+          </Row>
           <br/>
           <Row>
             <Col m={12}>

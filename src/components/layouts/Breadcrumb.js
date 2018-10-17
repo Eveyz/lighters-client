@@ -45,6 +45,11 @@ class Breadcrumb extends Component {
                 <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > <Link to="/courses">课程管理</Link> > 添加课程</span>
                 <h5 style={{marginTop: "10px"}}><b>添加课程</b></h5>
               </div>
+    } else if(action === "updateCourse") {
+      links = <div>
+                <span style={{color: "#BDC8CB"}}><Link to="/users/admin/dashboard">Dashboard</Link> > <Link to="/courses">课程管理</Link> > 编辑课程</span>
+                <h5 style={{marginTop: "10px"}}><b>编辑课程</b></h5>
+              </div>
     }
 
     return (

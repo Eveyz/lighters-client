@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import M from 'materialize-css';
 
-import { selectCategory, selectSerial } from "../../actions/select_book_actions";
+import { selectCategory, selectSerial, resetDeault } from "../../actions/select_book_actions";
 import BookWidget from './BookWidget';
 import BookTable from '../../components/books/bookTable';
 import '../../css/App.css';
@@ -20,6 +20,12 @@ class SelectBookWidget extends React.Component {
 
   initMaterilize() {
     M.AutoInit();
+  }
+
+  componentWillMount() {
+    if(this.props.category !== "" && this.props.serialName !== "") {
+      this.props.resetDeault();
+    }
   }
 
   componentDidMount() {
@@ -83,7 +89,7 @@ class SelectBookWidget extends React.Component {
                         </div>;
 
     let bookTable = "";
-    if(this.props.category != "" && this.props.serialName != "") {
+    if(this.props.category !== "" && this.props.serialName !== "") {
       let books = this.props.groupedBooks[this.props.category][this.props.serialName];
       bookTable = books.length > 0 ? <BookTable books={books} type="ADD" /> : "";
     }
@@ -120,7 +126,8 @@ const mapDispatchToProps = dispatch => {
   // Whenever search is called, the result should be passed to all reducers
   return {
     selectCategory: (category) => dispatch(selectCategory(category)),
-    selectSerial: (serialName) => dispatch(selectSerial(serialName))
+    selectSerial: (serialName) => dispatch(selectSerial(serialName)),
+    resetDeault: () => dispatch(resetDeault())
   }; // this.props.doSearch will become the result of headSearch
 }
 
