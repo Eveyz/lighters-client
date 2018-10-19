@@ -39,7 +39,6 @@ class Student extends React.Component {
         <td>{this.props.student.age}</td>
         <td>{this.props.student.birthday}</td>
         <td>{this.props.student.gender}</td>
-        <td>{this.props.student.status}</td>
         <td><a>查看</a></td>
         <td><a>编辑</a></td>
         <td><a>注销</a></td>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Table, Card } from 'react-materialize';
+import { Row, Col, Table, Card, Tabs, Tab } from 'react-materialize';
 
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 import Header from '../../components/layouts/Header';
@@ -101,20 +101,15 @@ class StudentList extends React.Component {
               <button className="btn">添加学生</button>
             </Col>
           </Row>
-          <div className="row">
-            <div className="col s12">
-              <ul className="tabs">
-                <li className="tab col s3"><a className="active" href="#activeStudent">当前学生</a></li>
-                <li className="tab col s3"><a href="#pendingStudent">试课学生</a></li>
-              </ul>
-            </div>
-            <div id="activeStudent" className="col s12">
+          <Tabs>
+            <Tab title="当前学生" active>
               {activeStudentTable}
-            </div>
-            <div id="pendingStudent" className="col s12">
+            </Tab>
+            <Tab title="试课学生">
               {pendingStudentTable}
-            </div>
-          </div>
+            </Tab>
+          </Tabs>
+          
         </div>
         <Footer />
       </div>
