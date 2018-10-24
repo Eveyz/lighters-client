@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Input } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import M from 'materialize-css';
 
 import '../../css/App.css';
 import Background from '../../images/bg.png';
@@ -21,6 +22,10 @@ class SignupForm extends React.Component {
     this.passwordConInput = React.createRef();
 
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    M.AutoInit();
   }
 
   handleSubmit(e) {
@@ -55,7 +60,7 @@ class SignupForm extends React.Component {
             <br/>
             <div className="row no-margin">
               <div className="col s12 m8 offset-m2">
-                <div className="card">
+                <div className="card r-box-shadow">
                   <div className="card-content">
                     <div className="row">
                       <div className="col s12 m10 offset-m1">
@@ -63,13 +68,12 @@ class SignupForm extends React.Component {
                         <br/>
                         <form onSubmit={this.handleSubmit}>
 
-                          <div>
-                            <Row>
-                              <Input s={12} type='select' label="我的身份" defaultValue={defaultValue} ref={this.identitySelect}>
-                                <option value='student'>家长/学生</option>
-                                <option value='teacher'>教师</option>
-                              </Input>
-                            </Row>
+                          <div className="input-field">
+                            <select defaultValue={defaultValue} ref={this.identitySelect}>
+                              <option value='student'>家长/学生</option>
+                              <option value='teacher'>教师</option>
+                            </select>
+                            <label>我的身份</label>
                           </div>
 
                           <div className="input-field">
@@ -144,7 +148,7 @@ class SignupForm extends React.Component {
                 </div>
               </div>
             </div>
-
+            <br/>
           </div>
 
         </div>
@@ -157,7 +161,7 @@ class SignupForm extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    identity: state.identy,
+    identity: state.identity,
     auth: state.auth
   };
 }

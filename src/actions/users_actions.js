@@ -20,16 +20,16 @@ export const setAdmin = () => {
 };
 
 export const setTeacher = () => {
-  return {
-    type: SET_TEACHER,
-    payload: "TEACHER"
+  return dispatch => {
+    dispatch({type: SET_TEACHER, payload: "TEACHER"});
+    history.push('/signup');
   }
 };
 
 export const setStudent = () => {
-  return {
-    type: SET_STUDENT,
-    payload: "STUDENT"
+  return dispatch => {
+    dispatch({type: SET_STUDENT, payload: "STUDENT"});
+    history.push('/signup');
   }
 };
 
@@ -93,9 +93,18 @@ export const signup = (user) => {
         const token = response.data.token;
         localStorage.setItem('jwtToken', token);
         setAuthToken(token);
-        dispatch(setCurrentUser(jwtDecode(token)));
+        let userToken = jwtDecode(token);
+        dispatch(setCurrentUser(userToken));
         dispatch({type: SIGNUP_USER, payload: response.data});
-        history.push('/');
+
+        // redirect to own page
+        if(userToken.userTokenData.identity === "teacher") {
+          history.push('/teachers/new');
+        } else if(userToken.userTokenData.identity === "student") {
+          history.push('/students/new');
+        } else {
+          history.push('/');
+        }
       })
       .catch(function(err){
         dispatch({type: "SIGNUP_USER_FAILLED", payload: err});

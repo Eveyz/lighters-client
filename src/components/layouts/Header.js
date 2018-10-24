@@ -20,36 +20,35 @@ class Header extends Component {
   }
 
   render() {
-    let links = "";
+    let path = "";
+    let links = <li><a onClick={this.logout}>注销</a></li>;
     if(this.props.auth.isAuthenticated) {
       if(this.props.auth.user.userTokenData.identity === "admin") {
-        links = <ul id="nav-mobile" className="right hide-on-med-and-down">
-                <li><Link to="/users/admin/dashboard">管理员面板</Link></li>
-                <li><a onClick={this.logout}>注销</a></li>
-              </ul>
+        path = <li><Link to="/users/admin/dashboard">管理员面板</Link></li>
       } else if(this.props.identity === "teacher") {
-        links = <ul id="nav-mobile" className="right hide-on-med-and-down">
-                <li><Link to="/teachers/me">我的主页</Link></li>
-                <li><a onClick={this.logout}>注销</a></li>
-              </ul>
+        path = <li><Link to="/teachers/me">我的主页</Link></li>;
       } else {
-        links = <ul id="nav-mobile" className="right hide-on-med-and-down">
-                <li><Link to="/students/me">我的主页</Link></li>
-                <li><a onClick={this.logout}>注销</a></li>
-              </ul>
+        path = <li><Link to="/students/me">我的主页</Link></li>;
       }
     } else {
-      links = <ul id="nav-mobile" className="right hide-on-med-and-down">
-                <li><Link to="/signup" onClick={this.setStudent}>申请免费试课</Link></li>
-                <li><Link to="/login">登录</Link></li>
-              </ul>
+      path = <li><Link to="/signup" className="waves-effect waves-light btn" style={{fontSize: "18px"}} onClick={this.setStudent}>申请免费试课</Link></li>;
+      links = <li><Link to="/login">登录</Link></li>;
     }
 
+    let classes = this.props.action === "mainpage" ? "transparent-nav non-box-shadow" : "amber";
+
     return (
-      <nav className="amber">
+      <nav className={classes}>
         <div className="nav-wrapper">
           <Link to="/" className="brand-logo">Lighters</Link>
-          {links}
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <li><Link to="/advantage">成为老师</Link></li>
+            <li><Link to="/advantage">课程体系</Link></li>
+            <li><Link to="/login">上课流程</Link></li>
+            <li><Link to="/login">关于我们</Link></li>
+            {path}
+            {links}
+          </ul>
         </div>
       </nav>
     );

@@ -1,0 +1,225 @@
+.cbutton {
+  padding: 15px 20px 15px 20px;
+  margin-bottom: 5px;
+  background-color: white;
+  color: rgb(0, 41, 74);
+  cursor: pointer;
+}
+
+.cbutton.active {
+  background-color: rgb(0, 41, 74);
+  border-color: rgb(0, 41, 74);
+  color: white;
+}
+
+.cbutton:hover {
+  opacity: 0.9;
+}
+
+.main-img {
+  width: 100vw;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
+.above-img {
+  z-index: 5;
+  opacity: 1;
+}
+
+.main-img-wrapper {
+  position: absolute;
+  color: transparent;
+  top: 0px;
+  left: 0px;
+  opacity: 0; 
+}
+
+.main-img-wrapper:nth-child(1) {
+  background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url("../images/main2-s.jpg") no-repeat;
+  background-size: cover;
+  animation: imageAnimation 30s linear 0s infinite;
+  width: 100vw;
+  height: 550px;
+  z-index: -1;
+}
+
+.main-img-wrapper:nth-child(2) {
+  background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url("../images/main3-s.jpg") no-repeat;
+  animation: imageAnimation 30s linear 10s infinite;
+  background-size: cover;
+  width: 100vw;
+  height: 550px;
+  z-index: -1;
+}
+
+.main-img-wrapper:nth-child(3) {
+  background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url("../images/main4-s.jpg") no-repeat;
+  animation: imageAnimation 30s linear 20s infinite;
+  background-size: cover;
+  width: 100vw;
+  height: 550px;
+  z-index: -1;
+}
+
+@keyframes imageAnimation { 
+	0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  5% {
+    opacity: 1;
+    transform: scale(1.05);
+    animation-timing-function: ease-out;
+  }
+  19% {
+    opacity: 1;
+    transform: scale(1.1) rotate(3deg);
+  }
+  33% {
+    opacity: 0.5;
+  }
+  35% {
+    opacity: 0.2;
+  }
+  36% {
+    opacity: 0;
+  }
+  100% { opacity: 0 }
+}
+
+.transparent-nav {
+  background: transparent;
+  border-bottom: 1px solid white;
+}
+
+.transparent-nav:hover {
+  /* background: linear-gradient( rgba(255, 190, 0, 0.6), rgba(255, 190, 0, 0.6) ); */
+  /* border-bottom: 1px solid rgba(255, 190, 0, 0.6); */
+}
+
+.non-box-shadow {
+  box-shadow: none !important;
+}
+
+.logo-font {
+  font-weight: bold;
+}
+
+.transparent-btn {
+  padding: 13px 30px 13px 30px;
+  background: linear-gradient( rgba(255, 190, 0, 0.6), rgba(255, 190, 0, 0.6) );
+  border-radius: 5px;
+  width: 320px;
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.transparent-btn:hover {
+  background: linear-gradient(rgba(255, 190, 0, 1.0), rgba(255, 190, 0, 1.0));
+}
+
+/* Teacher card */
+
+.teacher-card {
+  height: 400px;
+  box-shadow: 5px 5px 25px 0 rgba(46,61,73,.2) !important;
+}
+
+.teacher-card p {
+  font-size: 0.9125rem;
+  font-weight: 400;
+  color: #525c65;
+}
+
+.teacher-card img {
+  height: 125px;
+  border-radius: 50%;
+}
+
+.gradient-bg {
+  background: linear-gradient(110deg, rgb(255, 190, 0) 30%, rgb(230, 184, 46) 100%)
+}
+
+.card-padding {
+  padding: 50px 0px 50px 0px;
+}
+
+.large-btn {
+  padding: 15px 40px 15px 40px;
+  background-color: white;
+  width: 200px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #2196f3;
+}
+
+.large-btn:hover {
+  box-shadow: 5px 5px 25px 0 rgba(46,61,73,.2) !important;
+}
+
+/* banner font */
+
+.banner-font {
+  font-weight: 500;
+  font-size: 2.75rem;
+  letter-spacing: -.5px;
+  line-height: 1;
+  color: #022144;
+  /* margin-bottom: 20px; */
+}
+
+.triangle-bg {
+  background-image: url("../images/triangle-bg.svg");
+}
+
+.advantages p {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #697a89;
+}
+
+.cell-style th {
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.cell-style td {
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+}
+
+.cell-style.head {
+  background-color: #EFF0F2;
+}
+
+.cell-style.pc {
+  background-color: #FF8BAA;
+}
+
+.cell-style.bc {
+  background-color: #03a9f4;
+}
+
+.cell-style.yc {
+  background-color: #ECC918;
+}
+
+.cell-style.gc {
+  background-color: #03CCBA;
+}
+
+.cell-style.purc {
+  background-color: #a951ed;
+}
+
+.cell-style.amber {
+  background-color: #ffc107;
+}

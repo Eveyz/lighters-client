@@ -56,7 +56,7 @@ class LoginForm extends React.Component {
             <br/>
             <div className="row no-margin">
               <div className="col s12 m8 offset-m2">
-                <div className="card">
+                <div className="card r-box-shadow">
                   <div className="card-content">
                     <div className="row">
                       <div className="col s12 m10 offset-m1">

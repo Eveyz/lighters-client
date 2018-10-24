@@ -1,12 +1,3 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './css/index.css';
-// import App from './components/App';
-// import registerServiceWorker from './registerServiceWorker';
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -15,13 +6,12 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 
 import history from './history';
-// // import { Route } from 'react-router'
 
 import { Router, Route } from 'react-router'
-// import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import rootReducer from './reducers/index';
 import { saveToLocalStorage, loadFromLocalStorage } from './ultis';
+import ScrollToTop from './components/layouts/ScrollToTop';
 
 import registerServiceWorker from './registerServiceWorker';
 import App from './containers/AppContainer';
@@ -50,8 +40,10 @@ ReactDOM.render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
-      <Route path="/" component={App}>
-      </Route>
+      <ScrollToTop>
+        <Route path="/" component={App}>
+        </Route>
+      </ScrollToTop>
     </Router>
   </Provider>,
   document.getElementById('root')
