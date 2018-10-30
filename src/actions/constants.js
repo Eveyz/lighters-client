@@ -1,5 +1,6 @@
 // User Actions
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const SET_CURRENT_IDENTITY_DATA = 'SET_CURRENT_IDENTITY_DATA';
 export const SET_ADMIN = 'SET_ADMIN';
 export const SET_TEACHER = 'SET_TEACHER';
 export const SET_STUDENT = 'SET_STUDENT';
@@ -61,6 +62,7 @@ export const UPDATE_STUDENT = 'UPDATE_STUDENT';
 export const UPDATE_STUDENT_FAILURE = 'UPDATE_STUDENT_FAILURE';
 export const DELETE_STUDENT = 'DELETE_STUDENT';
 export const DELETE_STUDENT_FAILURE = 'DELETE_STUDENT_FAILURE';
+export const SELECT_STUDENT = 'SELECT_STUDENT';
 
 // Status Actions
 export const SET_ERR_MSG = 'SET_ERR_MSG';

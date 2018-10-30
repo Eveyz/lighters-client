@@ -30,6 +30,11 @@ export default (state = initialState, action) => {
                     ...state.slice(idx + 1), // everything after current obj
                   ]
       }
+    case "SELECT_STUDENT":
+      return {
+        currentStudent: action.payload,
+        courses: state.students
+      }
     default:
       return state;
   }

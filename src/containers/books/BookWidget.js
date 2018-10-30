@@ -22,7 +22,7 @@ class BookWidget extends React.Component {
     let iconStyle = {
       cursor: "pointer"
     };
-    let button = this.props.type == "ADD" ? 
+    let button = this.props.type === "ADD" ? 
     <i className="material-icons green-text icon-clickable" style={iconStyle} onClick={this.clickButton.bind(this)}>add</i> 
     : 
     <i className="material-icons red-text icon-clickable" style={iconStyle} onClick={this.clickButton.bind(this)}>delete</i>

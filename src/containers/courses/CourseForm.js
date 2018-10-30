@@ -51,7 +51,7 @@ class CourseForm extends React.Component {
       capacity: this.capacityInput.current.value,
       course_hours: this.hoursInput.current.value,
       // timeInput: this.timeInput.current.value,
-      teacher: this.teachersSelect.current.value
+      teachers: [this.teachersSelect.current.value]
     };
 
     if(this.props.type === "ADD") {
@@ -79,17 +79,23 @@ class CourseForm extends React.Component {
     let capacityVal = "";
     let coursehoursVal = "";
     let timeInputVal = "";
-    let teacherVal = "";
+    let teacherVal = "default";
     if(this.props.type === "EDIT" && this.props.currentCourse !== {}) {
       nameVal = this.props.currentCourse.name;
       levelVal = this.props.currentCourse.level;
       capacityVal = this.props.currentCourse.capacity;
       coursehoursVal = this.props.currentCourse.course_hours;
-      teacherVal = this.props.currentCourse.teachers[0];
+
+      let defaultTeacher = this.props.currentCourse.teachers[0]
+      teacherVal = defaultTeacher._id;
     }
 
     let selectEle = <div className="input-field col s12">
-                      <select defaultValue={teacherVal} ref={this.teachersSelect} disabled={disabled}>
+                      <select 
+                        defaultValue={teacherVal} 
+                        ref={this.teachersSelect} 
+                        disabled={disabled}
+                      >
                         {defaultOption}
                         {options}
                       </select>

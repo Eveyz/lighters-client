@@ -86,3 +86,11 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.character-counter {
+  display: none;
+}
+
+.hide {
+  display: none;
+}

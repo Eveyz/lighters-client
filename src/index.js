@@ -16,8 +16,8 @@ import ScrollToTop from './components/layouts/ScrollToTop';
 import registerServiceWorker from './registerServiceWorker';
 import App from './containers/AppContainer';
 
-import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
+import 'materialize-css/dist/js/materialize.min.js';
 
 // Build the middleware for intercepting and dispatching navigation actions
 // const middleware = routerMiddleware(history)
@@ -31,7 +31,8 @@ const store = createStore(
   rootReducer,
   persistedState,
   compose(applyMiddleware(thunk),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.navigator.userAgent.includes('Chrome') ?
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : compose,
 ));
 
 store.subscribe(() => saveToLocalStorage(store.getState()));

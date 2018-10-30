@@ -17,6 +17,9 @@ import StudentList from '../containers/students/StudentList';
 import NewStudent from '../containers/students/NewStudent';
 import TeacherList from '../containers/teachers/TeacherList';
 import NewTeacher from '../containers/teachers/NewTeacher';
+import TeacherDashboard from '../containers/teachers/TeacherDashboard';
+import TeacherCourseManager from '../containers/teachers/TeacherCourseManager';
+import NewReport from '../containers/reports/NewReport';
 
 class App extends Component {
   
@@ -43,6 +46,10 @@ class App extends Component {
         <Route exact path="/students/new" component={NewStudent} />
         <Route exact path="/teachers" component={TeacherList} />
         <Route exact path="/teachers/new" component={NewTeacher} />
+        <Route exact path="/teachers/:_id/dashboard" component={TeacherDashboard} />
+        <Route exact path="/teachers/:_id/course_manager" component={TeacherCourseManager} />
+        <Route exact path="/teachers/:_id/new_report" component={NewReport} />
+        <Route exact path="/teachers/:_id/reports" component={TeacherCourseManager} />
         <Route exact path="/books" component={BookList} />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/signup" component={SignupForm} />

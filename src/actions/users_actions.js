@@ -3,12 +3,19 @@ import setAuthToken from '../helper/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import history from '../history';
 import { groupBooks } from '../ultis';
-import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES, GET_BOOKS, GET_TEACHERS, GET_STUDENTS, ADMIN_INIT_FAILURE, SET_LOADING_STATUS, GROUPED_BOOKS } from './constants';
+import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES, GET_BOOKS, GET_TEACHERS, GET_STUDENTS, ADMIN_INIT_FAILURE, SET_LOADING_STATUS, GROUPED_BOOKS, SET_CURRENT_IDENTITY_DATA } from './constants';
 
 export const setCurrentUser = (user) => {
   return {
     type: SET_CURRENT_USER,
     user: user
+  }
+}
+
+export const setCurrentIdentityData = (identityData) => {
+  return {
+    type: SET_CURRENT_IDENTITY_DATA,
+    identityData: identityData
   }
 }
 
@@ -74,9 +81,13 @@ export const login = (user) => {
         if(userToken.userTokenData.identity === "admin") {
           history.push('/users/admin/dashboard');
         } else if(userToken.userTokenData.identity === "teacher") {
-          history.push('/teachers/me');
+          const teacher = response.data.teacher;
+          dispatch(setCurrentIdentityData(teacher));
+          history.push(`/teachers/${userToken.userTokenData.id}/dashboard`);
         } else {
-          history.push('/students/me');
+          const student = response.data.student;
+          dispatch(setCurrentIdentityData(student));
+          history.push(`/students/${userToken.userTokenData.id}/dashboard`);
         }
       })
       .catch(function(err){
@@ -140,7 +151,7 @@ export const userFromToken = (token) => {
 
 export const logout = () => {
   return dispatch => {
-    window.localStorage.clear();
+    localStorage.clear();
     setAuthToken(false);
     dispatch(setCurrentUser({}));
     history.push('/');

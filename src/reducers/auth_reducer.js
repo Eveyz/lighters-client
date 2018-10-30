@@ -2,7 +2,8 @@ import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  identityData: {}
 }
 
 export default (state = initialState, action = {}) => {
@@ -10,13 +11,17 @@ export default (state = initialState, action = {}) => {
     case "SET_CURRENT_USER":
       return {
         isAuthenticated: !isEmpty(action.user),
-        user: action.user
+        user: action.user,
+        identityData: {}
+      }
+    case "SET_CURRENT_IDENTITY_DATA":
+      return {
+        isAuthenticated: state.isAuthenticated,
+        user: state.user,
+        identityData: action.identityData
       }
     case "RESET_TOKEN":
-      return {
-        isAuthenticated: false,
-        user: {}
-      }
+      return initialState
     default:
       return state;
   }

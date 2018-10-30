@@ -2,9 +2,12 @@ import axios from 'axios';
 import history from '../history';
 import { GET_COURSES, GET_COURSE_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK } from './constants';
 
-export const selectCourse = (course) => {
+export const selectCourse = (course, path) => {
   return (dispatch) => {
     dispatch({type: SELECT_COURSE, payload: course});
+    if(path) {
+      history.push(path);
+    }
   }
 }
 
@@ -45,7 +48,8 @@ export const updateCourse = (courseID, course) => {
   return function(dispatch) {
     axios.put(`/courses/${courseID}`, course)
       .then(function(response){
-        dispatch({type: UPDATE_COURSE, payload: course})
+        dispatch({type: UPDATE_COURSE, payload: response.data})
+        history.push('/courses');
       })
       .catch(function(err){
         dispatch({type: UPDATE_COURSE_FAILURE, payload: err})
@@ -77,7 +81,6 @@ export const postStudent = (courseID, studentID) => {
   return dispatch => {
     return axios.post(`/courses/${courseID}/post_student`, studentID)
       .then(response => {
-        console.log(response.data);
         dispatch({type: COURSE_POST_STUDENT, payload: response.data});
       })
       .catch(err => {

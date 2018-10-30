@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Col, Row, Table, Input } from 'react-materialize'
+import { Col, Row } from 'react-materialize'
 import '../../css/mainpages.css';
 import '../../css/App.css';
 

@@ -63,33 +63,38 @@ class LoginForm extends React.Component {
                         <h4 className="center">登录</h4>
                         <br/>
                         <form onSubmit={this.handleSubmit}>
-                          <div className="input-field">
-                            <input 
-                              type="email" 
-                              name="email" 
-                              id="email" 
-                              autoComplete="true" 
-                              placeholder="example@email.com"
-                              ref={this.emailInput}
-                            />
-                            <label htmlFor="email">邮箱 <span className="required">*</span></label>
+                          <div className="row no-margin">
+                            <div className="input-field col m12 s12">
+                              <input 
+                                type="email" 
+                                name="email" 
+                                id="email" 
+                                autoComplete="true" 
+                                placeholder="example@email.com"
+                                ref={this.emailInput}
+                              />
+                              <label htmlFor="email">邮箱 <span className="required">*</span></label>
+                            </div>
                           </div>
 
-                          <div className="input-field">
-                            <input 
-                              type="password" 
-                              name="password" 
-                              id="password" 
-                              autoComplete="true" 
-                              ref={this.passwordInput}
-                            />
-                            <label htmlFor="email">密码 <span className="required">*</span></label>
+                          <div className="row no-margin">
+                            <div className="input-field col m12 s12">
+                              <input 
+                                type="password" 
+                                name="password" 
+                                id="password" 
+                                autoComplete="true" 
+                                ref={this.passwordInput}
+                              />
+                              <label htmlFor="email">密码 <span className="required">*</span></label>
+                            </div>
                           </div>
 
-                          <div>
-                            <div className="input-field">
+                          <div className="row no-margin">
+                            <div className="col m12 s12">
                               <input 
                                 type="checkbox" 
+                                name="remember"
                                 className="filled-in"
                                 id="remember_me"
                                 ref={this.checkboxInput}
@@ -97,17 +102,20 @@ class LoginForm extends React.Component {
                               <label htmlFor="remember_me">记住登录</label>
                             </div>
                           </div>
-
                           <br/>
-                          <div className="actions">
-                            <button className="btn">登录</button>
+                          <div className="row no-margin">
+                            <div className="input-field col m12 s12">
+                              <button className="btn">登录</button>
+                            </div>
                           </div>
                         </form>
-                        <br/>
-                        <br/>
-                        <Link to="/signup">注册</Link>
-                        <br/>
-                        <Link to="/signup">忘记密码</Link>
+                        <div className="row no-margin">
+                          <div className="input-field col m12 s12">
+                            <Link to="/signup">注册</Link>
+                            <br/>
+                            <Link to="/signup">忘记密码</Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

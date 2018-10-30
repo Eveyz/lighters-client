@@ -1,4 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
   err: "",
