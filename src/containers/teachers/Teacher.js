@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import '../../css/App.css';
 
 class Teacher extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return(

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import '../css/App.css';
+
+// Components
 import Home from './layouts/Home';
 import CourseHierarchy from './mainpages/courseHierarchy';
 import LoginForm from '../containers/users/LoginForm';
@@ -26,9 +28,12 @@ class App extends Component {
   componentWillMount() {
     // this.props.loadUserFromToken();
     this.props.selectCategory("");
-  }
-  
-  componentWillReceiveProps(nextProps){
+    if(this.props.auth.isAuthenticated) {
+      if(this.props.auth.user.userTokenData.identity === "teacher") {
+        let id = this.props.auth.identityData._id;
+        this.props.getTeacher(id);
+      }
+    }
   }
 
   render() {

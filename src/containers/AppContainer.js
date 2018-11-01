@@ -3,6 +3,9 @@ import { userFromToken, resetToken, adminInit } from '../actions/users_actions';
 import { selectCategory } from '../actions/select_book_actions';
 import App from '../components/App';
 
+// Actions
+import { getTeacher } from '../actions/teachers_actions';
+
 const mapStateToProps = state => {
   // this.props.search
   return {
@@ -29,7 +32,10 @@ const mapDispatchToProps = (dispatch) => {
     resetMe: () => { // logout
       dispatch(resetToken());
     },
-    selectCategory: (category) => dispatch(selectCategory(category))
+    selectCategory: (category) => dispatch(selectCategory(category)),
+    getTeacher: (id) => {
+      dispatch(getTeacher(id))
+    }
   }
 }
 

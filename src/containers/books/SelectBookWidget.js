@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import M from 'materialize-css';
 
 import { selectCategory, selectSerial, resetDeault } from "../../actions/select_book_actions";
-import BookWidget from './BookWidget';
 import BookTable from '../../components/books/bookTable';
 import '../../css/App.css';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Card } from 'react-materialize';
 import '../../css/mainpages.css';
-import me from '../../images/me.jpg';
 import Lipin from '../../images/lipin.jpg';
 import Yvonne from '../../images/yvonne5.jpg';
 import Lily from '../../images/lily.jpg';
@@ -15,7 +14,7 @@ const TeachersCards = props => (
     <Row>
       <Col m={3} s={12}>
         <Card key={0} style={{borderTop: "3px solid #02b3e4"}} className='center white teacher-card' textClassName='black-text' title='Yvonne冰冰老师'>
-          <img src={Yvonne}></img>
+          <img src={Yvonne} alt="Yvonne冰冰老师"></img>
           <p style={{marginTop: "8px"}}>美国迈阿密大学英语修辞写作博士生</p>
           <p>美国迈阿密大学商学院写作中心助理主任</p>
           <p>中山大学本科及硕士英语专业八级</p>
@@ -28,7 +27,7 @@ const TeachersCards = props => (
       </Col>
       <Col m={3} s={12}>
         <Card key={1} style={{borderTop: "3px solid #02ccba"}} className='center white teacher-card' textClassName='black-text' title='Holiday老师'>
-          <img src={Lipin}></img>
+          <img src={Lipin} alt="Holiday老师"></img>
           <p style={{marginTop: "8px"}}>中山大学大学英语专业毕业</p>
           <p>英语专业八级优秀</p>
           <p>6000+ 小时一线授课经验</p>
@@ -41,7 +40,7 @@ const TeachersCards = props => (
       </Col>
       <Col m={3} s={12}>
         <Card key={1} style={{borderTop: "3px solid #a951ed"}} className='center white teacher-card' textClassName='black-text' title='Yan老师' >
-          <img src={Yan}></img>
+          <img src={Yan} alt="Yan老师"></img>
           <p style={{marginTop: "8px"}}>美国迈阿密大学英语修辞写作博士生</p>
           <p>浙江大学英语应用语言学硕士专业八级</p>
           <p>5年大学英语写作中心主任经验</p>
@@ -53,7 +52,7 @@ const TeachersCards = props => (
       </Col>
       <Col m={3} s={12}>
         <Card key={1} style={{borderTop: "3px solid #ffae0c"}} className='center white teacher-card' textClassName='black-text' title='Lily老师' >
-          <img src={Lily}></img>
+          <img src={Lily} alt="Lily老师"></img>
           <p style={{marginTop: "8px"}}>香港中文大学英语翻译硕士</p>
           <p>中山大学本科英语专业八级</p>
           <p>现任厦门某大学英语教师</p>

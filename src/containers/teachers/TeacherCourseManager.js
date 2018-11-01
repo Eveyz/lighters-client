@@ -97,7 +97,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setStudent: (student, path) => {
-      selectStudent(student, path)
+      dispatch(selectStudent(student, path))
     }
   }
 }
