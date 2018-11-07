@@ -6,9 +6,13 @@ import BookReducer from './books_reducer';
 import CourseReducer from './courses_reducer';
 import TeacherReducer from './teachers_reducer';
 import StudentReducer from './students_reducer';
+import ReportReducer from './reports_reducer';
 import AuthReducer from './auth_reducer';
 import StatusReducer from './status_reducer';
 import SelectBookReducer from './select_books_reducer';
+import ReviewBookReducer from './review_books_reducer';
+import NewBoookReducer from './new_books_reducer';
+import FutureBookReducer from './future_books_reducer';
 
 const rootReducer = combineReducers({
   identity: UserReducer,
@@ -16,9 +20,13 @@ const rootReducer = combineReducers({
   coursesData: CourseReducer,
   teachersData: TeacherReducer,
   studentsData: StudentReducer,
+  reportsData: ReportReducer,
   auth: AuthReducer,
   status: StatusReducer,
   selectBooks: SelectBookReducer,
+  reviewBooks: ReviewBookReducer,
+  newBooks: NewBoookReducer,
+  futureBooks: FutureBookReducer,
   router: routerReducer
 });
 

@@ -10,6 +10,10 @@ const mapStateToProps = state => {
   // this.props.search
   return {
     auth: state.auth,
+    category: state.selectBooks.category,
+    review_category: state.reviewBooks.category,
+    new_category: state.newBooks.category,
+    future_category: state.futureBooks.category
   };
 }
 
@@ -32,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
     resetMe: () => { // logout
       dispatch(resetToken());
     },
-    selectCategory: (category) => dispatch(selectCategory(category)),
+    selectCategory: (category, content) => dispatch(selectCategory(category, content)),
     getTeacher: (id) => {
       dispatch(getTeacher(id))
     }

@@ -1,15 +1,17 @@
 import React from 'react';
 import M from 'materialize-css';
 import '../../css/App.css';
+import { Editor, EditorState } from 'draft-js'
 
-class FormInput extends React.Component {
+class FormTextarea extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      hasError: false
+      hasError: false,
+      editorState: EditorState.createEmpty()
     };
-
+    this.onChange = (editorState) => this.setState({editorState});
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -38,6 +40,7 @@ class FormInput extends React.Component {
                 <i className="tiny material-icons">report_problem</i> {this.props.errorMsg}
               </span> :
               "";
+              
     let defaultValue = "";
 
     if(this.props.action === "EDIT") {
@@ -46,15 +49,18 @@ class FormInput extends React.Component {
 
     return(
       <div className={this.props.classes}>
-        <input 
+        <textarea 
           id={this.props.name} 
-          type={this.props.inputType}
+          className="materialize-textarea"
           defaultValue={defaultValue}
-          className="input-field-required validate" 
-          ref={this.props.refFromParent} 
-          onChange={this.handleChange}
+          ref={this.props.refFromParent}
           onBlur={this.handleChange}
-        />
+          autoComplete="off" 
+          autoCorrect="off" 
+          autoCapitalize="off" 
+          spellCheck="false"
+        ></textarea>
+        
         <label htmlFor={this.props.name}>
           {this.props.label} {required}
         </label>
@@ -64,4 +70,4 @@ class FormInput extends React.Component {
   }
 }
 
-export default FormInput;
+export default FormTextarea;

@@ -19,7 +19,7 @@ export default (state = initialState, action = {}) => {
         groupedBooks: state.groupedBooks,
         categories: state.categories,
         category: action.payload,
-        serialName: state.serialName
+        serialName: ""
       }
     case 'SELECT_SERIAL':
       return {

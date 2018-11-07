@@ -21,17 +21,23 @@ import TeacherList from '../containers/teachers/TeacherList';
 import NewTeacher from '../containers/teachers/NewTeacher';
 import TeacherDashboard from '../containers/teachers/TeacherDashboard';
 import TeacherCourseManager from '../containers/teachers/TeacherCourseManager';
-import NewReport from '../containers/reports/NewReport';
+import ReportFormContainer from '../containers/reports/ReportFormContainer';
+import AllReports from '../containers/reports/AllReports';
 
 class App extends Component {
   
   componentWillMount() {
     // this.props.loadUserFromToken();
-    this.props.selectCategory("");
+    if(this.props.category !== "") this.props.selectCategory("", "ADMIN");
+    if(this.props.review_category !== "") this.props.selectCategory("","REVIEW");
+    if(this.props.new_category !== "") this.props.selectCategory("","NEW");
+    if(this.props.future_category !== "") this.props.selectCategory("","FUTURE");
+    
     if(this.props.auth.isAuthenticated) {
       if(this.props.auth.user.userTokenData.identity === "teacher") {
         let id = this.props.auth.identityData._id;
-        this.props.getTeacher(id);
+        // fetch data for current teacher if page refresh
+        // this.props.getTeacher(id);
       }
     }
   }
@@ -53,8 +59,9 @@ class App extends Component {
         <Route exact path="/teachers/new" component={NewTeacher} />
         <Route exact path="/teachers/:_id/dashboard" component={TeacherDashboard} />
         <Route exact path="/teachers/:_id/course_manager" component={TeacherCourseManager} />
-        <Route exact path="/teachers/:_id/new_report" component={NewReport} />
-        <Route exact path="/teachers/:_id/reports" component={TeacherCourseManager} />
+        <Route exact path="/teachers/:_id/new_report" component={ReportFormContainer} />
+        <Route exact path="/teachers/:_id/edit_report" component={ReportFormContainer} />
+        <Route exact path="/teachers/:_id/reports" component={AllReports} />
         <Route exact path="/books" component={BookList} />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/signup" component={SignupForm} />

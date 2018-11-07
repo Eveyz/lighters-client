@@ -5,8 +5,19 @@ import BookWidget from '../../containers/books/BookWidget';
 class BookTable extends React.Component {
   render() {
     let booksList = this.props.books.map((book, idx) => {
-      return <BookWidget key={idx} type={this.props.type} book={book} />
+      return <BookWidget 
+              key={idx}
+              content={this.props.content} 
+              type={this.props.type} 
+              book={book}
+            />
     });
+
+    if(this.props.books.length < 1) {
+      return (
+        <div></div>
+      )
+    }
 
     return(
       <table>

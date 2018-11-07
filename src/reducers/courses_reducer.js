@@ -34,7 +34,7 @@ export default (state = initialState, action = {}) => {
       }
     case "DELETE_COURSE":
       return {
-        currentCourse: state.currentCourse,
+        currentCourse: state.currentCourse._id === action.payload ? {} : state.currentCourse,
         searchStudent: state.searchStudent,
         courses: state.filter(course => course._id !== action.payload)
       }

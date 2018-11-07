@@ -94,3 +94,16 @@
 .hide {
   display: none;
 }
+
+/* // ----- Style for report ----- */
+
+.close-icon-style {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.close-icon-style:hover {
+  color: #f44336;
+}

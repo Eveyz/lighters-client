@@ -3,7 +3,6 @@ import { GET_TEACHER, GET_TEACHER_FAILURE } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getTeacher = (id) => {
-  console.log(id);
   return (dispatch) => {
     axios.get(`/teachers/${id}`)
       .then(function(response){

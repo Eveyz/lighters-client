@@ -9,6 +9,7 @@ import Footer from '../../components/layouts/Footer';
 import BookTable from '../../components/books/bookTable';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 import SelectBookWidget from '../../containers/books/SelectBookWidget';
+import { selectCategory, selectSerial, resetDeault } from "../../actions/select_book_actions";
 
 class CourseAddBook extends React.Component {
   constructor(props) {
@@ -23,12 +24,25 @@ class CourseAddBook extends React.Component {
     });
 
     let curbooksTable = this.props.assignedBooks.length > 0 ? 
-                        <BookTable books={this.props.assignedBooks} type="DELETE" /> : 
+                        <BookTable 
+                          content="ADMIN"
+                          books={this.props.assignedBooks} 
+                          type="DELETE" 
+                        /> : 
                         <h6>目前还没有分配对应的绘本, 请从下面的书单中添加对应的绘本</h6>;
 
     let selectBookWidget = this.props.books.length > 0 ?
-                        <SelectBookWidget /> : 
-                        <h6 className="center">无法获取绘本资源，请确认已导入或者输入绘本资源</h6>;
+      <SelectBookWidget 
+        content="ADMIN"
+        groupedBooks={this.props.selectBooks.groupedBooks}
+        category={this.props.selectBooks.category}
+        categories={this.props.selectBooks.categories}
+        serialName={this.props.selectBooks.serialName}
+        selectCategory={this.props.selectCategory}
+        selectSerial={this.props.selectSerial}
+        resetDeault={this.props.resetDeault}
+      /> : 
+      <h6 className="center">无法获取绘本资源，请确认已导入或者输入绘本资源</h6>;
 
     return (
       <div>
@@ -69,22 +83,23 @@ class CourseAddBook extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // this.props.search
   return {
     course: state.coursesData.currentCourse,
     search: state.coursesData.searchStudent,
     courses: state.coursesData.courses,
     assignedBooks: state.coursesData.currentCourse.books,
     students: state.studentsData.students,
-    books: state.booksData.books
+    books: state.booksData.books,
+    selectBooks: state.selectBooks
   };
 }
 
-// Any thing returned from this function will end up as props on the BookList component
 const mapDispatchToProps = dispatch => {
-  // Whenever search is called, the result should be passed to all reducers
   return {
-  }; // this.props.doSearch will become the result of headSearch
+    selectCategory: (category, content) => dispatch(selectCategory(category, content)),
+    selectSerial: (serialName, content) => dispatch(selectSerial(serialName, content)),
+    resetDeault: (content) => dispatch(resetDeault(content))
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseAddBook);

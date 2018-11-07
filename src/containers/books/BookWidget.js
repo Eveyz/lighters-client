@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { postBook, removeBook } from '../../actions/courses_actions';
+import { appendBook, removeSelectedBook } from '../../actions/select_book_actions';
 
 class BookWidget extends React.Component {
   constructor(props) {
@@ -12,9 +13,24 @@ class BookWidget extends React.Component {
 
   clickButton() {
     if(this.props.type === "ADD") {
-      this.props.addBook(this.props.course._id, this.props.book._id);
+      const _book_id = this.props.book._id;
+      let found = this.props.books.findIndex(book => book._id == _book_id);
+      if(found !== -1) {
+        window.Materialize.toast('请不要重复添加绘本', 1000);
+      } else {
+        if(this.props.content === "ADMIN")
+          this.props.addBook(this.props.course._id, this.props.book._id);
+        else
+          this.props.appendBook(this.props.book, this.props.content);
+      }
+
     } else {
-      this.props.removeBook(this.props.course._id, this.props.book._id);
+
+      if(this.props.content === "ADMIN")
+        this.props.removeBook(this.props.course._id, this.props.book._id);
+      else
+        this.props.removeSelectedBook(this.props.book, this.props.content);
+
     }
   }
 
@@ -63,16 +79,37 @@ class BookWidget extends React.Component {
   }
 }
 
-const mapStatetoProps = (state) => {
-  return {
-    course: state.coursesData.currentCourse
+const mapStatetoProps = (state, ownProps) => {
+  switch(ownProps.content) {
+    case 'REVIEW':
+      return {
+        course: state.coursesData.currentCourse,
+        books: state.reviewBooks.books
+      };
+    case 'NEW':
+      return {
+        course: state.coursesData.currentCourse,
+        books: state.newBooks.books
+      };
+    case 'FUTURE':
+      return {
+        course: state.coursesData.currentCourse,
+        books: state.futureBooks.books
+      };
+    default:
+      return {
+        course: state.coursesData.currentCourse,
+        books: state.selectBooks.books
+      };
   }
 };
 
 const mapDispatchtoProps = (dispatch) => {
   return {
     addBook: (id, bookID) => dispatch(postBook(id, bookID)),
-    removeBook: (id, bookID) => dispatch(removeBook(id, bookID))
+    removeBook: (id, bookID) => dispatch(removeBook(id, bookID)),
+    appendBook: (book, content) => dispatch(appendBook(book, content)),
+    removeSelectedBook: (book, content) => dispatch(removeSelectedBook(book, content))
   }
 };
 

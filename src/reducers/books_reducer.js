@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
   switch(action.type) {
     case 'GET_BOOKS':
       return {
-        currentBook: {},
+        currentBook: state.currentBook,
         books: [...action.payload]
       }
     case 'ADD_BOOK':
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
       }
     case 'DELETE_BOOK': 
       return {
-        currentBook: {},
+        currentBook: state.currentBook._id === action.payload ? {} : state.currentBook,
         books: state.filter(book => book._id !== action.payload)
       }
     case 'UPDATE_BOOK':

@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 import '../../css/App.css'
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
+import PathNavigator from '../../components/layouts/PathNavigator';
 import { selectStudent } from '../../actions/students_actions';
+import { updateBooks } from '../../actions/select_book_actions';
 
 class TeacherCourseManager extends React.Component {
   constructor(props) {
@@ -17,7 +19,12 @@ class TeacherCourseManager extends React.Component {
 
   newReport = student => e => {
     let path = "/teachers/" + this.props.user_id + "/new_report";
-    console.log(student);
+    this.props.updateBooks([], [], []);
+    this.props.setStudent(student, path);
+  }
+
+  reportsList = student => e => {
+    let path = "/teachers/" + this.props.user_id + "/reports";
     this.props.setStudent(student, path);
   }
 
@@ -37,9 +44,8 @@ class TeacherCourseManager extends React.Component {
                 <td>{ student.englishname }</td>
                 <td>{ student.age }</td>
                 <td>{ this.props.course.name }</td>
-                <td>{ this.props.course.reports.length }</td>
                 <td><button onClick={this.newReport(student)} className="btn">填写新课程回馈表</button></td>
-                <td><Link to={"/teachers/" + this.props.user_id + "/reports"} className="btn cyan">查看所有课程回馈表</Link></td>
+                <td><button onClick={this.reportsList(student)} className="btn cyan">查看所有课程回馈表</button></td>
                </tr>
       });
     }
@@ -48,15 +54,7 @@ class TeacherCourseManager extends React.Component {
       <div>
         <Header />
         <div className="page-min-height">
-          <div style={{backgroundColor: "#ffca28", padding: "10px 0px 13px 0px"}}>
-            <div className="container">
-              <div className="row no-margin">
-                <div className="col s12">
-                  <h5 className="white-text" style={{fontWeight: "500"}}> <Link to={"/teachers/" + this.props.user_id + "/dashboard"} style={{color: "white"}}>返回</Link> <span style={{color: "#eeeeee"}}> > { this.props.course.name }</span></h5>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PathNavigator path={"/teachers/" + this.props.user_id + "/dashboard"} content={this.props.course.name} />
           <div className="container">
             <h4><b>学生</b></h4>
             <div className="row">
@@ -68,7 +66,6 @@ class TeacherCourseManager extends React.Component {
                       <th>学生英文名</th>
                       <th>学生年龄</th>
                       <th>课程</th>
-                      <th>课程回馈表</th>
                       <th colSpan="2"></th>
                     </tr>
                   </thead>
@@ -98,6 +95,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setStudent: (student, path) => {
       dispatch(selectStudent(student, path))
+    },
+    updateBooks: (review_books, new_books, future_books) => {
+      dispatch(updateBooks(review_books, new_books, future_books))
     }
   }
 }

@@ -23,7 +23,7 @@ class SelectBookWidget extends React.Component {
 
   componentWillMount() {
     if(this.props.category !== "" && this.props.serialName !== "") {
-      this.props.resetDeault();
+      this.props.resetDeault(this.props.content);
     }
   }
 
@@ -37,24 +37,22 @@ class SelectBookWidget extends React.Component {
 
   selectCategory() {
     let category = this.categoryValue.current.value;
-    this.props.selectCategory(category);
-    this.props.selectSerial("");
+    this.props.selectCategory(category, this.props.content);
   }
 
   selectSerial() {
     let serialName = this.serialNameValue.current.value;
-    this.props.selectSerial(serialName);
+    this.props.selectSerial(serialName, this.props.content);
   }
   
   render() {
-
     let categories = "";
     if(this.props.categories.length > 0) {
       categories = this.props.categories.map((category, idx) => {
         return <option key={idx}>{category}</option>;
       });
     }
-    let categorySelect = <div className="input-field col s12">
+    let categorySelect = <div>
                             <select
                               defaultValue="default" 
                               onChange={this.selectCategory}
@@ -74,9 +72,10 @@ class SelectBookWidget extends React.Component {
         return <option key={idx}>{serial}</option>;
       });
     }
-    let serialsSelect = <div className="input-field col s12">
+    let defaultValue = this.props.serialName !== "" ? this.props.serialName : "default";
+    let serialsSelect = <div>
                           <select
-                            defaultValue="default" 
+                            value={defaultValue} 
                             onChange={this.selectSerial}
                             disabled={disabled}
                             ref={this.serialNameValue}
@@ -90,7 +89,7 @@ class SelectBookWidget extends React.Component {
     let bookTable = "";
     if(this.props.category !== "" && this.props.serialName !== "") {
       let books = this.props.groupedBooks[this.props.category][this.props.serialName];
-      bookTable = books.length > 0 ? <BookTable books={books} type="ADD" /> : "";
+      bookTable = books.length > 0 ? <BookTable content={this.props.content} books={books} type="ADD" /> : "";
     }
 
     return (
@@ -108,26 +107,45 @@ class SelectBookWidget extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  // this.props.search
-  return {
-    groupedBooks: state.selectBooks.groupedBooks,
-    categories: state.selectBooks.categories,
-    category: state.selectBooks.category,
-    serialName: state.selectBooks.serialName,
-    assignedBooks: state.coursesData.books,
-    books: state.booksData.books
-  };
+const mapStateToProps = (state, ownProps) => {
+  switch(ownProps.content) {
+    case 'REVIEW':
+      return {
+        categories: state.selectBooks.categories,
+        groupedBooks: state.selectBooks.groupedBooks,
+        category: state.reviewBooks.category,
+        serialName: state.reviewBooks.serialName
+      };
+    case 'NEW':
+      return {
+        categories: state.selectBooks.categories,
+        groupedBooks: state.selectBooks.groupedBooks,
+        category: state.newBooks.category,
+        serialName: state.newBooks.serialName
+      };
+    case 'FUTURE':
+      return {
+        categories: state.selectBooks.categories,
+        groupedBooks: state.selectBooks.groupedBooks,
+        category: state.futureBooks.category,
+        serialName: state.futureBooks.serialName
+      };
+    default:
+      return {
+        categories: state.selectBooks.categories,
+        groupedBooks: state.selectBooks.groupedBooks,
+        category: state.selectBooks.category,
+        serialName: state.selectBooks.serialName
+      };
+  }
 }
 
-// Any thing returned from this function will end up as props on the BookList component
 const mapDispatchToProps = dispatch => {
-  // Whenever search is called, the result should be passed to all reducers
   return {
-    selectCategory: (category) => dispatch(selectCategory(category)),
-    selectSerial: (serialName) => dispatch(selectSerial(serialName)),
-    resetDeault: () => dispatch(resetDeault())
-  }; // this.props.doSearch will become the result of headSearch
+    selectCategory: (category, content) => dispatch(selectCategory(category, content)),
+    selectSerial: (serialName, content) => dispatch(selectSerial(serialName, content)),
+    resetDeault: (content) => dispatch(resetDeault(content))
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectBookWidget);

@@ -7,27 +7,27 @@ export default (state = initialState, action) => {
   switch(action.type) {
     case 'GET_TEACHERS':
       return {
-        currentTeacher: {},
+        currentTeacher: state.currentTeacher,
         teachers: [...action.payload]
       }
     case 'ADD_TEACHER':
       return {
         currentTeacher: action.payload,
-        teachers: [...state, ...action.payload]
+        teachers: [...state.teachers, ...action.payload]
       }
     case 'DELETE_TEACHER': 
       return {
-        currentTeacher: {},
-        teachers: state.filter(teacher => teacher._id !== action.payload)
+        currentTeacher: state.currentTeacher._id === action.payload ? {} : state.currentTeacher,
+        teachers: state.teachers.filter(teacher => teacher._id !== action.payload)
       }
     case 'UPDATE_TEACHER':
-      const idx = state.findIndex(teacher => teacher._id === action.payload._id);
+      const idx = state.teachers.findIndex(teacher => teacher._id === action.payload._id);
       return {
         currentTeacher: action.payload,
         teachers: [
-                    ...state.slice(0, idx), // everything before current obj
+                    ...state.teachers.slice(0, idx), // everything before current obj
                     action.payload,
-                    ...state.slice(idx + 1), // everything after current obj
+                    ...state.teachers.slice(idx + 1), // everything after current obj
                   ]
       }
     default:
