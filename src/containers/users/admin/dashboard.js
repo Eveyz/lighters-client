@@ -40,7 +40,7 @@ class Dashboard extends Component {
                     <div className="row">
                       <Link to="/courses">
                         <div className="col s12 m6">
-                          <div className="card r-box-shadow link">
+                          <div className="card r-box-shadow link" style={{borderTop: "6px solid #69639a"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>课程管理</b></span>
                               <p>{this.props.courses.length} 个课程</p>
@@ -51,7 +51,7 @@ class Dashboard extends Component {
 
                       <Link to="/teachers">
                         <div className="col s12 m6">
-                          <div className="card r-box-shadow link">
+                          <div className="card r-box-shadow link" style={{borderTop: "6px solid #4c7ef3"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>教师管理</b></span>
                               <p>{this.props.teachers.length} 个教师</p>
@@ -64,7 +64,7 @@ class Dashboard extends Component {
                     <div className="row">
                       <Link to="/students">
                         <div className="col s12 m6">
-                          <div className="card r-box-shadow link">
+                          <div className="card r-box-shadow link" style={{borderTop: "6px solid #6df0c2"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>学生管理</b></span>
                               <p>{this.props.students.length} 个学生</p>
@@ -75,7 +75,7 @@ class Dashboard extends Component {
 
                       <Link to="/books">
                         <div className="col s12 m6">
-                          <div className="card r-box-shadow link">
+                          <div className="card r-box-shadow link" style={{borderTop: "6px solid #ffc107"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>绘本管理</b></span>
                               <p>{this.props.books.length} 本绘本</p>
