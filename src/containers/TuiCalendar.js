@@ -71,7 +71,7 @@ class TuiCalendar extends React.Component {
           return 'All Day';
         },
         time: function(schedule) {
-          return schedule.title + ' <i class="fa fa-refresh"></i>' + schedule.start;
+          return schedule.title + ' <i class="tiny material-icons">refresh</i>' + schedule.start;
         }
       },
       month: {
@@ -94,7 +94,7 @@ class TuiCalendar extends React.Component {
       {
         id: '1',
         calendarId: '1',
-        title: 'my schedule',
+        title: '课程时间',
         category: 'time',
         dueDateClass: '',
         start: '2018-11-08T20:30:00+09:00',
