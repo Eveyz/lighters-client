@@ -5,10 +5,10 @@ import { Row, Col, Card } from 'react-materialize';
 
 class TeacherCourseBooks extends React.Component {
   render() {
-    let bookList = <h5 className="center">当前没有绘本</h5>;
+    let content = <h5 className="center">当前没有绘本</h5>;
 
     if(this.props.course.books.length > 0) {
-      bookList = this.props.course.books.map((book, idx) => {
+      let bookList = this.props.course.books.map((book, idx) => {
         return <tr key={idx}>
                 <td>{ book.rlevel }</td>
                 <td>{ book.lslevel }</td>
@@ -19,15 +19,7 @@ class TeacherCourseBooks extends React.Component {
                 <td><Link target="_blank" to={`/books/${book._id}`} className="btn" params={book}>查看</Link></td>
                </tr>
       });
-    }
-
-    return(
-      <Row>
-        <Col m={12} s={12}>
-          <Card className='white r-box-shadow' textClassName='black-text' title={this.props.course.name} style={{padding: "30px"}}>
-            <div className="row">
-              <div className="col m12">
-                <table className="striped">
+      content = <table className="striped">
                   <thead>
                     <tr>
                       <th>RAZ等级</th>
@@ -43,7 +35,16 @@ class TeacherCourseBooks extends React.Component {
                   <tbody>
                     {bookList}
                   </tbody>
-                </table>
+                </table>;
+    }
+
+    return(
+      <Row>
+        <Col m={12} s={12}>
+          <Card className='white r-box-shadow' textClassName='black-text' title={this.props.course.name} style={{padding: "30px"}}>
+            <div className="row">
+              <div className="col m12">
+                {content}
               </div>
             </div>
           </Card>
