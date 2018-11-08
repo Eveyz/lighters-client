@@ -16,47 +16,11 @@ import TuiCalendar from '../TuiCalendar';
 class TeacherDashboard extends React.Component {
   constructor(props) {
     super(props)
-
-    // this.calendarContainer = React.createRef();
   }
 
   componentDidMount() {
     M.AutoInit();
 
-    // const _calendar = new Calendar(this.calendarContainer.current, {
-    //   defaultView: 'month',
-    //   taskView: false,    // can be also ['milestone', 'task']
-    //   scheduleView: true,  // can be also ['allday', 'time']
-    //   useCreationPopup: true,
-    //   useDetailPopup: true,
-    //   template: {
-    //     task: function(schedule) {
-    //       return '&nbsp;&nbsp;#' + schedule.title;
-    //     },
-    //     taskTitle: function() {
-    //       return '<label><input type="checkbox" />Task</label>';
-    //     },
-    //     allday: function(schedule) {
-    //       return schedule.title + ' <i class="fa fa-refresh"></i>';
-    //     },
-    //     alldayTitle: function() {
-    //       return 'All Day';
-    //     },
-    //     time: function(schedule) {
-    //       return schedule.title + ' <i class="fa fa-refresh"></i>' + schedule.start;
-    //     }
-    //   },
-    //   month: {
-    //     daynames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    //     startDayOfWeek: 0,
-    //     narrowWeekend: false
-    //   },
-    //   week: {
-    //     daynames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    //     startDayOfWeek: 0,
-    //     narrowWeekend: false
-    //   }
-    // });
   }
 
   render() {
@@ -130,7 +94,7 @@ class TeacherDashboard extends React.Component {
                 </ul>
               </div>
               <div id="teacher-calendar-tab" className="col s12 m12">
-                <h1>Calendar</h1>
+                <h4>Calendar</h4>
                 <TuiCalendar />
               </div>
               <div id="courses" className="col s12">

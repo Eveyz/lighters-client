@@ -44,8 +44,6 @@ class TuiCalendar extends React.Component {
       _time = currTime.getFullYear() + '.' + currTimeMonth + '.' + currTimeDay;
     };
     return _time;
-  
-    // $("#calendar-date").text(_time);
   };
 
   componentDidMount() {
@@ -108,8 +106,8 @@ class TuiCalendar extends React.Component {
         title: 'second schedule',
         category: 'time',
         dueDateClass: '',
-        start: '2018-08-31T17:30:00+09:00',
-        end: '2018-08-31T18:31:00+09:00',
+        start: '2018-11-10T17:30:00+09:00',
+        end: '2018-11-10T18:31:00+09:00',
         isReadOnly: true    // schedule is read-only
       }
     ]);
@@ -152,7 +150,8 @@ class TuiCalendar extends React.Component {
     }
   };
 
-  calendarMonth() {
+  calendarMonth(e) {
+    e.preventDefault();
     let _calendar = this.state.calendar;
     if(_calendar) {
       _calendar.setOptions({month: {visibleWeeksCount: 6}}, true); // or null
@@ -163,7 +162,8 @@ class TuiCalendar extends React.Component {
     }
   };
 
-  calendarWeek() {
+  calendarWeek(e) {
+    e.preventDefault();
     let _calendar = this.state.calendar;
     if(_calendar) {
       _calendar.changeView('week', true);
@@ -173,7 +173,8 @@ class TuiCalendar extends React.Component {
     }
   };
 
-  calendarTwoWeek() {
+  calendarTwoWeek(e) {
+    e.preventDefault();
     let _calendar = this.state.calendar;
     if(_calendar) {
       _calendar.setOptions({month: {visibleWeeksCount: 2}}, true);
@@ -184,7 +185,8 @@ class TuiCalendar extends React.Component {
     }
   };
 
-  calendarThreeWeek() {
+  calendarThreeWeek(e) {
+    e.preventDefault();
     let _calendar = this.state.calendar;
     if(_calendar) {
       _calendar.setOptions({month: {visibleWeeksCount: 3}}, true);
@@ -195,7 +197,8 @@ class TuiCalendar extends React.Component {
     }
   };
 
-  calendarDay() {
+  calendarDay(e) {
+    e.preventDefault();
     let _calendar = this.state.calendar;
     if(_calendar) {
       _calendar.changeView('day', true);
@@ -230,14 +233,14 @@ class TuiCalendar extends React.Component {
       <div>
         <div className="row no-margin">
           <div className="col m1">
-            <a className='dropdown-trigger btn white black-text' href='#' data-target='dropdown1'>月</a>
+            <a className='dropdown-trigger btn white black-text' href='#' data-target='dropdown1'>周</a>
 
             <ul id='dropdown1' className='dropdown-content'>
-              <li><a href="javascript:;" id="calendar-month" onClick={this.calendarMonth}>月</a></li>
-              <li><a href="javascript:;" id="calendar-week" onClick={this.calendarWeek}>周</a></li>
-              <li><a href="javascript:;" id="calendar-day" onClick={this.calendarDay}>日</a></li>
-              <li><a href="javascript:;" id="calendar-two-week" onClick={this.calendarTwoWeek}>2周</a></li>
-              <li><a href="javascript:;" id="calendar-three-week" onClick={this.calendarThreeWeek}>3周</a></li>
+              <li><a id="calendar-month" onClick={this.calendarMonth}>月</a></li>
+              <li><a id="calendar-week" onClick={this.calendarWeek}>周</a></li>
+              <li><a id="calendar-day" onClick={this.calendarDay}>日</a></li>
+              <li><a id="calendar-two-week" onClick={this.calendarTwoWeek}>2周</a></li>
+              <li><a id="calendar-three-week" onClick={this.calendarThreeWeek}>3周</a></li>
             </ul>
           </div>
           <div className="col m1 no-padding">
