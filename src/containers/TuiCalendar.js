@@ -1,13 +1,28 @@
 import React from "react";
 import Calendar from 'tui-calendar';
 
-class CalendarContainer extends React.Component {
+import M from 'materialize-css';
+
+class TuiCalendar extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       calendar: "",
+      date: ""
     };
+
+    this.calendarContainer = React.createRef();
+
+    this.calendarToday = this.calendarToday.bind(this);
+    this.calendarDay = this.calendarDay.bind(this);
+    this.calendarMonth = this.calendarMonth.bind(this);
+    this.calendarWeek = this.calendarWeek.bind(this);
+    this.calendarTwoWeek = this.calendarTwoWeek.bind(this);
+    this.calendarThreeWeek = this.calendarThreeWeek.bind(this);
+    this.calendarPrev = this.calendarPrev.bind(this);
+    this.calendarPrev = this.calendarPrev.bind(this);
+    this.calendarNext = this.calendarNext.bind(this);
   }
 
   renderCalendarTitle(currTime, timeStart, timeEnd, mode) {
@@ -28,18 +43,17 @@ class CalendarContainer extends React.Component {
     } else if (mode === "day") {
       _time = currTime.getFullYear() + '.' + currTimeMonth + '.' + currTimeDay;
     };
+    return _time;
   
-    $("#calendar-date").text(_time);
+    // $("#calendar-date").text(_time);
   };
 
   componentDidMount() {
     // initializing materialize dropdown component
-    var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, {});
-
+    M.AutoInit();
+  
     // create calendar
-    var ID = "#" + this.props.id;
-    var _calendar = new Calendar(ID, {
+    var _calendar = new Calendar(this.calendarContainer.current, {
       defaultView: 'week',
       taskView: false,    // can be also ['milestone', 'task']
       scheduleView: true,  // can be also ['allday', 'time']
@@ -74,9 +88,9 @@ class CalendarContainer extends React.Component {
       }
     });
     this.setState({
-      calendar: _calendar
+      calendar: _calendar,
+      date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDate(), _calendar.getDate(), _calendar.getViewName())
     });
-    this.renderCalendarTitle(_calendar.getDate(), _calendar.getDate(), _calendar.getDate(), _calendar.getViewName());
 
     _calendar.createSchedules([
       {
@@ -85,8 +99,8 @@ class CalendarContainer extends React.Component {
         title: 'my schedule',
         category: 'time',
         dueDateClass: '',
-        start: '2018-08-16T22:30:00+09:00',
-        end: '2018-08-17T02:30:00+09:00'
+        start: '2018-11-08T20:30:00+09:00',
+        end: '2018-11-08T22:30:00+09:00'
       },
       {
         id: '2',
@@ -100,7 +114,7 @@ class CalendarContainer extends React.Component {
       }
     ]);
   
-    _calendar.on('clickDayname', function(event) {
+    _calendar.on('clickDayname', (event) => {
       if (_calendar.getViewName() === 'week') {
         _calendar.setDate(new Date(event.date));
         _calendar.changeView('day', true);
@@ -126,52 +140,90 @@ class CalendarContainer extends React.Component {
         _calendar.deleteSchedule(e.schedule.id, e.schedule.calendarId);
       }
     });
+  }
 
-    var currScope = this;
-    
-    $("#calendar-today-btn").on('click', function() {
+  calendarToday() {
+    let _calendar = this.state.calendar;
+    if(_calendar) {
       _calendar.today();
-      currScope.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName());
-    });
-  
-    $("#calendar-month").on('click', function() {
+      this.setState({
+        date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
+      });
+    }
+  };
+
+  calendarMonth() {
+    let _calendar = this.state.calendar;
+    if(_calendar) {
       _calendar.setOptions({month: {visibleWeeksCount: 6}}, true); // or null
       _calendar.changeView('month', true);
-      currScope.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName());
-    });
-  
-    $("#calendar-week").on('click', function() {
+      this.setState({
+        date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
+      });
+    }
+  };
+
+  calendarWeek() {
+    let _calendar = this.state.calendar;
+    if(_calendar) {
       _calendar.changeView('week', true);
-      currScope.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName());
-    });
-  
-    $("#calendar-two-week").on('click', function() {
+      this.setState({
+        date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
+      });
+    }
+  };
+
+  calendarTwoWeek() {
+    let _calendar = this.state.calendar;
+    if(_calendar) {
       _calendar.setOptions({month: {visibleWeeksCount: 2}}, true);
       _calendar.changeView('month', true);
-      currScope.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName());
-    });
-  
-    $("#calendar-three-week").on('click', function() {
+      this.setState({
+        date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
+      });
+    }
+  };
+
+  calendarThreeWeek() {
+    let _calendar = this.state.calendar;
+    if(_calendar) {
       _calendar.setOptions({month: {visibleWeeksCount: 3}}, true);
       _calendar.changeView('month', true);
-      currScope.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName());
-    });
-  
-    $("#calendar-day").on('click', function() {
+      this.setState({
+        date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
+      });
+    }
+  };
+
+  calendarDay() {
+    let _calendar = this.state.calendar;
+    if(_calendar) {
       _calendar.changeView('day', true);
-      currScope.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName());
-    });
-  
-    $("#calendar-next").on('click', function() {
+      this.setState({
+        date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
+      });
+    }
+  };
+
+  calendarNext() {
+    let _calendar = this.state.calendar;
+    if(_calendar) {
       _calendar.next();
-      currScope.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName());
-    });
-  
-    $("#calendar-prev").on('click', function() {
+      this.setState({
+        date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
+      });
+    }
+  };
+
+  calendarPrev() {
+    let _calendar = this.state.calendar;
+    if(_calendar) {
       _calendar.prev();
-      currScope.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName());
-    });
-  }
+      this.setState({
+        date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
+      });
+    }
+  };
 
   render() {
     return(
@@ -181,28 +233,28 @@ class CalendarContainer extends React.Component {
             <a className='dropdown-trigger btn white black-text' href='#' data-target='dropdown1'>月</a>
 
             <ul id='dropdown1' className='dropdown-content'>
-              <li><a href="javascript:;" id="calendar-month">月</a></li>
-              <li><a href="javascript:;" id="calendar-week">周</a></li>
-              <li><a href="javascript:;" id="calendar-day">日</a></li>
-              <li><a href="javascript:;" id="calendar-two-week">2周</a></li>
-              <li><a href="javascript:;" id="calendar-three-week">3周</a></li>
+              <li><a href="javascript:;" id="calendar-month" onClick={this.calendarMonth}>月</a></li>
+              <li><a href="javascript:;" id="calendar-week" onClick={this.calendarWeek}>周</a></li>
+              <li><a href="javascript:;" id="calendar-day" onClick={this.calendarDay}>日</a></li>
+              <li><a href="javascript:;" id="calendar-two-week" onClick={this.calendarTwoWeek}>2周</a></li>
+              <li><a href="javascript:;" id="calendar-three-week" onClick={this.calendarThreeWeek}>3周</a></li>
             </ul>
           </div>
           <div className="col m1 no-padding">
-            <button id="calendar-today-btn" className="btn white black-text">今天</button>
+            <button id="calendar-today-btn" className="btn white black-text" onClick={this.calendarToday}>今天</button>
           </div>
           <div className="col m2 no-padding">
-            <div className="chip white m-box-shadow" style={{cursor: "pointer"}} id="calendar-prev">&lt;</div>
-            <div className="chip white m-box-shadow" style={{cursor: "pointer"}} id="calendar-next">&gt;</div>
+            <div className="chip white m-box-shadow" style={{cursor: "pointer"}} id="calendar-prev" onClick={this.calendarPrev}>&lt;</div>
+            <div className="chip white m-box-shadow" style={{cursor: "pointer"}} id="calendar-next" onClick={this.calendarNext}>&gt;</div>
           </div>
-          <div className="col m6"><h5 style={{marginTop: "5px"}} id="calendar-date" className="no-margin"></h5></div>
+          <div className="col m6"><h5 style={{marginTop: "5px"}} id="calendar-date" className="no-margin">{this.state.date}</h5></div>
           <div className="col m2"></div>
         </div>
         <br/>
-        <div id={this.props.id} className="calendar-height"></div>
+        <div ref={this.calendarContainer} className="calendar-height"></div>
       </div>
     );
   }
 }
 
-export default CalendarContainer;
+export default TuiCalendar;
