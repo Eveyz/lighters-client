@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal } from 'react-materialize';
 import { Link } from 'react-router-dom';
 
 import { getCourses, addCourse, deleteCourse } from "../../actions/courses_actions";
 import '../../css/App.css';
 import Course from './Course';
-import CourseForm from './CourseForm';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';

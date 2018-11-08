@@ -14,7 +14,7 @@ class BookWidget extends React.Component {
   clickButton() {
     if(this.props.type === "ADD") {
       const _book_id = this.props.book._id;
-      let found = this.props.books.findIndex(book => book._id == _book_id);
+      let found = this.props.books.findIndex(book => book._id === _book_id);
       if(found !== -1) {
         window.Materialize.toast('请不要重复添加绘本', 1000);
       } else {

@@ -2,7 +2,6 @@ import React from "react";
 import KeywordList from "../keywords/KeywordList";
 import { connect } from 'react-redux';
 
-import { Toast } from 'react-materialize';
 import { addKeyword, removeKeyword } from '../../actions/select_book_actions';
 
 class BookCard extends React.Component {
@@ -16,7 +15,8 @@ class BookCard extends React.Component {
     };
   }
 
-  removeBook() {
+  removeBook(e) {
+    e.preventDefault();
     this.props.clickButton(this.props.book, this.props.content);
   }
 
@@ -26,7 +26,8 @@ class BookCard extends React.Component {
     })
   }
 
-  switchMode() {
+  switchMode(e) {
+    e.preventDefault();
     const status = this.state.add ? false : true;
     this.setState({
       add: status
@@ -93,8 +94,8 @@ class BookCard extends React.Component {
     } else {
       action = this.props.edit ? 
               <div className="card-action">
-                <a className="green-text" href="javascript:;" onClick={this.switchMode.bind(this)}><b>添加关键词</b></a>
-                <a className="red-text text-lighten-1" href="javascript:;" onClick={this.removeBook.bind(this)}><b>移除绘本</b></a>
+                <a className="green-text" href="" onClick={this.switchMode.bind(this)}><b>添加关键词</b></a>
+                <a className="red-text text-lighten-1" href="" onClick={this.removeBook.bind(this)}><b>移除绘本</b></a>
               </div>
               : '';
     }

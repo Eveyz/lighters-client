@@ -1,7 +1,7 @@
 import React from 'react';
 import M from 'materialize-css';
 import '../../css/App.css';
-import { Editor, EditorState } from 'draft-js'
+import { EditorState } from 'draft-js'
 
 class FormTextarea extends React.Component {
   constructor(props) {

@@ -10,7 +10,8 @@ class StudentItem extends React.Component {
     this.addStudent = this.addStudent.bind(this);
   }
 
-  addStudent() {
+  addStudent(e) {
+    e.preventDefault();
     let studentID = this.props.student._id;
     let courseID = this.props.course._id;
     this.props.addStudent(courseID, {"studentID": studentID});
@@ -18,7 +19,7 @@ class StudentItem extends React.Component {
 
   render() {
     return(
-      <a href="javascript:;" onClick={this.addStudent} className="collection-item">{this.props.student.lastname + this.props.student.firstname}</a>
+      <a href="" onClick={this.addStudent} className="collection-item">{this.props.student.lastname + this.props.student.firstname}</a>
     )
   }
 };

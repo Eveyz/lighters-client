@@ -1,7 +1,6 @@
 import React from 'react';
 import M from 'materialize-css';
 import '../../css/App.css';
-import { Input } from 'react-materialize';
 
 class FormPick extends React.Component {
   constructor(props) {

@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { editReport, deleteReport } from '../../actions/reports_actions';
 
@@ -13,7 +12,6 @@ class ReportRow extends React.Component {
   }
 
   deleteReport = () => {
-    let path = "/teachers/" + this.props.user_id + "/course_manager";
     this.props.deleteReport(this.props.report._id);
   }
 

@@ -10,14 +10,15 @@ class TeacherCourse extends React.Component {
     this.clickCourse = this.clickCourse.bind(this);
   }
 
-  clickCourse = () => {
+  clickCourse = (e) => {
+    e.preventDefault();
     let path = "/teachers/" + this.props.user_id + "/course_manager";
     this.props.selectCourse(this.props.course, path);
   }
 
   render() {
     return(
-      <a href="javascript:;" onClick={this.clickCourse}>
+      <a href="" onClick={this.clickCourse}>
         <div className="col s12 m6">
           <div className="card r-box-shadow">
             <div className="card-content">
