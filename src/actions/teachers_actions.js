@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TEACHER, GET_TEACHER_FAILURE } from './constants';
+import { GET_TEACHER_FAILURE } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getTeacher = (id) => {

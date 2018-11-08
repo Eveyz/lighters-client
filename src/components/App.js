@@ -35,7 +35,7 @@ class App extends Component {
     
     if(this.props.auth.isAuthenticated) {
       if(this.props.auth.user.userTokenData.identity === "teacher") {
-        let id = this.props.auth.identityData._id;
+        // let id = this.props.auth.identityData._id;
         // fetch data for current teacher if page refresh
         // this.props.getTeacher(id);
       }

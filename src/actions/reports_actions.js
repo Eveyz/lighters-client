@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../history';
 
-import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, REPORT_UPLOAD_AUDIOS, REPORT_UPLOAD_AUDIOS_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, REMOVE_UPLOADED_FILE, REMOVE_UPLOADED_FILE_FAILURE } from './constants';
+import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, REMOVE_UPLOADED_FILE } from './constants';
 
 import { updateBooks } from './select_book_actions';
 
@@ -18,11 +18,11 @@ export const getReports = (course_id, student_id, teacher_id) => {
 
 export const addReport = (report, path) => {
   return (dispatch) => {
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    };
+    // const config = {
+    //   headers: {
+    //     'content-type': 'multipart/form-data'
+    //   }
+    // };
     var data = new FormData();
     if(report['audios'].length > 0) {
       report['audios'].forEach(file => {

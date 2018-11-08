@@ -27,7 +27,7 @@ class Book extends React.Component {
         <td>{this.props.book.name}</td>
         <td>{this.props.book.quantity}</td>
         <td>
-          <a className='dropdown-button btn' href='javascript:;' data-activates={id} ref={this.dropdown}>Drop Me!</a>
+          <a className='dropdown-button btn' href='' data-activates={id} ref={this.dropdown}>Drop Me!</a>
 
           <ul id={id} className='dropdown-content'>
             <li><a href="#!">one</a></li>

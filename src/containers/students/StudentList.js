@@ -18,7 +18,7 @@ class StudentList extends React.Component {
     let activeStudentList;
     let activeStudent = [];
     if(this.props.students.length > 0) {
-      this.props.students.map((student, index) => {
+      this.props.students.forEach((student) => {
         if(student.status === "pending") pendingStudent.push(student);
         else if(student.status === "active") activeStudent.push(student);
       });
@@ -125,10 +125,10 @@ const mapStateToProps = state => {
 }
 
 // Any thing returned from this function will end up as props on the BookList component
-const mapDispatchToProps = dispatch => {
-  // Whenever search is called, the result should be passed to all reducers
-  return {
-  }; // this.props.doSearch will become the result of headSearch
-}
+// const mapDispatchToProps = dispatch => {
+//   // Whenever search is called, the result should be passed to all reducers
+//   return {
+//   }; // this.props.doSearch will become the result of headSearch
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentList);
+export default connect(mapStateToProps, null)(StudentList);

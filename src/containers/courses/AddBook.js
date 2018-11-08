@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Icon } from 'react-materialize';
 
-import { addStudent, deleteStudent, switchMode } from "../../actions/courses_actions";
 import '../../css/App.css';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
@@ -12,9 +10,6 @@ import SelectBookWidget from '../../containers/books/SelectBookWidget';
 import { selectCategory, selectSerial, resetDeault } from "../../actions/select_book_actions";
 
 class CourseAddBook extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   
   render() {
     let teachers = this.props.course.teachers.map((teacher, index) => {

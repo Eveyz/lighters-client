@@ -31,7 +31,7 @@ class CourseAddStudents extends React.Component {
   }
 
   searchName() {
-    let name = this.name.current.value;
+    // let name = this.name.current.value;
 
   }
   

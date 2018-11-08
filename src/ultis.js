@@ -50,7 +50,7 @@ export const groupBooks = (books) => {
   for(var category in groupBooks) {
     serialsBooks = {};
     if (groupBooks.hasOwnProperty(category)) {
-      groupBooks[category].forEach(function(book) {
+      groupBooks[category].forEach((book) => {
         var serialsName = book.serials;
         if(!(serialsName in serialsBooks)) {
           serialsBooks[serialsName] = [];

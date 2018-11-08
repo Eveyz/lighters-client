@@ -15,19 +15,23 @@ class Course extends React.Component {
     this.addBook = this.addBook.bind(this);
   }
 
-  editCourse() {
+  editCourse(e) {
+    e.preventDefault();
     this.props.editCourse(this.props.course);
   }
 
-  addStudent() {
+  addStudent(e) {
+    e.preventDefault();
     this.props.addStudent(this.props.course);
   }
 
-  addBook() {
+  addBook(e) {
+    e.preventDefault();
     this.props.addBook(this.props.course);
   }
 
-  deleteCourse() {
+  deleteCourse(e) {
+    e.preventDefault();
     this.props.deleteCourse(this.props.id);
   }
 
@@ -49,10 +53,10 @@ class Course extends React.Component {
             <p>绘本数量: { this.props.course.books.length }</p>
           </div>
           <div className="card-action">
-            <a onClick={this.editCourse} href="javascript:;">编辑课程</a>
-            <a onClick={this.addStudent} href="javascript:;">添加学生</a>
-            <a onClick={this.addBook} href="javascript:;">添加绘本</a>
-            <a onClick={this.deleteCourse} href="javascript:;">删除</a>
+            <a onClick={this.editCourse} href="">编辑课程</a>
+            <a onClick={this.addStudent} href="">添加学生</a>
+            <a onClick={this.addBook} href="">添加绘本</a>
+            <a onClick={this.deleteCourse} href="">删除</a>
           </div>
         </div>
       </div>
