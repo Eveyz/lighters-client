@@ -21,7 +21,7 @@ class AudiosFileList extends React.Component {
         <div className="row">
           <div className="input-field col m12 s12 no-margin">
             <h5 className="cyan-text">已上传的文件: </h5>
-            {audiosFileList}
+              {audiosFileList}
           </div>
         </div>
       </div>
