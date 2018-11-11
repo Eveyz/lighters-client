@@ -62,3 +62,12 @@ export const groupBooks = (books) => {
   }
   return { groupedBooks: groupBooks, categories: Object.keys(groupBooks) };
 }
+
+export const TZDateToDate = (TZDate) => {
+  let date = new Date(Date.parse(TZDate));
+  return date;
+}
+
+export const getFullMinutes = (date) => {
+  return (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+}

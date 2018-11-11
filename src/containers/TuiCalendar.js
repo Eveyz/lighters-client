@@ -1,7 +1,12 @@
 import React from "react";
 import Calendar from 'tui-calendar';
-
 import M from 'materialize-css';
+import { connect } from 'react-redux';
+
+import NewScheduleModal from './schedules/NewScheduleModal';
+import EditScheduleModal from './schedules/EditScheduleModal';
+import { getFullMinutes } from '../ultis'
+import { getSchedules, addSchedule, deleteSchedule } from '../actions/schedules_actions';
 
 class TuiCalendar extends React.Component {
 
@@ -9,10 +14,14 @@ class TuiCalendar extends React.Component {
     super(props);
     this.state = {
       calendar: "",
-      date: ""
+      date: "",
+      show: false,
+      mode: "NEW",
+      event: {schedule: {title: "", end: {_date: ""}, start: {_date: ""} }}
     };
 
     this.calendarContainer = React.createRef();
+    this.scheduleModal = React.createRef();
 
     this.calendarToday = this.calendarToday.bind(this);
     this.calendarDay = this.calendarDay.bind(this);
@@ -23,6 +32,10 @@ class TuiCalendar extends React.Component {
     this.calendarPrev = this.calendarPrev.bind(this);
     this.calendarPrev = this.calendarPrev.bind(this);
     this.calendarNext = this.calendarNext.bind(this);
+
+    this.closeModal = this.closeModal.bind(this);
+    this.saveSchedule = this.saveSchedule.bind(this);
+    this.deleteSchedule = this.deleteSchedule.bind(this);
   }
 
   renderCalendarTitle(currTime, timeStart, timeEnd, mode) {
@@ -49,14 +62,17 @@ class TuiCalendar extends React.Component {
   componentDidMount() {
     // initializing materialize dropdown component
     M.AutoInit();
+
+    // get all schedule for current course
+    this.props.getSchedules(this.props.courses.map((c) => {return c.course_id}));
   
     // create calendar
     var _calendar = new Calendar(this.calendarContainer.current, {
       defaultView: 'week',
       taskView: false,    // can be also ['milestone', 'task']
       scheduleView: true,  // can be also ['allday', 'time']
-      useCreationPopup: true,
-      useDetailPopup: true,
+      useCreationPopup: false,
+      useDetailPopup: false,
       template: {
         task: function(schedule) {
           return '&nbsp;&nbsp;#' + schedule.title;
@@ -70,8 +86,10 @@ class TuiCalendar extends React.Component {
         alldayTitle: function() {
           return 'All Day';
         },
-        time: function(schedule) {
-          return schedule.title + ' <i class="tiny material-icons">refresh</i>' + schedule.start;
+        time: (schedule) => {
+          let start_time = new Date(Date.parse(schedule.start._date));
+          let end_time = new Date(Date.parse(schedule.end._date));
+          return `<div><p class="white-text no-margin">${schedule.title} </p><p class="white-text no-margin">${start_time.getHours()}:${getFullMinutes(start_time)} ~ ${end_time.getHours()}:${getFullMinutes(end_time)}</p></div>`;
         }
       },
       month: {
@@ -90,27 +108,7 @@ class TuiCalendar extends React.Component {
       date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDate(), _calendar.getDate(), _calendar.getViewName())
     });
 
-    _calendar.createSchedules([
-      {
-        id: '1',
-        calendarId: '1',
-        title: '课程时间',
-        category: 'time',
-        dueDateClass: '',
-        start: '2018-11-08T20:30:00+09:00',
-        end: '2018-11-08T22:30:00+09:00'
-      },
-      {
-        id: '2',
-        calendarId: '1',
-        title: 'second schedule',
-        category: 'time',
-        dueDateClass: '',
-        start: '2018-11-10T17:30:00+09:00',
-        end: '2018-11-10T18:31:00+09:00',
-        isReadOnly: true    // schedule is read-only
-      }
-    ]);
+    _calendar.createSchedules(this.props.schedulesData.schedules);
   
     _calendar.on('clickDayname', (event) => {
       if (_calendar.getViewName() === 'week') {
@@ -118,14 +116,25 @@ class TuiCalendar extends React.Component {
         _calendar.changeView('day', true);
       }
     });
-  
+
+    let currScope = this;
     _calendar.on({
       'clickSchedule': function(e) {
         console.log('clickSchedule', e);
+        currScope.setState({
+          show: true,
+          event: e,
+          mode: "EDIT"
+        });
       },
       'beforeCreateSchedule': function(e) {
         console.log('beforeCreateSchedule', e);
         // open a creation popup
+        currScope.setState({
+          show: true,
+          event: e,
+          mode: "NEW"
+        });
       },
       'beforeUpdateSchedule': function(e) {
         console.log('beforeUpdateSchedule', e);
@@ -138,6 +147,15 @@ class TuiCalendar extends React.Component {
         _calendar.deleteSchedule(e.schedule.id, e.schedule.calendarId);
       }
     });
+    // close modal if click outside of modal
+    window.onclick = (e) => {
+      if(e.target === this.scheduleModal.current && this.state.show) {
+        this.setState({
+          show: false
+        })
+        _calendar.createSchedules([]);
+      }
+    }
   }
 
   calendarToday() {
@@ -228,36 +246,103 @@ class TuiCalendar extends React.Component {
     }
   };
 
+  closeModal() {
+    if(this.state.show) {
+      this.setState({show: false});
+    }
+    this.state.calendar.createSchedules([]);
+  }
+
+  saveSchedule(schedule) {
+    this.state.calendar.createSchedules([schedule]);
+    this.props.addSchedule(schedule);
+  }
+
+  deleteSchedule(event) {
+    let id = "";
+    this.props.schedulesData.schedules.forEach((s) => {
+      if(event.schedule.id === s.id) {
+        id = s._id;
+      }
+    })
+    if(id) {
+      this.state.calendar.deleteSchedule(event.schedule.id, event.schedule.calendarId);
+      this.props.deleteSchedule(id);
+    }
+  }
+
   render() {
+    let len = this.props.schedulesData.schedules.length;
+    let nextScheduleID = 1;
+    if(len > 0) {
+      nextScheduleID = +this.props.schedulesData.schedules[len - 1].id + 1;
+    }
+    let newModal = this.state.show && this.state.mode === "NEW" ? <NewScheduleModal 
+      refFromParent={this.scheduleModal}
+      scheduleID={String(nextScheduleID)}
+      show={this.state.show && this.state.mode === "NEW"} 
+      event={this.state.event}
+      closeModal={this.closeModal}
+      saveSchedule={this.saveSchedule}
+      courses={this.props.courses}
+    /> : "";
+    let editModal = this.state.show && this.state.mode === "EDIT" ? <EditScheduleModal 
+      refFromParent={this.scheduleModal} 
+      show={this.state.show && this.state.mode === "EDIT"} 
+      event={this.state.event}
+      closeModal={this.closeModal}
+      deleteSchedule={this.deleteSchedule}
+    /> : "";
+
     return(
       <div>
         <div className="row no-margin">
           <div className="col m1">
-            <a className='dropdown-trigger btn white black-text' href='#' data-target='dropdown1'>周</a>
+            <a className='dropdown-trigger btn white black-text' data-target='dropdown1'>周</a>
 
             <ul id='dropdown1' className='dropdown-content'>
-              <li><a id="calendar-month" onClick={this.calendarMonth}>月</a></li>
-              <li><a id="calendar-week" onClick={this.calendarWeek}>周</a></li>
-              <li><a id="calendar-day" onClick={this.calendarDay}>日</a></li>
-              <li><a id="calendar-two-week" onClick={this.calendarTwoWeek}>2周</a></li>
-              <li><a id="calendar-three-week" onClick={this.calendarThreeWeek}>3周</a></li>
+              <li><a onClick={this.calendarMonth}>月</a></li>
+              <li><a onClick={this.calendarWeek}>周</a></li>
+              <li><a onClick={this.calendarDay}>日</a></li>
+              <li><a onClick={this.calendarTwoWeek}>2周</a></li>
+              <li><a onClick={this.calendarThreeWeek}>3周</a></li>
             </ul>
           </div>
           <div className="col m1 no-padding">
-            <button id="calendar-today-btn" className="btn white black-text" onClick={this.calendarToday}>今天</button>
+            <button className="btn white black-text" onClick={this.calendarToday}>今天</button>
           </div>
           <div className="col m2 no-padding">
-            <div className="chip white m-box-shadow" style={{cursor: "pointer"}} id="calendar-prev" onClick={this.calendarPrev}>&lt;</div>
-            <div className="chip white m-box-shadow" style={{cursor: "pointer"}} id="calendar-next" onClick={this.calendarNext}>&gt;</div>
+            <div className="chip white m-box-shadow" style={{cursor: "pointer"}} onClick={this.calendarPrev}>&lt;</div>
+            <div className="chip white m-box-shadow" style={{cursor: "pointer"}} onClick={this.calendarNext}>&gt;</div>
           </div>
-          <div className="col m6"><h5 style={{marginTop: "5px"}} id="calendar-date" className="no-margin">{this.state.date}</h5></div>
+          <div className="col m6"><h5 style={{marginTop: "5px"}}  className="no-margin">{this.state.date}</h5></div>
           <div className="col m2"></div>
         </div>
         <br/>
+        {newModal}
+        {editModal}
         <div ref={this.calendarContainer} className="calendar-height"></div>
       </div>
     );
   }
 }
 
-export default TuiCalendar;
+const mapStateToProps = (state) => {
+  return {
+    user_id: state.auth.user.userTokenData.id,
+    courses: state.auth.identityData.courses.map((course) => {
+      return {name: course.name, course_id: course._id}
+    }),
+    schedulesData: state.schedulesData
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addSchedule: (schedule) => dispatch(addSchedule(schedule)),
+    deleteSchedule: (id) => dispatch(deleteSchedule(id)),
+    getSchedules: (courses_ids) => dispatch(getSchedules(courses_ids))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TuiCalendar);

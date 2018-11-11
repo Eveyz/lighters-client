@@ -13,6 +13,7 @@ import SelectBookReducer from './select_books_reducer';
 import ReviewBookReducer from './review_books_reducer';
 import NewBoookReducer from './new_books_reducer';
 import FutureBookReducer from './future_books_reducer';
+import SchedulesReducer from './schedules_reducer';
 
 const rootReducer = combineReducers({
   identity: UserReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   reviewBooks: ReviewBookReducer,
   newBooks: NewBoookReducer,
   futureBooks: FutureBookReducer,
+  schedulesData: SchedulesReducer,
   router: routerReducer
 });
 

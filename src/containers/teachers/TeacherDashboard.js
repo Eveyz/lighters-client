@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-materialize'
 import M from 'materialize-css';
-import Calendar from 'tui-calendar';
 
 import 'tui-calendar/dist/tui-calendar.min.css';
 import '../../css/App.css';
@@ -14,9 +13,6 @@ import TeacherCourseBooks from './TeacherCourseBooks';
 import TuiCalendar from '../TuiCalendar';
 
 class TeacherDashboard extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentDidMount() {
     M.AutoInit();
@@ -94,7 +90,7 @@ class TeacherDashboard extends React.Component {
                 </ul>
               </div>
               <div id="teacher-calendar-tab" className="col s12 m12">
-                <h4>Calendar</h4>
+                <br />
                 <TuiCalendar />
               </div>
               <div id="courses" className="col s12">

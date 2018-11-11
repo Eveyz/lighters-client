@@ -31,13 +31,14 @@ class CourseList extends React.Component {
 
           <div className="container">
             <br/>
-            <div className="row">
+            <div className="row no-margin">
               <div className="col m12">
                 <Link to="/courses/add_course" className="btn">添加课程</Link>
               </div>
             </div>
 
-            <div className="row">
+            <br/>
+            <div className="row no-margin">
               <div className="col m3">
                 <h6 style={{color: "rgba(0,0,0,.6)", fontWeight: "700"}}>所有课程</h6>
               </div>
