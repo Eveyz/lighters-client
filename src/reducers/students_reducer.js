@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
     case "SELECT_STUDENT":
       return {
         currentStudent: action.payload,
-        courses: state.students
+        students: state.students
       }
     default:
       return state;

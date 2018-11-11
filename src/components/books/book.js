@@ -25,19 +25,10 @@ class Book extends React.Component {
         <td>{this.props.book.category}</td>
         <td>{this.props.book.serials}</td>
         <td>{this.props.book.name}</td>
-        <td>{this.props.book.quantity}</td>
-        <td>
-          <a className='dropdown-button btn' href='' data-activates={id} ref={this.dropdown}>Drop Me!</a>
-
-          <ul id={id} className='dropdown-content'>
-            <li><a href="#!">one</a></li>
-            <li><a href="#!">two</a></li>
-            <li className="divider"></li>
-            <li><a href="#!">three</a></li>
-            <li><a href="#!"><i className="material-icons">view_module</i>four</a></li>
-            <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
-          </ul>
-        </td>
+        <td>{this.props.book.name}</td>
+        <td><button className="btn cyan">编辑</button></td>
+        <td><button className="btn">查看</button></td>
+        <td><button className="btn red">删除</button></td>
       </tr>
     )
   }

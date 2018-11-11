@@ -10,6 +10,7 @@ import LoginForm from '../containers/users/LoginForm';
 import SignupForm from '../containers/users/SignupForm';
 import Dashboard from '../containers/users/admin/dashboard';
 import BookList from '../containers/books/BookList';
+import NewBook from '../components/books/NewBook';
 import CourseList from '../containers/courses/CourseList';
 import AddCourse from '../containers/courses/AddCourse';
 import EditCourse from '../containers/courses/EditCourse';
@@ -63,6 +64,7 @@ class App extends Component {
         <Route exact path="/teachers/:_id/edit_report" component={ReportFormContainer} />
         <Route exact path="/teachers/:_id/reports" component={AllReports} />
         <Route exact path="/books" component={BookList} />
+        <Route exact path="/books/new" component={NewBook} />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/signup" component={SignupForm} />
         <Route exact path="/teachers/me" component={BookList} />

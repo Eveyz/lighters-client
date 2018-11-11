@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Row, Col, Table } from 'react-materialize';
 
 import { getBooks, addBook, deleteBook } from "../../actions/books_actions.js";
@@ -26,9 +27,9 @@ class BooksList extends React.Component {
         <div className="container">
           <br />
           <br />
+          <Link to="/books/new" className="btn">添加绘本</Link>
           <Row>
             <Col m={12}>
-              <button className="btn">添加绘本</button>
             </Col>
           </Row>
           <br/>
@@ -43,7 +44,6 @@ class BooksList extends React.Component {
                     <th>绘本分类</th>
                     <th>系列名(links)</th>
                     <th>绘本名</th>
-                    <th>数量</th>
                     <th colSpan="3">更多操作</th>
                   </tr>
                 </thead>
