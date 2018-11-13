@@ -121,7 +121,8 @@
 }
 
 .tui-full-calendar-time-schedule {
-  background-color: #ffc107 !important;
+  /* background-color: #ffc107 !important; */
+  background-color: #7986CB !important;
 }
 
 .tui-full-calendar-time-schedule-content {
