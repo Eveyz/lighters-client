@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import M from 'materialize-css';
 import { Row, Col, Table, Card, Tabs, Tab } from 'react-materialize';
 
 import Breadcrumb from '../../components/layouts/Breadcrumb';
@@ -8,8 +9,8 @@ import Footer from '../../components/layouts/Footer';
 import Student from '../../containers/students/Student';
 
 class StudentList extends React.Component {
-
-  componentWillMount() {
+  componentDidMount() {
+    M.AutoInit();
   }
 
   render() {
@@ -47,9 +48,8 @@ class StudentList extends React.Component {
                                         <th>年龄</th>
                                         <th>出生日期</th>
                                         <th>性别</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>更改状态</th>
+                                        <th>更多操作</th>
                                       </tr>
                                     </thead>
 
@@ -74,9 +74,8 @@ class StudentList extends React.Component {
                                         <th>年龄</th>
                                         <th>出生日期</th>
                                         <th>性别</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>更改状态</th>
+                                        <th>更多操作</th>
                                       </tr>
                                     </thead>
 
@@ -87,7 +86,7 @@ class StudentList extends React.Component {
                                 </Col>
                               </Row> :
                               <Card className='white' textClassName='blue-text'>
-                                <h4 className="center">没有学生</h4>
+                                <h4 className="center">没有上课的学生</h4>
                               </Card>
 
     return (

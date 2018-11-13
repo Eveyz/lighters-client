@@ -1,5 +1,5 @@
 const initialState = {
-  currentTeacher: {course: false},
+  currentTeacher: {},
   teachers: []
 }
 

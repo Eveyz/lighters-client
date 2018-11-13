@@ -26,10 +26,12 @@ class BooksList extends React.Component {
         <Breadcrumb action="books" />
         <div className="container">
           <br />
-          <br />
-          <Link to="/books/new" className="btn">添加绘本</Link>
           <Row>
-            <Col m={12}>
+            <Col m={2}>
+              <Link to="/books/new" className="btn">添加绘本</Link>
+            </Col>
+            <Col m={10}>
+              <Link to="/books/new" className="btn cyan">从CSV中导入</Link>
             </Col>
           </Row>
           <br/>
@@ -38,11 +40,12 @@ class BooksList extends React.Component {
               <Table>
                 <thead>
                   <tr>
-                    <th>RAZ等级</th>
-                    <th>蓝思等级</th>
+                    <th>Lighters级别</th>
+                    <th>RAZ级别</th>
+                    <th>Lexile级别</th>
                     <th>年龄段</th>
                     <th>绘本分类</th>
-                    <th>系列名(links)</th>
+                    <th>系列名</th>
                     <th>绘本名</th>
                     <th colSpan="3">更多操作</th>
                   </tr>

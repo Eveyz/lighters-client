@@ -13,21 +13,21 @@ export default (state = initialState, action) => {
     case 'ADD_BOOK':
       return {
         currentBook: action.payload,
-        books: [...state, ...action.payload]
+        books: [...state.books, ...action.payload]
       }
     case 'DELETE_BOOK': 
       return {
         currentBook: state.currentBook._id === action.payload ? {} : state.currentBook,
-        books: state.filter(book => book._id !== action.payload)
+        books: state.books.filter(book => book._id !== action.payload)
       }
     case 'UPDATE_BOOK':
-      const idx = state.findIndex(book => book._id === action.payload._id);
+      const idx = state.books.findIndex(book => book._id === action.payload._id);
       return {
         currentBook: action.payload,
         books: [
-                    ...state.slice(0, idx), // everything before current obj
+                    ...state.books.slice(0, idx), // everything before current obj
                     action.payload,
-                    ...state.slice(idx + 1), // everything after current obj
+                    ...state.books.slice(idx + 1), // everything after current obj
                   ]
       }
     default:

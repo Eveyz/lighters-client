@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import M from 'materialize-css';
 import { Row, Col, Table, Card, Tabs, Tab } from 'react-materialize';
 
 import Teacher from '../../containers/teachers/Teacher';
@@ -9,8 +10,8 @@ import Breadcrumb from '../../components/layouts/Breadcrumb';
 
 class TeacherList extends React.Component {
 
-  componentWillMount() {
-    // this.props.fetchBooks();
+  componentDidMount() {
+    M.AutoInit();
   }
 
   render() {
@@ -48,9 +49,8 @@ class TeacherList extends React.Component {
                                         <th>年龄</th>
                                         <th>出生日期</th>
                                         <th>性别</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>更改状态</th>
+                                        <th>更多操作</th>
                                       </tr>
                                     </thead>
 
@@ -75,9 +75,8 @@ class TeacherList extends React.Component {
                                         <th>年龄</th>
                                         <th>出生日期</th>
                                         <th>性别</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>更改状态</th>
+                                        <th>更多操作</th>
                                       </tr>
                                     </thead>
 
@@ -118,13 +117,11 @@ class TeacherList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // this.props.search
   return {
     teachers: state.teachersData.teachers
   };
 }
 
-// Any thing returned from this function will end up as props on the BookList component
 // const mapDispatchToProps = dispatch => {
 //   // Whenever search is called, the result should be passed to all reducers
 //   return {

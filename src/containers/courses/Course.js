@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import '../../css/App.css';
-import { deleteCourse, addStudent, addBook, editCourse } from '../../actions/courses_actions';
+import { deleteCourse, addStudent, addBook, editCourse, updateCourse } from '../../actions/courses_actions';
 
 
 class Course extends React.Component {
   constructor(props) {
     super(props);
 
-    this.deleteCourse = this.deleteCourse.bind(this);
+    this.updateCourse = this.updateCourse.bind(this);
     this.editCourse = this.editCourse.bind(this);
     this.addStudent = this.addStudent.bind(this);
     this.addStudent = this.addStudent.bind(this);
@@ -30,9 +30,10 @@ class Course extends React.Component {
     this.props.addBook(this.props.course);
   }
 
-  deleteCourse(e) {
+  updateCourse(e) {
     e.preventDefault();
-    this.props.deleteCourse(this.props.id);
+    let field = this.props.course.status === "active" ? {status: "inactive"} : {status: "active"};
+    this.props.updateCourse(this.props.id, field);
   }
 
   render() {
@@ -56,7 +57,7 @@ class Course extends React.Component {
             <a onClick={this.editCourse} href="">编辑课程</a>
             <a onClick={this.addStudent} href="">添加学生</a>
             <a onClick={this.addBook} href="">添加绘本</a>
-            <a onClick={this.deleteCourse} href="">删除</a>
+            <a onClick={this.updateCourse} href="">关闭</a>
           </div>
         </div>
       </div>
@@ -86,6 +87,9 @@ const mapDispatchToProps = dispatch => {
     },
     editCourse: (course) => {
       dispatch(editCourse(course))
+    },
+    updateCourse: (id, field) => {
+      dispatch(updateCourse(id, field))
     }
   }; // this.props.doSearch will become the result of headSearch
 }

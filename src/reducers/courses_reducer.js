@@ -36,7 +36,7 @@ export default (state = initialState, action = {}) => {
       return {
         currentCourse: state.currentCourse._id === action.payload ? {} : state.currentCourse,
         searchStudent: state.searchStudent,
-        courses: state.filter(course => course._id !== action.payload)
+        courses: state.courses.filter(course => course._id !== action.payload)
       }
     case "UPDATE_COURSE":
       idx = state.courses.findIndex(course => course._id === action.payload._id);

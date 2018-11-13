@@ -46,14 +46,14 @@ export const editCourse = (course) => {
   }
 }
 
-export const updateCourse = (courseID, course) => {
-  return function(dispatch) {
-    axios.put(`/courses/${courseID}`, course)
-      .then(function(response){
+export const updateCourse = (course_id, field) => {
+  return (dispatch) => {
+    axios.put(`/courses/${course_id}`, field)
+      .then((response) => {
         dispatch({type: UPDATE_COURSE, payload: response.data})
         history.push('/courses');
       })
-      .catch(function(err){
+      .catch((err) => {
         dispatch({type: UPDATE_COURSE_FAILURE, payload: err})
       })
   }

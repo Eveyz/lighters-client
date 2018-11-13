@@ -1,37 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import '../../css/App.css';
-import { deleteCourse, addStudent, addBook, editCourse } from '../../actions/courses_actions';
-
+import { updateStudent } from '../../actions/students_actions';
 
 class Student extends React.Component {
   constructor(props) {
     super(props);
 
-    this.deleteCourse = this.deleteCourse.bind(this);
-    this.editCourse = this.editCourse.bind(this);
-    this.addStudent = this.addStudent.bind(this);
-    this.addStudent = this.addStudent.bind(this);
-    this.addBook = this.addBook.bind(this);
+    this.updateStudent = this.updateStudent.bind(this);
   }
 
-  editCourse() {
-    this.props.editCourse(this.props.course);
-  }
-
-  addStudent() {
-    this.props.addStudent(this.props.course);
-  }
-
-  addBook() {
-    this.props.addBook(this.props.course);
-  }
-
-  deleteCourse() {
-    this.props.deleteCourse(this.props.id);
+  updateStudent = () => {
+    let field = this.props.student.status === "pending" ? {status: "active"} : {status: "pending"};
+    this.props.updateStudent(this.props.student._id, field);
   }
 
   render() {
+    let action = "关闭";
+    let classes = "btn amber";
+    if(this.props.student.status === "pending") {
+      action = "激活";
+      classes = "btn green";
+    }
+
     return(
       <tr>
         <td>{this.props.student.lastname}</td>
@@ -39,9 +30,16 @@ class Student extends React.Component {
         <td>{this.props.student.age}</td>
         <td>{this.props.student.birthday}</td>
         <td>{this.props.student.gender}</td>
-        <td><a>查看</a></td>
-        <td><a>编辑</a></td>
-        <td><a>注销</a></td>
+        <td><button className={classes} onClick={this.updateStudent}>{action}</button></td>
+        <td>
+          <a className='dropdown-trigger btn cyan' href='#' data-target={this.props.id}>更多操作</a>
+
+          <ul id={this.props.id} className='dropdown-content'>
+            <li><a href="#!">编辑</a></li>
+            <li><a href="#!">查看</a></li>
+            <li><a href="#!" className="red-text">注销</a></li>
+          </ul>
+        </td>
       </tr>
     )
   }
@@ -56,21 +54,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  // Whenever search is called, the result should be passed to all reducers
   return {
-    deleteCourse: (courseID) => {
-      dispatch(deleteCourse(courseID))
-    },
-    addStudent: (courseID) => {
-      dispatch(addStudent(courseID))
-    },
-    addBook: (courseID) => {
-      dispatch(addBook(courseID))
-    },
-    editCourse: (course) => {
-      dispatch(editCourse(course))
-    }
-  }; // this.props.doSearch will become the result of headSearch
+    updateStudent: (id, field) => dispatch(updateStudent(id, field))
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Student);

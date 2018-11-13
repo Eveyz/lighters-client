@@ -1,36 +1,35 @@
 import React from 'react';
-import { withFormik } from 'formik';
 
-import BookForm from './bookForm';
-
-const NewBookContainer = withFormik({
-  mapPropsToValues({}) {
-    return {
-      lightersLevel: "",
-      americanGrade: "",
-      razLevel: "",
-      lexileLevel: "",
-      age: "",
-      category: "",
-      serials: "",
-      name: "",
-      audioLink: "",
-      file: "",
-    }
-  },
-  handleSubmit: (values) => {
-    console.log(values);
-  },
-  handleChange(e) {
-    console.log(e.target.value);
-  }
-})(BookForm)
+import Header from '../layouts/Header';
+import Footer from '../layouts/Footer';
+import PathNavigator from '../layouts/PathNavigator';
+import BookwithFormik from './BookwithFormik';
 
 class NewBook extends React.Component {
-  render() {
+  render = () => {
     return(
       <div>
-        <NewBookContainer />
+        <Header />
+        <PathNavigator 
+          path={"/books"} 
+          content={"新建绘本"} 
+        />
+        <div className="container">
+
+          <div className="row">
+            <div className="card r-box-shadow">
+              <div className="card-content" style={{padding: "50px"}}>
+                <h4 className="cyan-text" style={{marginTop: "0px"}}>填写绘本资料</h4>
+                <BookwithFormik 
+                  book={{}} 
+                  action="NEW"
+                />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <Footer />
       </div>
     )
   }
