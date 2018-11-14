@@ -24,6 +24,7 @@ import TeacherDashboard from '../containers/teachers/TeacherDashboard';
 import TeacherCourseManager from '../containers/teachers/TeacherCourseManager';
 import ReportFormContainer from '../containers/reports/ReportFormContainer';
 import AllReports from '../containers/reports/AllReports';
+import StudentDashboard from '../containers/students/StudentDashboard';
 
 class App extends Component {
   
@@ -55,6 +56,7 @@ class App extends Component {
         <Route exact path="/courses/:_id/add_student" component={CourseAddStudent} />
         <Route exact path="/courses/:_id/add_book" component={CourseAddBook} />
         <Route exact path="/students" component={StudentList} />
+        <Route exact path="/students/:_id/dashboard" component={StudentDashboard} />
         <Route exact path="/students/new" component={NewStudent} />
         <Route exact path="/teachers" component={TeacherList} />
         <Route exact path="/teachers/new" component={NewTeacher} />
