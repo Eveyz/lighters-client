@@ -218,6 +218,10 @@
   border-bottom-right-radius: 32px;
 }
 
+.left-fixed-bar li a {
+  color: inherit;
+}
+
 .left-bar-menu li.active {
   background-color: #E7EFFD;
   color: #1F73E6;

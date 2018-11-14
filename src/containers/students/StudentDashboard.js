@@ -15,10 +15,10 @@ class StudentDashboard extends React.Component {
             <br/>
             <h5 className="cyan-text" style={{marginLeft: "30px"}}>学生Dashboard</h5>
             <ul className="left-bar-menu">
-              <li className="active"><i className="small material-icons">home</i><span>主页</span></li>
-              <li><i className="small material-icons">event_note</i><span>课程</span></li>
-              <li><i className="small material-icons">description</i><span>课程回馈表</span></li>
-              <li><i className="small material-icons">book</i><span>绘本</span></li>
+              <li className="active"><a><i className="small material-icons">home</i><span>主页</span></a></li>
+              <li><a><i className="small material-icons">event_note</i><span>课程</span></a></li>
+              <li><a><i className="small material-icons">description</i><span>课程回馈表</span></a></li>
+              <li><a><i className="small material-icons">book</i><span>绘本</span></a></li>
             </ul>
           </div>
           <div className="main-content-wrapper">
