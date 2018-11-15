@@ -9,9 +9,14 @@ import StudentCourseList from './StudentCourseList';
 class StudentDashboard extends React.Component {
   render() {
     console.log(this.props);
-    let mainContent = <TuiCalendar />;
+    let mainContent = <div className="card white r-box-shadow">
+                        <div className="card-content">
+                          <TuiCalendar />
+                        </div>
+                      </div>;
+    
     if(this.props.location.pathname.includes("courses")) {
-      mainContent = <StudentCourseList courses={this.props.student.courses} />
+      mainContent = <StudentCourseList courses={this.props.student.courses} />;
     } else if (this.props.location.pathname.includes("reports")) {
 
     } else if (this.props.location.pathname.includes("books")) {
@@ -43,11 +48,7 @@ class StudentDashboard extends React.Component {
           <div className="main-content-wrapper">
             <br/>
             <div className="main-content">
-              <div className="card white r-box-shadow">
-                <div className="card-content">
-                  {mainContent}
-                </div>
-              </div>
+              {mainContent}
             </div>
           </div>
         </div>

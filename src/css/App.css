@@ -193,6 +193,7 @@
 }
 
 .left-fixed-bar a {
+  display: block;
   color: inherit;
 }
 
@@ -229,10 +230,10 @@
 /* midddle size screen */
 @media screen and (min-width: 993px) and (max-width: 1300px) {
   .left-fixed-bar {
-    width: 19%;
+    width: 20%;
   }
   .main-content-wrapper {
-    width: 81%;
+    width: 80%;
     display: inline-block;
   }
   .main-content {

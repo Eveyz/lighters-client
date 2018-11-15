@@ -1,6 +1,6 @@
 import history from '../history';
 import axios from 'axios';
-import { GET_TEACHER_FAILURE, UPDATE_STUDENT, UPDATE_STUDENT_FAILURE, GET_STUDENT_FAILURE, SELECT_STUDENT } from './constants';
+import { UPDATE_STUDENT, UPDATE_STUDENT_FAILURE, GET_STUDENT_FAILURE, SELECT_STUDENT } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getStudent = (id) => {
