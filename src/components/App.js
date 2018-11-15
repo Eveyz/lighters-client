@@ -57,6 +57,9 @@ class App extends Component {
         <Route exact path="/courses/:_id/add_book" component={CourseAddBook} />
         <Route exact path="/students" component={StudentList} />
         <Route exact path="/students/:_id/dashboard" component={StudentDashboard} />
+        <Route exact path="/students/:_id/courses" component={StudentDashboard} />
+        <Route exact path="/students/:_id/reports" component={StudentDashboard} />
+        <Route exact path="/students/:_id/books" component={StudentDashboard} />
         <Route exact path="/students/new" component={NewStudent} />
         <Route exact path="/teachers" component={TeacherList} />
         <Route exact path="/teachers/new" component={NewTeacher} />
