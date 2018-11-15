@@ -64,7 +64,7 @@ class TuiCalendar extends React.Component {
     M.AutoInit();
 
     // get all schedule for current course
-    this.props.getSchedules(this.props.courses.map((c) => {return c.course_id}));
+    // this.props.getSchedules(this.props.courses.map((c) => {return c.course_id}));
   
     // create calendar
     var _calendar = new Calendar(this.calendarContainer.current, {
