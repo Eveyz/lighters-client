@@ -68,6 +68,7 @@ class Course extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
+    identity: state.auth.user.userTokenData.identity,
     teachers: state.teachersData.teachers,
     students: state.studentsData.students
   };

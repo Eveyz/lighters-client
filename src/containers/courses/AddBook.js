@@ -17,7 +17,6 @@ class CourseAddBook extends React.Component {
         <span key={index}>{teacher.lastname + teacher.firstname} </span>
       )
     });
-
     let curbooksTable = this.props.assignedBooks.length > 0 ? 
                         <BookTable 
                           content="ADMIN"
@@ -57,7 +56,7 @@ class CourseAddBook extends React.Component {
             </div>
             <div className="row">
               <div className="col s12 m12">
-                <div className="card">
+                <div className="card r-box-shadow" style={{padding: "0px 30px 0px 30px"}}>
                   <div className="card-content">
                     <h5 className="blue-text">学生专属书单</h5>
                     {curbooksTable}
@@ -79,6 +78,7 @@ class CourseAddBook extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    identity: state.auth.user.userTokenData.identity,
     course: state.coursesData.currentCourse,
     search: state.coursesData.searchStudent,
     courses: state.coursesData.courses,

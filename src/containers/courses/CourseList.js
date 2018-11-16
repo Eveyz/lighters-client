@@ -20,7 +20,13 @@ class CourseList extends React.Component {
         );
       });
     } else {
-      courseList = <h4>当前没有课程，请添加</h4>;
+      courseList =  <div className="col m12">
+                      <div className="card white r-box-shadow">
+                        <div className="card-content">
+                          <h4 className="center">当前没有课程，请添加</h4>;
+                        </div>
+                      </div>
+                    </div>;
     }
 
     return (

@@ -99,7 +99,7 @@ const mapStatetoProps = (state, ownProps) => {
     default:
       return {
         course: state.coursesData.currentCourse,
-        books: state.selectBooks.books
+        books: state.coursesData.currentCourse.books
       };
   }
 };

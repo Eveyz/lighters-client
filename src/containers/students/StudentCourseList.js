@@ -3,7 +3,11 @@ import { Row, Col, Card } from 'react-materialize';
 
 class StudentCourseList extends React.Component {
   render() {
-    let courseList = <h5 className="center">当前没有课程</h5>;
+    let courseList = <div className="card white r-box-shadow">
+                        <div className="card-content">
+                          <h5 className="center">当前没有课程</h5>;
+                        </div>
+                      </div>;
     
     if(this.props.courses.length > 0) {
       courseList = this.props.courses.map((course, idx) => {
