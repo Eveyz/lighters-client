@@ -94,7 +94,7 @@ class SelectBookWidget extends React.Component {
 
     return (
       <div>
-        <div className="row">
+        <div className="row no-margin">
           <div className="input-field col m6">{categorySelect}</div>
           <div className="input-field col m6">{serialsSelect}</div>
         </div>

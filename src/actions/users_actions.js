@@ -3,7 +3,7 @@ import setAuthToken from '../helper/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import history from '../history';
 import { groupBooks } from '../ultis';
-import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES, GET_BOOKS, GET_TEACHERS, GET_STUDENTS, ADMIN_INIT_FAILURE, SET_LOADING_STATUS, GROUPED_BOOKS, SET_CURRENT_IDENTITY_DATA } from './constants';
+import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES, GET_BOOKS, GET_TEACHERS, GET_STUDENTS, ADMIN_INIT_FAILURE, SET_LOADING_STATUS, GROUPED_BOOKS, SET_CURRENT_IDENTITY_DATA, LOGIN_USER_FAILURE } from './constants';
 
 export const setCurrentUser = (user) => {
   return {
@@ -62,9 +62,9 @@ export function resetToken() {
 }
 
 export const login = (user) => {
-  return function(dispatch){
+  return (dispatch) => {
     axios.post("/users/authenticate", user)
-      .then(function(response) {
+      .then((response) => {
         // response.data should be able to return the token we get from the api and we store the token
         const token = response.data.token;
         try {
@@ -82,16 +82,26 @@ export const login = (user) => {
           history.push('/users/admin/dashboard');
         } else if(userToken.userTokenData.identity === "teacher") {
           const teacher = response.data.teacher;
-          dispatch(setCurrentIdentityData(teacher));
-          history.push(`/teachers/${userToken.userTokenData.id}/dashboard`);
+          if(teacher) {
+            dispatch(setCurrentIdentityData(teacher));
+            history.push(`/teachers/${teacher._id}/dashboard`);
+          } else {
+            // teacher profile not created, redirect to new teacher
+            history.push(`/teachers/new`);
+          }
         } else {
           const student = response.data.student;
-          dispatch(setCurrentIdentityData(student));
-          history.push(`/students/${userToken.userTokenData.id}/dashboard`);
+          if(student) {
+            dispatch(setCurrentIdentityData(student));
+            history.push(`/students/${student._id}/dashboard`);
+          } else {
+            // student profile not created, redirect to new teacher
+            history.push(`/students/new`);
+          }
         }
       })
-      .catch(function(err){
-        dispatch({type: "LOGIN_USER_FAILLED", payload: err});
+      .catch((err) => {
+        dispatch({type: LOGIN_USER_FAILURE, payload: err.response.data});
       })
   }
 };

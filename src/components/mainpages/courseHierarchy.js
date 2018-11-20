@@ -70,7 +70,7 @@ const CourseHierarchy = props => (
             <td>美国G4-5</td>
           </tr>
           <tr className="cell-style bc">
-            <td>培养能力</td>
+            <td><b>培养能力</b></td>
             <td colSpan="2">
               <p>听说基础</p>
               <p>字母认知</p>
@@ -98,8 +98,8 @@ const CourseHierarchy = props => (
               <p>演讲展示能力</p>
             </td>
           </tr>
-          <tr className="cell-style amber">
-            <td>课程内容</td>
+          <tr className="cell-style blue-grey darken-3">
+            <td><b>课程内容</b></td>
             <td colSpan="2">
               <p>自然拼读</p>
               <p>动画视频</p>

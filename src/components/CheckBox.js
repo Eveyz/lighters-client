@@ -6,7 +6,10 @@ const CheckBox = props => (
       name={props.name} 
       type="checkbox" 
       id={props.htmlID} 
+      value={props.value}
       className={props.classes}
+      onChange={props.handleChange}
+      onBlur={props.handleChange}
     />
     <label htmlFor={props.htmlID}>{props.label}</label>
   </p>

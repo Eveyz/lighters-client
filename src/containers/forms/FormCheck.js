@@ -9,10 +9,12 @@ class FormCheck extends React.Component {
     super(props)
 
     this.state = {
-      hasError: false
+      hasError: false,
+      showHidden: false
     };
     this.inputValue = React.createRef();
     this.handleChange = this.handleChange.bind(this);
+    this.handleOtherInput = this.handleOtherInput.bind(this);
   }
 
   componentDidMount() {
@@ -22,19 +24,36 @@ class FormCheck extends React.Component {
   handleChange = (e) => {
     let val = e.target.value;
     if(!val) {
+      // if selection is empty set error
       this.setState({hasError: true});
     } else {
-      if(this.state.hasError) {
-        this.setState({hasError: false});
+      if(val === "other") {
+        // show input for other selection
+        this.setState({showHidden: true});
+      } else {
+        // selection is valid
+        this.setState({hasError: false, showHidden: false});
       }
       this.props.getInputData(this.props.name, val);
     }
   }
 
+  handleOtherInput = (e) => {
+    let val = e.target.value;
+    if(!val) {
+      this.setState({hasError: true});
+    } else {
+      if(this.state.hasError) {
+        this.setState({hasError: false});
+      }
+    }
+    this.props.getInputData(this.props.name, val);
+  }
+
   render() {
     let hideOrNot = this.state.hasError ? "red-text" : "red-text hide";
     let required = this.props.required ? <span className="required">*</span> : "";
-    let msg = this.props.required ? 
+    let msg = this.props.required && !this.state.showHidden ? 
               <span className={hideOrNot}>
                 <i className="tiny material-icons">report_problem</i> {this.props.errorMsg}
               </span> :
@@ -49,6 +68,8 @@ class FormCheck extends React.Component {
                   htmlID={this.props.name + "" + idx}
                   classes="radio-field-required"
                   label={option}
+                  value={option}
+                  handleChange={this.handleChange}
                 />
       });
     } else if(this.props.inputType === "checkbox") {
@@ -59,23 +80,37 @@ class FormCheck extends React.Component {
                   htmlID={this.props.name + "" + idx}
                   classes="filled-in checkbox-field-required"
                   label={option}
+                  value={option}
+                  handleChange={this.handleChange}
                 />
       });
     }
 
     let otherOption = "";
+    let hiddenInput = this.state.showHidden ? <input 
+                                                type="text"
+                                                name={this.props.name + "Other"} 
+                                                placeholder="请具体说明"
+                                                autoFocus={true}
+                                                onChange={this.handleOtherInput}
+                                                onBlur={this.handleOtherInput}
+                                              /> : "";
+    let msgClasses = this.state.hasError ? "red-text input-error" : "red-text input-error hide";
     if(this.props.otherOption) {
       otherOption = 
       <p>
         <input 
-          name={this.props.name} 
           type={this.props.inputType} 
-          id={this.props.name + "Other"} />
+          value={"other"}
+          name={this.props.name}
+          id={this.props.name + "Other"}
+          onChange={this.handleChange}
+        />
         <label htmlFor={this.props.name + "Other"}>
           {this.props.otherLabel}
         </label>
-        <input type="text" name={ this.props.name + "Other"} style={{display: "none"}} placeholder="请具体说明"></input>
-        <span className="red-text input-error"><i className="tiny material-icons">report_problem</i> 请具体说明</span>
+        {hiddenInput}
+        <span className={msgClasses}><i className="tiny material-icons">report_problem</i> 请具体说明</span>
       </p>
     }
 

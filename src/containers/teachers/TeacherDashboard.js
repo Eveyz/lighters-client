@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-materialize'
 import M from 'materialize-css';
+import _ from 'lodash';
 
 import 'tui-calendar/dist/tui-calendar.min.css';
 import '../../css/App.css';
@@ -20,6 +21,35 @@ class TeacherDashboard extends React.Component {
   }
 
   render() {
+    if(_.isEmpty(this.props.teacher) || this.props.teacher.status === "pending") {
+      return (
+        <div>
+          <Header />
+          <div className="page-min-height">
+            <div style={{backgroundColor: "#ffca28", padding: "10px 0px 13px 0px"}}>
+              <div className="container">
+                <div className="row no-margin">
+                  <div className="col s12">
+                    <h5 className="white-text" style={{fontWeight: "500"}}>Welcome, {this.props.teacher.lastname + "老师"}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="container">
+              <Row>
+                <Col m={12} s={12}>
+                  <Card className='white r-box-shadow' textClassName='black-text' title=''>
+                  <h5 className="center"><b>当前处于试课和评定环节, 试课结束之后网站将会开放</b></h5>
+                  </Card>
+                </Col>
+              </Row>
+            </div>
+          </div>
+          <Footer />
+        </div>
+      )
+    }
+
     let courses = <Row>
                     <Col m={12} s={12}>
                       <Card className='white r-box-shadow' textClassName='black-text' title=''>
@@ -91,7 +121,7 @@ class TeacherDashboard extends React.Component {
               </div>
               <div id="teacher-calendar-tab" className="col s12 m12">
                 <br />
-                <TuiCalendar />
+                <TuiCalendar isReadOnly={false} />
               </div>
               <div id="courses" className="col s12">
                 <br/>
@@ -108,7 +138,6 @@ class TeacherDashboard extends React.Component {
                 <br/>
                 <div className="row">
                   <div className="col m12">
-                    <h4><b>学生</b></h4>
                     {students}
                   </div>
                 </div>

@@ -52,6 +52,7 @@ class FormPick extends React.Component {
 
     let pickerInput = this.props.type === "date" ? 
     <input 
+      name={this.props.name}
       id={this.props.name}
       className="input-field-required validate"
       type="date"
@@ -61,6 +62,7 @@ class FormPick extends React.Component {
     /> 
     :
     <input 
+      name={this.props.name} 
       id={this.props.name} 
       className="input-field-required validate timepicker"
       type="text"

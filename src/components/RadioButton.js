@@ -6,7 +6,10 @@ const RadioButton = props => (
       name={props.name} 
       type="radio" 
       id={props.htmlID} 
+      value={props.value}
       className={props.classes}
+      onChange={props.handleChange}
+      onBlur={props.handleChange}
     />
     <label htmlFor={props.htmlID}>{props.label}</label>
   </p>

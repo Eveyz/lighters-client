@@ -1,7 +1,9 @@
 const initialState = {
   currentReport: {},
   reports: [],
-  removedFiles: []
+  removedFiles: [],
+  loading: false,
+  error: null
 }
 
 export default (state = initialState, action) => {
@@ -10,19 +12,25 @@ export default (state = initialState, action) => {
       return {
         currentReport: state.currentReport,
         reports: [...action.payload],
-        removedFiles: []
+        removedFiles: [],
+        loading: false,
+        error: null
       }
     case 'ADD_REPORT':
       return {
         currentReport: action.payload,
         reports: [...state.reports, ...action.payload],
-        removedFiles: []
+        removedFiles: [],
+        loading: false,
+        error: null
       }
     case 'DELETE_REPORT': 
       return {
         currentReport: state.currentReport._id === action.payload ? {} : state.currentReport,
         reports: state.reports.filter(report => report._id !== action.payload),
-        removedFiles: []
+        removedFiles: [],
+        loading: false,
+        error: null
       }
     case 'UPDATE_REPORT':
       const idx = state.reports.findIndex(report => report._id === action.payload._id);
@@ -33,13 +41,17 @@ export default (state = initialState, action) => {
                     action.payload,
                     ...state.reports.slice(idx + 1), // everything after current obj
                   ],
-        removedFiles: []
+        removedFiles: [],
+        loading: false,
+        error: null
       }
     case "SET_CURRENT_REPORT":
       return {
         currentReport: action.payload,
         reports: state.reports,
-        removedFiles: []
+        removedFiles: [],
+        loading: false,
+        error: null
       }
     case "REMOVE_UPLOADED_FILE":
       let _report = state.currentReport;
@@ -52,7 +64,9 @@ export default (state = initialState, action) => {
                     _report,
                     ...state.reports.slice(index + 1), // everything after current obj
                   ],
-        removedFiles: [...state.removedFiles, action.payload.file]
+        removedFiles: [...state.removedFiles, action.payload.file],
+        loading: false,
+        error: null
       }
     default:
       return state;

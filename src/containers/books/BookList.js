@@ -1,23 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row, Col, Table } from 'react-materialize';
+import { Row, Col } from 'react-materialize';
 
 import { getBooks, addBook, deleteBook } from "../../actions/books_actions.js";
-import Book from '../../components/books/book';
 import Header from '../../components/layouts/Header';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
+import PaginationContainer from '../../containers/PaginationContainer';
 
 class BooksList extends React.Component {
 
   render() {
-    let bookList;
+    let bookContent = <div className="col m12">
+                      <div className="card white r-box-shadow">
+                        <div className="card-content">
+                          <h4 className="center">当前没有绘本，请添加</h4>;
+                        </div>
+                      </div>
+                    </div>;
     if(this.props.books.length > 0) {
-      bookList = this.props.books.map((book, index) => {
-        return (
-          <Book key={index} id={index} book={book} />
-        );
-      });
+      bookContent = <PaginationContainer itemsPerPage={10} data={this.props.books} content={"BOOK"} readOnly={false} />;
     }
 
     return (
@@ -36,26 +38,7 @@ class BooksList extends React.Component {
           </Row>
           <br/>
           <Row>
-            <Col m={12}>
-              <Table>
-                <thead>
-                  <tr>
-                    <th>Lighters级别</th>
-                    <th>RAZ级别</th>
-                    <th>Lexile级别</th>
-                    <th>年龄段</th>
-                    <th>绘本分类</th>
-                    <th>系列名</th>
-                    <th>绘本名</th>
-                    <th colSpan="3">更多操作</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {bookList}
-                </tbody>
-              </Table>
-            </Col>
+            {bookContent}
           </Row>
         </div>
       </div>

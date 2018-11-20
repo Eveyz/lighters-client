@@ -44,13 +44,16 @@ class FormInput extends React.Component {
       defaultValue = this.props.value;
     }
 
+    let picker = this.props.picker === "datepicker" ? "datepicker input-field-required validate" : "input-field-required validate";
+
     return(
       <div className={this.props.classes}>
         <input 
           id={this.props.name} 
+          name={this.props.name} 
           type={this.props.inputType}
           defaultValue={defaultValue}
-          className="input-field-required validate" 
+          className={picker}
           ref={this.props.refFromParent} 
           onChange={this.handleChange}
           onBlur={this.handleChange}

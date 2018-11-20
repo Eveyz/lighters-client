@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import M from 'materialize-css';
-import { Row, Col, Table, Card, Tabs, Tab } from 'react-materialize';
+import { Row, Col, Table, Card } from 'react-materialize';
 
 import Teacher from '../../containers/teachers/Teacher';
 import Header from '../../components/layouts/Header';
@@ -9,6 +9,11 @@ import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 
 class TeacherList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.active = "active";
+  }
 
   componentDidMount() {
     M.AutoInit();
@@ -90,6 +95,8 @@ class TeacherList extends React.Component {
                                 <h4 className="center">当前没有在职教师</h4>
                               </Card>
 
+    let active = this.active === "active" ? "active" : "";
+    let pending = this.active !== "active" ? "active" : "";
     return (
       <div>
         <Header />
@@ -101,14 +108,16 @@ class TeacherList extends React.Component {
               <button className="btn">添加教师</button>
             </Col>
           </Row>
-          <Tabs>
-            <Tab title="在职教师" active>
-              {activeTeacherTable}
-            </Tab>
-            <Tab title="待定教师">
-              {pendingTeacherTable}
-            </Tab>
-          </Tabs>
+          <div className="row">
+            <div className="col s12">
+              <ul className="tabs">
+                <li className="tab col s3"><a className={active} href="#active" onClick={(e) => this.active = "active"}>在职教师</a></li>
+                <li className="tab col s3"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">待定教师</a></li>
+              </ul>
+            </div>
+            <div id="active" className="col s12">{activeTeacherTable}</div>
+            <div id="pending" className="col s12">{pendingTeacherTable}</div>
+          </div>
         </div>
         <Footer />
       </div>
@@ -121,11 +130,5 @@ const mapStateToProps = state => {
     teachers: state.teachersData.teachers
   };
 }
-
-// const mapDispatchToProps = dispatch => {
-//   // Whenever search is called, the result should be passed to all reducers
-//   return {
-//   }; // this.props.doSearch will become the result of headSearch
-// }
 
 export default connect(mapStateToProps, null)(TeacherList);

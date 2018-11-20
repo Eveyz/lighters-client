@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { UPDATE_TEACHER, UPDATE_TEACHER_FAILURE, GET_TEACHER_FAILURE } from './constants';
+import { ADD_TEACHER, ADD_TEACHER_FAILURE, UPDATE_TEACHER, UPDATE_TEACHER_FAILURE, GET_TEACHER_FAILURE } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getTeacher = (id) => {
@@ -11,6 +11,29 @@ export const getTeacher = (id) => {
       })
       .catch((err) => {
         dispatch({type: GET_TEACHER_FAILURE, payload: err})
+      })
+  }
+};
+
+export const addTeacher = (teacher) => {
+  return (dispatch) => {
+    var teacher_data = new FormData();
+    
+    // handle file here
+    if(teacher['file']) {
+      teacher_data.append('file', teacher['file']);
+    }
+    // handle data
+    let teacher_json = JSON.stringify(teacher, null, 2);
+    teacher_data.append('teacher', teacher_json);
+
+    axios.post(`/teachers`, teacher_data)
+      .then((response) => {
+        dispatch({type: ADD_TEACHER, payload: response.data})
+        history.push(`/teachers/${response.data}/dashboard`);
+      })
+      .catch((err) => {
+        dispatch({type: ADD_TEACHER_FAILURE, payload: "there was an error while posting a new teacher"})
       })
   }
 };

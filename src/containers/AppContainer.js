@@ -5,6 +5,7 @@ import App from '../components/App';
 
 // Actions
 import { getTeacher } from '../actions/teachers_actions';
+import { getStudent } from '../actions/students_actions';
 
 const mapStateToProps = state => {
   // this.props.search
@@ -39,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
     selectCategory: (category, content) => dispatch(selectCategory(category, content)),
     getTeacher: (id) => {
       dispatch(getTeacher(id))
+    },
+    getStudent: (id) => {
+      dispatch(getStudent(id))
     }
   }
 }

@@ -17,7 +17,7 @@ class Teacher extends React.Component {
   }
 
   render() {
-    let action = "关闭";
+    let action = "退休";
     let classes = "btn amber";
     if(this.props.teacher.status === "pending") {
       action = "激活";
@@ -33,12 +33,12 @@ class Teacher extends React.Component {
         <td>{this.props.teacher.gender}</td>
         <td><button className={classes} onClick={this.updateTeacher}>{action}</button></td>
         <td>
-          <a className='dropdown-trigger btn cyan' href='#' data-target={this.props.id}>更多操作</a>
+          <a className='dropdown-trigger btn cyan' href='' data-target={this.props.id}>更多操作</a>
 
           <ul id={this.props.id} className='dropdown-content'>
-            <li><a href="#!">编辑</a></li>
-            <li><a href="#!">查看</a></li>
-            <li><a href="#!" className="red-text">注销</a></li>
+            <li><a href="">编辑</a></li>
+            <li><a href="">查看</a></li>
+            <li><a href="" className="red-text">注销</a></li>
           </ul>
         </td>
       </tr>

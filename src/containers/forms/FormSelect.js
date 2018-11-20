@@ -26,8 +26,8 @@ class FormSelect extends React.Component {
       if(this.state.hasError) {
         this.setState({hasError: false});
       }
-      this.props.getInputData(this.props.name, val);
     }
+    this.props.getInputData(this.props.name, val);
   }
 
   render() {
@@ -46,7 +46,8 @@ class FormSelect extends React.Component {
     return(
       <div className={this.props.classes}>
         <select
-          ref={this.inputValue}
+          name={this.props.name}
+          ref={this.props.refFromParent}
           onChange={this.handleChange}
           onBlur={this.handleChange}
         >

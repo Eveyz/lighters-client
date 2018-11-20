@@ -32,12 +32,12 @@ class Student extends React.Component {
         <td>{this.props.student.gender}</td>
         <td><button className={classes} onClick={this.updateStudent}>{action}</button></td>
         <td>
-          <a className='dropdown-trigger btn cyan' href='#' data-target={this.props.id}>更多操作</a>
+          <a className='dropdown-trigger btn cyan' href='' data-target={this.props.id}>更多操作</a>
 
           <ul id={this.props.id} className='dropdown-content'>
-            <li><a href="#!">编辑</a></li>
-            <li><a href="#!">查看</a></li>
-            <li><a href="#!" className="red-text">注销</a></li>
+            <li><a href="">编辑</a></li>
+            <li><a href="">查看</a></li>
+            <li><a href="" className="red-text">注销</a></li>
           </ul>
         </td>
       </tr>

@@ -62,17 +62,16 @@ class TuiCalendar extends React.Component {
   componentDidMount() {
     // initializing materialize dropdown component
     M.AutoInit();
-
-    // get all schedule for current course
-    // this.props.getSchedules(this.props.courses.map((c) => {return c.course_id}));
   
     // create calendar
+    let _isReadOnly = this.props.isReadOnly;
     var _calendar = new Calendar(this.calendarContainer.current, {
       defaultView: 'week',
       taskView: false,    // can be also ['milestone', 'task']
       scheduleView: true,  // can be also ['allday', 'time']
       useCreationPopup: false,
       useDetailPopup: false,
+      isReadOnly: _isReadOnly,
       template: {
         task: function(schedule) {
           return '&nbsp;&nbsp;#' + schedule.title;

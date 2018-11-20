@@ -185,15 +185,22 @@
   color: #697a89;
 }
 
+/* Course Hierarchy Font */
+td p {
+  font-weight: bold;
+}
+
 .cell-style th {
   border: 1px solid white;
   border-radius: 10px;
+  font-weight: bold;
 }
 
 .cell-style td {
   border: 1px solid white;
   border-radius: 5px;
   color: white;
+  font-weight: bold;
 }
 
 .cell-style.head {
@@ -222,4 +229,14 @@
 
 .cell-style.amber {
   background-color: #ffc107;
+}
+
+.page-bottom-nav a {
+  color: white;
+  font-weight: bold;
+}
+
+.dot-after::after {
+  content: "\00b7";
+  margin: 0 5px;
 }
