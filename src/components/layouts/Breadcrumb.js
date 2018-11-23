@@ -55,7 +55,7 @@ class Breadcrumb extends Component {
     return (
       <div style={{backgroundColor: "white", padding: "20px 0px 20px 0px"}} className="r-box-shadow">
         <div className="container">
-          <div className="row">
+          <div className="row no-margin-bottom">
             <div className="col m12">
               {links}
             </div>

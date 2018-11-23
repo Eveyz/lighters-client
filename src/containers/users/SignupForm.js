@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import Select from 'react-select';
 
 import '../../css/App.css';
 import { FlashMessage } from '../../components/FlashMessage';
@@ -93,8 +92,6 @@ class SignupForm extends React.Component {
                               handleChange,
                               handleBlur,
                               handleSubmit,
-                              setFieldValue,
-                              setFieldTouched
                             } = props;
                             return (
                               <form onSubmit={handleSubmit}>

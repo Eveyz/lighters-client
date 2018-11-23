@@ -58,7 +58,6 @@ const TeacherwithFormik = connect(null, mapDispatchToProps)(
           )
     }),
     handleSubmit: (values, { props, setSubmitting }) => {
-      console.log(props);
       setSubmitting(false);
       props.action === "NEW" ? props.addTeacher(values) : props.updateTeacher(values);
     }

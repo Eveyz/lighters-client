@@ -54,7 +54,7 @@ class Dashboard extends Component {
                         <div className="col s12 m6">
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #4c7ef3"}}>
                             <div className="card-content" style={{padding: "30px"}}>
-                              <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>教师管理</b></span>
+                              <span className="card-title black-text r-font-color airbnb-font" style={{fontWeight: "400"}}><b>教师管理</b></span>
                               <p>{this.props.teachers.length} 个教师</p>
                             </div>
                           </div>
@@ -84,6 +84,20 @@ class Dashboard extends Component {
                           </div>
                         </div>
                       </Link>
+                    </div>
+
+                    <div className="row">
+                      <Link to="/assets/level_salaries">
+                        <div className="col s12 m6">
+                          <div className="card r-box-shadow link" style={{borderTop: "6px solid #FF5A5F"}}>
+                            <div className="card-content" style={{padding: "30px"}}>
+                              <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>资金管理</b></span>
+                              <p>{this.props.students.length} 个学生</p>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+
                     </div>
                     <br/>
                     <br/>

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { getFullDate } from '../../ultis';
 import FormPick from '../forms/FormPick';
 import FormInput from '../forms/FormInput';
 import FormTextarea from '../forms/FormTextarea';
@@ -57,11 +58,15 @@ class ReportForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const audio_files = Array.from(this.audioFile.current.files);
+    let _course_date = this.courseDate.current.value
+    if(_course_date.length < 10) {
+      _course_date = getFullDate(_course_date)
+    }
     let report = {
       teacher_id: this.props.teacher_id,
       course_id: this.props.course_id,
       student_id: this.props.student_id,
-      course_date: this.courseDate.current.value,
+      course_date: _course_date,
       start_time: this.startTime.current.value,
       end_time: this.endTime.current.value,
       focus: this.focusTime.current.value,

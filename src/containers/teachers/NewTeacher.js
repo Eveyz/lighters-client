@@ -8,7 +8,6 @@ import TeacherwithFormik from './TeacherwithFormik';
 class NewTeacher extends React.Component {
   componentDidMount() {
     M.updateTextFields();
-    M.AutoInit();
   }
 
   render = () => {

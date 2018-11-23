@@ -100,7 +100,6 @@ class LoginForm extends React.Component {
                                       type="email" 
                                       name="email" 
                                       id="email" 
-                                      autoComplete="true" 
                                       placeholder="example@email.com"
                                       ref={this.emailInput}
                                       onChange={handleChange}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { FlashMessage } from '../../components/FlashMessage';
+import QuillTextEditor from '../TextEditor/Quill';
 
 const TeacherForm = props => {
   const {
@@ -200,14 +200,13 @@ const TeacherForm = props => {
       
       <div className="row no-margin">
         <div className="input-field col s12 m12">
-          <textarea
-            type="text"
-            name="experience" 
-            id="experience" 
-            className="materialize-textarea validate"
-            onChange={handleChange} 
-            onBlur={handleBlur} 
-            value={values.experience} 
+          <p className="label-style airbnb-font">与教师/家教相关的工作经历 <span className="required">*</span></p>
+          <QuillTextEditor
+            name="experience"
+            id="experience"
+            value={values.experience}
+            onChange={setFieldValue}
+            onBlur={handleBlur}
           />
           {errors.experience &&
             touched.experience && (
@@ -215,19 +214,16 @@ const TeacherForm = props => {
                 {errors.experience}
               </div>
             )}
-          <label htmlFor="experience">与教师/家教相关的工作经历 <span className="required">*</span></label>
         </div>
       </div>
       <div className="row no-margin">
         <div className="input-field col s12 m12">
-          <textarea 
-            type="text"
-            name="otherexperience" 
-            id="otherexperience" 
-            className="materialize-textarea validate"
-            onChange={handleChange} 
-            onBlur={handleBlur} 
-            value={values.otherexperience} 
+          <p className="label-style airbnb-font">其他工作经历</p>
+          <QuillTextEditor
+            name="otherexperience"
+            value={values.otherexperience}
+            onChange={setFieldValue}
+            onBlur={handleBlur}
           />
           {errors.otherexperience &&
             touched.otherexperience && (
@@ -235,7 +231,6 @@ const TeacherForm = props => {
                 {errors.otherexperience}
               </div>
             )}
-          <label htmlFor="otherexperience">其他工作经历</label>
         </div>
       </div>
 
@@ -306,16 +301,15 @@ const TeacherForm = props => {
           <label htmlFor="levelsix">大学英语六级 (分数)</label>
         </div>
       </div>
+      <br/>
       <div className="row no-margin">
-        <div className="input-field col s12 m12">
-          <textarea 
-            type="text"
-            name="other" 
-            id="other" 
-            className="materialize-textarea validate"
-            onChange={handleChange} 
-            onBlur={handleBlur} 
-            value={values.other} 
+        <div className="col s12 m12">
+          <p className="label-style airbnb-font">其他英语等级测试(托福, 雅思等) (分数)</p>
+          <QuillTextEditor
+            name="other"
+            value={values.other}
+            onChange={setFieldValue}
+            onBlur={handleBlur}
           />
           {errors.other &&
             touched.other && (
@@ -323,7 +317,6 @@ const TeacherForm = props => {
                 {errors.other}
               </div>
             )}
-          <label htmlFor="other">其他英语等级测试(托福, 雅思等) (分数)</label>
         </div>
       </div>
       <div className="row no-margin">
@@ -374,14 +367,12 @@ const TeacherForm = props => {
       </div>
       <div className="row no-margin">
         <div className="input-field col s12 m12">
-          <textarea 
-            type="text"
-            name="interaction" 
-            id="interaction" 
-            className="materialize-textarea validate"
-            onChange={handleChange} 
-            onBlur={handleBlur} 
-            value={values.interaction} 
+          <p className="label-style airbnb-font">有与学龄儿童互动的经验吗 (包括自己的弟妹) <span className="required">*</span></p>
+          <QuillTextEditor
+            name="interaction"
+            value={values.interaction}
+            onChange={setFieldValue}
+            onBlur={handleBlur}
           />
           {errors.interaction &&
             touched.interaction && (
@@ -389,7 +380,6 @@ const TeacherForm = props => {
                 {errors.interaction}
               </div>
             )}
-          <label htmlFor="interaction">有与学龄儿童互动的经验吗 (包括自己的弟妹) <span className="required">*</span></label>
         </div>
       </div>
       <div className="row no-margin">
@@ -453,14 +443,12 @@ const TeacherForm = props => {
       </div>
       <div className="row no-margin">
         <div className="input-field col s12 m12">
-          <textarea 
-            type="text"
-            name="comments" 
-            id="comments" 
-            className="materialize-textarea validate"
-            onChange={handleChange} 
-            onBlur={handleBlur} 
-            value={values.comments} 
+          <p className="label-style airbnb-font">对英语(远程线上)教育和英文原版阅读的见解, 以及为何对我们的教学平台感兴趣 (请用英文填写, 不少于300字) <span className="required">*</span></p>
+          <QuillTextEditor
+            name="comments"
+            value={values.comments}
+            onChange={setFieldValue}
+            onBlur={handleBlur}
           />
           {errors.comments &&
             touched.comments && (
@@ -468,7 +456,6 @@ const TeacherForm = props => {
                 {errors.comments}
               </div>
             )}
-          <label htmlFor="comments">对英语(远程线上)教育和英文原版阅读的见解, 以及为何对我们的教学平台感兴趣 (请用英文填写, 不少于300字) <span className="required">*</span></label>
         </div>
       </div>
 

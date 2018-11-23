@@ -1,3 +1,5 @@
+import { GET_TEACHERS, ADD_TEACHER, UPDATE_TEACHER, DELETE_TEACHER, SELECT_TEACHER } from '../actions/constants';
+
 const initialState = {
   currentTeacher: {},
   teachers: []
@@ -5,22 +7,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case 'GET_TEACHERS':
+    case GET_TEACHERS:
       return {
         currentTeacher: state.currentTeacher,
         teachers: [...action.payload]
       }
-    case 'ADD_TEACHER':
+    case ADD_TEACHER:
       return {
         currentTeacher: action.payload,
         teachers: [...state.teachers, ...action.payload]
       }
-    case 'DELETE_TEACHER': 
+    case DELETE_TEACHER: 
       return {
         currentTeacher: state.currentTeacher._id === action.payload ? {} : state.currentTeacher,
         teachers: state.teachers.filter(teacher => teacher._id !== action.payload)
       }
-    case 'UPDATE_TEACHER':
+    case UPDATE_TEACHER:
       const idx = state.teachers.findIndex(teacher => teacher._id === action.payload._id);
       return {
         currentTeacher: action.payload,
@@ -29,6 +31,11 @@ export default (state = initialState, action) => {
                     action.payload,
                     ...state.teachers.slice(idx + 1), // everything after current obj
                   ]
+      }
+    case SELECT_TEACHER:
+      return {
+        currentTeacher: action.payload,
+        teachers: state.teachers
       }
     default:
       return state;

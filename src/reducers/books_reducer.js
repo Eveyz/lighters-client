@@ -1,5 +1,5 @@
 const initialState = {
-  currentBook: {course: false},
+  currentBook: {},
   books: []
 }
 

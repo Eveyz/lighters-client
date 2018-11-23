@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { ADD_TEACHER, ADD_TEACHER_FAILURE, UPDATE_TEACHER, UPDATE_TEACHER_FAILURE, GET_TEACHER_FAILURE } from './constants';
+import { GET_TEACHERS, ADD_TEACHER, ADD_TEACHER_FAILURE, UPDATE_TEACHER, UPDATE_TEACHER_FAILURE, GET_TEACHER_FAILURE, GET_ACTIVE_TEACHERS_FAILURE, GET_REPORTS, GET_REPORTS_FAILURE, SELECT_TEACHER } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getTeacher = (id) => {
@@ -48,5 +48,35 @@ export const updateTeacher = (id, field) => {
       .catch((err) => {
         dispatch({type: UPDATE_TEACHER_FAILURE, payload: {err: true}})
       })
+  }
+}
+
+export const getActiveTeachers = () => {
+  return (dispatch) => {
+    axios.get(`/teachers?status=active`)
+      .then((response) => {
+        dispatch({type: GET_TEACHERS, payload: response.data});
+      })
+      .catch((err) => {
+        dispatch({type: GET_ACTIVE_TEACHERS_FAILURE, payload: {err: true}})
+      })
+  }
+}
+
+export const getTeacherReports = (teacher_id) => {
+  return (dispatch) => {
+    axios.get(`/reports?teacher_id=${teacher_id}`)
+      .then((response) => {
+        dispatch({type: GET_REPORTS, payload: response.data})
+      })
+      .catch((err) => {
+        dispatch({type: GET_REPORTS_FAILURE, payload: {err: true}})
+      })
+  }
+}
+
+export const selectTeacher = (teacher) => {
+  return (dispatch) => {
+    dispatch({type: SELECT_TEACHER, payload: teacher})
   }
 }

@@ -3,6 +3,7 @@ import { Row, Col, Table } from 'react-materialize';
 
 import Pagination from '../components/layouts/Pagination';
 import Book from '../components/books/book';
+import SearchTeacherList from '../containers/assets/SearchTeacherList';
 
 class PaginationContainer extends React.Component {
   constructor(props) {
@@ -101,7 +102,10 @@ class PaginationContainer extends React.Component {
                     </Col>
                   </Row>
       }
+    } else if (this.props.content === "TEACHERS") {
+      content = data.length > 0 ? <SearchTeacherList teachers={data} /> : <h5 className="center">当前没有教师</h5>
     }
+
     return(
       <div>
         {content}

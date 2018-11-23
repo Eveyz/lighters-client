@@ -3,8 +3,9 @@ import { Route } from 'react-router-dom';
 
 import '../css/App.css';
 import '../css/flash.css';
+import '../css/richtext-editor.css';
 
-import { AdminRoute } from './auth/requireAuth';
+import { AdminRoute, TeacherRoute, StudentRoute } from './auth/requireAuth';
 // Components
 import Home from './layouts/Home';
 import CourseHierarchy from './mainpages/courseHierarchy';
@@ -27,6 +28,7 @@ import TeacherCourseManager from '../containers/teachers/TeacherCourseManager';
 import ReportFormContainer from '../containers/reports/ReportFormContainer';
 import AllReports from '../containers/reports/AllReports';
 import StudentDashboard from '../containers/students/StudentDashboard';
+import AssetsDashboard from '../containers/assets/AssetsDashboard';
 
 class App extends Component {
   
@@ -64,18 +66,22 @@ class App extends Component {
         <AdminRoute exact path="/students" auth={this.props.auth} component={StudentList} />
         <AdminRoute exact path="/books" auth={this.props.auth} component={BookList} />
         <AdminRoute exact path="/books/new" auth={this.props.auth} component={NewBook} />
-        <Route exact path="/students/:_id/dashboard" component={StudentDashboard} />
-        <Route exact path="/students/:_id/courses" component={StudentDashboard} />
-        <Route exact path="/students/:_id/reports" component={StudentDashboard} />
-        <Route exact path="/students/:_id/books" component={StudentDashboard} />
+        <AdminRoute exact path="/assets" auth={this.props.auth} component={AssetsDashboard} />
+        <AdminRoute exact path="/assets/level_salaries" auth={this.props.auth} component={AssetsDashboard} />
+        <AdminRoute exact path="/assets/teacher_salaries" auth={this.props.auth} component={AssetsDashboard} />
+        <AdminRoute exact path="/assets/transactions" auth={this.props.auth} component={AssetsDashboard} />
+        <StudentRoute exact path="/students/:_id/dashboard" auth={this.props.auth} component={StudentDashboard} />
+        <StudentRoute exact path="/students/:_id/courses" auth={this.props.auth} component={StudentDashboard} />
+        <StudentRoute exact path="/students/:_id/reports" auth={this.props.auth} component={StudentDashboard} />
+        <StudentRoute exact path="/students/:_id/books" auth={this.props.auth} component={StudentDashboard} />
         <Route exact path="/students/new" component={NewStudent} />
         <Route exact path="/teachers" component={TeacherList} />
         <Route exact path="/teachers/new" component={NewTeacher} />
-        <Route exact path="/teachers/:_id/dashboard" component={TeacherDashboard} />
-        <Route exact path="/teachers/:_id/course_manager" component={TeacherCourseManager} />
-        <Route exact path="/teachers/:_id/new_report" component={ReportFormContainer} />
-        <Route exact path="/teachers/:_id/edit_report" component={ReportFormContainer} />
-        <Route exact path="/teachers/:_id/reports" component={AllReports} />
+        <TeacherRoute exact path="/teachers/:_id/dashboard" auth={this.props.auth} component={TeacherDashboard} />
+        <TeacherRoute exact path="/teachers/:_id/course_manager" auth={this.props.auth} component={TeacherCourseManager} />
+        <TeacherRoute exact path="/teachers/:_id/new_report" auth={this.props.auth} component={ReportFormContainer} />
+        <TeacherRoute exact path="/teachers/:_id/edit_report" auth={this.props.auth} component={ReportFormContainer} />
+        <TeacherRoute exact path="/teachers/:_id/reports" auth={this.props.auth} component={AllReports} />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/signup" component={SignupForm} />
         <Route exact path="/teachers/me" component={BookList} />

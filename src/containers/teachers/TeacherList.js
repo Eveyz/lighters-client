@@ -32,13 +32,13 @@ class TeacherList extends React.Component {
 
       pendingTeacherList = pendingTeacher.map((teacher, index) => {
         return (
-          <Teacher key={index} id={index} teacher={teacher} />
+          <Teacher key={index} id={`pending${index}`} teacher={teacher} />
         );
       });
 
       activeTeacherList = activeTeacher.map((teacher, index) => {
         return (
-          <Teacher key={index} id={index} teacher={teacher} />
+          <Teacher key={index} id={`active${index}`} teacher={teacher} />
         )
       });
     }
@@ -46,13 +46,12 @@ class TeacherList extends React.Component {
     let pendingTeacherTable = pendingTeacher.length > 0 ?
                               <Row>
                                 <Col m={12}>
-                                  <Table>
+                                  <Table className="highlight">
                                     <thead>
                                       <tr>
-                                        <th>姓</th>
-                                        <th>名字</th>
+                                        <th>姓名</th>
                                         <th>年龄</th>
-                                        <th>出生日期</th>
+                                        <th>级别</th>
                                         <th>性别</th>
                                         <th>更改状态</th>
                                         <th>更多操作</th>
@@ -72,13 +71,12 @@ class TeacherList extends React.Component {
     let activeTeacherTable = activeTeacher.length > 0 ? 
                               <Row>
                                 <Col m={12}>
-                                  <Table>
+                                  <Table className="highlight">
                                     <thead>
                                       <tr>
-                                        <th>姓</th>
-                                        <th>名字</th>
+                                        <th>姓名</th>
                                         <th>年龄</th>
-                                        <th>出生日期</th>
+                                        <th>级别</th>
                                         <th>性别</th>
                                         <th>更改状态</th>
                                         <th>更多操作</th>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 
-export class RichEditor extends React.Component {
+export class RichTextEditor extends React.Component {
   onChange = editorState => {
     this.props.onChange('editorState', editorState);
   };

@@ -161,9 +161,9 @@ export const userFromToken = (token) => {
 
 export const logout = () => {
   return dispatch => {
-    localStorage.clear();
-    setAuthToken(false);
     dispatch(setCurrentUser({}));
+    setAuthToken(false);
+    localStorage.clear()
     history.push('/');
   }
 };

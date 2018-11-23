@@ -13,6 +13,9 @@ class BookCard extends React.Component {
       add: false,
       inputValue: "",
     };
+
+    this.addKeyword = this.addKeyword.bind(this)
+    this.cancel = this.cancel.bind(this)
   }
 
   removeBook(e) {
@@ -20,7 +23,8 @@ class BookCard extends React.Component {
     this.props.clickButton(this.props.book, this.props.content);
   }
 
-  cancel() {
+  cancel(e) {
+    e.preventDefault()
     this.setState({
       add: false
     })
@@ -40,8 +44,8 @@ class BookCard extends React.Component {
         <input 
           type="text"
           onChange={this.updateInputValue.bind(this)} autoFocus />
-        <a className="waves-effect waves-light btn" onClick={this.addKeyword.bind(this)}>添加</a>
-        <a className="waves-effect waves-light white btn black-text right" onClick={this.cancel.bind(this)}>返回</a>
+        <a className="waves-effect waves-light btn" onClick={this.addKeyword}>添加</a>
+        <a className="waves-effect waves-light white btn black-text right" onClick={this.cancel}>返回</a>
       </div>
     )
   }
@@ -52,7 +56,8 @@ class BookCard extends React.Component {
     });
   }
 
-  addKeyword() {
+  addKeyword(e) {
+    e.preventDefault()
     const _keyword = {
       book_id: this.props.book._id,
       content: this.state.inputValue

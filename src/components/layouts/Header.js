@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
-import $ from 'jquery';
 import M from 'materialize-css';
 
 import Logo from '../../images/logo12.svg';
@@ -50,7 +49,7 @@ class Header extends Component {
       // authenticated user
 
       /*----- define path and dropdown for corresponding user -----*/
-      let user_id = this.props.auth.user.userTokenData.id;
+      // let user_id = this.props.auth.user.userTokenData.id;
       if(this.props.auth.user.userTokenData.identity === "admin") {
         // admin
         path = <li><Link to="/users/admin/dashboard">管理员面板</Link></li>
@@ -58,8 +57,8 @@ class Header extends Component {
         // teachers
         path = _.isEmpty(this.props.auth.identityData) ? <li><Link to={`/teachers/new`}>我的主页</Link></li> : <li><Link to={`/teachers/${this.props.auth.identityData._id}/dashboard`}>我的主页</Link></li>;
         accountDropdown = <div className="dp-content">
-                            <a href="#!"><div>我的资料</div></a>
-                            <a href="#!"><div>编辑个人资料</div></a>
+                            <Link to={`/teachers/${this.props.auth.identityData._id}`}><div>我的资料</div></Link>
+                            <Link to={`/teachers/${this.props.auth.identityData._id}/edit`}><div>编辑个人资料</div></Link>
                             <a href="#!"><div>账号设置</div></a>
                             <a onClick={this.logout}><div>退出</div></a>
                           </div>;
@@ -67,8 +66,8 @@ class Header extends Component {
         // students
         path = _.isEmpty(this.props.auth.identityData) ? <li><Link to={`/students/new`}>我的主页</Link></li> : <li><Link to={`/students/${this.props.auth.identityData._id}/dashboard`}>我的主页</Link></li>;
         accountDropdown = <div className="dp-content">
-                            <a href="#!"><div>我的资料</div></a>
-                            <a href="#!"><div>编辑个人资料</div></a>
+                            <Link to={`/teachers/${this.props.auth.identityData._id}`}><div>我的资料</div></Link>
+                            <Link to={`/teachers/${this.props.auth.identityData._id}/edit`}><div>编辑个人资料</div></Link>
                             <a href="#!"><div>账号设置</div></a>
                             <a onClick={this.logout}><div>退出</div></a>
                           </div>;

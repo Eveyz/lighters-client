@@ -71,3 +71,41 @@ export const TZDateToDate = (TZDate) => {
 export const getFullMinutes = (date) => {
   return (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 }
+
+export const getFullDate = (date) => {
+  let digits = date.split("-")
+  let month = (parseInt(digits[1]) < 10 ? '0' : '') + digits[1]
+  let day = (parseInt(digits[2]) < 10 ? '0' : '') + digits[2]
+  return `${digits[0]}-${month}-${day}`
+}
+
+export const getToday = () => {
+  let today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth()+1; //January is 0!
+  let yyyy = today.getFullYear();
+  if(dd < 10) {
+    dd = '0' + dd
+  }
+  if(mm < 10) {
+    mm = '0' + mm
+  }
+  today = mm + '/' + dd + '/' + yyyy;
+  return today
+}
+
+export const sortandGroupReports = (reports) => {
+  if(reports.length <= 0) return []
+  let results = {}
+  let descending = reports.sort((a, b) => b.course_date.localeCompare(a.course_date))
+
+  descending.forEach((report) => {
+    // course_date = 2018-11-07
+    let key = report.course_date.substring(0, 7)
+    if(!(key in results)) {
+      results[key] = []
+    }
+    results[key].push(report)
+  })
+  return results
+}

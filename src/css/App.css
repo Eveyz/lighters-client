@@ -2,12 +2,29 @@
   margin: 0px;
 }
 
+.no-margin-bottom {
+  margin-bottom: 0px !important;
+}
+
 .hide {
   display: none;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .required {
   color: red;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.label-style {
+  color: #9E9E9E !important;
+  margin-bottom: 10px !important;
 }
 
 .inline-form-error-msg {
@@ -58,6 +75,24 @@
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(141, 50, 50, 0.2);
 }
 
+/* large container */
+@media only screen and (min-width: 1300px) {
+  .custom-container {
+    width: 70%;
+  }
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1300px) {
+  .custom-container {
+    width: 85% !important;
+  }
+}
+
+.custom-container {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 90%;
+}
 /* robin style */
 .r-box-shadow {
   box-shadow: 0 0 4px 1px rgba(0,0,0,.01), 0 3px 24px rgba(48,51,51,.09) !important;
@@ -337,4 +372,35 @@
 
 .dp:hover .dp-content {
   display: block;
+}
+
+/*------- Left side menu -------*/
+.left-fixed-bar ul li a {
+  color: #2D3D4A;
+  padding: 11px 15px;
+  border-radius: 2px;
+}
+
+.left-fixed-bar ul li a.active {
+  color: rgb(255, 255, 255);
+  background: rgb(2, 204, 186);
+  padding: 11px 15px;
+}
+
+/* action style */
+
+.action-hide td button {
+  visibility: hidden;
+}
+
+.action-hide:hover td button {
+  visibility: visible;
+}
+
+/* banner */
+.banner {
+  color: white;
+  background-color: #607d8b;
+  padding: 8px 0px;
+  border-radius: 5px;
 }
