@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectTeacher, getTeacherReports } from '../../actions/teachers_actions';
+import { selectTeacher } from '../../actions/teachers_actions';
+import { getPaychecks } from '../../actions/paychecks_actions';
 import { setMode } from '../../actions/mode_action';
 
 class SearchTeacherList extends React.Component {
@@ -15,7 +16,7 @@ class SearchTeacherList extends React.Component {
 
   selectTeacher = (teacher, teacher_id) => e => {
     this.props.selectTeacher(teacher)
-    this.props.getTeacherReports(teacher_id)
+    this.props.getPaychecks(`?teacher_id=${teacher_id}`)
     this.props.setMode("VIEW_TEACHER")
   }
   
@@ -28,7 +29,7 @@ class SearchTeacherList extends React.Component {
              >
                 <td>{teacher.lastname}{teacher.firstname}</td>
                 <td>{teacher.level}级</td>
-                <td>{this.levelToSalary(teacher.level)}</td>
+                <td>{teacher.rate || this.levelToSalary(teacher.level)}</td>
               </tr>
     })
     let teacherContent = <table className="highlight">
@@ -67,8 +68,8 @@ const mapDispatchToProps = dispatch => {
     selectTeacher: (teacher) => {
       dispatch(selectTeacher(teacher))
     },
-    getTeacherReports: (teacher_id) => {
-      dispatch(getTeacherReports(teacher_id))
+    getPaychecks: (query) => {
+      dispatch(getPaychecks(query))
     },
     setMode: (mode) => {
       dispatch(setMode(mode))

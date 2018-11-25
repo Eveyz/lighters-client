@@ -3,17 +3,13 @@ import { Row, Col, Card } from 'react-materialize';
 import { connect } from 'react-redux';
 
 import EntryInputForm from './EntryInputForm';
-import { getLevelSalaries, addLevelSalary, updateLevelSalary, deleteLevelSalary } from '../../actions/level_salary_actions';
+import { addLevelSalary, updateLevelSalary, deleteLevelSalary } from '../../actions/level_salary_actions';
 
 class LevelandSalary extends React.Component {
   state = {
     show: false,
     action: "NEW",
     entry: {}
-  }
-  
-  componentWillMount() {
-    this.props.getEntries();
   }
 
   toggleEdit = (entry) => e => {
@@ -97,9 +93,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getEntries: () => {
-      dispatch(getLevelSalaries())
-    },
     addEntry: (entry) => {
       dispatch(addLevelSalary(entry))
     },

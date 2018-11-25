@@ -5,16 +5,21 @@ import { connect } from 'react-redux';
 import SearchTeacher from './SearchTeacher';
 import TeacherSalaryDetail from './TeacherSalaryDetail';
 import PaginationContainer from '../PaginationContainer';
-import { setMode } from '../../actions/mode_action';
 import MonthlyReport from './MongthlyReport';
+import PaycheckList from './PaycheckList';
+import { setMode } from '../../actions/mode_action';
+import { getPaychecks } from '../../actions/paychecks_actions';
 
 class TeacherSalary extends React.Component {
   constructor(props) {
     super(props)
 
     this.props.setMode("BROWSE")
-    this.month = ""
-    this.reports = []
+    this.paycheck = {reports: []}
+  }
+
+  componentWillMount() {
+    this.props.getPaychecks(`?paid=${false}`)
   }
 
   state = {
@@ -40,17 +45,17 @@ class TeacherSalary extends React.Component {
     this.props.setMode(mode)
   }
 
-  viewMonthReports = (month, reports) => {
-    this.month = month
-    this.reports = reports
+  viewPaycheck = (paycheck) => {
+    this.paycheck = paycheck
   }
 
   render() {
     let teacherContent = <SearchTeacher />
     let _teacher = {
+      _id: this.props.teacher._id,
       name: this.props.teacher.lastname + this.props.teacher.firstname,
       level: this.props.teacher.level,
-      rate: this.levelToSalary(this.props.teacher.level)
+      rate: this.props.teacher.rate || this.levelToSalary(this.props.teacher.level)
     }
     if(this.props.mode === "BROWSE") {
       teacherContent = <PaginationContainer 
@@ -61,32 +66,41 @@ class TeacherSalary extends React.Component {
       teacherContent = <TeacherSalaryDetail 
                           teacher={_teacher} 
                           back={this.back}
-                          viewMonthReports={this.viewMonthReports}
+                          viewPaycheck={this.viewPaycheck}
                         />
     } else if (this.props.mode === "VIEW_MONTHLY") {
       teacherContent = <MonthlyReport 
                           teacher={_teacher}
-                          reports={this.reports} 
-                          month={this.month} 
-                          back={this.back} 
+                          paycheck={this.paycheck}
+                          back={this.back}
                         />
     }
 
     let change = this.props.mode === ("BROWSE" || "SEARCH") ? 
                   <div className="switch">
                     <label>
-                      浏览
+                      浏览教师
                       <input type="checkbox" onClick={this.changeMode} />
                       <span className="lever"></span>
-                      搜索
+                      搜索教师
                     </label>
                   </div> : ""
 
+    let unpaid = this.props.mode === ("BROWSE" || "SEARCH") ? 
+                  <div>
+                    <h6 className="airbnb-font bold red-text">未结算的工资单</h6>
+                    <hr/>
+                    <PaycheckList paychecks={this.props.paychecks.filter((paycheck, idx) => {
+                      return !paycheck.paid
+                    })} viewPaycheck={this.viewPaycheck} />
+                  </div> : ""
     return(
       <Row>
         <Col m={12} s={12}>
           <Card className='white r-box-shadow no-margin' textClassName='black-text' title=''>
-            <h5 className="airbnb-font bold">教师工资管理</h5>
+            {unpaid}
+            <br/>
+            <h6 className="airbnb-font bold">查看教师工资单</h6>
             <hr/>
             {change}
             <br/>
@@ -103,6 +117,7 @@ const mapStateToProps = state => {
     auth: state.auth,
     teacher: state.teachersData.currentTeacher,
     teachers: state.teachersData.teachers,
+    paychecks: state.paycheckData.paychecks,
     mode: state.mode.value,
     levelSalaries: state.levelSalary.levelSalaries.map(ls => {
       return { level: ls.level, rate: ls.rate }
@@ -114,6 +129,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setMode: (mode) => {
       dispatch(setMode(mode))
+    },
+    getPaychecks: (query) => {
+      dispatch(getPaychecks(query))
     }
   };
 }

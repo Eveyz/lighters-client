@@ -74,8 +74,8 @@ export const getFullMinutes = (date) => {
 
 export const getFullDate = (date) => {
   let digits = date.split("-")
-  let month = (parseInt(digits[1]) < 10 ? '0' : '') + digits[1]
-  let day = (parseInt(digits[2]) < 10 ? '0' : '') + digits[2]
+  let month = (parseInt(digits[1], 10) < 10 ? '0' : '') + digits[1]
+  let day = (parseInt(digits[2], 10) < 10 ? '0' : '') + digits[2]
   return `${digits[0]}-${month}-${day}`
 }
 
@@ -94,18 +94,14 @@ export const getToday = () => {
   return today
 }
 
-export const sortandGroupReports = (reports) => {
-  if(reports.length <= 0) return []
-  let results = {}
-  let descending = reports.sort((a, b) => b.course_date.localeCompare(a.course_date))
+export const sortReportsByDate = (reports) => {
+  if(!reports) return []
+  let results = reports.sort((a, b) => b.course_date.localeCompare(a.course_date))
+  return results
+}
 
-  descending.forEach((report) => {
-    // course_date = 2018-11-07
-    let key = report.course_date.substring(0, 7)
-    if(!(key in results)) {
-      results[key] = []
-    }
-    results[key].push(report)
-  })
+export const sortTransactionsByDate = (transactions) => {
+  if(!transactions) return []
+  let results = transactions.sort((b, a) => a.created_at.localeCompare(b.created_at))
   return results
 }

@@ -1,11 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Header from '../../components/layouts/Header';
 import LevelandSalary from './LevelSalary';
 import TeacherSalary from './TeacherSalary';
+import Transactions from './transactions/Transactions';
+
+import { getLevelSalaries } from '../../actions/level_salary_actions';
 
 class AssetsDashboard extends React.Component {
+  componentWillMount() {
+    this.props.getEntries();
+  }
+
   render() {
     let content = ""
     let active = ""
@@ -22,7 +30,7 @@ class AssetsDashboard extends React.Component {
       path = "/assets/teacher_salaries"
       name = "教师工资管理"
     } else if (this.props.location.pathname.includes("transactions")) {
-      content = ""
+      content = <Transactions />
       active = "transactions"
       path = "/assets/transactions"
       name = "公司资金明细"
@@ -37,7 +45,7 @@ class AssetsDashboard extends React.Component {
             <Link to={`/users/admin/dashboard`} className="airbnb-font bold grey-text">管理员面板</Link> > <Link to={path} className="airbnb-font bold"><u>{name}</u></Link>
           </div>
           <br/>
-          <div className="left-fixed-bar">
+          <div className="left-fixed-bar space-one">
             <ul className="no-margin">
               <li><Link to="/assets/level_salaries" className={`${active === "level_salaries" ? "active" : ""} airbnb-font bold`}>等级工资设定</Link></li>
               <li><Link to="/assets/teacher_salaries" className={`${active === "teacher_salaries" ? "active" : ""} airbnb-font bold`}>教师工资管理</Link></li>
@@ -45,7 +53,7 @@ class AssetsDashboard extends React.Component {
               <li><Link to="/assets" className="airbnb-font bold">缴费提醒</Link></li>
             </ul>
           </div>
-          <div className="main-content-wrapper">
+          <div className="main-content-wrapper space-one">
             <div className="main-content">
               {content}
             </div>
@@ -56,4 +64,12 @@ class AssetsDashboard extends React.Component {
   }
 }
 
-export default AssetsDashboard;
+const mapDispatchToProps = dispatch => {
+  return {
+    getEntries: () => {
+      dispatch(getLevelSalaries())
+    }
+  };
+}
+
+export default connect(null, mapDispatchToProps)(AssetsDashboard);

@@ -1,53 +1,68 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
-import MonthlyReport from './MongthlyReport';
-import { sortandGroupReports } from '../../ultis';
-import MonthlyReportList from './MonthlyReportList';
+import PaycheckList from './PaycheckList';
+import { updateTeacher } from '../../actions/teachers_actions';
 
 class TeacherSalaryDetail extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.input = React.createRef()
+  }
+
+  state = {
+    mode: "VIEW"
+  }
+
+  changeMode = (e) => {
+    this.setState({mode: "EDIT"})
+  }
+
   back = () => {
     this.props.back("BROWSE")
   }
 
-  viewMonthReports = (month, reports) => {
-    this.props.viewMonthReports(month, reports)
+  viewPaycheck = (paycheck) => {
+    this.props.viewPaycheck(paycheck)
+  }
+
+  cancel = () => {
+    this.setState({mode: "VIEW"})
+  }
+
+  handleSubmit = (e) => {
+    let val = e.target.value
+    if(!val) {
+      window.Materialize.toast('数值不能为0', 1000);
+    } else {
+      this.props.updateTeacher(this.props.teacher._id, {rate: val})
+      this.setState({mode: "VIEW"})
+    }
   }
 
   render() {
     let reportsContent = <h6 className="airbnb-font center">教师没有课后反馈表</h6>
-    let _reports = this.props.reports  //  { "2018-11": [...], "2018-12": [...], ... }
-    if( !_.isEmpty(_reports)) {
-      let monthlyReportList = Object.keys(_reports).map((month, idx) => {
-        return <MonthlyReportList 
-                  key={idx} 
-                  month={month} 
-                  reports={_reports[month]}
-                  viewMonthReports={this.viewMonthReports}
-                />
-      });
-      
-      reportsContent = <table className="highlight">
-                          <thead>
-                            <tr>
-                              <th>月份</th>
-                              <th>反馈表数量</th>
-                              <th>状态</th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-                            {monthlyReportList}
-                          </tbody>
-                        </table>
+    if(this.props.paychecks.length > 0) {
+      reportsContent = <PaycheckList paychecks={this.props.paychecks} viewPaycheck={this.viewPaycheck} />
     }
+
+    let td = this.state.mode === "EDIT" ? 
+            <input 
+              style={{width: "150px", marginRight: "30px"}}
+              defaultValue={this.props.teacher.rate} 
+              type="number" 
+              ref={this.input}
+              onBlur={this.handleSubmit}
+              autoFocus
+            /> : this.props.teacher.rate
+    let classes = this.state.mode === "EDIT" ? "no-padding" : "clickable hover-highlight"
 
     return(
       <div>
         <button className="btn white black-text" onClick={this.back}>返回</button>
         <h6 className="airbnb-font bold cyan-text">教师信息</h6>
-        <table className="highlight">
+        <table>
           <thead>
             <tr>
               <th>教师姓名</th>
@@ -60,7 +75,7 @@ class TeacherSalaryDetail extends React.Component {
             <tr>
               <td>{this.props.teacher.name}</td>
               <td>{this.props.teacher.level}级</td>
-              <td>{this.props.teacher.rate}</td>
+              <td className={classes} onClick={this.changeMode}>{td}</td>
             </tr>
           </tbody>
         </table>
@@ -74,12 +89,15 @@ class TeacherSalaryDetail extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    reports: sortandGroupReports(state.reportsData.reports)
+    paychecks: state.paycheckData.paychecks
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateTeacher: (id, field) => {
+      dispatch(updateTeacher(id, field))
+    }
   };
 }
 

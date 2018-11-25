@@ -16,6 +16,9 @@ import FutureBookReducer from './future_books_reducer';
 import SchedulesReducer from './schedules_reducer';
 import LevelSalaryReducer from './level_salary_reducer';
 import ModeReducer from './mode_reducer';
+import PaycheckReducer from './paycheck_reducer';
+import CompensationReducer from './compensations_reducer';
+import TransactionReducer from './transactions_reducers';
 
 const rootReducer = combineReducers({
   identity: UserReducer,
@@ -27,12 +30,15 @@ const rootReducer = combineReducers({
   auth: AuthReducer,
   status: StatusReducer,
   mode: ModeReducer,
+  paycheckData: PaycheckReducer,
   selectBooks: SelectBookReducer,
   reviewBooks: ReviewBookReducer,
   newBooks: NewBoookReducer,
   futureBooks: FutureBookReducer,
   schedulesData: SchedulesReducer,
   levelSalary: LevelSalaryReducer,
+  compensationsData: CompensationReducer,
+  transactionsData: TransactionReducer,
   router: routerReducer
 });
 

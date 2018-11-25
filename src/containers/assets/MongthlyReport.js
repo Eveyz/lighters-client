@@ -1,14 +1,28 @@
 import React from 'react';
-
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import Compensation from './Compensation';
+import { sortReportsByDate } from '../../ultis';
+import { updatePaycheck } from '../../actions/paychecks_actions';
 
 class MonthlyReport extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.sum = 0
+  }
+
   back = () => {
     this.props.back("VIEW_TEACHER")
   }
 
+  pay = (id, field) => {
+    this.props.pay(this.props.paycheck._id, {paid: true, amount: this.sum})
+  }
+
   render() {
-    let reportsList = this.props.reports.map((report, idx) => {
+    let reportsList = sortReportsByDate(this.props.paycheck.reports).map((report, idx) => {
       return  <tr key={idx} className="action-hide">
                 <td>{idx + 1}</td>
                 <td>{report.course_id.name}</td>
@@ -33,11 +47,21 @@ class MonthlyReport extends React.Component {
                         </tbody>
                       </table>
 
-    let sum = parseFloat(this.props.teacher.rate) * parseFloat(this.props.reports.length)
+    let base = (parseFloat(this.props.teacher.rate) * this.props.paycheck.reports.length)
+    let btn = this.props.paycheck.paid ? <button disabled className="btn btn-large red">已结算</button> : <button className="btn btn-large" onClick={() => { if (window.confirm('确认要进行结算? 结算之后将无法更改, 请核查准确')) this.pay() }}>结算</button>
+
+    this.sum = base
+    if(this.props.compensations.length > 0) {
+      this.props.compensations.forEach((c, idx) => {
+        let _amount = parseFloat(c.amount, 10)
+        c.type !== "罚款" ? this.sum += _amount : this.sum -= _amount
+      })
+    }
+
     return(
       <div>
         <button className="btn white black-text" onClick={this.back}>返回</button>
-        <h6 className="airbnb-font bold">月总结</h6>
+        <h6 className="airbnb-font bold">基本工资</h6>
         <table className="highlight">
           <thead>
             <tr>
@@ -52,16 +76,25 @@ class MonthlyReport extends React.Component {
           <tbody>
             <tr>
               <td>{this.props.teacher.name}</td>
-              <td>{this.props.teacher.level}</td>
-              <td>{this.props.reports.length}</td>
+              <td>{this.props.teacher.level}级</td>
+              <td>{this.props.paycheck.reports.length}</td>
               <td>{this.props.teacher.rate}</td>
-              <td>{sum}</td>
+              <td>{base}</td>
             </tr>
           </tbody>
         </table>
         <br/>
+        <h6 className="airbnb-font bold">奖励, 津贴或罚款</h6>
+        <Compensation paid={this.props.paycheck.paid} paycheck_id={this.props.paycheck._id} />
+        <br/>
+        <h5 className="airbnb-font bold">月总结: {this.sum.toFixed(2)}元</h5>
+        <br/>
+        {btn}
+        <br/>
+        <hr/>
+        <br/>
         <h6 className="airbnb-font bold">当月反馈表列表</h6>
-        <h6 className="no-margin-bottom banner center">{this.props.month}</h6>
+        <h6 className="no-margin-bottom banner center">{this.props.paycheck.month}</h6>
         {reportsTable}
         <br/>
       </div>
@@ -69,4 +102,19 @@ class MonthlyReport extends React.Component {
   }
 }
 
-export default MonthlyReport;
+const mapStateToProps = state => {
+  return {
+    compensations: state.compensationsData.compensations,
+    paycheck: state.paycheckData.paycheck
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    pay: (id, field) => {
+      dispatch(updatePaycheck(id, field))
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MonthlyReport)
