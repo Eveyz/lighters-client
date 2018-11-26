@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Card } from 'react-materialize'
 import { connect } from 'react-redux';
 
-import { getTransactions, addTransaction, updateTransaction, deleteTransaction } from '../../../actions/transactions_actions';
+import { getTransactions } from '../../../actions/transactions_actions';
 import { getPaychecks } from '../../../actions/paychecks_actions';
 import { setMode } from '../../../actions/mode_action';
 import { sortTransactionsByDate } from '../../../ultis';
@@ -10,14 +10,11 @@ import TransactionForm from './TransactionForm';
 import TransactionList from './TransactionList';
 
 class Transactions extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentWillMount() {
     this.props.setMode("TRANSACTION_LIST")
     this.props.getTransactions(`?`)
-    this.props.getPaychecks(`?`)
+    this.props.getPaychecks(`?paid=${true}`)
   }
 
   setMode = () => {
@@ -80,7 +77,7 @@ const mapStateToProps = state => {
       return {
         src: 'Lighters',
         dest: pc.teacher_id.lastname + pc.teacher_id.firstname,
-        amount: pc.amount,
+        amount: pc.amount ? pc.amount.toFixed(2) : 0,
         created_at: pc.updated_at,
         status: "OUT"
       }

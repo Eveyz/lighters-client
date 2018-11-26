@@ -24,7 +24,7 @@ export const addReport = (report, path) => {
     //   }
     // };
     var data = new FormData();
-    if(report['audios'].length > 0) {
+    if(report['audios'] && report['audios'].length > 0) {
       report['audios'].forEach(file => {
         data.append('audios', file);
       });
@@ -54,7 +54,7 @@ export const editReport = (report, path) => {
 export const updateReport = (report_id, report, path) => {
   return (dispatch) => {
     var data = new FormData();
-    if(report['audios'].length > 0) {
+    if(report['audios'] && report['audios'].length > 0) {
       report['audios'].forEach(file => {
         data.append('audios', file);
       });

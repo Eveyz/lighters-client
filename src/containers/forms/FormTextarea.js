@@ -1,35 +1,33 @@
 import React from 'react';
 import M from 'materialize-css';
 import '../../css/App.css';
-import { EditorState } from 'draft-js'
+
+import QuillTextEditor from '../TextEditor/Quill';
 
 class FormTextarea extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      hasError: false,
-      editorState: EditorState.createEmpty()
+      hasError: false
     };
-    this.onChange = (editorState) => this.setState({editorState});
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    M.AutoInit();
+    // M.AutoInit();
     M.updateTextFields();
   }
 
-  handleChange = (e) => {
-    let val = e.target.value;
-    if(!val) {
+  handleChange = (name, val) => {
+    if(!val || val.length === 0) {
       this.setState({hasError: true});
     } else {
       if(this.state.hasError) {
         this.setState({hasError: false});
       }
     }
-    this.props.getInputData(this.props.name, val);
+    this.props.getInputData(name, val);
   }
 
   render() {
@@ -41,29 +39,19 @@ class FormTextarea extends React.Component {
               </span> :
               "";
               
-    let defaultValue = "";
-
-    if(this.props.action === "EDIT") {
-      defaultValue = this.props.value;
-    }
+    let defaultValue = ""
+    if(this.props.action === "EDIT") defaultValue = this.props.value
 
     return(
       <div className={this.props.classes}>
-        <textarea 
-          id={this.props.name} 
-          className="materialize-textarea"
-          defaultValue={defaultValue}
-          ref={this.props.refFromParent}
+        <p className="label-style airbnb-font">{this.props.label} {required}</p>
+        <QuillTextEditor
+          name={this.props.name}
+          id={this.props.name}
+          value={defaultValue}
+          onChange={this.handleChange}
           onBlur={this.handleChange}
-          autoComplete="off" 
-          autoCorrect="off" 
-          autoCapitalize="off" 
-          spellCheck="false"
-        ></textarea>
-        
-        <label htmlFor={this.props.name}>
-          {this.props.label} {required}
-        </label>
+        />
         {msg}
       </div>
     )

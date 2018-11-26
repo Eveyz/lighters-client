@@ -79,7 +79,7 @@ class MonthlyReport extends React.Component {
               <td>{this.props.teacher.level}级</td>
               <td>{this.props.paycheck.reports.length}</td>
               <td>{this.props.teacher.rate}</td>
-              <td>{base}</td>
+              <td>{base.toFixed(2)}</td>
             </tr>
           </tbody>
         </table>

@@ -22,6 +22,18 @@
   cursor: pointer;
 }
 
+.not-visible {
+  visibility: hidden;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-block {
+  display: block;
+}
+
 .hover-highlight:hover {
   color: white;
   background-color: #03a9f4;

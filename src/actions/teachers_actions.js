@@ -15,6 +15,18 @@ export const getTeacher = (id) => {
   }
 };
 
+export const getActiveTeachers = () => {
+  return (dispatch) => {
+    axios.get(`/teachers?status=active`)
+      .then((response) => {
+        dispatch({type: GET_TEACHERS, payload: response.data});
+      })
+      .catch((err) => {
+        dispatch({type: GET_ACTIVE_TEACHERS_FAILURE, payload: {err: true}})
+      })
+  }
+}
+
 export const addTeacher = (teacher) => {
   return (dispatch) => {
     var teacher_data = new FormData();
@@ -47,18 +59,6 @@ export const updateTeacher = (id, field) => {
       })
       .catch((err) => {
         dispatch({type: UPDATE_TEACHER_FAILURE, payload: {err: true}})
-      })
-  }
-}
-
-export const getActiveTeachers = () => {
-  return (dispatch) => {
-    axios.get(`/teachers?status=active`)
-      .then((response) => {
-        dispatch({type: GET_TEACHERS, payload: response.data});
-      })
-      .catch((err) => {
-        dispatch({type: GET_ACTIVE_TEACHERS_FAILURE, payload: {err: true}})
       })
   }
 }

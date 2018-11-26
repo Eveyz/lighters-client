@@ -14,7 +14,7 @@ class FormInput extends React.Component {
   }
 
   componentDidMount() {
-    M.AutoInit();
+    // M.AutoInit();
     M.updateTextFields();
   }
 

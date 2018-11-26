@@ -9,6 +9,7 @@ import MonthlyReport from './MongthlyReport';
 import PaycheckList from './PaycheckList';
 import { setMode } from '../../actions/mode_action';
 import { getPaychecks } from '../../actions/paychecks_actions';
+import { getActiveTeachers } from '../../actions/teachers_actions';
 
 class TeacherSalary extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class TeacherSalary extends React.Component {
 
   componentWillMount() {
     this.props.getPaychecks(`?paid=${false}`)
+    this.props.getActiveTeachers()
   }
 
   state = {
@@ -132,6 +134,9 @@ const mapDispatchToProps = dispatch => {
     },
     getPaychecks: (query) => {
       dispatch(getPaychecks(query))
+    },
+    getActiveTeachers: () => {
+      dispatch(getActiveTeachers())
     }
   };
 }

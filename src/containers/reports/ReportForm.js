@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getFullDate } from '../../ultis';
 import FormPick from '../forms/FormPick';
 import FormInput from '../forms/FormInput';
+import FormSelect from '../forms/FormSelect';
 import FormTextarea from '../forms/FormTextarea';
 import BooksForReport from './BooksForReport';
 import AudiosFileList from './AudiosFileList';
@@ -15,17 +16,20 @@ class ReportForm extends React.Component {
     super(props);
 
     this.state = {
-      valid: false
+      valid: false,
+      situation: this.props.action === "NEW" ? 1 : this.props.report.situation === "取消" ? -1 : 1,
+      comment: this.props.report.comment || "",
+      homework: this.props.report.homework || ""
     }
 
     this.courseDate = React.createRef();
     this.startTime = React.createRef();
     this.endTime = React.createRef();
     this.focusTime = React.createRef();
-    this.comment = React.createRef();
-    this.homework = React.createRef();
     this.audioLinks = React.createRef();
     this.audioFile = React.createRef();
+    this.situation = React.createRef();
+    this.reason = React.createRef();
 
     this.getInputData = this.getInputData.bind(this);
     this.checkFileBeforeUpload = this.checkFileBeforeUpload.bind(this);
@@ -33,12 +37,26 @@ class ReportForm extends React.Component {
   }
 
   getInputData(field_name, val) {
-    if(this.courseDate.current.value && this.startTime.current.value && this.endTime.current.value && this.focusTime.current.value && this.comment.current.value && this.homework.current.value) {
-      // only reset state => True if form is not valid
-      if(!this.state.valid) this.setState({valid: true});
+    // check if course is cancelled
+    if(field_name === "comment") this.setState({comment: val})
+    if(field_name === "homework") this.setState({homework: val})
+    if(this.situation.current.value === "取消") {
+      this.setState({situation: -1})
+      if(this.reason.current.value) {
+        this.setState({valid: true})
+      } else {
+        this.setState({valid: false})
+      }
     } else {
-      // only reset state => False if form is valid
-      if(this.state.valid) this.setState({valid: false});
+      this.setState({valid: false, situation: 1})
+      // course not cancelled, keep going here
+      if(this.courseDate.current.value && this.startTime.current.value && this.endTime.current.value && this.focusTime.current.value && this.state.comment && this.state.homework && this.situation.current.value) {
+        // only reset state => True if form is not valid
+        if(!this.state.valid) this.setState({valid: true});
+      } else {
+        // only reset state => False if form is valid
+        if(this.state.valid) this.setState({valid: false});
+      }
     }
   }
 
@@ -67,11 +85,12 @@ class ReportForm extends React.Component {
       course_id: this.props.course_id,
       student_id: this.props.student_id,
       course_date: _course_date,
+      situation: this.situation.current.value,
       start_time: this.startTime.current.value,
       end_time: this.endTime.current.value,
       focus: this.focusTime.current.value,
-      tutor_comment: this.comment.current.value,
-      homework: this.homework.current.value,
+      tutor_comment: this.state.comment,
+      homework: this.state.homework,
       external_link: this.audioLinks.current.value,
       audios: audio_files,
       audios_files: this.props.action === "EDIT" ? this.props.report.audios_files : [],
@@ -79,6 +98,16 @@ class ReportForm extends React.Component {
       new_books: this.props.newBooks,
       future_books: this.props.futureBooks,
       removedFiles: this.props.removedFiles,
+    }
+    if(this.state.situation < 0) {
+      report = {
+        teacher_id: this.props.teacher_id,
+        course_id: this.props.course_id,
+        student_id: this.props.student_id,
+        course_date: _course_date,
+        situation: this.situation.current.value,
+        reason: this.reason.current.value
+      }
     }
     let path = "/teachers/" + this.props.user_id + "/course_manager";
 
@@ -91,11 +120,16 @@ class ReportForm extends React.Component {
 
   render() {
     let disabled = !this.state.valid;
-    let buttonColor = disabled ? "#bdc3c7" : "#2ecc71";
+    let visiblity = this.state.situation < 0 ? "display-none" : "display-block";
+    let notVisiblity = this.state.situation < 0 ? "display-block" : "display-none";
 
+    let buttonColor = disabled ? "#bdc3c7" : "#2ecc71";
     let buttonStyle = {padding: "15px 0px 15px 0px", borderRadius: "15px", backgroundColor: buttonColor, border: "none", cursor: "pointer"}
+
     let action = this.props.action;
+
     let path = action === "EDIT" ? "/teachers/" + this.props.user_id + "/reports" : "/teachers/" + this.props.user_id + "/course_manager";
+
     let audiosFileList = this.props.action === "EDIT" ? <AudiosFileList files={this.props.files} /> : "";
 
     return(
@@ -116,6 +150,37 @@ class ReportForm extends React.Component {
         </div>
 
         <div className="row no-margin">
+          <FormSelect
+            classes="input-field col m12 s12"
+            name="situation"
+            label="上课情况"
+            required={true}
+            errorMsg="请选择上课情况"
+            refFromParent={this.situation}
+            getInputData={this.getInputData}
+            action={action}
+            prompt="请选择上课情况"
+            options={["正常上课", "学生迟到20分钟以内", "学生迟到超过20分钟 并且没有提前两个小时通知", "取消"]}
+            value={action === "EDIT" ? this.props.report.situation : ""}
+          />
+        </div>
+
+        <div className={"row no-margin " + notVisiblity}>
+          <FormInput
+            classes="input-field col m12 s12"
+            name="reason"
+            inputType="text"
+            label="取消原因"
+            required={true}
+            errorMsg="取消原因"
+            refFromParent={this.reason}
+            getInputData={this.getInputData}
+            action={action}
+            value={action === "EDIT" ? this.props.report.reason : ""}
+          />
+        </div>
+
+        <div className={"row no-margin " + visiblity}>
           <FormPick
             classes="input-field col m6 s12"
             type="time"
@@ -142,7 +207,7 @@ class ReportForm extends React.Component {
           />
         </div>
 
-        <div className="row no-margin">
+        <div className={"row no-margin " + visiblity}>
           <FormInput
             classes="input-field col m12 s12"
             name="focus_time"
@@ -157,31 +222,31 @@ class ReportForm extends React.Component {
           />
         </div>
 
-        <BooksForReport action={action} />
+        <div className={"row no-margin " + visiblity}>
+          <BooksForReport action={action} />
+        </div>
         <br/>
 
-        <div className="row no-margin">
+        <div className={"row no-margin " + visiblity}>
           <FormTextarea
             classes="input-field col m12 s12"
             name="comment"
             label="课程评价"
             required={true}
             errorMsg="请填写课程评价"
-            refFromParent={this.comment}
             getInputData={this.getInputData}
             action={action}
             value={action === "EDIT" ? this.props.report.tutor_comment : ""}
           />
         </div>
 
-        <div className="row no-margin">
+        <div className={"row no-margin " + visiblity}>
           <FormTextarea
             classes="input-field col m12 s12"
             name="homework"
             label="课后作业"
             required={true}
             errorMsg="请填写课后作业"
-            refFromParent={this.homework}
             getInputData={this.getInputData}
             action={action}
             value={action === "EDIT" ? this.props.report.homework : ""}
@@ -189,12 +254,15 @@ class ReportForm extends React.Component {
         </div>
 
         <br/>
-        {audiosFileList}
+        <div className={"row no-margin " + visiblity}>
+          {audiosFileList}
+        </div>
 
-        <div className="row no-margin" style={{marginBottom: "0px"}}>
-          <FormTextarea
+        <div className={"row no-margin " + visiblity} style={{marginBottom: "0px"}}>
+          <FormInput
             classes="input-field col m12 s12"
             name="audio_links"
+            inputType="text"
             label="课程音频网盘链接"
             required={false}
             errorMsg=""
@@ -204,12 +272,12 @@ class ReportForm extends React.Component {
             value={action === "EDIT" ? this.props.report.external_link : ""}
           />
         </div>
-        <div className="row no-margin">
+        <div className={"row no-margin " + visiblity}>
           <div className="input-field col m12 s12 no-margin">
             <p>或者上传</p>
           </div>
         </div>
-        <div className="row no-margin">
+        <div className={"row no-margin " + visiblity}>
           <div className="file-field input-field col m12 s12">
             <div className="btn cyan">
               <span>上课录音文件</span>

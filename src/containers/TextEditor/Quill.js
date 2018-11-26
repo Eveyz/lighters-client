@@ -18,7 +18,7 @@ class QuillTextEditor extends React.Component {
       <ReactQuill
         id={this.props.id}
         value={this.state.editorHtml}
-        onChange={this.handleChange} 
+        onChange={this.handleChange}
         modules={QuillTextEditor.modules}
       />
     )

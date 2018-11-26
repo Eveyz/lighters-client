@@ -50,6 +50,7 @@ class FormSelect extends React.Component {
           ref={this.props.refFromParent}
           onChange={this.handleChange}
           onBlur={this.handleChange}
+          defaultValue={this.props.action === "EDIT" ? this.props.value : ""}
         >
           {prompt}
           {options}

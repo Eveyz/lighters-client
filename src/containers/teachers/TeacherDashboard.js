@@ -1,24 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-materialize'
-import M from 'materialize-css';
 import _ from 'lodash';
 
 import 'tui-calendar/dist/tui-calendar.min.css';
 import '../../css/App.css';
 import TeacherCourse from '../../containers/teachers/TeacherCourse';
 import TeacherStudentList from '../../containers/teachers/TeacherStudentList';
+import TeacherPaychecks from './TeacherPaychecks';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import TeacherCourseBooks from './TeacherCourseBooks';
 import TuiCalendar from '../TuiCalendar';
 
 class TeacherDashboard extends React.Component {
-
-  componentDidMount() {
-    M.AutoInit();
-
-  }
 
   render() {
     if(_.isEmpty(this.props.teacher) || this.props.teacher.status === "pending") {
@@ -113,10 +108,11 @@ class TeacherDashboard extends React.Component {
             <div className="row">
               <div className="col s12">
                 <ul className="tabs">
-                  <li className="tab col s3"><a href="#teacher-calendar-tab">课程表</a></li>
+                  <li className="tab col s2"><a href="#teacher-calendar-tab">课程表</a></li>
                   <li className="tab col s3"><a href="#courses">课程以及课程反馈表</a></li>
-                  <li className="tab col s3"><a href="#students">学生</a></li>
-                  <li className="tab col s3"><a href="#books">绘本</a></li>
+                  <li className="tab col s2"><a href="#students">学生</a></li>
+                  <li className="tab col s2"><a href="#books">绘本</a></li>
+                  <li className="tab col s3"><a href="#paychecks">工资</a></li>
                 </ul>
               </div>
               <div id="teacher-calendar-tab" className="col s12 m12">
@@ -147,6 +143,14 @@ class TeacherDashboard extends React.Component {
                 <div className="row">
                   <div className="col m12">
                     {books}
+                  </div>
+                </div>
+              </div>
+              <div id="paychecks" className="col s12">
+                <br/>
+                <div className="row">
+                  <div className="col m12">
+                    <TeacherPaychecks />
                   </div>
                 </div>
               </div>

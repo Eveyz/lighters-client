@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { Row, Col, Card } from 'react-materialize';
+import { Row, Col } from 'react-materialize';
 
 class TeacherCourseBooks extends React.Component {
   render() {
@@ -41,13 +41,11 @@ class TeacherCourseBooks extends React.Component {
     return(
       <Row>
         <Col m={12} s={12}>
-          <Card className='white r-box-shadow' textClassName='black-text' title={this.props.course.name} style={{padding: "30px"}}>
-            <div className="row">
-              <div className="col m12">
-                {content}
-              </div>
+          <div className="row">
+            <div className="col m12">
+              {content}
             </div>
-          </Card>
+          </div>
         </Col>
       </Row>
     )

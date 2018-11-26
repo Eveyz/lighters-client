@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 import { Formik } from 'formik';
 import * as Yup from 'yup';

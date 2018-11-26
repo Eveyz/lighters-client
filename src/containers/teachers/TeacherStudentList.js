@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col, Card } from 'react-materialize';
+import { Row, Col } from 'react-materialize';
 
 class TeacherStudentList extends React.Component {
   render() {
@@ -16,26 +16,24 @@ class TeacherStudentList extends React.Component {
     return(
       <Row>
         <Col m={12} s={12}>
-          <Card className='white r-box-shadow' textClassName='black-text' title={"学生"} style={{padding: "30px"}}>
-            <div className="row">
-              <div className="col m12">
-                <table className="striped">
-                  <thead>
-                    <tr>
-                      <th>学生姓名</th>
-                      <th>学生英文名</th>
-                      <th>学生年龄</th>
-                      <th colSpan="1"></th>
-                    </tr>
-                  </thead>
-          
-                  <tbody>
-                    {students}
-                  </tbody>
-                </table>
-              </div>
+          <div className="row">
+            <div className="col m12">
+              <table className="striped">
+                <thead>
+                  <tr>
+                    <th>学生姓名</th>
+                    <th>学生英文名</th>
+                    <th>学生年龄</th>
+                    <th colSpan="1"></th>
+                  </tr>
+                </thead>
+        
+                <tbody>
+                  {students}
+                </tbody>
+              </table>
             </div>
-          </Card>
+          </div>
         </Col>
       </Row>
     )
