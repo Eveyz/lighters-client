@@ -24,7 +24,7 @@ class BookTable extends React.Component {
         <thead>
           <tr>
             <th></th>
-            <th>RAZ等级</th>
+            <th>Lighters等级</th>
             <th>蓝思等级</th>
             <th>绘本分类</th>
             <th>绘本系列名</th>

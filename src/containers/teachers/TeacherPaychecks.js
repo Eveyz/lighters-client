@@ -55,7 +55,7 @@ const mapStateToProps = (state) => {
     teacher_id: state.auth.identityData._id,
     rate: state.auth.identityData.rate,
     teacher_level: state.auth.identityData.level,
-    entries: state.levelSalary.levelSalaries
+    levelSalaries: state.levelSalary.levelSalaries
   }
 }
 

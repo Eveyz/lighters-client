@@ -56,8 +56,8 @@ class BookWidget extends React.Component {
       return(
         <tr>
           <td>{button}</td>
-          <td>{this.props.book.rlevel}</td>
-          <td>{this.props.book.lslevel}</td>
+          <td>{this.props.book.lightersLevel}</td>
+          <td>{this.props.book.lexileLevel}</td>
           <td>{this.props.book.category}</td>
           <td>{this.props.book.serials}</td>
           <td>{this.props.book.name}</td>
@@ -69,8 +69,8 @@ class BookWidget extends React.Component {
     return(
       <tr>
         <td>{button}</td>
-        <td>{this.props.book.rlevel}</td>
-        <td>{this.props.book.lslevel}</td>
+        <td>{this.props.book.lightersLevel}</td>
+        <td>{this.props.book.lexileLevel}</td>
         <td>{this.props.book.category}</td>
         <td>{this.props.book.serials}</td>
         <td>{this.props.book.name}</td>

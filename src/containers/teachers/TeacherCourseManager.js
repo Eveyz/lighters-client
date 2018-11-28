@@ -32,12 +32,12 @@ class TeacherCourseManager extends React.Component {
     let students = <Row>
                     <Col m={12} s={12}>
                       <Card className='white r-box-shadow' textClassName='black-text' title=''>
-                      <h5 className="center">当前没有学生</h5>
+                      <h5 className="center">课程没有学生</h5>
                       </Card>
                     </Col>
                   </Row>;
     
-    let bookList = <Row>
+    let books = <Row>
                     <Col m={12} s={12}>
                       <Card className='white r-box-shadow' textClassName='black-text' title=''>
                       <h5 className="center">当前没有绘本</h5>
@@ -46,7 +46,7 @@ class TeacherCourseManager extends React.Component {
                   </Row>;
 
     if(this.props.course.students.length > 0) {
-      students = this.props.course.students.map((student, idx) => {
+      let studentsList = this.props.course.students.map((student, idx) => {
         return <tr key={idx}>
                 <td>{ student.lastname + student.firstname }</td>
                 <td>{ student.englishname }</td>
@@ -56,10 +56,30 @@ class TeacherCourseManager extends React.Component {
                 <td><button onClick={this.reportsList(student)} className="btn cyan">查看所有课程回馈表</button></td>
                </tr>
       });
+
+      students = <div className="row">
+                    <div className="col m12">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>学生姓名</th>
+                            <th>学生英文名</th>
+                            <th>学生年龄</th>
+                            <th>课程</th>
+                            <th colSpan="2"></th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {studentsList}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
     }
 
     if(this.props.course.books.length > 0) {
-      bookList = this.props.course.books.map((book, idx) => {
+      let bookList = this.props.course.books.map((book, idx) => {
         return <tr key={idx}>
                 <td>{ book.rlevel }</td>
                 <td>{ book.lslevel }</td>
@@ -70,6 +90,28 @@ class TeacherCourseManager extends React.Component {
                 <td><Link target="_blank" to={`/books/${book._id}`} className="btn" params={book}>查看</Link></td>
                </tr>
       });
+
+      books = <div className="row">
+                <div className="col m12">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>RAZ等级</th>
+                        <th>蓝思等级</th>
+                        <th>年龄段</th>
+                        <th>绘本分类</th>
+                        <th>系列名</th>
+                        <th>绘本名</th>
+                        <th colSpan="2"></th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {bookList}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
     }
 
     return(
@@ -83,52 +125,14 @@ class TeacherCourseManager extends React.Component {
                 <h5><b>学生</b></h5>
               </div>
             </div>
-            <div className="row">
-              <div className="col m12">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>学生姓名</th>
-                      <th>学生英文名</th>
-                      <th>学生年龄</th>
-                      <th>课程</th>
-                      <th colSpan="2"></th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {students}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            {students}
 
             <div className="row no-margin">
               <div className="col m12">
                 <h5><b>绘本</b></h5>
               </div>
             </div>
-            <div className="row">
-              <div className="col m12">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>RAZ等级</th>
-                      <th>蓝思等级</th>
-                      <th>年龄段</th>
-                      <th>绘本分类</th>
-                      <th>系列名</th>
-                      <th>绘本名</th>
-                      <th colSpan="2"></th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {bookList}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            {books}
           </div>
         </div>
         <Footer />

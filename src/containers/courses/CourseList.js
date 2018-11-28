@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { getCourses, addCourse, deleteCourse } from "../../actions/courses_actions";
+import { getBooks } from '../../actions/books_actions';
 import '../../css/App.css';
 import Course from './Course';
 import Header from '../../components/layouts/Header';
@@ -10,6 +11,11 @@ import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 
 class CourseList extends React.Component {
+
+  componentWillMount() {
+    this.props.fetchCoures()
+    this.props.getBooks()
+  }
 
   render() {
     let courseList;
@@ -70,16 +76,15 @@ const mapStateToProps = state => {
   };
 }
 
-// Any thing returned from this function will end up as props on the BookList component
 const mapDispatchToProps = dispatch => {
-  // Whenever search is called, the result should be passed to all reducers
   return {
+    getBooks: () => dispatch(getBooks()),
     fetchCoures: () => {
       dispatch(getCourses())
     },
     addCourse: () => dispatch(addCourse()),
     deleteCourse: () => dispatch(deleteCourse())
-  }; // this.props.doSearch will become the result of headSearch
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);

@@ -7,9 +7,13 @@ import Footer from '../../components/layouts/Footer';
 import BookTable from '../../components/books/bookTable';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 import SelectBookWidget from '../../containers/books/SelectBookWidget';
-import { selectCategory, selectSerial, resetDeault } from "../../actions/select_book_actions";
+import { groupBooksAction, selectCategory, selectSerial, resetDeault } from "../../actions/select_book_actions";
 
 class CourseAddBook extends React.Component {
+
+  componentWillMount() {
+    this.props.groupBooks(this.props.books)
+  }
   
   render() {
     let teachers = this.props.course.teachers.map((teacher, index) => {
@@ -91,6 +95,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    groupBooks: (books) => dispatch(groupBooksAction(books)),
     selectCategory: (category, content) => dispatch(selectCategory(category, content)),
     selectSerial: (serialName, content) => dispatch(selectSerial(serialName, content)),
     resetDeault: (content) => dispatch(resetDeault(content))
