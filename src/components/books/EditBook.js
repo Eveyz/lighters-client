@@ -1,18 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import M from 'materialize-css';
 
 import Header from '../layouts/Header';
 import Footer from '../layouts/Footer';
 import PathNavigator from '../layouts/PathNavigator';
 import BookwithFormik from './BookwithFormik';
 
-class NewBook extends React.Component {
+class EditBook extends React.Component {
+  componentDidMount() {
+    M.updateTextFields();
+  }
+
   render = () => {
     return(
       <div>
         <Header />
         <PathNavigator 
           path={"/books"} 
-          content={"新建绘本"} 
+          content={"编辑绘本"} 
         />
         <div className="container">
 
@@ -22,8 +28,9 @@ class NewBook extends React.Component {
                 <div className="card-content" style={{padding: "50px"}}>
                   <h4 className="cyan-text" style={{marginTop: "0px"}}>填写绘本资料</h4>
                   <BookwithFormik 
-                    book={{}} 
-                    action="NEW"
+                    book={this.props.book} 
+                    prevFile={this.props.book.file}
+                    action="EDIT"
                   />
                 </div>
               </div>
@@ -37,4 +44,10 @@ class NewBook extends React.Component {
   }
 }
 
-export default NewBook;
+const mapStateToProps = state => {
+  return {
+    book: state.booksData.currentBook
+  };
+}
+
+export default connect(mapStateToProps, null)(EditBook);

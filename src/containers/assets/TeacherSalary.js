@@ -78,7 +78,7 @@ class TeacherSalary extends React.Component {
                         />
     }
 
-    let change = this.props.mode === ("BROWSE" || "SEARCH") ? 
+    let change = this.props.mode === "BROWSE" || "SEARCH" ? 
                   <div className="switch">
                     <label>
                       浏览教师

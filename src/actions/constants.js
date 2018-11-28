@@ -48,6 +48,7 @@ export const COURSE_REMOVE_BOOK = 'COURSE_REMOVE_BOOK';
 // Book Actions
 export const GET_BOOKS = 'GET_BOOKS';
 export const GET_BOOK_FAILURE = 'GET_BOOK_FAILURE';
+export const SELECT_BOOK = 'SELECT_BOOK';
 export const ADD_BOOK = 'ADD_BOOK';
 export const ADD_BOOK_FAILURE = 'ADD_BOOK_FAILURE';
 export const UPDATE_BOOK = 'UPDATE_BOOK';

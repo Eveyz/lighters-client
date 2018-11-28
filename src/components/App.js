@@ -14,6 +14,7 @@ import SignupForm from '../containers/users/SignupForm';
 import Dashboard from '../containers/users/admin/dashboard';
 import BookList from '../containers/books/BookList';
 import NewBook from '../components/books/NewBook';
+import EditBook from '../components/books/EditBook';
 import CourseList from '../containers/courses/CourseList';
 import AddCourse from '../containers/courses/AddCourse';
 import EditCourse from '../containers/courses/EditCourse';
@@ -66,6 +67,7 @@ class App extends Component {
         <AdminRoute exact path="/students" auth={this.props.auth} component={StudentList} />
         <AdminRoute exact path="/books" auth={this.props.auth} component={BookList} />
         <AdminRoute exact path="/books/new" auth={this.props.auth} component={NewBook} />
+        <AdminRoute exact path="/books/:_id/edit" auth={this.props.auth} component={EditBook} />
         <AdminRoute exact path="/assets" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/assets/level_salaries" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/assets/teacher_salaries" auth={this.props.auth} component={AssetsDashboard} />

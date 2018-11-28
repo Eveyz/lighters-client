@@ -14,6 +14,7 @@ const BookForm = props => {
   } = props;
   const buttonColor = isSubmitting ? "#bdc3c7" : "#2ecc71";
   const buttonStyle = {padding: "15px 0px 15px 0px", borderRadius: "15px", backgroundColor: buttonColor, border: "none", cursor: "pointer"};
+  let uploadedBook = values.file.originalname ? <div className="row no-margin"><div className="input-field col s12 m12"><h6 className="airbnb-font bold">已上传的绘本文件: {values.file.originalname}</h6><p className="grey-text">(如想替换绘本文件, 请重新上传新的文件)</p></div></div> : ""
 
   return (
     <form onSubmit={handleSubmit}>
@@ -110,7 +111,7 @@ const BookForm = props => {
                 {errors.age}
               </div>
             )}
-          <label htmlFor="age">Age</label>
+          <label htmlFor="age">年龄</label>
         </div>
       </div>
       <div className="row no-margin">
@@ -129,7 +130,7 @@ const BookForm = props => {
                 {errors.category}
               </div>
             )}
-          <label htmlFor="category">Category</label>
+          <label htmlFor="category">绘本分类</label>
         </div>
       </div>
       <div className="row no-margin">
@@ -148,7 +149,7 @@ const BookForm = props => {
                 {errors.serials}
               </div>
             )}
-          <label htmlFor="serials">Serials</label>
+          <label htmlFor="serials">系列名称</label>
         </div>
       </div>
       <div className="row no-margin">
@@ -167,7 +168,7 @@ const BookForm = props => {
                 {errors.name}
               </div>
             )}
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">绘本名称</label>
         </div>
       </div>
       <div className="row no-margin">
@@ -189,6 +190,8 @@ const BookForm = props => {
           <label htmlFor="audioLink">网盘链接</label>
         </div>
       </div>
+
+      {uploadedBook}
 
       <div className="row no-margin">
         <div className="file-field input-field col m12 s12">

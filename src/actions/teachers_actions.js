@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { GET_TEACHERS, ADD_TEACHER, ADD_TEACHER_FAILURE, UPDATE_TEACHER, UPDATE_TEACHER_FAILURE, GET_TEACHER_FAILURE, GET_ACTIVE_TEACHERS_FAILURE, GET_REPORTS, GET_REPORTS_FAILURE, SELECT_TEACHER } from './constants';
+import { GET_TEACHERS, GET_TEACHERS_FAILURE, ADD_TEACHER, ADD_TEACHER_FAILURE, UPDATE_TEACHER, UPDATE_TEACHER_FAILURE, GET_TEACHER_FAILURE, GET_ACTIVE_TEACHERS_FAILURE, GET_REPORTS, GET_REPORTS_FAILURE, SELECT_TEACHER } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getTeacher = (id) => {
@@ -14,6 +14,18 @@ export const getTeacher = (id) => {
       })
   }
 };
+
+export const getTeachers = () => {
+  return (dispatch) => {
+    axios.get(`/teachers`)
+      .then((response) => {
+        dispatch({type: GET_TEACHERS, payload: response.data});
+      })
+      .catch((err) => {
+        dispatch({type: GET_TEACHERS_FAILURE, payload: err})
+      })
+  }
+}
 
 export const getActiveTeachers = () => {
   return (dispatch) => {

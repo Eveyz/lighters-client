@@ -10,6 +10,11 @@ export default (state = initialState, action) => {
         currentBook: state.currentBook,
         books: [...action.payload]
       }
+    case 'SELECT_BOOK':
+      return {
+        currentBook: action.payload,
+        books: [...state.books]
+      }
     case 'ADD_BOOK':
       return {
         currentBook: action.payload,

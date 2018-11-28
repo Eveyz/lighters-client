@@ -16,7 +16,6 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props);
     if(this.props.courses.length === 0 && this.props.students.length === 0 && this.props.teachers.length === 0 && this.props.books.length === 0) {
       this.props.adminInit();
     }

@@ -24,7 +24,7 @@ const BookwithFormik = connect(null, mapDispatchToProps)(
       serials: props.book.serials || "",
       name: props.book.name || "",
       audioLink: props.book.audioLink || "",
-      file: null,
+      file: props.book.file || "",
     }),
     validationSchema: Yup.object().shape({
       lightersLevel: Yup.string().required('此项为必填项!'),
@@ -36,16 +36,19 @@ const BookwithFormik = connect(null, mapDispatchToProps)(
       serials: Yup.string().required('此项为必填项!'),
       name: Yup.string().required('此项为必填项!'),
       audioLink: Yup.string().required('此项为必填项!'),
-      file: Yup.mixed()
-          .test(
-            "绘本文件格式",
-            "请选择pdf文件",
-            value => value ? value && ["application/pdf"].includes(value.type) : true
-          )
+      // file: Yup.mixed()
+      //     .test(
+      //       "绘本文件格式",
+      //       "请选择pdf文件",
+      //       value => value ? value && ["application/pdf"].includes(value.type) : true
+      //     )
     }),
     handleSubmit: (values, { props, setSubmitting }) => {
-      console.log(props);
       setSubmitting(false);
+      values.id = props.book._id;
+      if(props.prevFile) {
+        values.prevFile = props.prevFile
+      }
       props.action === "NEW" ? props.addBook(values) : props.updateBook(values);
     }
   })(BookForm)

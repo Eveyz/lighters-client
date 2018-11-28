@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { GET_BOOKS, GET_BOOK_FAILURE, ADD_BOOK, ADD_BOOK_FAILURE, UPDATE_BOOK, UPDATE_BOOK_FAILURE, DELETE_BOOK, DELETE_BOOK_FAILURE } from './constants';
+import { GET_BOOKS, GET_BOOK_FAILURE, SELECT_BOOK, ADD_BOOK, ADD_BOOK_FAILURE, UPDATE_BOOK, UPDATE_BOOK_FAILURE, DELETE_BOOK, DELETE_BOOK_FAILURE } from './constants';
 
 export const getBooks = () => {
   return (dispatch) => {
@@ -14,10 +14,18 @@ export const getBooks = () => {
   }
 };
 
+export const selectBook = (book, path) => {
+  return (dispatch) => {
+    dispatch({type: SELECT_BOOK, payload: book})
+    if(path) {
+      history.push(path)
+    }
+  }
+}
+
 export const addBook = (book) => {
   return (dispatch) => {
-    var book_data = new FormData();
-    console.log(book['file']);
+    let book_data = new FormData();
     if(book['file']) {
       book_data.append('file', book['file']);
     }
@@ -36,9 +44,18 @@ export const addBook = (book) => {
 
 export const updateBook = (book) => {
   return (dispatch) => {
-    axios.put(`/books/${book.id}`)
+    let { id, ..._book } = book;
+    let book_data = new FormData();
+    if(book['file'] && !book['file'].originalname) {
+      book_data.append('file', book['file']);
+    }
+    let book_json = JSON.stringify(_book);
+    book_data.append('book', book_json);
+
+    axios.put(`/books/${id}`, book_data)
       .then((response) => {
-        dispatch({type: UPDATE_BOOK, payload: book})
+        dispatch({type: UPDATE_BOOK, payload: response.data})
+        history.push(`/books/${id}`);
       })
       .catch((err) => {
         dispatch({type: UPDATE_BOOK_FAILURE, payload: err})

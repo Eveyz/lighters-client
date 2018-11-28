@@ -257,7 +257,6 @@
   display: inline-block;
   vertical-align: top;
   height: calc(100vh - 64px);
-  overflow: scroll;
 }
 
 .main-content-wrapper.space-one {

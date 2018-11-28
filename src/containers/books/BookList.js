@@ -10,14 +10,18 @@ import PaginationContainer from '../../containers/PaginationContainer';
 
 class BooksList extends React.Component {
 
+  componentWillMount() {
+    this.props.fetchBooks()
+  }
+
   render() {
     let bookContent = <div className="col m12">
-                      <div className="card white r-box-shadow">
-                        <div className="card-content">
-                          <h4 className="center">当前没有绘本，请添加</h4>;
+                        <div className="card white r-box-shadow">
+                          <div className="card-content">
+                            <h4 className="center">当前没有绘本，请添加</h4>;
+                          </div>
                         </div>
-                      </div>
-                    </div>;
+                      </div>;
     if(this.props.books.length > 0) {
       bookContent = <PaginationContainer itemsPerPage={10} data={this.props.books} content={"BOOK"} readOnly={false} />;
     }
@@ -47,22 +51,19 @@ class BooksList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // this.props.search
   return {
     books: state.booksData.books
   };
 }
 
-// Any thing returned from this function will end up as props on the BookList component
 const mapDispatchToProps = dispatch => {
-  // Whenever search is called, the result should be passed to all reducers
   return {
     fetchBooks: () => {
       dispatch(getBooks())
     },
     addBook: () => dispatch(addBook()),
     deleteBook: () => dispatch(deleteBook())
-  }; // this.props.doSearch will become the result of headSearch
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksList);

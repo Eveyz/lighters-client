@@ -55,7 +55,6 @@ export const updateStudent = (id, field) => {
     axios.put(`/students/${id}`, field)
       .then((response) => {
         dispatch({type: UPDATE_STUDENT, payload: response.data});
-        history.push("/students");
       })
       .catch((err) => {
         dispatch({type: UPDATE_STUDENT_FAILURE, payload: {err: true}})
