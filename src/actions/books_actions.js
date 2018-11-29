@@ -2,6 +2,25 @@ import axios from 'axios';
 import history from '../history';
 import { GET_BOOKS, GET_BOOK_FAILURE, SELECT_BOOK, ADD_BOOK, ADD_BOOK_FAILURE, UPDATE_BOOK, UPDATE_BOOK_FAILURE, DELETE_BOOK, DELETE_BOOK_FAILURE } from './constants';
 
+export const getPDF = (apiURL) => {
+  return (dispatch) => {
+    axios(`${apiURL}/pdf`, {
+      method: 'GET',
+      responseType: 'blob'
+    })
+    .then(response => {
+        const file = new Blob(
+          [response.data], 
+          {type: 'application/pdf'});
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+}
+
 export const getBooks = () => {
   return (dispatch) => {
     axios.get(`/books`)

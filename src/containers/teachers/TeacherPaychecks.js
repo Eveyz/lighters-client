@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { Row, Col, Card } from 'react-materialize';
 
 import { getPaychecks } from '../../actions/paychecks_actions';
 import { getLevelSalaries } from '../../actions/level_salary_actions';
@@ -34,12 +35,29 @@ class TeacherPaychecks extends React.Component {
     })
 
     let rate = this.props.rate ? this.props.rate : this.levelToSalary(this.props.teacher_level)
-    let paidTable = <TeacherPaycheckList paychecks={paid} rate={rate} />
-    let unpaidTable = <TeacherPaycheckList paychecks={unpaid} rate={rate} />
+    let paidTable = paid.length > 0 ? <TeacherPaycheckList paychecks={paid} rate={rate} /> 
+                                      : 
+                                      <Row>
+                                        <Col m={12} s={12}>
+                                          <Card className='white r-box-shadow' textClassName='black-text' title=''>
+                                          <h5 className="center">没有已付工资单</h5>
+                                          </Card>
+                                        </Col>
+                                      </Row>;
+
+    let unpaidTable = unpaid.length > 0 ? <TeacherPaycheckList paychecks={unpaid} rate={rate} />
+                                            : 
+                                            <Row>
+                                              <Col m={12} s={12}>
+                                                <Card className='white r-box-shadow' textClassName='black-text' title=''>
+                                                <h5 className="center">没有待付工资单</h5>
+                                                </Card>
+                                              </Col>
+                                            </Row>;
 
     return(
       <div>
-        <h6 className="airbnb-font bold red-text">未付工资单</h6>
+        <h6 className="airbnb-font bold red-text">待付工资单</h6>
         {paidTable}
         <br/>
         <h6 className="airbnb-font bold green-text">已付工资单(总计: {paidSum.toFixed(2)}元)</h6>

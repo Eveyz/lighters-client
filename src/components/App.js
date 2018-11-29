@@ -5,7 +5,7 @@ import '../css/App.css';
 import '../css/flash.css';
 import '../css/richtext-editor.css';
 
-import { AdminRoute, TeacherRoute, StudentRoute } from './auth/requireAuth';
+import { AdminRoute, TeacherRoute, StudentRoute, PrivateRoute } from './auth/requireAuth';
 // Components
 import Home from './layouts/Home';
 import CourseHierarchy from './mainpages/courseHierarchy';
@@ -15,6 +15,7 @@ import Dashboard from '../containers/users/admin/dashboard';
 import BookList from '../containers/books/BookList';
 import NewBook from '../components/books/NewBook';
 import EditBook from '../components/books/EditBook';
+import ViewBook from '../components/books/ViewBook';
 import CourseList from '../containers/courses/CourseList';
 import AddCourse from '../containers/courses/AddCourse';
 import EditCourse from '../containers/courses/EditCourse';
@@ -67,6 +68,7 @@ class App extends Component {
         <AdminRoute exact path="/students" auth={this.props.auth} component={StudentList} />
         <AdminRoute exact path="/books" auth={this.props.auth} component={BookList} />
         <AdminRoute exact path="/books/new" auth={this.props.auth} component={NewBook} />
+        <PrivateRoute exact path="/books/:_id" auth={this.props.auth} component={ViewBook} />
         <AdminRoute exact path="/books/:_id/edit" auth={this.props.auth} component={EditBook} />
         <AdminRoute exact path="/assets" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/assets/level_salaries" auth={this.props.auth} component={AssetsDashboard} />
