@@ -57,7 +57,7 @@ class Header extends Component {
         // teachers
         path = _.isEmpty(this.props.auth.identityData) ? <li><Link to={`/teachers/new`}>我的主页</Link></li> : <li><Link to={`/teachers/${this.props.auth.identityData._id}/dashboard`}>我的主页</Link></li>;
         accountDropdown = <div className="dp-content">
-                            <Link to={`/teachers/${this.props.auth.identityData._id}`}><div>我的资料</div></Link>
+                            <Link to={`/teachers/${this.props.auth.identityData._id}/profile`} target="_blank"><div>我的资料</div></Link>
                             <Link to={`/teachers/${this.props.auth.identityData._id}/edit`}><div>编辑个人资料</div></Link>
                             <a href="#!"><div>账号设置</div></a>
                             <a onClick={this.logout}><div>退出</div></a>
@@ -66,7 +66,7 @@ class Header extends Component {
         // students
         path = _.isEmpty(this.props.auth.identityData) ? <li><Link to={`/students/new`}>我的主页</Link></li> : <li><Link to={`/students/${this.props.auth.identityData._id}/dashboard`}>我的主页</Link></li>;
         accountDropdown = <div className="dp-content">
-                            <Link to={`/teachers/${this.props.auth.identityData._id}`}><div>我的资料</div></Link>
+                            <Link to={`/teachers/${this.props.auth.identityData._id}/profile`} target="_blank"><div>我的资料</div></Link>
                             <Link to={`/teachers/${this.props.auth.identityData._id}/edit`}><div>编辑个人资料</div></Link>
                             <a href="#!"><div>账号设置</div></a>
                             <a onClick={this.logout}><div>退出</div></a>

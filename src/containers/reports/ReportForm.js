@@ -64,7 +64,8 @@ class ReportForm extends React.Component {
     const audio_files = Array.from(this.audioFile.current.files);
     audio_files.forEach(file => {
       const ext = file.name.split(".").pop();
-      if(ext !== 'mp3' && ext !== 'wav') {
+      const exts = ['mp3', 'wav']
+      if(exts.includes(ext)) {
         window.Materialize.toast('请选择音频文件', 5000);
         if(this.state.valid) this.setState({valid: false});
       } else {

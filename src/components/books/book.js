@@ -29,6 +29,11 @@ class Book extends React.Component {
     this.props.deleteBook(this.props.book._id)
   }
 
+  selectBook = (e) => {
+    e.preventDefault()
+    this.props.selectBook(this.props.book, `/books/${this.props.book._id}/view`)
+  }
+
   render() {
     let operations = this.props.readOnly ?  
     <td><button className="btn cyan">查看</button></td>
@@ -38,7 +43,7 @@ class Book extends React.Component {
 
       <ul id={this.props.id} className='dropdown-content'>
         <li><a href="" onClick={this.editBook}>编辑</a></li>
-        <li><Link to={`/books/${this.props.book._id}`}>查看</Link></li>
+        <li><a href="" onClick={this.selectBook} target="_blank">查看</a></li>
         <li><a href="" className="red-text" onClick={() => { if (window.confirm('确认要删除绘本嘛?')) this.deleteBook() }}>删除</a></li>
       </ul>
     </td>;
