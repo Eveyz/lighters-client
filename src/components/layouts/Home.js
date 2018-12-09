@@ -9,6 +9,13 @@ import Footer from './Footer';
 import TeachersCards from '../mainpages/teachersCards';
 import { setStudent, setTeacher } from '../../actions/users_actions';
 
+import book1 from '../../images/b1.png'
+import book2 from '../../images/b2.png'
+import book3 from '../../images/b3.png'
+import book4 from '../../images/b4.jpg'
+import book5 from '../../images/b5.jpeg'
+import uphill from '../../images/hillup.svg'
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -80,6 +87,16 @@ class Home extends Component {
                 <p>一对一私人课 (40分钟)</p>
                 <p>一对多小组课 (45分钟)</p>
               </Col>
+            </Row>
+          </div>
+
+          <h4 className="center banner-font">原版教材</h4>
+          <div className="container center" style={{backgroundImage: `${uphill}`}}>
+            <Row>
+              <img style={{width: "225px"}} src={book1} alt="Yvonne冰冰老师"></img>
+              <img style={{width: "225px"}} src={book2} alt="Yvonne冰冰老师"></img>
+              <img style={{width: "225px"}} src={book4} alt="Yvonne冰冰老师"></img>
+              <img style={{width: "225px"}} src={book3} alt="Yvonne冰冰老师"></img>
             </Row>
           </div>
         </div>

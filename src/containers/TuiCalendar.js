@@ -104,7 +104,7 @@ class TuiCalendar extends React.Component {
     });
     this.setState({
       calendar: _calendar,
-      date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDate(), _calendar.getDate(), _calendar.getViewName())
+      date: this.renderCalendarTitle(_calendar.getDate(), _calendar.getDateRangeStart(), _calendar.getDateRangeEnd(), _calendar.getViewName())
     });
 
     _calendar.createSchedules(this.props.schedulesData.schedules);
@@ -119,7 +119,7 @@ class TuiCalendar extends React.Component {
     let currScope = this;
     _calendar.on({
       'clickSchedule': function(e) {
-        console.log('clickSchedule', e);
+        // console.log('clickSchedule', e);
         currScope.setState({
           show: true,
           event: e,
@@ -127,7 +127,7 @@ class TuiCalendar extends React.Component {
         });
       },
       'beforeCreateSchedule': function(e) {
-        console.log('beforeCreateSchedule', e);
+        // console.log('beforeCreateSchedule', e);
         // open a creation popup
         currScope.setState({
           show: true,
@@ -136,13 +136,13 @@ class TuiCalendar extends React.Component {
         });
       },
       'beforeUpdateSchedule': function(e) {
-        console.log('beforeUpdateSchedule', e);
+        // console.log('beforeUpdateSchedule', e);
         e.schedule.start = e.start;
         e.schedule.end = e.end;
         _calendar.updateSchedule(e.schedule.id, e.schedule.calendarId, e.schedule);
       },
       'beforeDeleteSchedule': function(e) {
-        console.log('beforeDeleteSchedule', e);
+        // console.log('beforeDeleteSchedule', e);
         _calendar.deleteSchedule(e.schedule.id, e.schedule.calendarId);
       }
     });
