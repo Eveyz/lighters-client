@@ -73,10 +73,10 @@ export const getFullMinutes = (date) => {
 }
 
 export const getFullDate = (date) => {
-  let digits = date.split("-")
-  let month = (parseInt(digits[1], 10) < 10 ? '0' : '') + digits[1]
-  let day = (parseInt(digits[2], 10) < 10 ? '0' : '') + digits[2]
-  return `${digits[0]}-${month}-${day}`
+  const [_year, _month, _day] = date.split("-")
+  let month = (parseInt(_month, 10) < 10 ? '0' : '') + _month
+  let day = (parseInt(_day, 10) < 10 ? '0' : '') + _day
+  return `${_year}-${month}-${day}`
 }
 
 export const getToday = () => {

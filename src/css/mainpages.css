@@ -66,16 +66,16 @@
 @keyframes imageAnimation { 
 	0% {
     opacity: 0;
-    animation-timing-function: ease-in;
+    animation-timing-function: linear;
   }
   5% {
     opacity: 1;
     transform: scale(1.05);
-    animation-timing-function: ease-out;
+    animation-timing-function: linear;
   }
   19% {
     opacity: 1;
-    transform: scale(1.1) rotate(3deg);
+    transform: scale(1.1);
   }
   33% {
     opacity: 0.5;
@@ -139,6 +139,11 @@
 }
 
 .teacher-card img {
+  height: 125px;
+  border-radius: 50%;
+}
+
+.teacher-card-img {
   height: 125px;
   border-radius: 50%;
 }

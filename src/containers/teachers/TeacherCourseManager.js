@@ -9,6 +9,7 @@ import Footer from '../../components/layouts/Footer';
 import PathNavigator from '../../components/layouts/PathNavigator';
 import { selectStudent } from '../../actions/students_actions';
 import { updateBooks } from '../../actions/select_book_actions';
+import { selectBook } from '../../actions/books_actions';
 
 class TeacherCourseManager extends React.Component {
   constructor(props) {
@@ -26,6 +27,11 @@ class TeacherCourseManager extends React.Component {
   reportsList = student => e => {
     let path = "/teachers/" + this.props.user_id + "/reports";
     this.props.setStudent(student, path);
+  }
+
+  selectBook = book => e => {
+    e.preventDefault()
+    this.props.selectBook(book, `/books/${book._id}/view`)
   }
 
   render() {
@@ -59,7 +65,7 @@ class TeacherCourseManager extends React.Component {
 
       students = <div className="row">
                     <div className="col m12">
-                      <table>
+                      <table className="highlight">
                         <thead>
                           <tr>
                             <th>学生姓名</th>
@@ -87,13 +93,13 @@ class TeacherCourseManager extends React.Component {
                 <td>{ book.category }</td>
                 <td>{ book.serials }</td>
                 <td>{ book.name }</td>
-                <td><Link target="_blank" to={`/books/${book._id}`} className="btn" params={book}>查看</Link></td>
+                <td><a href="" onClick={this.selectBook(book)} target="_blank">查看</a></td>
                </tr>
       });
 
       books = <div className="row">
                 <div className="col m12">
-                  <table>
+                  <table className="highlight">
                     <thead>
                       <tr>
                         <th>RAZ等级</th>
@@ -150,6 +156,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    selectBook: (book, path) => {
+      dispatch(selectBook(book, path))
+    },
     setStudent: (student, path) => {
       dispatch(selectStudent(student, path))
     },

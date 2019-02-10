@@ -428,3 +428,9 @@
   padding: 8px 0px;
   border-radius: 5px;
 }
+
+/* pdf render style */
+.react-pdf__Page__svg {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
