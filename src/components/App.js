@@ -31,6 +31,7 @@ import ReportFormContainer from '../containers/reports/ReportFormContainer';
 import AllReports from '../containers/reports/AllReports';
 import StudentDashboard from '../containers/students/StudentDashboard';
 import AssetsDashboard from '../containers/assets/AssetsDashboard';
+import AdminTeacherNew from '../containers/users/admin/AdminTeacherNew';
 
 class App extends Component {
   
@@ -68,6 +69,7 @@ class App extends Component {
         <AdminRoute exact path="/students" auth={this.props.auth} component={StudentList} />
         <AdminRoute exact path="/books" auth={this.props.auth} component={BookList} />
         <AdminRoute exact path="/books/new" auth={this.props.auth} component={NewBook} />
+        <AdminRoute exact path="/admin/teachers/new" auth={this.props.auth} component={AdminTeacherNew} />
         <PrivateRoute exact path="/books/:_id" auth={this.props.auth} component={ViewBook} />
         <AdminRoute exact path="/books/:_id/edit" auth={this.props.auth} component={EditBook} />
         <AdminRoute exact path="/assets" auth={this.props.auth} component={AssetsDashboard} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 import { Row, Col, Table, Card } from 'react-materialize';
 
@@ -108,7 +109,9 @@ class TeacherList extends React.Component {
           <br />
           <Row>
             <Col m={12}>
-              <button className="btn">添加教师</button>
+              <Link to="/admin/teachers/new">
+                <button className="btn">添加教师</button>
+              </Link>
             </Col>
           </Row>
           <div className="row">
