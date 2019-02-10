@@ -29,12 +29,17 @@ import 'materialize-css/dist/js/materialize.min.js';
 
 const persistedState = loadFromLocalStorage();
 
+let devTools = window.navigator.userAgent.includes('Chrome') ?
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : compose;
+if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production') {
+  devTools = a => a;
+}
+
 const store = createStore(
   rootReducer,
   persistedState,
   compose(applyMiddleware(thunk),
-  window.navigator.userAgent.includes('Chrome') ?
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : compose,
+  devTools,
 ));
 
 store.subscribe(() => saveToLocalStorage(store.getState()));
