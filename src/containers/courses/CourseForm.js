@@ -45,13 +45,14 @@ class CourseForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let courseID = this.props.currentCourse._id;
+    let teacher = this.teachersSelect.current.value !== "default" ? this.teachersSelect.current.value : null;
     const course = {
       name: this.nameInput.current.value,
       level: this.levelInput.current.value,
       capacity: this.capacityInput.current.value,
       course_hours: this.hoursInput.current.value,
       // timeInput: this.timeInput.current.value,
-      teachers: [this.teachersSelect.current.value]
+      teachers: [teacher]
     };
 
     if(this.props.type === "ADD") {
