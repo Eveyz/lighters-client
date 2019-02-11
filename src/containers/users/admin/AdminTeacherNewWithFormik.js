@@ -2,12 +2,12 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 
-import AdminNewTeacherForm from './AdminNewTeacherForm';
-import { addTeacher, updateTeacher } from '../../actions/teachers_actions';
+import AdminTeacherNewForm from './AdminTeacherNewForm';
+import { createTeacher, updateTeacher } from '../../../actions/admin_actions';
 
 const mapDispatchToProps = dispatch => {
   return {
-    addTeacher: (teacher) => dispatch(addTeacher(teacher)),
+    createTeacher: (teacher) => dispatch(createTeacher(teacher)),
     updateTeacher: (teacher) => dispatch(updateTeacher(teacher))
   }
 };
@@ -20,7 +20,7 @@ const AdminTeacherNewWithFormik = connect(null, mapDispatchToProps)(
       englishname: props.teacher.englishname || "",
       age: props.teacher.age || "",
       birthday: props.teacher.birthday || "",
-      gender: props.teacher.gender || "",
+      gender: props.teacher.gender || "女",
       city: props.teacher.city || ""
     }),
     validationSchema: Yup.object().shape({
@@ -34,9 +34,9 @@ const AdminTeacherNewWithFormik = connect(null, mapDispatchToProps)(
     }),
     handleSubmit: (values, { props, setSubmitting }) => {
       setSubmitting(false);
-      props.action === "NEW" ? props.addTeacher(values) : props.updateTeacher(values);
+      props.action === "NEW" ? props.createTeacher(values) : props.updateTeacher(values);
     }
-  })(AdminNewTeacherForm)
+  })(AdminTeacherNewForm)
 );
 
 export default AdminTeacherNewWithFormik;

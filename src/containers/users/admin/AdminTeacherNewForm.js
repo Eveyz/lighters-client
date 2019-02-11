@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import QuillTextEditor from '../TextEditor/Quill';
-
 const AdminTeacherNewForm = props => {
   const {
       values,
@@ -101,8 +99,9 @@ const AdminTeacherNewForm = props => {
       </div>
 
       <div className="row no-margin">
-        <div className="input-field col s12 m12">
-          <input 
+        <div className="col s12 m12">
+          <label htmlFor="birthday">出生日期 <span className="required">*</span></label>
+          <input
             type="date"
             name="birthday" 
             id="birthday" 
@@ -117,10 +116,9 @@ const AdminTeacherNewForm = props => {
                 {errors.birthday}
               </div>
             )}
-          <label htmlFor="birthday">出生日期 <span className="required">*</span></label>
         </div>
       </div>
-      
+      <br/>
       <div className="row no-margin">
         <div className="input-field col m12 s12">
           <select 
@@ -130,8 +128,8 @@ const AdminTeacherNewForm = props => {
             onChange={handleChange}
             onBlur={handleBlur}
           >
-            <option value='female'>女</option>
-            <option value='male'>男</option>
+            <option value='女'>女</option>
+            <option value='男'>男</option>
           </select>
           <label>性别 <span className="required">*</span></label>
         </div>
@@ -157,26 +155,6 @@ const AdminTeacherNewForm = props => {
           <label htmlFor="city">所在城市 <span className="required">*</span></label>
         </div>
       </div>
-      <div className="row no-margin">
-        <div className="input-field col s12 m12">
-          <input 
-            type="text"
-            name="work" 
-            id="work" 
-            className="validate"
-            onChange={handleChange} 
-            onBlur={handleBlur} 
-            value={values.work} 
-          />
-          {errors.work &&
-            touched.work && (
-              <div className="inline-form-error-msg">
-                {errors.work}
-              </div>
-            )}
-          <label htmlFor="work">当前工作状态 <span className="required">*</span></label>
-        </div>
-      </div>
 
       <div className="row no-margin">
         <div className="input-field">
@@ -195,7 +173,7 @@ const AdminTeacherNewForm = props => {
         <div className="input-field">
           <Link 
             className="col m12 s12 white r-box-shadow" 
-            to={"/books"}
+            to={"/teachers"}
             style={
               {padding: "11px 0px 11px 0px", borderRadius: "15px", border: "none", cursor: "pointer"}
             }
