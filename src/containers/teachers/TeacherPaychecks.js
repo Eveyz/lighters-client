@@ -58,10 +58,10 @@ class TeacherPaychecks extends React.Component {
     return(
       <div>
         <h6 className="airbnb-font bold red-text">待付工资单</h6>
-        {paidTable}
+        {unpaidTable}
         <br/>
         <h6 className="airbnb-font bold green-text">已付工资单(总计: {paidSum.toFixed(2)}元)</h6>
-        {unpaidTable}
+        {paidTable}
       </div>
     )
   }
