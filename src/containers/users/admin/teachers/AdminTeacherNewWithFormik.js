@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { connect } from 'react-redux';
 
 import AdminTeacherNewForm from './AdminTeacherNewForm';
-import { createTeacher, updateTeacher } from '../../../actions/admin_actions';
+import { createTeacher, updateTeacher } from '../../../../actions/admin_actions';
 
 const mapDispatchToProps = dispatch => {
   return {

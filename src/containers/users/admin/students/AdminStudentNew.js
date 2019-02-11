@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Header from '../../../components/layouts/Header';
-import Footer from '../../../components/layouts/Footer';
+import Header from '../../../../components/layouts/Header';
+import Footer from '../../../../components/layouts/Footer';
 import M from 'materialize-css';
 
-import AdminTeacherNewWithFormik from './AdminTeacherNewWithFormik';
+import AdminStudentNewWithFormik from './AdminStudentNewWithFormik';
 
-class AdminTeacherNew extends React.Component {
+class AdminStudentNew extends React.Component {
   componentDidMount() {
     M.updateTextFields();
   }
@@ -21,9 +21,9 @@ class AdminTeacherNew extends React.Component {
               <div className="col s12 m10 offset-m1">
                 <div className="card r-box-shadow">
                   <div className="card-content" style={{padding: "50px"}}>
-                    <h5 className="cyan-text airbnb-font" style={{marginTop: "0px"}}>新建教师</h5>
-                    <AdminTeacherNewWithFormik 
-                      teacher={{}} 
+                    <h5 className="cyan-text airbnb-font" style={{marginTop: "0px"}}>新建学生</h5>
+                    <AdminStudentNewWithFormik 
+                      student={{}} 
                       action="NEW"
                     />
                   </div>
@@ -39,4 +39,4 @@ class AdminTeacherNew extends React.Component {
   }
 }
 
-export default AdminTeacherNew;
+export default AdminStudentNew;

@@ -42,11 +42,15 @@ export const createStudent = (student) => {
     axios.post(`/admin/createStudent`, data)
       .then((response) => {
         console.log(randomstring);
-        dispatch({type: ADMIN_CREATE_TEACHER, payload: randomstring});
+        dispatch({type: ADMIN_CREATE_STUDENT, payload: randomstring});
         history.push(`/students`);
       })
       .catch((err) => {
         console.log(err);
       })
   }
+};
+
+export const updateStudent = (student) => {
+  
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 import { Row, Col, Table, Card } from 'react-materialize';
 
@@ -22,12 +23,18 @@ class StudentList extends React.Component {
   render() {
     let pendingStudentList;
     let pendingStudent = [];
+
     let activeStudentList;
     let activeStudent = [];
+
+    let createdStudentList;
+    let createdStudent = [];
+
     if(this.props.students.length > 0) {
       this.props.students.forEach((student) => {
         if(student.status === "pending") pendingStudent.push(student);
         else if(student.status === "active") activeStudent.push(student);
+        else if(student.status === "RESET_REQUIRED") createdStudent.push(student);
       });
 
       pendingStudentList = pendingStudent.map((student, index) => {
@@ -41,6 +48,12 @@ class StudentList extends React.Component {
           <Student key={index} id={index} student={student} />
         )
       });
+
+      createdStudentList = createdStudent.map((student, index) => {
+        return (
+          <Student key={index} id={`created${index}`} student={student} />
+        )
+      });
     }
 
     let pendingStudentTable = pendingStudent.length > 0 ?
@@ -49,8 +62,7 @@ class StudentList extends React.Component {
                                   <Table>
                                     <thead>
                                       <tr>
-                                        <th>姓</th>
-                                        <th>名字</th>
+                                        <th>姓名</th>
                                         <th>年龄</th>
                                         <th>出生日期</th>
                                         <th>性别</th>
@@ -75,8 +87,7 @@ class StudentList extends React.Component {
                                   <Table>
                                     <thead>
                                       <tr>
-                                        <th>姓</th>
-                                        <th>名字</th>
+                                        <th>姓名</th>
                                         <th>年龄</th>
                                         <th>出生日期</th>
                                         <th>性别</th>
@@ -95,8 +106,35 @@ class StudentList extends React.Component {
                                 <h4 className="center">没有上课的学生</h4>
                               </Card>
 
+    let createdStudentTable = createdStudent.length > 0 ? 
+                              <Row>
+                                <Col m={12}>
+                                  <Table className="highlight">
+                                    <thead>
+                                      <tr>
+                                        <th>姓名</th>
+                                        <th>年龄</th>
+                                        <th>性别</th>
+                                        <th>临时邮箱</th>
+                                        <th>临时用户名</th>
+                                        <th>更多操作</th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody>
+                                      {createdStudentList}
+                                    </tbody>
+                                  </Table>
+                                </Col>
+                              </Row> :
+                              <Card className='white' textClassName='blue-text'>
+                                <h5 className="center">管理员生成的学生</h5>
+                              </Card>
+
     let active = this.active === "active" ? "active" : "";
-    let pending = this.active !== "active" ? "active" : "";
+    let pending = this.active === "pending" ? "active" : "";
+    let created = this.active === "created" ? "active" : "";
+
     return (
       <div>
         <Header />
@@ -105,7 +143,9 @@ class StudentList extends React.Component {
           <br />
           <Row>
             <Col m={12}>
-              <button className="btn">添加学生</button>
+              <Link to="/admin/students/new">
+                <button className="btn">添加学生</button>
+              </Link>
             </Col>
           </Row>
           <div className="row">
@@ -113,10 +153,12 @@ class StudentList extends React.Component {
               <ul className="tabs">
                 <li className="tab col s3"><a className={active} href="#active" onClick={(e) => this.active = "active"}>上课学生({activeStudent.length})</a></li>
                 <li className="tab col s3"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">试课学生({pendingStudent.length})</a></li>
+                <li className="tab col s3"><a onClick={(e) => this.active = "created"} className={created} href="#created">试课学生({createdStudent.length})</a></li>
               </ul>
             </div>
             <div id="active" className="col s12">{activeStudentTable}</div>
             <div id="pending" className="col s12">{pendingStudentTable}</div>
+            <div id="created" className="col s12">{createdStudentTable}</div>
           </div>
           
         </div>
