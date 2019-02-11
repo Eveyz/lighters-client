@@ -4,11 +4,11 @@ import { ADMIN_CREATE_TEACHER, ADMIN_CREATE_STUDENT } from './constants';
 import { addTeacher } from './teachers_actions';
 
 export const createTeacher = (teacher) => {
-  console.log("come to actions");
   return (dispatch) => {
     const randomstring = Math.random().toString(36).slice(-8);
     const data = {
       email: `${randomstring}@lighters.com`,
+      username: randomstring,
       password: randomstring,
       passwordCon: randomstring,
       teacher: teacher
@@ -16,7 +16,8 @@ export const createTeacher = (teacher) => {
     axios.post(`/admin/createTeacher`, data)
       .then((response) => {
         console.log(randomstring);
-        dispatch({type: ADMIN_CREATE_TEACHER, payload: randomstring})
+        dispatch({type: ADMIN_CREATE_TEACHER, payload: randomstring});
+        history.push(`/teachers`);
       })
       .catch((err) => {
         console.log(err);
@@ -25,25 +26,27 @@ export const createTeacher = (teacher) => {
 };
 
 export const updateTeacher = (teacher) => {
-  console.log("update actions");
+  
+};
+
+export const createStudent = (student) => {
   return (dispatch) => {
     const randomstring = Math.random().toString(36).slice(-8);
     const data = {
       email: `${randomstring}@lighters.com`,
+      username: randomstring,
       password: randomstring,
       passwordCon: randomstring,
-      teacher: teacher
+      student: student
     }
     axios.post(`/admin/createStudent`, data)
       .then((response) => {
-        dispatch({type: ADMIN_CREATE_TEACHER, payload: randomstring})
+        console.log(randomstring);
+        dispatch({type: ADMIN_CREATE_TEACHER, payload: randomstring});
+        history.push(`/students`);
       })
       .catch((err) => {
         console.log(err);
       })
   }
-};
-
-export const createStudent = (student) => {
-
 };
