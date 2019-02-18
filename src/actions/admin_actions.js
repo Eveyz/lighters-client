@@ -1,7 +1,6 @@
 import axios from 'axios';
 import history from '../history';
 import { ADMIN_CREATE_TEACHER, ADMIN_CREATE_STUDENT } from './constants';
-import { addTeacher } from './teachers_actions';
 
 export const createTeacher = (teacher) => {
   return (dispatch) => {

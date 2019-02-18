@@ -88,7 +88,7 @@ class CourseForm extends React.Component {
       coursehoursVal = this.props.currentCourse.course_hours;
 
       let defaultTeacher = this.props.currentCourse.teachers[0]
-      teacherVal = defaultTeacher._id;
+      teacherVal = defaultTeacher ? defaultTeacher._id : "";
     }
 
     let selectEle = <div className="input-field col s12">

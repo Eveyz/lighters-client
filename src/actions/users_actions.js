@@ -82,21 +82,29 @@ export const login = (user) => {
           history.push('/users/admin/dashboard');
         } else if(userToken.userTokenData.identity === "teacher") {
           const teacher = response.data.teacher;
-          if(teacher) {
-            dispatch(setCurrentIdentityData(teacher));
-            history.push(`/teachers/${teacher._id}/dashboard`);
+          if(userToken.userTokenData.status === "RESET_REQUIRED") {
+            history.push(`/users/${userToken.userTokenData.id}/activate`);
           } else {
-            // teacher profile not created, redirect to new teacher
-            history.push(`/teachers/new`);
+            if(teacher) {
+              dispatch(setCurrentIdentityData(teacher));
+              history.push(`/teachers/${teacher._id}/dashboard`);
+            } else {
+              // teacher profile not created, redirect to new teacher
+              history.push(`/teachers/new`);
+            }
           }
         } else {
           const student = response.data.student;
-          if(student) {
-            dispatch(setCurrentIdentityData(student));
-            history.push(`/students/${student._id}/dashboard`);
+          if(userToken.userTokenData.status === "RESET_REQUIRED") {
+            history.push(`/users/${userToken.userTokenData.id}/activate`);
           } else {
-            // student profile not created, redirect to new teacher
-            history.push(`/students/new`);
+            if(student) {
+              dispatch(setCurrentIdentityData(student));
+              history.push(`/students/${student._id}/dashboard`);
+            } else {
+              // student profile not created, redirect to new student
+              history.push(`/students/new`);
+            }
           }
         }
       })
@@ -165,6 +173,30 @@ export const logout = () => {
     setAuthToken(false);
     localStorage.clear()
     history.push('/');
+  }
+};
+
+export const activate = (user) => {
+  return (dispatch) => {
+    axios.post(`/users/${user.id}/activate`, user)
+      .then((response) => {
+
+        const token = response.data.token;
+        localStorage.setItem('jwtToken', token);
+        setAuthToken(token);
+        let userToken = jwtDecode(token);
+        dispatch(setCurrentUser(userToken));
+        dispatch({type: SIGNUP_USER, payload: response.data});
+        
+        if(userToken.userTokenData.identity === "teachers") {
+          history.push(`/teachers/new`);
+        } else if(userToken.userTokenData.identity === "students") {
+          history.push(`/students/new`);
+        }
+      })
+      .catch((err) => {
+        dispatch({type: LOGIN_USER_FAILURE, payload: err.response.data});
+      })
   }
 };
 

@@ -35,7 +35,7 @@ const BookwithFormik = connect(null, mapDispatchToProps)(
       category: Yup.string().required('此项为必填项!'),
       serials: Yup.string().required('此项为必填项!'),
       name: Yup.string().required('此项为必填项!'),
-      audioLink: Yup.string().required('此项为必填项!'),
+      // audioLink: Yup.string().required('此项为必填项!'),
       // file: Yup.mixed()
       //     .test(
       //       "绘本文件格式",

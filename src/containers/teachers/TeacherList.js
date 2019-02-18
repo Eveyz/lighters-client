@@ -8,7 +8,7 @@ import Teacher from '../../containers/teachers/Teacher';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
-import { getTeachers, getTeacher } from '../../actions/teachers_actions';
+import { getTeachers } from '../../actions/teachers_actions';
 
 class TeacherList extends React.Component {
   constructor(props) {
@@ -38,8 +38,8 @@ class TeacherList extends React.Component {
     if(this.props.teachers.length > 0) {
       this.props.teachers.forEach((teacher) => {
         if(teacher.status === "pending") pendingTeacher.push(teacher);
-        else if(teacher.status === "active") activeTeacher.push(teacher);
-        else if(teacher.status === "RESET_REQUIRED") createdTeacher.push(teacher);
+        else if(teacher.status === "active" || teacher.status === "RESET_REQUIRED") activeTeacher.push(teacher);
+        if(teacher.status === "RESET_REQUIRED") createdTeacher.push(teacher);
       });
 
       pendingTeacherList = pendingTeacher.map((teacher, index) => {
@@ -56,7 +56,7 @@ class TeacherList extends React.Component {
 
       createdTeacherList = createdTeacher.map((teacher, index) => {
         return (
-          <Teacher key={index} id={`created${index}`} teacher={teacher} />
+          <Teacher key={index} id={`created${index}`} teacher={teacher} tab="RESET_REQUIRED" />
         )
       })
     }

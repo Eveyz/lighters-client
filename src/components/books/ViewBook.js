@@ -54,7 +54,7 @@ class ViewBook extends React.Component {
                         <p className="center">正在加载绘本...</p>
                       </div>
     const _error = <div>
-                    <p className="center red-text">无法加载绘本, 绘本可能不存在</p>
+                    <p className="center red-text">无法加载绘本, 绘本文件不存在, 请联系管理员</p>
                   </div>
 
     return(
@@ -68,7 +68,7 @@ class ViewBook extends React.Component {
           {_pageNumber}
         </div>
         <Document
-          file={`/books/${this.props.book._id}/view`}
+          file={`/books/${this.props.match.params._id}/view`}
           className="pdf-render"
           onLoadSuccess={this.onDocumentLoadSuccess}
           onLoadError={this.onLoadError}

@@ -13,7 +13,7 @@ import book1 from '../../images/b1.png'
 import book2 from '../../images/b2.png'
 import book3 from '../../images/b3.png'
 import book4 from '../../images/b4.jpg'
-import book5 from '../../images/b5.jpeg'
+// import book5 from '../../images/b5.jpeg'
 import uphill from '../../images/hillup.svg'
 
 class Home extends Component {

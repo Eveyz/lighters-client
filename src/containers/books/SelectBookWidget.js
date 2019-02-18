@@ -19,6 +19,8 @@ class SelectBookWidget extends React.Component {
 
   initMaterilize() {
     M.AutoInit();
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(elems, {inDuration: 300, outDuration: 225, hover: true});
   }
 
   componentWillMount() {
@@ -58,13 +60,14 @@ class SelectBookWidget extends React.Component {
                               onChange={this.selectCategory}
                               ref={this.categoryValue}
                             >
-                              <option value="default" disabled>请选择绘本分类</option>
+                              <option key="default" value="default" disabled>请选择绘本分类</option>
                               {categories}
                             </select>
                             <label>请选择绘本分类</label>
                           </div>;
 
     let disabled = this.props.category === "" ? true : false;
+    
     let serialsBooks = "";
     if(!disabled) {
       let serials = Object.keys(this.props.groupedBooks[this.props.category]);
@@ -73,19 +76,20 @@ class SelectBookWidget extends React.Component {
       });
     }
     let defaultValue = this.props.serialName !== "" ? this.props.serialName : "default";
-    let serialsSelect = <div>
+    let serialsSelect = <div key="select-top-div">
                           <select
+                            key={this.serialNameValue} 
                             value={defaultValue} 
                             onChange={this.selectSerial}
                             disabled={disabled}
                             ref={this.serialNameValue}
                           >
-                            <option value="default" disabled>请选择绘本系列</option>
+                            <option key="default" value="default" disabled>请选择绘本系列</option>
                             {serialsBooks}
                           </select>
                           <label>请选择绘本系列</label>
                         </div>;
-
+    
     let bookTable = "";
     if(this.props.category !== "" && this.props.serialName !== "") {
       let books = this.props.groupedBooks[this.props.category][this.props.serialName];

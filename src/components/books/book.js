@@ -2,9 +2,8 @@ import React from 'react';
 import 'materialize-css/dist/js/materialize.min';
 import M from 'materialize-css';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import { selectBook, deleteBook } from '../../actions/books_actions';
+import { selectBook, editBook, deleteBook } from '../../actions/books_actions';
 
 class Book extends React.Component {
   constructor(props) {
@@ -22,7 +21,7 @@ class Book extends React.Component {
 
   editBook = (e) => {
     e.preventDefault()
-    this.props.selectBook(this.props.book, `/books/${this.props.book._id}/edit`)
+    this.props.editBook(this.props.book, `/books/${this.props.book._id}/edit`)
   }
 
   deleteBook = () => {
@@ -31,7 +30,7 @@ class Book extends React.Component {
 
   selectBook = (e) => {
     e.preventDefault()
-    this.props.selectBook(this.props.book, `/books/${this.props.book._id}/view`)
+    this.props.selectBook(this.props.book, `/books/${this.props.book._id}/show`)
   }
 
   render() {
@@ -64,6 +63,7 @@ class Book extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+    editBook: (book, path) => dispatch(editBook(book, path)),
     selectBook: (book, path) => dispatch(selectBook(book, path)),
     deleteBook: (book_id) => dispatch(deleteBook(book_id))
   };

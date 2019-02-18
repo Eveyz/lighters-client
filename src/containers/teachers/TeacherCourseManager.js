@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Card } from 'react-materialize';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import '../../css/App.css'
 import Header from '../../components/layouts/Header';
@@ -31,7 +30,7 @@ class TeacherCourseManager extends React.Component {
 
   selectBook = book => e => {
     e.preventDefault()
-    this.props.selectBook(book, `/books/${book._id}/view`)
+    this.props.selectBook(book, `/books/${book._id}/show`)
   }
 
   render() {

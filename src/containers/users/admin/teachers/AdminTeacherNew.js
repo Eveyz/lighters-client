@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from '../../../../components/layouts/Header';
 import Footer from '../../../../components/layouts/Footer';
 import M from 'materialize-css';

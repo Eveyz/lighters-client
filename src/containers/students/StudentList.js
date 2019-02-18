@@ -33,8 +33,8 @@ class StudentList extends React.Component {
     if(this.props.students.length > 0) {
       this.props.students.forEach((student) => {
         if(student.status === "pending") pendingStudent.push(student);
-        else if(student.status === "active") activeStudent.push(student);
-        else if(student.status === "RESET_REQUIRED") createdStudent.push(student);
+        else if(student.status === "active" || student.status === "RESET_REQUIRED") activeStudent.push(student);
+        if(student.status === "RESET_REQUIRED") createdStudent.push(student);
       });
 
       pendingStudentList = pendingStudent.map((student, index) => {
@@ -51,7 +51,7 @@ class StudentList extends React.Component {
 
       createdStudentList = createdStudent.map((student, index) => {
         return (
-          <Student key={index} id={`created${index}`} student={student} />
+          <Student key={index} id={`created${index}`} student={student} tab="RESET_REQUIRED" />
         )
       });
     }

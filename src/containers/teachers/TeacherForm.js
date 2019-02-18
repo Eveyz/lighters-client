@@ -101,7 +101,8 @@ const TeacherForm = props => {
       </div>
 
       <div className="row no-margin">
-        <div className="input-field col s12 m12">
+        <div className="col s12 m12">
+          <label htmlFor="birthday">出生日期 <span className="required">*</span></label>
           <input 
             type="date"
             name="birthday" 
@@ -117,7 +118,6 @@ const TeacherForm = props => {
                 {errors.birthday}
               </div>
             )}
-          <label htmlFor="birthday">出生日期 <span className="required">*</span></label>
         </div>
       </div>
       

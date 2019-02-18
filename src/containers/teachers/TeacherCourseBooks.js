@@ -16,7 +16,7 @@ class TeacherCourseBooks extends React.Component {
                 <td>{ book.category }</td>
                 <td>{ book.serials }</td>
                 <td>{ book.name }</td>
-                <td><Link target="_blank" to={`/books/${book._id}`} className="btn" params={book}>查看</Link></td>
+                <td><Link target="_blank" to={`/books/${book._id}/show`} className="btn" params={book}>查看</Link></td>
                </tr>
       });
       content = <table className="striped">

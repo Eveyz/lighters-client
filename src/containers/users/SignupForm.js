@@ -16,7 +16,7 @@ class SignupForm extends React.Component {
   constructor(props) {
     super(props);
     
-    this.emailInput = React.createRef();
+    this.usernameInput = React.createRef();
     this.wechatInput = React.createRef();
     this.phoneInput = React.createRef();
     this.identitySelect = React.createRef();
@@ -35,7 +35,7 @@ class SignupForm extends React.Component {
     e.preventDefault();
     let identityValue = this.identitySelect.current.state.value;
     const user = {
-      email: this.emailInput.current.value,
+      username: this.usernameInput.current.value,
       wechat: this.wechatInput.current.value,
       phone: this.phoneInput.current.value,
       identity: identityValue,
@@ -77,7 +77,7 @@ class SignupForm extends React.Component {
                           }}
                           validationSchema={Yup.object().shape({
                             identity: Yup.string().required('请选择你的身份'),
-                            email: Yup.string().email('邮箱格式不正确').required('邮箱不能为空'),
+                            username: Yup.string().required('用户名不能为空'),
                             wechat: Yup.string().required('请输入微信号'),
                             phone: Yup.string().matches(phoneRegExp, '电话号码格式不正确').min(7, '电话号码长度至少为7位').required('请输入电话号码'),
                             password: Yup.string().min(6, '密码长度至少为6位').required('密码不能为空'),
@@ -96,7 +96,7 @@ class SignupForm extends React.Component {
                             return (
                               <form onSubmit={handleSubmit}>
                                 {errors.identity && touched.identity && <FlashMessage props={{status: "error", msg: errors.identity}} />}
-                                {errors.email && touched.email && <FlashMessage props={{status: "error", msg: errors.email}} />}
+                                {errors.username && touched.username && <FlashMessage props={{status: "error", msg: errors.username}} />}
                                 {errors.wechat && touched.wechat && <FlashMessage props={{status: "error", msg: errors.wechat}} />}
                                 {errors.phone && touched.phone && <FlashMessage props={{status: "error", msg: errors.phone}} />}
                                 {errors.password && touched.password && <FlashMessage props={{status: "error", msg: errors.password}} />}
@@ -120,16 +120,15 @@ class SignupForm extends React.Component {
                                 <div className="row no-margin">
                                   <div className="input-field col m12 s12">
                                     <input 
-                                      type="email" 
-                                      name="email" 
-                                      id="email" 
+                                      type="username" 
+                                      name="username" 
+                                      id="username" 
                                       autoComplete="true"
-                                      placeholder="me@lighters.com"
                                       onChange={handleChange}
                                       onBlur={handleBlur}
                                       className="validate"
                                     />
-                                    <label htmlFor="email">邮箱 <span className="required">*</span></label>
+                                    <label htmlFor="username">用户名 <span className="required">*</span></label>
                                   </div>
                                 </div>
 

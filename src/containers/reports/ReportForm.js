@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+// import M from 'materialize-css';
 
 import { getFullDate } from '../../ultis';
 import FormPick from '../forms/FormPick';
 import FormInput from '../forms/FormInput';
 import FormSelect from '../forms/FormSelect';
 import FormTextarea from '../forms/FormTextarea';
-import BooksForReport from './BooksForReport';
+// import BooksForReport from './BooksForReport';
 import AudiosFileList from './AudiosFileList';
 import { addReport, updateReport } from '../../actions/reports_actions';
 
@@ -19,7 +20,8 @@ class ReportForm extends React.Component {
       valid: false,
       situation: this.props.action === "NEW" ? 1 : this.props.report.situation === "取消" ? -1 : 1,
       comment: this.props.report.comment || "",
-      homework: this.props.report.homework || ""
+      homework: this.props.report.homework || "",
+      course_content: this.props.report.course_content || ""
     }
 
     this.courseDate = React.createRef();
@@ -40,6 +42,7 @@ class ReportForm extends React.Component {
     // check if course is cancelled
     if(field_name === "comment") this.setState({comment: val})
     if(field_name === "homework") this.setState({homework: val})
+    if(field_name === "course_content") this.setState({course_content: val})
     if(this.situation.current.value === "取消") {
       this.setState({situation: -1})
       if(this.reason.current.value) {
@@ -66,10 +69,10 @@ class ReportForm extends React.Component {
       const ext = file.name.split(".").pop();
       const exts = ['mp3', 'wav']
       if(exts.includes(ext)) {
+        if(!this.state.valid) this.setState({valid: true});
+      } else {
         window.Materialize.toast('请选择音频文件', 5000);
         if(this.state.valid) this.setState({valid: false});
-      } else {
-        if(!this.state.valid) this.setState({valid: true});
       }
     });
   }
@@ -90,6 +93,7 @@ class ReportForm extends React.Component {
       start_time: this.startTime.current.value,
       end_time: this.endTime.current.value,
       focus: this.focusTime.current.value,
+      course_content: this.state.course_content,
       tutor_comment: this.state.comment,
       homework: this.state.homework,
       external_link: this.audioLinks.current.value,
@@ -120,12 +124,12 @@ class ReportForm extends React.Component {
   }
 
   render() {
-    let disabled = !this.state.valid;
+    // let disabled = !this.state.valid;
     let visiblity = this.state.situation < 0 ? "display-none" : "display-block";
     let notVisiblity = this.state.situation < 0 ? "display-block" : "display-none";
 
-    let buttonColor = disabled ? "#bdc3c7" : "#2ecc71";
-    let buttonStyle = {padding: "15px 0px 15px 0px", borderRadius: "15px", backgroundColor: buttonColor, border: "none", cursor: "pointer"}
+    // let buttonColor = disabled ? "#bdc3c7" : "#2ecc71";
+    let buttonStyle = {padding: "15px 0px 15px 0px", borderRadius: "15px", backgroundColor: "#2ecc71", border: "none", cursor: "pointer"}
 
     let action = this.props.action;
 
@@ -223,31 +227,83 @@ class ReportForm extends React.Component {
           />
         </div>
 
-        <div className={"row no-margin " + visiblity}>
+        {/* <div className={"row no-margin " + visiblity}>
           <BooksForReport action={action} />
         </div>
-        <br/>
+        <br/> */}
 
-        <div className={"row no-margin " + visiblity}>
+        <div className={"row no-margin no-autoinit " + visiblity}>
+          <div className="row no-margin">
+            <div className="input-field col m12 no-margin">
+              <h5 className="orange-text">上课内容</h5>
+            </div>
+          </div>
+          <blockquote className="blockquote-style no-margin">
+            <p>此行填写格式为：</p>
+            <p>阅读资源类型 + 翻译比例 + 绘本系列名/绘本书名（学员书单中有，会提供给老师参考）</p>
+            <br/>
+            <p>Lighters绘说英语阅读资源类型有：主流分级绘本, 名家绘本, 自然拼读, 科普读物, 动画视频, 写作教程, 学生自读</p>
+          </blockquote>
+          <FormTextarea
+            classes="input-field col m12 s12"
+            name="course_content"
+            label="上课内容"
+            required={true}
+            errorMsg="请填写上课内容"
+            getInputData={this.getInputData}
+            action={action}
+            value={action === "EDIT" ? this.props.report.course_content : ""}
+          />
+        </div>
+
+        <div className={"row no-margin no-autoinit " + visiblity}>
+          <div className="row no-margin">
+            <div className="input-field col m12 no-margin">
+              <h5 className="orange-text">上课反馈</h5>
+            </div>
+          </div>
+          <blockquote className="blockquote-style no-margin">
+            <p>反馈内容主要涉及这几个方面：</p>
+            <p><b>听</b> （上课对英语的听力反应，对音频视频的理解）</p>
+            <p><b>说</b> （发音、自然拼读能力、英语对话口语能力）</p>
+            <p><b>读</b> （朗读语音语调、role play、猜词推理能力）</p>
+            <p><b>写</b> （表达、描述、议论、逻辑语言组织等）</p>
+            <p><b>综合英语能力</b> （词汇句型掌握情况等）</p>
+            <p>（基本技能）</p>
+            <p>+ </p>
+            <p>（扩展技能）</p>
+            <p>想象力、记忆力、理解力、总结复述能力、知识面、分析思考评判能力、批判性思维、创新性思维、知识运用能力</p>
+
+            <p>不用面面俱到，可选择最关键点进行课堂总结与学生学习情况反馈</p>
+          </blockquote>
           <FormTextarea
             classes="input-field col m12 s12"
             name="comment"
-            label="课程评价"
+            label="上课反馈"
             required={true}
-            errorMsg="请填写课程评价"
+            errorMsg="请填写上课反馈"
             getInputData={this.getInputData}
             action={action}
             value={action === "EDIT" ? this.props.report.tutor_comment : ""}
           />
         </div>
 
-        <div className={"row no-margin " + visiblity}>
+        <div className={"row no-margin no-autoinit " + visiblity}>
+          <div className="row no-margin">
+            <div className="input-field col m12 no-margin">
+              <h5 className="orange-text">课后任务</h5>
+            </div>
+          </div>
+          <blockquote className="blockquote-style no-margin">
+            <p>在此布置课下作业（主要提醒打卡听音频、复习和录音）</p>
+            <p>也可在此与家长进行正式交流，提出家长配合需求与建议</p>
+          </blockquote>
           <FormTextarea
             classes="input-field col m12 s12"
             name="homework"
-            label="课后作业"
+            label="课后任务"
             required={true}
-            errorMsg="请填写课后作业"
+            errorMsg="请填写课后任务"
             getInputData={this.getInputData}
             action={action}
             value={action === "EDIT" ? this.props.report.homework : ""}
@@ -297,11 +353,10 @@ class ReportForm extends React.Component {
 
         <div className="row no-margin">
           <div className="input-field col m12 s12">
-            <button 
-              disabled={disabled} 
+            <button  
               className="col m12 s12" 
-              style={buttonStyle}
               onClick={this.submitForm}
+              style={buttonStyle}
             >
               <span style={{color: "white", fontSize: "20px"}}><b>提交</b></span>
             </button>

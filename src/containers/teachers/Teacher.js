@@ -53,7 +53,7 @@ class Teacher extends React.Component {
       classes = "btn green";
     }
 
-    if(this.props.teacher.status === "RESET_REQUIRED") {
+    if(this.props.tab === "RESET_REQUIRED") {
       return (
         <tr>
           <td><Link to={`/teachers/${this.props.teacher._id}`}><span className="airbnb-font">{this.props.teacher.lastname + this.props.teacher.firstname}</span></Link></td>

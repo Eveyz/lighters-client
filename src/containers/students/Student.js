@@ -23,7 +23,7 @@ class Student extends React.Component {
       classes = "btn green";
     }
 
-    if(this.props.student.status === "RESET_REQUIRED") {
+    if(this.props.tab === "RESET_REQUIRED") {
       return (
         <tr>
           <td>{this.props.student.lastname + this.props.student.firstname}</td>

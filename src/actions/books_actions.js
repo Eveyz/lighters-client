@@ -33,11 +33,21 @@ export const getBooks = () => {
   }
 };
 
+export const editBook = (book, path) => {
+  return (dispatch) => {
+    dispatch({type: SELECT_BOOK, payload: book})
+    if(path) {
+      history.push(path);
+    }
+  }
+}
+
 export const selectBook = (book, path) => {
   return (dispatch) => {
     dispatch({type: SELECT_BOOK, payload: book})
     if(path) {
-      history.push(path)
+      var win = window.open(path, '_blank');
+      win.focus();
     }
   }
 }
@@ -74,7 +84,7 @@ export const updateBook = (book) => {
     axios.put(`/books/${id}`, book_data)
       .then((response) => {
         dispatch({type: UPDATE_BOOK, payload: response.data})
-        history.push(`/books/${id}`);
+        history.push(`/books`);
       })
       .catch((err) => {
         dispatch({type: UPDATE_BOOK_FAILURE, payload: err})

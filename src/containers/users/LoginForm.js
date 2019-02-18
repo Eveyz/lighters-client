@@ -17,7 +17,7 @@ class LoginForm extends React.Component {
     this.state = {
       valid:  false
     }
-    this.emailInput = React.createRef();
+    this.usernameInput = React.createRef();
     this.passwordInput = React.createRef();
     this.checkboxInput = React.createRef();
 
@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = {
-      email: this.emailInput.current.value,
+      username: this.usernameInput.current.value,
       password: this.passwordInput.current.value,
       // checkbox: this.checkboxInput.current.state.checked
     }
@@ -68,13 +68,12 @@ class LoginForm extends React.Component {
                         <h4 className="center">登录</h4>
                         <br/>
                         <Formik
-                          initialValues={{ email: '', password: '' }}
+                          initialValues={{ username: '', password: '' }}
                           onSubmit={(values, { setSubmitting }) => {
                             this.props.login(values);
                           }}
                           validationSchema={Yup.object().shape({
-                            email: Yup.string()
-                              .email('邮箱格式不正确')
+                            username: Yup.string()
                               .required('邮箱不能为空'),
                             password: Yup.string()
                               .min(6, '密码长度至少为6位')
@@ -97,16 +96,15 @@ class LoginForm extends React.Component {
                                 <div className="row no-margin">
                                   <div className="input-field col m12 s12">
                                     <input 
-                                      type="email" 
-                                      name="email" 
-                                      id="email" 
-                                      placeholder="example@email.com"
-                                      ref={this.emailInput}
+                                      type="text" 
+                                      name="username" 
+                                      id="username"
+                                      ref={this.usernameInput}
                                       onChange={handleChange}
                                       onBlur={handleBlur}
                                       className="validate"
                                     />
-                                    <label htmlFor="email">邮箱 <span className="required">*</span></label>
+                                    <label htmlFor="username">用户名 <span className="required">*</span></label>
                                   </div>
                                 </div>
 

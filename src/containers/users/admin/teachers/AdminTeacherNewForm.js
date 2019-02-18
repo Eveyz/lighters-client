@@ -8,7 +8,6 @@ const AdminTeacherNewForm = props => {
       touched,
       handleChange,
       handleBlur,
-      setFieldValue,
       handleSubmit,
       isSubmitting,
   } = props;
