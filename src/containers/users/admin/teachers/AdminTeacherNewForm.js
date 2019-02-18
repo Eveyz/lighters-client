@@ -20,24 +20,6 @@ const AdminTeacherNewForm = props => {
         <div className="input-field col s12 m6">
           <input 
             type="text"
-            name="firstname" 
-            id="firstname"
-            className="validate"
-            onChange={handleChange} 
-            onBlur={handleBlur} 
-            value={values.firstname} 
-          />
-          {errors.firstname &&
-            touched.firstname && (
-              <div className="inline-form-error-msg">
-                {errors.firstname}
-              </div>
-            )}
-          <label htmlFor="firstname">姓 <span className="required">*</span></label>
-        </div>
-        <div className="input-field col s12 m6">
-          <input 
-            type="text"
             name="lastname" 
             id="lastname" 
             className="validate"
@@ -51,7 +33,25 @@ const AdminTeacherNewForm = props => {
               {errors.lastname}
             </div>
           )}
-          <label htmlFor="lastname">名 <span className="required">*</span></label>
+          <label htmlFor="lastname">姓 <span className="required">*</span></label>
+        </div>
+        <div className="input-field col s12 m6">
+          <input 
+            type="text"
+            name="firstname" 
+            id="firstname"
+            className="validate"
+            onChange={handleChange} 
+            onBlur={handleBlur} 
+            value={values.firstname} 
+          />
+          {errors.firstname &&
+            touched.firstname && (
+              <div className="inline-form-error-msg">
+                {errors.firstname}
+              </div>
+            )}
+          <label htmlFor="firstname">名 <span className="required">*</span></label>
         </div>
       </div>
 

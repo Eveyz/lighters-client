@@ -34,7 +34,7 @@ class StudentList extends React.Component {
       this.props.students.forEach((student) => {
         if(student.status === "pending") pendingStudent.push(student);
         else if(student.status === "active" || student.status === "RESET_REQUIRED") activeStudent.push(student);
-        if(student.status === "RESET_REQUIRED") createdStudent.push(student);
+        if(student.temporary) createdStudent.push(student);
       });
 
       pendingStudentList = pendingStudent.map((student, index) => {
@@ -153,7 +153,7 @@ class StudentList extends React.Component {
               <ul className="tabs">
                 <li className="tab col s3"><a className={active} href="#active" onClick={(e) => this.active = "active"}>上课学生({activeStudent.length})</a></li>
                 <li className="tab col s3"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">试课学生({pendingStudent.length})</a></li>
-                <li className="tab col s3"><a onClick={(e) => this.active = "created"} className={created} href="#created">试课学生({createdStudent.length})</a></li>
+                <li className="tab col s3"><a onClick={(e) => this.active = "created"} className={created} href="#created">管理员生成的学生({createdStudent.length})</a></li>
               </ul>
             </div>
             <div id="active" className="col s12">{activeStudentTable}</div>

@@ -180,19 +180,7 @@ export const activate = (user) => {
   return (dispatch) => {
     axios.post(`/users/${user.id}/activate`, user)
       .then((response) => {
-
-        const token = response.data.token;
-        localStorage.setItem('jwtToken', token);
-        setAuthToken(token);
-        let userToken = jwtDecode(token);
-        dispatch(setCurrentUser(userToken));
-        dispatch({type: SIGNUP_USER, payload: response.data});
-        
-        if(userToken.userTokenData.identity === "teachers") {
-          history.push(`/teachers/new`);
-        } else if(userToken.userTokenData.identity === "students") {
-          history.push(`/students/new`);
-        }
+        history.push('/login');
       })
       .catch((err) => {
         dispatch({type: LOGIN_USER_FAILURE, payload: err.response.data});

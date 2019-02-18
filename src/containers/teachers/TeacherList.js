@@ -39,7 +39,7 @@ class TeacherList extends React.Component {
       this.props.teachers.forEach((teacher) => {
         if(teacher.status === "pending") pendingTeacher.push(teacher);
         else if(teacher.status === "active" || teacher.status === "RESET_REQUIRED") activeTeacher.push(teacher);
-        if(teacher.status === "RESET_REQUIRED") createdTeacher.push(teacher);
+        if(teacher.temporary) createdTeacher.push(teacher);
       });
 
       pendingTeacherList = pendingTeacher.map((teacher, index) => {
