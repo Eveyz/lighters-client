@@ -10,8 +10,8 @@ class TeacherCourseBooks extends React.Component {
     if(this.props.course.books.length > 0) {
       let bookList = this.props.course.books.map((book, idx) => {
         return <tr key={idx}>
-                <td>{ book.rlevel }</td>
-                <td>{ book.lslevel }</td>
+                <td>{ book.lightersLevel }</td>
+                <td>{ book.razLevel }</td>
                 <td>{ book.age }</td>
                 <td>{ book.category }</td>
                 <td>{ book.serials }</td>

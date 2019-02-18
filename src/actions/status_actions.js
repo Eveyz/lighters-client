@@ -1,5 +1,3 @@
-import axios from 'axios';
-import history from '../history';
 import { SET_ERR_MSG, SET_LOADING_STATUS } from './constants';
 
 export const setLoadingStatus = (loading) => {

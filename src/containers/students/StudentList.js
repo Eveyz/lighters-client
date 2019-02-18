@@ -9,11 +9,19 @@ import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Student from '../../containers/students/Student';
 
+import { setLoadingStatus } from "../../actions/status_actions";
+import { getStudents } from "../../actions/students_actions";
+
 class StudentList extends React.Component {
   constructor(props) {
     super(props);
 
     this.active = "active";
+  }
+
+  componentWillMount() {
+    this.props.setLoadingStatus(true);
+    this.props.getStudents();
   }
 
   componentDidMount() {
@@ -139,7 +147,7 @@ class StudentList extends React.Component {
       <div>
         <Header />
         <Breadcrumb action="students" />
-        <div className="container">
+        <div className="container page-min-height">
           <br />
           <Row>
             <Col m={12}>
@@ -174,4 +182,13 @@ const mapStateToProps = state => {
   };
 }
 
-export default connect(mapStateToProps, null)(StudentList);
+const mapDispatchToProps = dispatch => {
+  return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
+    getStudents: () => dispatch(getStudents()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentList);

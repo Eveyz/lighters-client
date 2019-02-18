@@ -140,6 +140,7 @@ class TeacherCourseManager extends React.Component {
             {books}
           </div>
         </div>
+        <br/>
         <Footer />
       </div>
     )

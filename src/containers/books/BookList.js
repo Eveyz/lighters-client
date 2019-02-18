@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-materialize';
 
 import { getBooks, addBook, deleteBook } from "../../actions/books_actions.js";
+import { setLoadingStatus } from "../../actions/status_actions";
 import Header from '../../components/layouts/Header';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 import PaginationContainer from '../../containers/PaginationContainer';
@@ -11,6 +12,7 @@ import PaginationContainer from '../../containers/PaginationContainer';
 class BooksList extends React.Component {
 
   componentWillMount() {
+    this.props.setLoadingStatus(true)
     this.props.fetchBooks()
   }
 
@@ -58,6 +60,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     fetchBooks: () => {
       dispatch(getBooks())
     },

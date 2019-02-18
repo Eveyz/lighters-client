@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import '../../../css/App.css';
 import Loading from '../../../components/Loading';
+import { setLoadingStatus } from "../../../actions/status_actions";
 import { logout, adminInit } from "../../../actions/users_actions.js";
 import Header from '../../../components/layouts/Header';
 import Breadcrumb from '../../../components/layouts/Breadcrumb';
@@ -16,9 +17,8 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    if(this.props.courses.length === 0 && this.props.students.length === 0 && this.props.teachers.length === 0 && this.props.books.length === 0) {
-      this.props.adminInit();
-    }
+    this.props.setLoadingStatus(true);
+    this.props.adminInit();
   }
 
   logout() {
@@ -132,6 +132,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   // Whenever search is called, the result should be passed to all reducers
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     logout: () => {
       dispatch(logout())
     },

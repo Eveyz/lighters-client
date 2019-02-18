@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { getCourses, addCourse, deleteCourse } from "../../actions/courses_actions";
+import { setLoadingStatus } from "../../actions/status_actions";
 import { getBooks } from '../../actions/books_actions';
 import '../../css/App.css';
 import Course from './Course';
@@ -13,6 +14,7 @@ import Breadcrumb from '../../components/layouts/Breadcrumb';
 class CourseList extends React.Component {
 
   componentWillMount() {
+    this.props.setLoadingStatus(true);
     this.props.fetchCoures()
     this.props.getBooks()
   }
@@ -78,6 +80,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     getBooks: () => dispatch(getBooks()),
     fetchCoures: () => {
       dispatch(getCourses())

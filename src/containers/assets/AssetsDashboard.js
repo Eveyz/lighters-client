@@ -8,9 +8,11 @@ import TeacherSalary from './TeacherSalary';
 import Transactions from './transactions/Transactions';
 
 import { getLevelSalaries } from '../../actions/level_salary_actions';
+import { setLoadingStatus } from "../../actions/status_actions";
 
 class AssetsDashboard extends React.Component {
   componentWillMount() {
+    this.props.setLoadingStatus(true);
     this.props.getEntries();
   }
 
@@ -66,6 +68,9 @@ class AssetsDashboard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     getEntries: () => {
       dispatch(getLevelSalaries())
     }

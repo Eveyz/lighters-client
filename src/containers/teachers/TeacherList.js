@@ -9,6 +9,7 @@ import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 import { getTeachers } from '../../actions/teachers_actions';
+import { setLoadingStatus } from "../../actions/status_actions";
 
 class TeacherList extends React.Component {
   constructor(props) {
@@ -18,7 +19,8 @@ class TeacherList extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getTeachers()
+    this.props.setLoadingStatus(true);
+    this.props.getTeachers();
   }
 
   componentDidMount() {
@@ -144,7 +146,7 @@ class TeacherList extends React.Component {
       <div>
         <Header />
         <Breadcrumb action="teachers" />
-        <div className="container">
+        <div className="container page-min-height">
           <br />
           <Row>
             <Col m={12}>
@@ -180,6 +182,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     getTeachers: () => {
       dispatch(getTeachers())
     }
