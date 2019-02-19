@@ -20,7 +20,7 @@ class BooksList extends React.Component {
     let bookContent = <div className="col m12">
                         <div className="card white r-box-shadow">
                           <div className="card-content">
-                            <h4 className="center">当前没有绘本，请添加</h4>;
+                            <h4 className="center">当前没有绘本，请添加</h4>
                           </div>
                         </div>
                       </div>;

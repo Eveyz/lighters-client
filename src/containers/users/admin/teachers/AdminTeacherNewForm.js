@@ -72,7 +72,7 @@ const AdminTeacherNewForm = props => {
                 {errors.englishname}
               </div>
             )}
-          <label htmlFor="englishname">英文名字 <span className="required">*</span></label>
+          <label htmlFor="englishname">英文名字/教师昵称 <span className="required">*</span></label>
         </div>
       </div>
 

@@ -24,11 +24,11 @@ const AdminStudentNewWithFormik = connect(null, mapDispatchToProps)(
       city: props.student.city || ""
     }),
     validationSchema: Yup.object().shape({
-      firstname: Yup.string().required('此项为必填项!'),
-      lastname: Yup.string().required('此项为必填项!'),
+      // firstname: Yup.string().required('此项为必填项!'),
+      // lastname: Yup.string().required('此项为必填项!'),
       englishname: Yup.string().required('此项为必填项!'),
-      age: Yup.string().required('此项为必填项!'),
-      birthday: Yup.string().required('此项为必填项!'),
+      // age: Yup.string().required('此项为必填项!'),
+      // birthday: Yup.string().required('此项为必填项!'),
       gender: Yup.string().required('此项为必填项!'),
       city: Yup.string().required('此项为必填项!'),
     }),

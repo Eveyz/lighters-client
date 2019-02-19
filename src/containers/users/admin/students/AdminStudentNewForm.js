@@ -27,13 +27,7 @@ const AdminStudentNewForm = props => {
             onBlur={handleBlur} 
             value={values.firstname} 
           />
-          {errors.firstname &&
-            touched.firstname && (
-              <div className="inline-form-error-msg">
-                {errors.firstname}
-              </div>
-            )}
-          <label htmlFor="firstname">姓 <span className="required">*</span></label>
+          <label htmlFor="firstname">姓</label>
         </div>
         <div className="input-field col s12 m6">
           <input 
@@ -45,13 +39,7 @@ const AdminStudentNewForm = props => {
             onBlur={handleBlur} 
             value={values.lastname} 
           />
-          {errors.lastname &&
-          touched.lastname && (
-            <div className="inline-form-error-msg">
-              {errors.lastname}
-            </div>
-          )}
-          <label htmlFor="lastname">名 <span className="required">*</span></label>
+          <label htmlFor="lastname">名</label>
         </div>
       </div>
 
@@ -87,19 +75,13 @@ const AdminStudentNewForm = props => {
             onBlur={handleBlur} 
             value={values.age} 
           />
-          {errors.age &&
-            touched.age && (
-              <div className="inline-form-error-msg">
-                {errors.age}
-              </div>
-            )}
-          <label htmlFor="age">年龄 <span className="required">*</span></label>
+          <label htmlFor="age">年龄</label>
         </div>
       </div>
 
       <div className="row no-margin">
         <div className="col s12 m12">
-          <label htmlFor="birthday">出生日期 <span className="required">*</span></label>
+          <label htmlFor="birthday">出生日期</label>
           <input
             type="date"
             name="birthday" 
@@ -109,12 +91,6 @@ const AdminStudentNewForm = props => {
             onBlur={handleBlur} 
             value={values.birthday} 
           />
-          {errors.birthday &&
-            touched.birthday && (
-              <div className="inline-form-error-msg">
-                {errors.birthday}
-              </div>
-            )}
         </div>
       </div>
       <br/>

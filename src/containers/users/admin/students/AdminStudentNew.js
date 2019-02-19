@@ -21,7 +21,7 @@ class AdminStudentNew extends React.Component {
               <div className="col s12 m10 offset-m1">
                 <div className="card r-box-shadow">
                   <div className="card-content" style={{padding: "50px"}}>
-                    <h5 className="cyan-text airbnb-font" style={{marginTop: "0px"}}>新建学生</h5>
+                    <h5 className="cyan-text airbnb-font" style={{marginTop: "0px"}}>新建学生(<span className="required">*</span>为必填项)</h5>
                     <AdminStudentNewWithFormik 
                       student={{}} 
                       action="NEW"

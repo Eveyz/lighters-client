@@ -133,12 +133,12 @@ class CourseForm extends React.Component {
                   <label htmlFor="hours">课时</label>
                 </div>
               </Row>
-              <Row>
+              {/* <Row>
                 <div className="col input-field s12">
                   <input type="text" defaultValue={timeInputVal} className="timepicker" ref={this.timeInput} id="timeInput" />
                   <label htmlFor="timeInput">课程时间</label>
                 </div>
-              </Row>
+              </Row> */}
               <Row>
                 {selectEle}
               </Row>
