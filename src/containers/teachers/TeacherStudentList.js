@@ -6,8 +6,8 @@ class TeacherStudentList extends React.Component {
   render() {
     const students = this.props.students.map((student, index) => {
       return <tr key={index}>
-              <td>{ student.lastname + student.firstname }</td>
               <td>{ student.englishname }</td>
+              <td>{ student.lastname + student.firstname }</td>
               <td>{ student.age }</td>
               <td><button className="btn cyan">查看学生档案</button></td>
             </tr>
@@ -21,8 +21,8 @@ class TeacherStudentList extends React.Component {
               <table className="striped">
                 <thead>
                   <tr>
-                    <th>学生姓名</th>
                     <th>学生英文名</th>
+                    <th>学生姓名</th>
                     <th>学生年龄</th>
                     <th colSpan="1"></th>
                   </tr>

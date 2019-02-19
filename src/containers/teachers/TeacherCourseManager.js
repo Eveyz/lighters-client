@@ -53,8 +53,8 @@ class TeacherCourseManager extends React.Component {
     if(this.props.course.students.length > 0) {
       let studentsList = this.props.course.students.map((student, idx) => {
         return <tr key={idx}>
-                <td>{ student.lastname + student.firstname }</td>
                 <td>{ student.englishname }</td>
+                <td>{ student.lastname + student.firstname }</td>
                 <td>{ student.age }</td>
                 <td>{ this.props.course.name }</td>
                 <td><button onClick={this.newReport(student)} className="btn">填写新课程回馈表</button></td>
@@ -67,8 +67,8 @@ class TeacherCourseManager extends React.Component {
                       <table className="highlight">
                         <thead>
                           <tr>
-                            <th>学生姓名</th>
                             <th>学生英文名</th>
+                            <th>学生姓名</th>
                             <th>学生年龄</th>
                             <th>课程</th>
                             <th colSpan="2"></th>

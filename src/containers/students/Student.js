@@ -26,8 +26,8 @@ class Student extends React.Component {
     if(this.props.tab === "RESET_REQUIRED") {
       return (
         <tr>
-          <td>{this.props.student.lastname + this.props.student.firstname}</td>
           <td>{this.props.student.englishname}</td>
+          <td>{this.props.student.lastname + this.props.student.firstname}</td>
           <td>{this.props.student.age}</td>
           <td>{this.props.student.gender}</td>
           <td>{`${this.props.student.temporary}@lighters.com`}</td>
@@ -48,8 +48,8 @@ class Student extends React.Component {
 
     return(
       <tr>
-        <td>{this.props.student.lastname + this.props.student.firstname}</td>
         <td>{this.props.student.englishname}</td>
+        <td>{this.props.student.lastname + this.props.student.firstname}</td>
         <td>{this.props.student.age}</td>
         <td>{this.props.student.birthday}</td>
         <td>{this.props.student.gender}</td>

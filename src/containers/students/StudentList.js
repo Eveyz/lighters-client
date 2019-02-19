@@ -70,8 +70,8 @@ class StudentList extends React.Component {
                                   <Table>
                                     <thead>
                                       <tr>
-                                        <th>姓名</th>
                                         <th>英文名</th>
+                                        <th>姓名</th>
                                         <th>年龄</th>
                                         <th>出生日期</th>
                                         <th>性别</th>
@@ -96,8 +96,8 @@ class StudentList extends React.Component {
                                   <Table>
                                     <thead>
                                       <tr>
-                                        <th>姓名</th>
                                         <th>英文名</th>
+                                        <th>姓名</th>
                                         <th>年龄</th>
                                         <th>出生日期</th>
                                         <th>性别</th>
@@ -122,8 +122,8 @@ class StudentList extends React.Component {
                                   <Table className="highlight">
                                     <thead>
                                       <tr>
-                                        <th>姓名</th>
                                         <th>英文名</th>
+                                        <th>姓名</th>
                                         <th>年龄</th>
                                         <th>性别</th>
                                         <th>临时邮箱</th>
