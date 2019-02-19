@@ -56,6 +56,7 @@ class EntryInputForm extends React.Component {
                     id="level" 
                     type="text" 
                     className="validate" 
+                    autoFocus
                   />
                   <label htmlFor="level">教师等级 <span className="required">*</span></label>
                 </div>
