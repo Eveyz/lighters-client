@@ -33,10 +33,11 @@ class TeacherSalaryDetail extends React.Component {
 
   handleSubmit = (e) => {
     let val = e.target.value
+    console.log("val: ", val)
     if(!val) {
       window.Materialize.toast('数值不能为0', 1000);
     } else {
-      this.props.updateTeacher(this.props.teacher._id, {rate: val})
+      // this.props.updateTeacher(this.props.teacher._id, {rate: val})
       this.setState({mode: "VIEW"})
     }
   }
