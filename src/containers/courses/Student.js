@@ -18,8 +18,9 @@ class StudentItem extends React.Component {
   }
 
   render() {
+    let name = this.props.student.lastname ? `(${this.props.student.lastname}${this.props.student.firstname})` : "";
     return(
-      <a href="" onClick={this.addStudent} className="collection-item">{this.props.student.lastname + this.props.student.firstname}</a>
+      <a href="" onClick={this.addStudent} className="collection-item">{this.props.student.englishname} {name}</a>
     )
   }
 };

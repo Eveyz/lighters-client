@@ -45,8 +45,9 @@ class CourseAddStudents extends React.Component {
     let students = <span>当前课程没有学生</span>;
     if(this.props.course.students.length > 0) {
       students = this.props.course.students.map((student, index) => {
+        var studentName = student.lastname ? `${student.lastname + student.firstname} (${student.englishname})` : `${student.englishname}`;
         return (
-          <Tag object={student} content={student.lastname + student.firstname} id={this.props.course._id} key={index} />
+          <Tag object={student} content={studentName} id={this.props.course._id} key={index} />
         )
       });
     }
