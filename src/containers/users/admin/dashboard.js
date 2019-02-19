@@ -91,7 +91,7 @@ class Dashboard extends Component {
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #FF5A5F"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>资金管理</b></span>
-                              <p>{this.props.students.length} 个学生</p>
+                              <p>{this.props.transactions.length} 个账目</p>
                             </div>
                           </div>
                         </div>
@@ -124,6 +124,7 @@ const mapStateToProps = state => {
     courses: state.coursesData.courses,
     teachers: state.teachersData.teachers,
     students: state.studentsData.students,
+    transactions: state.transactionsData.transactions,
     loading: state.status.loading
   };
 }
