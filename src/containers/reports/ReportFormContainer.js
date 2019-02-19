@@ -26,7 +26,7 @@ class ReportFormContainer extends React.Component {
                 <div className="row no-margin">
                   <div className="input-field col m12 s12">
                     <span className="card-title black-text"><b>课程基本信息</b></span>
-                    <p><span className="orange-text">上课学员:</span> {this.props.student.lastname + this.props.student.firstname}</p>
+                    <p><span className="orange-text">上课学员:</span> {this.props.student.englishname}</p>
                     <p><span className="orange-text">上课老师:</span> {this.props.teacher.lastname + this.props.teacher.firstname}</p>
                     <p><span className="orange-text">课程名称:</span> {this.props.course.name}</p>
                     <br />

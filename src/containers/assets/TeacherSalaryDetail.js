@@ -46,7 +46,7 @@ class TeacherSalaryDetail extends React.Component {
     if(this.props.paychecks.length > 0) {
       reportsContent = <PaycheckList paychecks={this.props.paychecks} viewPaycheck={this.viewPaycheck} />
     }
-
+    console.log(this.state);
     let td = this.state.mode === "EDIT" ? 
             <input 
               style={{width: "150px", marginRight: "30px"}}
