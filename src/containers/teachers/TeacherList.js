@@ -120,10 +120,9 @@ class TeacherList extends React.Component {
                                     <thead>
                                       <tr>
                                         <th>姓名</th>
-                                        <th>年龄</th>
                                         <th>性别</th>
-                                        <th>临时邮箱</th>
-                                        <th>临时用户名</th>
+                                        <th>用户名</th>
+                                        <th>临时密码</th>
                                         <th>更多操作</th>
                                       </tr>
                                     </thead>

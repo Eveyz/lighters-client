@@ -33,7 +33,6 @@ class TeacherSalaryDetail extends React.Component {
 
   handleSubmit = (e) => {
     let val = e.target.value
-    console.log("val: ", val)
     if(!val) {
       window.Materialize.toast('数值不能为0', 1000);
     } else {
@@ -47,7 +46,6 @@ class TeacherSalaryDetail extends React.Component {
     if(this.props.paychecks.length > 0) {
       reportsContent = <PaycheckList paychecks={this.props.paychecks} viewPaycheck={this.viewPaycheck} />
     }
-    console.log(this.state);
     let td = this.state.mode === "EDIT" ? 
             <input 
               style={{width: "150px", marginRight: "30px"}}

@@ -44,6 +44,7 @@ class TeacherSalary extends React.Component {
   }
 
   back = (mode) => {
+    this.props.getPaychecks(`?paid=${false}`)
     this.props.setMode(mode)
   }
 
@@ -59,36 +60,44 @@ class TeacherSalary extends React.Component {
       level: this.props.teacher.level,
       rate: this.props.teacher.rate || this.levelToSalary(this.props.teacher.level)
     }
-    if(this.props.mode === "BROWSE") {
-      teacherContent = <PaginationContainer 
-                        itemsPerPage={5}
-                        data={this.props.teachers} content={"TEACHERS"} readOnly={false}
-                      />;
-    } else if (this.props.mode === "VIEW_TEACHER") {
-      teacherContent = <TeacherSalaryDetail 
+
+    switch(this.props.mode) {
+      case "BROWSE":
+        // 老师分页浏览
+        teacherContent = <PaginationContainer 
+                            itemsPerPage={5}
+                            data={this.props.teachers} content={"TEACHERS"} readOnly={false}
+                          />;
+        break;
+      case "VIEW_TEACHER":
+        // 查看老师的工资
+        teacherContent = <TeacherSalaryDetail 
                           teacher={_teacher} 
                           back={this.back}
                           viewPaycheck={this.viewPaycheck}
                         />
-    } else if (this.props.mode === "VIEW_MONTHLY") {
-      teacherContent = <MonthlyReport 
-                          teacher={_teacher}
-                          paycheck={this.paycheck}
-                          back={this.back}
-                        />
-    }
+        break;
+      case "VIEW_MONTHLY":
+        // 结算的页面
+        teacherContent = <MonthlyReport 
+                            teacher={_teacher}
+                            paycheck={this.paycheck}
+                            back={this.back}
+                          />
+        break;
+    };
 
-    let change = this.props.mode === "BROWSE" || "SEARCH" ? 
+    let switchWidget = this.props.mode === "BROWSE" || "SEARCH" ? 
                   <div className="switch">
                     <label>
                       浏览教师
-                      <input type="checkbox" onClick={this.changeMode} />
+                      <input type="checkbox" onClick={this.switchWidgetMode} />
                       <span className="lever"></span>
                       搜索教师
                     </label>
                   </div> : ""
 
-    let unpaid = this.props.mode === ("BROWSE" || "SEARCH") ? 
+    let unpaidChecks = this.props.mode === ("BROWSE" || "SEARCH") ? 
                   <div>
                     <h6 className="airbnb-font bold red-text">未结算的工资单</h6>
                     <hr/>
@@ -100,11 +109,11 @@ class TeacherSalary extends React.Component {
       <Row>
         <Col m={12} s={12}>
           <Card className='white r-box-shadow no-margin' textClassName='black-text' title=''>
-            {unpaid}
+            {unpaidChecks}
             <br/>
             <h6 className="airbnb-font bold">查看教师工资单</h6>
             <hr/>
-            {change}
+            {switchWidget}
             <br/>
             {teacherContent}
           </Card>
@@ -122,7 +131,7 @@ const mapStateToProps = state => {
     paychecks: state.paycheckData.paychecks,
     mode: state.mode.value,
     levelSalaries: state.levelSalary.levelSalaries.map(ls => {
-      return { level: ls.level, rate: ls.rate }
+      return { level: ls.level, rate: ls.rate, type: ls.type }
     }),
   };
 }

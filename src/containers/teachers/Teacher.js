@@ -57,9 +57,8 @@ class Teacher extends React.Component {
       return (
         <tr>
           <td><Link to={`/teachers/${this.props.teacher._id}`}><span className="airbnb-font">{this.props.teacher.lastname + this.props.teacher.firstname}</span></Link></td>
-          <td>{this.props.teacher.age}</td>
           <td>{this.props.teacher.gender}</td>
-          <td>{`${this.props.teacher.temporary}@lighters.com`}</td>
+          <td>{this.props.teacher.systemid}</td>
           <td>{this.props.teacher.temporary}</td>
           <td>
             <a ref={this.dropdown} className='dropdown-trigger btn  blue-grey bold' href='' data-target={this.props.id}>更多操作</a>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { setMode } from '../../actions/mode_action'
 import { selectPaycheck } from '../../actions/paychecks_actions';
+import { getTeacherData } from '../../actions/teachers_actions';
 
 class Paycheck extends React.Component {
   constructor(props) {
@@ -10,8 +11,9 @@ class Paycheck extends React.Component {
 
     this.checkPaycheck = this.checkPaycheck.bind(this)
   }
-
+  
   checkPaycheck() {
+    this.props.getTeacher(this.props.paycheck.teacher_id._id)
     this.props.setMode("VIEW_MONTHLY")
     this.props.selectPaycheck(this.props.paycheck)
     this.props.viewPaycheck(this.props.paycheck)
@@ -40,6 +42,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setMode: (mode) => {
       dispatch(setMode(mode))
+    },
+    getTeacher: (teacher_id) => {
+      dispatch(getTeacherData(teacher_id))
     },
     selectPaycheck: (paycheck) => {
       dispatch(selectPaycheck(paycheck))

@@ -8,6 +8,7 @@ import FormPick from '../forms/FormPick';
 import FormInput from '../forms/FormInput';
 import FormSelect from '../forms/FormSelect';
 import FormTextarea from '../forms/FormTextarea';
+import TableForm from './TableForm';
 // import BooksForReport from './BooksForReport';
 import AudiosFileList from './AudiosFileList';
 import { addReport, updateReport } from '../../actions/reports_actions';
@@ -19,9 +20,9 @@ class ReportForm extends React.Component {
     this.state = {
       valid: false,
       situation: this.props.action === "NEW" ? 1 : this.props.report.situation === "取消" ? -1 : 1,
-      comment: this.props.report.comment || "",
-      homework: this.props.report.homework || "",
-      course_content: this.props.report.course_content || ""
+      comment: this.props.action === "NEW" ? "" : (this.props.report.comment || ""),
+      homework: this.props.action === "NEW" ? "" : (this.props.report.homework || ""),
+      course_content: this.props.action === "NEW" ? "" : (this.props.report.course_content || [])
     }
 
     this.courseDate = React.createRef();
@@ -35,6 +36,7 @@ class ReportForm extends React.Component {
 
     this.getInputData = this.getInputData.bind(this);
     this.checkFileBeforeUpload = this.checkFileBeforeUpload.bind(this);
+    this.getTableFormData = this.getTableFormData.bind(this);
     this.submitForm = this.handleSubmit.bind(this);
   }
 
@@ -42,7 +44,6 @@ class ReportForm extends React.Component {
     // check if course is cancelled
     if(field_name === "comment") this.setState({comment: val})
     if(field_name === "homework") this.setState({homework: val})
-    if(field_name === "course_content") this.setState({course_content: val})
     if(this.situation.current.value === "取消") {
       this.setState({situation: -1})
       if(this.reason.current.value) {
@@ -75,6 +76,13 @@ class ReportForm extends React.Component {
         if(this.state.valid) this.setState({valid: false});
       }
     });
+  }
+
+  getTableFormData(tableFormData) {
+    // console.log("table form data: ", tableFormData)
+    this.setState({
+      course_content: tableFormData
+    })
   }
   
   handleSubmit(e) {
@@ -136,7 +144,6 @@ class ReportForm extends React.Component {
     let path = action === "EDIT" ? "/teachers/" + this.props.user_id + "/reports" : "/teachers/" + this.props.user_id + "/course_manager";
 
     let audiosFileList = this.props.action === "EDIT" ? <AudiosFileList files={this.props.files} /> : "";
-
     return(
       <div>
         <div className="row no-margin">
@@ -244,7 +251,12 @@ class ReportForm extends React.Component {
             <br/>
             <p>Lighters绘说英语阅读资源类型有：主流分级绘本, 名家绘本, 自然拼读, 科普读物, 动画视频, 写作教程, 学生自读</p>
           </blockquote>
-          <FormTextarea
+          <TableForm 
+            action={action} 
+            value={action === "EDIT" ? this.state.course_content : ""}
+            saveValue={this.getTableFormData}
+          />
+          {/* <FormTextarea
             classes="input-field col m12 s12"
             name="course_content"
             label="上课内容"
@@ -253,7 +265,8 @@ class ReportForm extends React.Component {
             getInputData={this.getInputData}
             action={action}
             value={action === "EDIT" ? this.props.report.course_content : ""}
-          />
+          /> */}
+          <br/>
         </div>
 
         <div className={"row no-margin no-autoinit " + visiblity}>

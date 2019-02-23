@@ -15,6 +15,18 @@ export const getTeacher = (id) => {
   }
 };
 
+export const getTeacherData = (id) => {
+  return (dispatch) => {
+    axios.get(`/teachers/${id}`)
+      .then((response) => {
+        dispatch({type: SELECT_TEACHER, payload: response.data})
+      })
+      .catch((err) => {
+        dispatch({type: GET_TEACHER_FAILURE, payload: err})
+      })
+  }
+};
+
 export const getTeachers = () => {
   return (dispatch) => {
     axios.get(`/teachers`)

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button } from 'react-materialize';
 import M from 'materialize-css';
+import { CLASS_TYPE } from '../../ultis';
 
 import '../../css/App.css';
 import { addCourse, updateCourse } from "../../actions/courses_actions";
@@ -12,9 +13,11 @@ class CourseForm extends React.Component {
     super(props);
     
     this.nameInput = React.createRef();
+    this.typeInput = React.createRef();
     this.levelInput = React.createRef();
     this.capacityInput = React.createRef();
     this.hoursInput = React.createRef();
+    this.courseRate = React.createRef();
     this.timeInput = React.createRef();
     this.teachersSelect = React.createRef();
 
@@ -49,8 +52,10 @@ class CourseForm extends React.Component {
     const course = {
       name: this.nameInput.current.value,
       level: this.levelInput.current.value,
+      type: this.typeInput.current.value,
       capacity: this.capacityInput.current.value,
       course_hours: this.hoursInput.current.value,
+      course_rate: this.courseRate.current.value,
       // timeInput: this.timeInput.current.value,
       teachers: [teacher]
     };
@@ -79,12 +84,14 @@ class CourseForm extends React.Component {
     let levelVal = "";
     let capacityVal = "";
     let coursehoursVal = "";
+    let courseRateVal = "";
     let timeInputVal = "";
     let teacherVal = "default";
     if(this.props.type === "EDIT" && this.props.currentCourse !== {}) {
       nameVal = this.props.currentCourse.name;
       levelVal = this.props.currentCourse.level;
       capacityVal = this.props.currentCourse.capacity;
+      courseRateVal = this.props.currentCourse.course_rate;
       coursehoursVal = this.props.currentCourse.course_hours;
 
       let defaultTeacher = this.props.currentCourse.teachers[0]
@@ -103,6 +110,10 @@ class CourseForm extends React.Component {
                       <label>选择教师</label>
                     </div>
 
+    let courseTypes = CLASS_TYPE.map((cla, idx) => {
+      return <option key={idx} value={cla}>{cla}</option>;
+    });
+
     return (
       <Row>
         <Col s={12} m={10} offset="m1">
@@ -119,6 +130,24 @@ class CourseForm extends React.Component {
                 <div className="col input-field s12">
                   <input type="text" defaultValue={levelVal} ref={this.levelInput} id="level" />
                   <label htmlFor="level">课程评级</label>
+                </div>
+              </Row>
+              <Row>
+                <div className="col input-field s12">
+                  <input type="number" defaultValue={courseRateVal} ref={this.courseRate} id="courseRate" />
+                  <label htmlFor="courseRate">课时费(元/课时)</label>
+                </div>
+              </Row>
+              <Row>
+                <div className="input-field col s12 m12">
+                  <select
+                    ref={this.typeInput}
+                    id="type"
+                  >
+                    <option key="default" value="default" disabled>请选择课程类型</option>
+                    {courseTypes}
+                  </select>
+                  <label htmlFor="type">课程类型 <span className="required">*</span></label>
                 </div>
               </Row>
               <Row>

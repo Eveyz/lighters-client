@@ -19,20 +19,20 @@ const TeacherForm = props => {
         <div className="input-field col s12 m12">
           <input 
             type="text"
-            name="username" 
-            id="username" 
+            name="email" 
+            id="email" 
             className="validate"
             onChange={handleChange} 
             onBlur={handleBlur} 
-            value={values.username} 
+            value={values.email} 
           />
-          {errors.username &&
-            touched.username && (
+          {errors.email &&
+            touched.email && (
               <div className="inline-form-error-msg">
-                {errors.username}
+                {errors.email}
               </div>
             )}
-          <label htmlFor="username">填写新的用户名 <span className="required">*</span></label>
+          <label htmlFor="username">填写邮箱 <span className="required">*</span></label>
         </div>
       </div>
 

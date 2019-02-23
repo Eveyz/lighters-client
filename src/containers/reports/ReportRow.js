@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { editReport, deleteReport } from '../../actions/reports_actions';
 
@@ -28,6 +29,11 @@ class ReportRow extends React.Component {
         <td>{ this.props.student.englishname }</td>
         <td>{ this.props.student.age }</td>
         <td>{ this.props.course_name }</td>
+        <td>
+          <Link className="btn cyan" to={`/reports/${this.props.report._id}`} target="_blank">
+            查看课程回馈表
+          </Link>
+        </td>
         <td><button className="btn" onClick={this.editReport}>编辑课程回馈表</button></td>
         <td><button className="btn red" onClick={this.deleteReport}>删除</button></td>
       </tr>

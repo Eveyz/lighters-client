@@ -61,7 +61,7 @@ class ReportList extends React.Component {
                         </div>;
 
     return (
-      <div className="row">
+      <div className="row page-min-height">
         <div className="col m12">
           {renderContent}
         </div>

@@ -66,13 +66,7 @@ const AdminTeacherNewForm = props => {
             onBlur={handleBlur} 
             value={values.englishname} 
           />
-          {errors.englishname &&
-            touched.englishname && (
-              <div className="inline-form-error-msg">
-                {errors.englishname}
-              </div>
-            )}
-          <label htmlFor="englishname">英文名字/教师昵称 <span className="required">*</span></label>
+          <label htmlFor="englishname">英文名字/教师昵称</label>
         </div>
       </div>
 
@@ -87,19 +81,13 @@ const AdminTeacherNewForm = props => {
             onBlur={handleBlur} 
             value={values.age} 
           />
-          {errors.age &&
-            touched.age && (
-              <div className="inline-form-error-msg">
-                {errors.age}
-              </div>
-            )}
-          <label htmlFor="age">年龄 <span className="required">*</span></label>
+          <label htmlFor="age">年龄</label>
         </div>
       </div>
 
       <div className="row no-margin">
         <div className="col s12 m12">
-          <label htmlFor="birthday">出生日期 <span className="required">*</span></label>
+          <label htmlFor="birthday">出生日期</label>
           <input
             type="date"
             name="birthday" 
@@ -109,12 +97,6 @@ const AdminTeacherNewForm = props => {
             onBlur={handleBlur} 
             value={values.birthday} 
           />
-          {errors.birthday &&
-            touched.birthday && (
-              <div className="inline-form-error-msg">
-                {errors.birthday}
-              </div>
-            )}
         </div>
       </div>
       <br/>

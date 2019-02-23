@@ -6,8 +6,7 @@ export const createTeacher = (teacher) => {
   return (dispatch) => {
     const randomstring = Math.random().toString(36).slice(-8);
     const data = {
-      email: `${randomstring}@lighters.com`,
-      username: randomstring,
+      temporaryPassword: randomstring,
       password: randomstring,
       passwordCon: randomstring,
       teacher: teacher
@@ -32,8 +31,7 @@ export const createStudent = (student) => {
   return (dispatch) => {
     const randomstring = Math.random().toString(36).slice(-8);
     const data = {
-      email: `${randomstring}@lighters.com`,
-      username: randomstring,
+      temporaryPassword: randomstring,
       password: randomstring,
       passwordCon: randomstring,
       student: student

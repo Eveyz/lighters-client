@@ -14,13 +14,13 @@ const mapDispatchToProps = dispatch => {
 const ActivatewithFormik = connect(null, mapDispatchToProps)(
   withFormik({
     mapPropsToValues: props => ({
-      username: "",
+      email: "",
       password: "",
       passwordCon: "",
       id: props.id
     }),
     validationSchema: Yup.object().shape({
-      username: Yup.string().required('此项为必填项!'),
+      email: Yup.string().email('邮箱格式不正确!').required('此项为必填项!'),
       password: Yup.string().min(6, '密码长度至少为6位').required('密码不能为空'),
       passwordCon: Yup.string().oneOf([Yup.ref('password')], '密码不对应').required('请确认密码')
     }),

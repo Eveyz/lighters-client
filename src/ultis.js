@@ -105,3 +105,7 @@ export const sortTransactionsByDate = (transactions) => {
   let results = transactions.sort((b, a) => a.created_at.localeCompare(b.created_at))
   return results
 }
+
+export const CLASS_TYPE = ["一对一", "一对多"]
+
+export const TEACHER_LEVEL = ["1级", "2级", "3级", "4级", "5级", "6级", "7级", "8级", "9级", "10级", "11级", "12级"]
