@@ -13,7 +13,6 @@ export const createTeacher = (teacher) => {
     }
     axios.post(`/admin/createTeacher`, data)
       .then((response) => {
-        console.log(randomstring);
         dispatch({type: ADMIN_CREATE_TEACHER, payload: randomstring});
         history.push(`/teachers`);
       })
