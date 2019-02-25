@@ -110,6 +110,22 @@
   }
 }
 
+@media screen and (max-width: 1600px) {
+  .main-img-wrapper:nth-child(1) {
+    height: 700px;
+  }
+  .main-img-wrapper:nth-child(2) {
+    height: 700px;
+  }
+  .main-img-wrapper:nth-child(3) {
+    height: 700px;
+  }
+
+  .mainpage-content-wrapper {
+    height: 700px
+  }
+}
+
 .transparent-nav {
   background: transparent;
   border-bottom: 1px solid white;
