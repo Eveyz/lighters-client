@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button } from 'react-materialize';
 import M from 'materialize-css';
-import { CLASS_TYPE } from '../../ultis';
+import { CLASS_TYPE, CLASS_LEVEL } from '../../ultis';
 
 import '../../css/App.css';
 import { addCourse, updateCourse } from "../../actions/courses_actions";
@@ -81,15 +81,15 @@ class CourseForm extends React.Component {
     });
 
     let nameVal = "";
-    let levelVal = "";
+    // let levelVal = "";
     let capacityVal = "";
     let coursehoursVal = "";
     let courseRateVal = "";
-    let timeInputVal = "";
+    // let timeInputVal = "";
     let teacherVal = "default";
     if(this.props.type === "EDIT" && this.props.currentCourse !== {}) {
       nameVal = this.props.currentCourse.name;
-      levelVal = this.props.currentCourse.level;
+      // levelVal = this.props.currentCourse.level;
       capacityVal = this.props.currentCourse.capacity;
       courseRateVal = this.props.currentCourse.course_rate;
       coursehoursVal = this.props.currentCourse.course_hours;
@@ -114,6 +114,10 @@ class CourseForm extends React.Component {
       return <option key={idx} value={cla}>{cla}</option>;
     });
 
+    let courseLevels = CLASS_LEVEL.map((cla, idx) => {
+      return <option key={idx} value={cla}>{cla}</option>;
+    });
+
     return (
       <Row>
         <Col s={12} m={10} offset="m1">
@@ -127,15 +131,21 @@ class CourseForm extends React.Component {
                 </div>
               </Row>
               <Row>
-                <div className="col input-field s12">
-                  <input type="text" defaultValue={levelVal} ref={this.levelInput} id="level" />
-                  <label htmlFor="level">课程评级</label>
+                <div className="input-field col s12 m12">
+                  <select
+                    ref={this.levelInput}
+                    id="level"
+                  >
+                    <option key="default" value="default" disabled>请选择课程评级</option>
+                    {courseLevels}
+                  </select>
+                  <label htmlFor="level">课程评级 <span className="required">*</span></label>
                 </div>
               </Row>
               <Row>
                 <div className="col input-field s12">
                   <input type="number" defaultValue={courseRateVal} ref={this.courseRate} id="courseRate" />
-                  <label htmlFor="courseRate">课时费(元/课时)</label>
+                  <label htmlFor="courseRate">课时费(元/课时/人)</label>
                 </div>
               </Row>
               <Row>

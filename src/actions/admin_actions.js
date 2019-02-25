@@ -4,16 +4,13 @@ import { ADMIN_CREATE_TEACHER, ADMIN_CREATE_STUDENT } from './constants';
 
 export const createTeacher = (teacher) => {
   return (dispatch) => {
-    const randomstring = Math.random().toString(36).slice(-8);
+    // const randomstring = Math.random().toString(36).slice(-8);
     const data = {
-      temporaryPassword: randomstring,
-      password: randomstring,
-      passwordCon: randomstring,
       teacher: teacher
     }
     axios.post(`/admin/createTeacher`, data)
       .then((response) => {
-        dispatch({type: ADMIN_CREATE_TEACHER, payload: randomstring});
+        dispatch({type: ADMIN_CREATE_TEACHER, payload: response.data});
         history.push(`/teachers`);
       })
       .catch((err) => {
@@ -28,17 +25,13 @@ export const updateTeacher = (teacher) => {
 
 export const createStudent = (student) => {
   return (dispatch) => {
-    const randomstring = Math.random().toString(36).slice(-8);
+    // const randomstring = Math.random().toString(36).slice(-8);
     const data = {
-      temporaryPassword: randomstring,
-      password: randomstring,
-      passwordCon: randomstring,
       student: student
     }
     axios.post(`/admin/createStudent`, data)
       .then((response) => {
-        console.log(randomstring);
-        dispatch({type: ADMIN_CREATE_STUDENT, payload: randomstring});
+        dispatch({type: ADMIN_CREATE_STUDENT, payload: response.data});
         history.push(`/students`);
       })
       .catch((err) => {

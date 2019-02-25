@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../history';
 
-import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, REMOVE_UPLOADED_FILE } from './constants';
+import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, COPY_REPORT, COPY_REPORT_FAILURE, REMOVE_UPLOADED_FILE } from './constants';
 
 import { updateBooks } from './select_book_actions';
 
@@ -42,6 +42,19 @@ export const addReport = (report, path) => {
       })
   }
 };
+
+export const copyReport = (course_id, student_id, teacher_id, report_id) => {
+  let url = `/reports/copy_report?course_id=${course_id}&student_id=${student_id}&teacher_id=${teacher_id}&report_id=${report_id}`;
+  return (dispatch) => {
+    axios.get(url).then((response) => {
+      dispatch({type: COPY_REPORT, payload: response.data})
+      // history.push(`/teachers/${response.data.teacher_id}/course_manager`)
+      window.location.reload()
+    }).catch((err) => {
+      dispatch({type: COPY_REPORT_FAILURE, payload: "there was an error while copying reports"})
+    })
+  }
+}
 
 export const editReport = (report, path) => {
   return (dispatch) => {

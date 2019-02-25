@@ -106,6 +106,8 @@ export const sortTransactionsByDate = (transactions) => {
   return results
 }
 
-export const CLASS_TYPE = ["一对一", "一对多"]
+export const CLASS_TYPE = ["一对一", "一对二", "一对三", "一对四", "一对五"]
+
+export const CLASS_LEVEL = ["启蒙", "起步", "初级上", "初级下", "中级上", "中级下", "中高级", "高级"]
 
 export const TEACHER_LEVEL = ["1级", "2级", "3级", "4级", "5级", "6级", "7级", "8级", "9级", "10级", "11级", "12级"]

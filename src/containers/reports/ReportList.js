@@ -73,7 +73,7 @@ class ReportList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user_id: state.auth.user.userTokenData.id,
-    student: state.studentsData.currentStudent
+    student: state.studentsData.currentStudent,
   }
 }
 

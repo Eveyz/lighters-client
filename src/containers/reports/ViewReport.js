@@ -5,7 +5,7 @@ import Header from '../../components/layouts/Header'
 import Footer from '../../components/layouts/Footer'
 import Loading from '../../components/Loading'
 
-import Logo from '../../images/logo12.svg';
+// import Logo from '../../images/logo12.svg';
 
 class ViewReport extends React.Component {
 
@@ -30,6 +30,7 @@ class ViewReport extends React.Component {
 
   render() {
     const { report, isLoading } = this.state;
+    
     if(isLoading) {
       return <Loading />
     }

@@ -37,7 +37,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div className="top-wrapper">
         <div>
           <div className="slider-wrapper">
             <div className="main-img-wrapper"></div>
@@ -45,7 +45,7 @@ class Home extends Component {
             <div className="main-img-wrapper"></div>
           </div>
         </div>
-        <div style={{zIndex: "10", height: "550px"}}>
+        <div className="mainpage-content-wrapper">
           <Header action="mainpage" />
           <div className="row above-img" style={{marginTop: "120px"}}>
             <div className="col offset-m6 m6">

@@ -43,6 +43,7 @@ class LevelandSalary extends React.Component {
                   <td>{entry.level}</td>
                   <td>{entry.rate}</td>
                   <td>{entry.type}</td>
+                  <td>{entry.course_level}</td>
                   <td>
                     <button className="btn cyan" onClick={this.toggleEdit(entry)}>编辑</button>
                   </td>
@@ -57,6 +58,7 @@ class LevelandSalary extends React.Component {
                             <th>教师等级</th>
                             <th>工资每课时/元</th>
                             <th>课程类型</th>
+                            <th>课程等级</th>
                             <th>编辑</th>
                             <th>删除</th>
                           </tr>
