@@ -120,7 +120,7 @@ class SignupForm extends React.Component {
                                 <div className="row no-margin">
                                   <div className="input-field col m12 s12">
                                     <input 
-                                      type="username" 
+                                      type="text" 
                                       name="username" 
                                       id="username" 
                                       autoComplete="true"
