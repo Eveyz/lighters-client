@@ -150,7 +150,7 @@ class ReportRow extends React.Component {
         </td>
         <td><button className="btn" onClick={this.editReport}>编辑课程回馈表</button></td>
         <td>{copyModal}</td>
-        <td><button className="btn red" onClick={this.deleteReport}>删除</button></td>
+        <td><button className="btn red" onClick={() => { if (window.confirm('确定要删除此条目?')) this.deleteReport()}}>删除</button></td>
       </tr>
     )
   }

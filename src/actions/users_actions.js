@@ -109,6 +109,7 @@ export const login = (user) => {
         }
       })
       .catch((err) => {
+        console.log("cannot login: ", err.response);
         dispatch({type: LOGIN_USER_FAILURE, payload: err.response.data});
       })
   }

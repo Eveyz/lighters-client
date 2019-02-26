@@ -100,6 +100,7 @@ export const deleteReport = (report_id) => {
     axios.delete(`/reports/${report_id}`)
       .then((response) => {
         dispatch({type: DELETE_REPORT, payload: report_id})
+        window.Materialize.toast('成功删除反馈表', 1000, 'green');
       })
       .catch((err) => {
         dispatch({type: DELETE_REPORT_FAILURE, payload: "there was an error while deleting report"})
