@@ -109,7 +109,7 @@ export const login = (user) => {
         }
       })
       .catch((err) => {
-        console.log("cannot login: ", err.response);
+        window.Materialize.toast(`${err.response.data.msg}`, 3000, 'red');
         dispatch({type: LOGIN_USER_FAILURE, payload: err.response.data});
       })
   }

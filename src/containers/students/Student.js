@@ -30,8 +30,8 @@ class Student extends React.Component {
           <td>{this.props.student.lastname + this.props.student.firstname}</td>
           <td>{this.props.student.age}</td>
           <td>{this.props.student.gender}</td>
-          <td>{`${this.props.student.temporary}@lighters.com`}</td>
-          <td>{this.props.student.temporary}</td>
+          <td>{`${this.props.student.systemid}`}</td>
+          <td>{this.props.student.systemid}</td>
           <td>
             <a ref={this.dropdown} className='dropdown-trigger btn  blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
 
