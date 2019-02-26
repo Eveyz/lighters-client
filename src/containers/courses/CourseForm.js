@@ -81,7 +81,8 @@ class CourseForm extends React.Component {
     });
 
     let nameVal = "";
-    // let levelVal = "";
+    let levelVal = "";
+    let typeVal = "";
     let capacityVal = "";
     let coursehoursVal = "";
     let courseRateVal = "";
@@ -89,7 +90,8 @@ class CourseForm extends React.Component {
     let teacherVal = "default";
     if(this.props.type === "EDIT" && this.props.currentCourse !== {}) {
       nameVal = this.props.currentCourse.name;
-      // levelVal = this.props.currentCourse.level;
+      typeVal = this.props.currentCourse.type;
+      levelVal = this.props.currentCourse.level;
       capacityVal = this.props.currentCourse.capacity;
       courseRateVal = this.props.currentCourse.course_rate;
       coursehoursVal = this.props.currentCourse.course_hours;
@@ -134,6 +136,7 @@ class CourseForm extends React.Component {
                 <div className="input-field col s12 m12">
                   <select
                     ref={this.levelInput}
+                    defaultValue={levelVal}
                     id="level"
                   >
                     <option key="default" value="default" disabled>请选择课程评级</option>
@@ -152,6 +155,7 @@ class CourseForm extends React.Component {
                 <div className="input-field col s12 m12">
                   <select
                     ref={this.typeInput}
+                    defaultValue={typeVal}
                     id="type"
                   >
                     <option key="default" value="default" disabled>请选择课程类型</option>
