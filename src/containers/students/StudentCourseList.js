@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from 'react-materialize';
 
 import PaginationContainer from '../PaginationContainer';
+import BookList from '../books/BookList';
 
 class StudentCourseList extends React.Component {
   constructor(props) {
@@ -71,7 +72,13 @@ class StudentCourseList extends React.Component {
                     <div className="card r-box-shadow">
                       <div className="card-content">
                         <button className="btn white black-text" onClick={(e) => this.back(e)}>返回</button>
-                        <PaginationContainer itemsPerPage={10} data={_course.books} content={"BOOK"} readOnly={true} />
+                        <PaginationContainer 
+                          itemsPerPage={10} 
+                          data={_course.books} 
+                          readOnly={false} 
+                        >
+                          <BookList />
+                        </PaginationContainer>
                       </div>
                     </div>
                   </Col>;

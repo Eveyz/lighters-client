@@ -2,6 +2,7 @@ import React from 'react';
 import { Row } from 'react-materialize';
 
 import PaginationContainer from '../../containers/PaginationContainer';
+import BookList from '../../containers/books/BookList';
 
 class StudentBookList extends React.Component {
 
@@ -13,7 +14,13 @@ class StudentBookList extends React.Component {
                       </div>
 
     if(this.props.books.length > 0) {
-      bookContent = <PaginationContainer itemsPerPage={10} data={this.props.books} content={"BOOK"} readOnly={true} />;
+      bookContent = <PaginationContainer 
+                      itemsPerPage={10} 
+                      data={this.props.books} 
+                      readOnly={false} 
+                    >
+                      <BookList />
+                    </PaginationContainer>;
     }
 
     return (

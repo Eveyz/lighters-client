@@ -1,20 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Row, Col } from 'react-materialize';
+import { Row, Col, Table } from 'react-materialize';
 
-import { getBooks, addBook, deleteBook } from "../../actions/books_actions.js";
-import { setLoadingStatus } from "../../actions/status_actions";
-import Header from '../../components/layouts/Header';
-import Breadcrumb from '../../components/layouts/Breadcrumb';
-import PaginationContainer from '../../containers/PaginationContainer';
+import Book from '../../components/books/book';
 
 class BooksList extends React.Component {
-
-  componentWillMount() {
-    this.props.setLoadingStatus(true)
-    this.props.fetchBooks()
-  }
 
   render() {
     let bookContent = <div className="col m12">
@@ -24,51 +13,42 @@ class BooksList extends React.Component {
                           </div>
                         </div>
                       </div>;
-    if(this.props.books.length > 0) {
-      bookContent = <PaginationContainer itemsPerPage={10} data={this.props.books} content={"BOOK"} readOnly={false} />;
+    if(this.props.data.length > 0) {
+      let bookList = this.props.data.map((book, index) => {
+        return (
+          <Book key={index} id={index} book={book} readOnly={this.props.readOnly} />
+        );
+      });
+      bookContent = <Row>
+                      <Col m={12}>
+                        <Table>
+                          <thead>
+                            <tr>
+                              <th>Lighters级别</th>
+                              <th>RAZ级别</th>
+                              <th>Lexile级别</th>
+                              <th>年龄段</th>
+                              <th>绘本分类</th>
+                              <th>系列名</th>
+                              <th>绘本名</th>
+                              <th colSpan="3">更多操作</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            {bookList}
+                          </tbody>
+                        </Table>
+                      </Col>
+                    </Row>
     }
 
     return (
       <div>
-        <Header />
-        <Breadcrumb action="books" />
-        <div className="container">
-          <br />
-          <Row>
-            <Col m={2}>
-              <Link to="/books/new" className="btn">添加绘本</Link>
-            </Col>
-            <Col m={10}>
-              <Link to="/books/new" className="btn cyan">从CSV中导入</Link>
-            </Col>
-          </Row>
-          <br/>
-          <Row>
-            {bookContent}
-          </Row>
-        </div>
+        {bookContent}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    books: state.booksData.books
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setLoadingStatus: (status) => {
-      dispatch(setLoadingStatus(status))
-    },
-    fetchBooks: () => {
-      dispatch(getBooks())
-    },
-    addBook: () => dispatch(addBook()),
-    deleteBook: () => dispatch(deleteBook())
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BooksList);
+export default BooksList;

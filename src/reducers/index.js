@@ -20,6 +20,7 @@ import PaycheckReducer from './paycheck_reducer';
 import CompensationReducer from './compensations_reducer';
 import TransactionReducer from './transactions_reducers';
 import TuitionReducer from './tuitions_reducer';
+import TeacherRateReducer from './teacher_rates_reducer';
 
 const rootReducer = combineReducers({
   identity: UserReducer,
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   compensationsData: CompensationReducer,
   transactionsData: TransactionReducer,
   tuitionsData: TuitionReducer,
+  teacherRatesData: TeacherRateReducer,
   router: routerReducer
 });
 

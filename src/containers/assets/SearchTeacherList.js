@@ -6,13 +6,6 @@ import { getPaychecks } from '../../actions/paychecks_actions';
 import { setMode } from '../../actions/mode_action';
 
 class SearchTeacherList extends React.Component {
-  levelToSalary = (level) => {
-    let ls
-    ls = this.props.levelSalaries.find(ele => {
-      return ele.level === `${level}级`
-    })
-    return ls ? ls.rate : 0
-  }
 
   selectTeacher = (teacher, teacher_id) => e => {
     this.props.selectTeacher(teacher)
@@ -21,7 +14,7 @@ class SearchTeacherList extends React.Component {
   }
   
   render() {
-    let teacherList = this.props.teachers.map((teacher, idx) => {
+    let teacherList = this.props.data.map((teacher, idx) => {
       return <tr
               key={idx} 
               onClick={this.selectTeacher(teacher, teacher._id)} 
@@ -29,7 +22,6 @@ class SearchTeacherList extends React.Component {
              >
                 <td>{teacher.lastname}{teacher.firstname}</td>
                 <td>{teacher.level}级</td>
-                <td>{teacher.rate || this.levelToSalary(teacher.level)}</td>
               </tr>
     })
     let teacherContent = <table className="highlight">
@@ -37,7 +29,6 @@ class SearchTeacherList extends React.Component {
                             <tr>
                               <th>教师姓名</th>
                               <th>教师等级</th>
-                              <th>工资每课时/元</th>
                             </tr>
                           </thead>
 
@@ -56,9 +47,6 @@ class SearchTeacherList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    levelSalaries: state.levelSalary.levelSalaries.map(ls => {
-      return { level: ls.level, rate: ls.rate }
-    }),
     mode: state.mode.value
   };
 }

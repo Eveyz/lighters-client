@@ -84,14 +84,15 @@ class EntryInputForm extends React.Component {
                   <label htmlFor="level">教师等级 <span className="required">*</span></label>
                 </div>
                 <div className="input-field col s12 m4">
-                  <input 
-                    defaultValue={this.props.entry.rate} 
-                    ref={this.salary} 
-                    id="wage" 
-                    type="number" 
-                    className="validate" 
-                  />
-                  <label htmlFor="wage">工资每课时/人民币 <span className="required">*</span></label>
+                  <select
+                    ref={this.courseLevel}
+                    id="course_level"
+                    defaultValue={this.props.entry.course_level}
+                  >
+                    <option key="default" value="default" disabled>请选择课程等级</option>
+                    {courseLevels}
+                  </select>
+                  <label htmlFor="course_level">课程等级 <span className="required">*</span></label>
                 </div>
                 <div className="input-field col s12 m4">
                   <select
@@ -104,16 +105,15 @@ class EntryInputForm extends React.Component {
                   </select>
                   <label htmlFor="type">课程类型 <span className="required">*</span></label>
                 </div>
-                <div className="input-field col s12 m4">
-                  <select
-                    ref={this.courseLevel}
-                    id="course_level"
-                    defaultValue={this.props.entry.course_level}
-                  >
-                    <option key="default" value="default" disabled>请选择课程等级</option>
-                    {courseLevels}
-                  </select>
-                  <label htmlFor="course_level">课程等级 <span className="required">*</span></label>
+                <div className="input-field col s12 m12">
+                  <input 
+                    defaultValue={this.props.entry.rate} 
+                    ref={this.salary} 
+                    id="wage" 
+                    type="number" 
+                    className="validate" 
+                  />
+                  <label htmlFor="wage">工资每课时/人民币 <span className="required">*</span></label>
                 </div>
               </div>
               <button className="btn" onClick={this.handleSubmit}>保存</button>

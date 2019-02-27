@@ -6,7 +6,7 @@ import Header from '../../components/layouts/Header';
 import TuiCalendar from '../TuiCalendar';
 import StudentCourseList from './StudentCourseList';
 import StudentBookList from './StudentBookList';
-import StudentReportList from './StudentReportList';
+import StudentReportListContainer from './StudentReportListContainer';
 import Loading from '../../components/Loading';
 import { getStudentReports } from '../../actions/students_actions';
 
@@ -31,7 +31,7 @@ class StudentDashboard extends React.Component {
                       reports={this.props.reports} 
                     />;
     } else if (this.props.location.pathname.includes("reports")) {
-      mainContent = this.props.loading ? <Loading /> : <StudentReportList reports={this.props.reports} />;
+      mainContent = this.props.loading ? <Loading /> : <StudentReportListContainer reports={this.props.reports} />;
     } else if (this.props.location.pathname.includes("books")) {
       let _books = [];
       this.props.student.courses.forEach(course => {

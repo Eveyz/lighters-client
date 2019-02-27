@@ -11,14 +11,6 @@ class TeacherSalaryDetail extends React.Component {
     this.input = React.createRef()
   }
 
-  state = {
-    mode: "VIEW"
-  }
-
-  changeMode = (e) => {
-    this.setState({mode: "EDIT"})
-  }
-
   back = () => {
     this.props.back("BROWSE")
   }
@@ -27,17 +19,10 @@ class TeacherSalaryDetail extends React.Component {
     this.props.viewPaycheck(paycheck)
   }
 
-  cancel = () => {
-    this.setState({mode: "VIEW"})
-  }
-
   handleSubmit = (e) => {
     let val = e.target.value
     if(!val) {
       window.Materialize.toast('数值不能为0', 1000);
-    } else {
-      // this.props.updateTeacher(this.props.teacher._id, {rate: val})
-      this.setState({mode: "VIEW"})
     }
   }
 
@@ -46,16 +31,6 @@ class TeacherSalaryDetail extends React.Component {
     if(this.props.paychecks.length > 0) {
       reportsContent = <PaycheckList paychecks={this.props.paychecks} viewPaycheck={this.viewPaycheck} />
     }
-    let td = this.state.mode === "EDIT" ? 
-            <input 
-              style={{width: "150px", marginRight: "30px"}}
-              defaultValue={this.props.teacher.rate} 
-              type="number" 
-              ref={this.input}
-              onBlur={this.handleSubmit}
-              autoFocus
-            /> : this.props.teacher.rate
-    let classes = this.state.mode === "EDIT" ? "no-padding" : "clickable hover-highlight"
 
     return(
       <div>
@@ -66,7 +41,6 @@ class TeacherSalaryDetail extends React.Component {
             <tr>
               <th>教师姓名</th>
               <th>教师等级</th>
-              <th>工资每课时/元</th>
             </tr>
           </thead>
 
@@ -74,7 +48,6 @@ class TeacherSalaryDetail extends React.Component {
             <tr>
               <td>{this.props.teacher.name}</td>
               <td>{this.props.teacher.level}级</td>
-              <td className={classes} onClick={this.changeMode}>{td}</td>
             </tr>
           </tbody>
         </table>

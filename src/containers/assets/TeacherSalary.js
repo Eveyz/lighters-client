@@ -7,6 +7,8 @@ import TeacherSalaryDetail from './TeacherSalaryDetail';
 import PaginationContainer from '../PaginationContainer';
 import MonthlyReport from './MongthlyReport';
 import PaycheckList from './PaycheckList';
+import SearchTeacherList from './SearchTeacherList';
+
 import { setMode } from '../../actions/mode_action';
 import { getPaychecks } from '../../actions/paychecks_actions';
 import { getActiveTeachers } from '../../actions/teachers_actions';
@@ -61,13 +63,18 @@ class TeacherSalary extends React.Component {
       rate: this.props.teacher.rate || this.levelToSalary(this.props.teacher.level)
     }
 
+    let content = this.props.teachers.length > 0 ? <SearchTeacherList /> : <h5 className="center">当前没有教师</h5>
+
     switch(this.props.mode) {
       case "BROWSE":
         // 老师分页浏览
         teacherContent = <PaginationContainer 
                             itemsPerPage={5}
-                            data={this.props.teachers} content={"TEACHERS"} readOnly={false}
-                          />;
+                            data={this.props.teachers} 
+                            readOnly={false}
+                          >
+                            {content}
+                          </PaginationContainer>;
         break;
       case "VIEW_TEACHER":
         // 查看老师的工资
