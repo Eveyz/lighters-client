@@ -31,7 +31,7 @@ class CourseList extends React.Component {
       courseList =  <div className="col m12">
                       <div className="card white r-box-shadow">
                         <div className="card-content">
-                          <h4 className="center">当前没有课程，请添加</h4>;
+                          <h4 className="center">当前没有课程，请添加</h4>
                         </div>
                       </div>
                     </div>;
@@ -50,8 +50,6 @@ class CourseList extends React.Component {
                 <Link to="/courses/add_course" className="btn">添加课程</Link>
               </div>
             </div>
-
-            <br/>
             <div className="row">
               <div className="col m3">
                 <h6 style={{color: "rgba(0,0,0,.6)", fontWeight: "700"}}>所有课程</h6>
@@ -61,7 +59,6 @@ class CourseList extends React.Component {
             <div className="row">
               {courseList}
             </div>
-            <br/>
 
           </div>
         </div>

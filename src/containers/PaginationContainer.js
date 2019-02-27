@@ -1,8 +1,5 @@
 import React from 'react';
-import { Row, Col, Table } from 'react-materialize';
-
 import Pagination from '../components/layouts/Pagination';
-import Book from '../components/books/book';
 
 class PaginationContainer extends React.Component {
   constructor(props) {
@@ -33,7 +30,6 @@ class PaginationContainer extends React.Component {
   }
 
   render() {
-    let content = "";
     let startIdx = (this.state.currentPage - 1) * this.props.itemsPerPage;
     let data = this.props.data.slice(startIdx, startIdx + this.props.itemsPerPage);
     const { children } = this.props;

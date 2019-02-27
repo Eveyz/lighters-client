@@ -31,9 +31,7 @@ class TableForm extends React.Component {
   }
 
   deleteRow(idx) {
-    console.log("delete function: ", idx)
     let newState = this.state.courseContent.filter((ele, i) => i !== idx)
-    console.log("new state: ", newState)
     this.setState({
       courseContent: newState
     })
@@ -42,7 +40,6 @@ class TableForm extends React.Component {
   }
   
   saveValue(idx, value) {
-    console.log(value)
     var newCourseContent = this.state.courseContent.slice(0)
     newCourseContent[idx][value[0]] = value[1]
     this.setState({

@@ -6,7 +6,7 @@ class TeacherPaycheckList extends React.Component {
       return <tr key={idx}>
               <td>{pc.month}</td>
               <td>{pc.reports.length}</td>
-              <td>{(this.props.rate * pc.reports.length).toFixed(2)}</td>
+              <td>{pc.amount}</td>
             </tr>
     })
     let paychecks = <table className="highlight">

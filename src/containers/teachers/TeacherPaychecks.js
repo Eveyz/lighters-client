@@ -9,15 +9,6 @@ import TeacherPaycheckList from './TeacherPaycheckList';
 class TeacherPaychecks extends React.Component {
   componentWillMount() {
     this.props.getPaychecks(`?teacher_id=${this.props.teacher_id}`)
-    this.props.getLevelSalaries()
-  }
-
-  levelToSalary = (level) => {
-    let ls
-    ls = this.props.levelSalaries.find(ele => {
-      return ele.level === `${level}级`
-    })
-    return ls ? ls.rate : 0
   }
 
   render() {
@@ -33,27 +24,25 @@ class TeacherPaychecks extends React.Component {
         unpaid.push(pc)
       }
     })
+    let paidTable = paid.length > 0 ? <TeacherPaycheckList paychecks={paid} /> 
+    : 
+    <Row>
+      <Col m={12} s={12}>
+        <Card className='white r-box-shadow' textClassName='black-text' title=''>
+        <h5 className="center">没有已付工资单</h5>
+        </Card>
+      </Col>
+    </Row>;
 
-    let rate = this.props.rate ? this.props.rate : this.levelToSalary(this.props.teacher_level)
-    let paidTable = paid.length > 0 ? <TeacherPaycheckList paychecks={paid} rate={rate} /> 
-                                      : 
-                                      <Row>
-                                        <Col m={12} s={12}>
-                                          <Card className='white r-box-shadow' textClassName='black-text' title=''>
-                                          <h5 className="center">没有已付工资单</h5>
-                                          </Card>
-                                        </Col>
-                                      </Row>;
-
-    let unpaidTable = unpaid.length > 0 ? <TeacherPaycheckList paychecks={unpaid} rate={rate} />
-                                            : 
-                                            <Row>
-                                              <Col m={12} s={12}>
-                                                <Card className='white r-box-shadow' textClassName='black-text' title=''>
-                                                <h5 className="center">没有待付工资单</h5>
-                                                </Card>
-                                              </Col>
-                                            </Row>;
+    let unpaidTable = unpaid.length > 0 ? <TeacherPaycheckList paychecks={unpaid} />
+    : 
+    <Row>
+      <Col m={12} s={12}>
+        <Card className='white r-box-shadow' textClassName='black-text' title=''>
+        <h5 className="center">没有待付工资单</h5>
+        </Card>
+      </Col>
+    </Row>;
 
     return(
       <div>
@@ -71,9 +60,6 @@ const mapStateToProps = (state) => {
   return {
     paychecks: state.paycheckData.paychecks,
     teacher_id: state.auth.identityData._id,
-    rate: state.auth.identityData.rate,
-    teacher_level: state.auth.identityData.level,
-    levelSalaries: state.levelSalary.levelSalaries
   }
 }
 
@@ -81,9 +67,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getPaychecks: (query) => {
       dispatch(getPaychecks(query))
-    },
-    getLevelSalaries: () => {
-      dispatch(getLevelSalaries())
     }
   }
 }

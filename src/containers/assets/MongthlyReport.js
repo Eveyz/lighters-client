@@ -22,10 +22,7 @@ class MonthlyReport extends React.Component {
   }
 
   render() {
-    let coursesHash = {}
     let reportsList = sortReportsByDate(this.props.paycheck.reports).map((report, idx) => {
-      coursesHash[report.course_id.type] = coursesHash.hasOwnProperty(report.course_id.type) ? coursesHash[report.course_id.type] + 1 : 1;
-
       return  <tr key={idx} className="action-hide">
                 <td>{idx + 1}</td>
                 <td>{report.course_id.name}</td>
@@ -52,29 +49,15 @@ class MonthlyReport extends React.Component {
                         </tbody>
                       </table>
 
-    let coursesTh = "";
-    let coursesTd = "";
-    let rates = {};
-    let base = 0;
-    if(Object.keys(coursesHash).length > 0) {
-      coursesTh = Object.keys(coursesHash).map((course, idx) => {
-        return <th key={idx}>{course + "课时/元"}</th>
-      });
-      coursesTd = Object.keys(coursesHash).map((course, idx) => {
-        let ls
-        ls = this.props.levelSalaries.find(ele => {
-          return ele.level === `${this.props.teacher.level}级` && ele.type === course
-        })
-        rates[course] = ls ? ls.rate : 0;
-        return <td key={idx}>{ls ? ls.rate : 0}</td>
-      });
+    // 反馈表得到的基本工资
+    let base = this.props.paycheck.amount
 
-      for (var course in coursesHash) {
-        if (coursesHash.hasOwnProperty(course)) {
-          base = base + parseFloat(rates[course]) * parseFloat(coursesHash[course])
-        }
-      }
-    }
+    let details = ""
+    this.props.paycheck.reports.forEach(report => {
+      details += `${report.credit} * ${report.teacher_rate} + `
+    })
+    details = details.slice(0, -3);
+    details += ` = ${base.toFixed(2)}元`
 
     let btn = this.props.paycheck.paid ? <button disabled className="btn btn-large red">已结算</button> : <button className="btn btn-large" onClick={() => { if (window.confirm('确认要进行结算? 结算之后将无法更改, 请核查准确')) this.pay() }}>结算</button>
 
@@ -96,7 +79,6 @@ class MonthlyReport extends React.Component {
               <th>教师名字</th>
               <th>教师等级</th>
               <th>总课时</th>
-              {coursesTh}
               <th>月工资(元)</th>
             </tr>
           </thead>
@@ -106,11 +88,12 @@ class MonthlyReport extends React.Component {
               <td>{this.props.teacher.name}</td>
               <td>{this.props.teacher.level}级</td>
               <td>{this.props.paycheck.reports.length}</td>
-              {coursesTd}
               <td>{base.toFixed(2)}</td>
             </tr>
           </tbody>
         </table>
+        <br/>
+        <p>详情: {details}</p>
         <br/>
         <h6 className="airbnb-font bold">奖励, 津贴或罚款</h6>
         <Compensation paid={this.props.paycheck.paid} paycheck_id={this.props.paycheck._id} />
