@@ -99,7 +99,7 @@ class ReportRow extends React.Component {
 
     let copyModal = <Modal
                       header='复制反馈表'
-                      trigger={<button className="btn blue-grey">复制课程回馈表</button>}>
+                      trigger={<i className="material-icons blue-grey-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表">content_copy</i>}>
                       <div style={{minHeight: "200px"}}>
                         <div className="row">
                           <div className="input-field col m6 s12">
@@ -144,13 +144,13 @@ class ReportRow extends React.Component {
         <td>{ this.props.student.age }</td>
         <td>{ this.props.course_name }</td>
         <td>
-          <Link className="btn cyan" to={`/reports/${this.props.report._id}`} target="_blank">
-            查看课程回馈表
+          <Link to={`/reports/${this.props.report._id}`} target="_blank">
+            <i className="material-icons cyan-text clickable tooltipped" data-position="bottom" data-tooltip="查看反馈表">pageview</i>
           </Link>
         </td>
-        <td><button className="btn" onClick={this.editReport}>编辑课程回馈表</button></td>
+        <td><i className="material-icons blue-text clickable tooltipped" onClick={this.editReport} data-position="bottom" data-tooltip="编辑反馈表">edit</i></td>
         <td>{copyModal}</td>
-        <td><button className="btn red" onClick={() => { if (window.confirm('确定要删除此条目?')) this.deleteReport()}}>删除</button></td>
+        <td><i className="material-icons red-text clickable tooltipped" data-position="bottom" data-tooltip="删除反馈表" onClick={() => { if (window.confirm('确定要删除此条目?')) this.deleteReport()}}>delete</i></td>
       </tr>
     )
   }
