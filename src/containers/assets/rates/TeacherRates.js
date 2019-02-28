@@ -61,7 +61,7 @@ class TeacherRates extends React.Component {
                         <thead>
                           <tr>
                             <th>教师</th>
-                            <th>工资每课时/元</th>
+                            <th>工资(元/课时/学生)</th>
                             <th>教师等级</th>
                             <th>课程类别</th>
                             <th>课程等级</th>

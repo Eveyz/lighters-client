@@ -20,18 +20,6 @@ const AdminStudentNewForm = props => {
         <div className="input-field col s12 m6">
           <input 
             type="text"
-            name="firstname" 
-            id="firstname"
-            className="validate"
-            onChange={handleChange} 
-            onBlur={handleBlur} 
-            value={values.firstname} 
-          />
-          <label htmlFor="firstname">姓</label>
-        </div>
-        <div className="input-field col s12 m6">
-          <input 
-            type="text"
             name="lastname" 
             id="lastname" 
             className="validate"
@@ -39,7 +27,19 @@ const AdminStudentNewForm = props => {
             onBlur={handleBlur} 
             value={values.lastname} 
           />
-          <label htmlFor="lastname">名</label>
+          <label htmlFor="lastname">姓</label>
+        </div>
+        <div className="input-field col s12 m6">
+          <input 
+            type="text"
+            name="firstname" 
+            id="firstname"
+            className="validate"
+            onChange={handleChange} 
+            onBlur={handleBlur} 
+            value={values.firstname} 
+          />
+          <label htmlFor="firstname">名</label>
         </div>
       </div>
 

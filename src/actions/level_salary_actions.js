@@ -22,6 +22,7 @@ export const addLevelSalary = (entry) => {
       .then((response) => {
         dispatch({type: ADD_LEVEL_SALARY, payload: response.data})
         history.push("/assets/level_salaries");
+        window.Materialize.toast('成功添加', 1000, 'green');
       })
       .catch((err) => {
         dispatch({type: ADD_LEVEL_SALARY_FAILURE, payload: "there was an error while posting a new entry"})
@@ -35,6 +36,7 @@ export const updateLevelSalary = (entry) => {
     axios.put(`/level_salaries/${_id}`, _entry)
       .then((response) => {
         dispatch({type: UPDATE_LEVEL_SALARY, payload: response.data})
+        window.Materialize.toast('成功更新', 1000, 'green');
       })
       .catch((err) => {
         dispatch({type: UPDATE_LEVEL_SALARY_FAILURE, payload: err})
@@ -47,6 +49,7 @@ export const deleteLevelSalary = (id) => {
     axios.delete(`/level_salaries/${id}`)
       .then((response) => {
         dispatch({type: DELETE_LEVEL_SALARY, payload: id})
+        window.Materialize.toast('删除成功', 1000, 'green');
       })
       .catch((err) => {
         dispatch({type: DELETE_LEVEL_SALARY_FAILURE, payload: err})

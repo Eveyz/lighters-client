@@ -51,7 +51,7 @@ class Course extends React.Component {
             <p>授课老师: {nameList}</p>
             <p>课程级别: { this.props.course.level }</p>
             <p>课程类型: { this.props.course.type }</p>
-            <p>课时费: { this.props.course.course_rate ? this.props.course.course_rate : 0 }元</p>
+            <p>课时费(元/课时/学生): { this.props.course.course_rate ? this.props.course.course_rate : 0 }元</p>
             <p>学生数量: { this.props.course.students.length }</p>
             <p>绘本数量: { this.props.course.books.length }</p>
           </div>
