@@ -36,6 +36,7 @@ export const addReport = (report, path) => {
         dispatch({type: ADD_REPORT, payload: response.data})
         dispatch({type: SET_CURRENT_REPORT, payload: response.data})
         history.push(path);
+        window.Materialize.toast('成功添加反馈表', 1000, 'green');
       })
       .catch((err) => {
         dispatch({type: ADD_REPORT_FAILURE, payload: "there was an error while adding a new report"})
@@ -50,6 +51,7 @@ export const copyReport = (course_id, student_id, teacher_id, report_id) => {
       dispatch({type: COPY_REPORT, payload: response.data})
       // history.push(`/teachers/${response.data.teacher_id}/course_manager`)
       window.location.reload()
+      window.Materialize.toast('成功复制反馈表', 1000, 'green');
     }).catch((err) => {
       dispatch({type: COPY_REPORT_FAILURE, payload: "there was an error while copying reports"})
     })
@@ -78,6 +80,7 @@ export const updateReport = (report_id, report, path) => {
     .then((response) => {
       dispatch({type: UPDATE_REPORT, payload: response.data});
       history.push(path);
+      window.Materialize.toast('成功更新反馈表', 1000, 'green');
     })
     .catch((err) => {
       dispatch({type: UPDATE_REPORT_FAILURE, payload: "there are some erros while updating the report"})

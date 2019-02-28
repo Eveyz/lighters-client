@@ -118,7 +118,7 @@ class TeacherRateInputForm extends React.Component {
                     type="number" 
                     className="validate" 
                   />
-                  <label htmlFor="rate">工资每课时/人民币 <span className="required">*</span></label>
+                  <label htmlFor="rate">工资每课时/每学生/人民币 <span className="required">*</span></label>
                 </div>
               </div>
 
