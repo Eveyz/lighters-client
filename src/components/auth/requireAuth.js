@@ -14,18 +14,27 @@ export const PrivateRoute = ({ component: Component, auth, ...rest }) => (
 
 export const AdminRoute = ({component: Component, auth, ...rest}) => (
   <Route {...rest} render={(props) => (
-    (auth.isAuthenticated && auth.user.userTokenData.identity === "admin") ? <Component {...props} /> : auth.user.exp < (dateNow.getTime()/1000) ? <Redirect to='/login' /> : <Redirect to='/' />
+    (auth.isAuthenticated && auth.user.userTokenData.identity === "admin") 
+    ? auth.user.exp > (dateNow.getTime()/1000) 
+    ? <Component {...props} /> : <Redirect to='/login' /> 
+    : <Redirect to='/' />
   )} />
 )
 
 export const TeacherRoute = ({component: Component, auth, ...rest}) => (
   <Route {...rest} render={(props) => (
-    (auth.isAuthenticated && auth.user.userTokenData.identity === "teacher") ? <Component {...props} /> : auth.user.exp < (dateNow.getTime()/1000) ? <Redirect to='/login' /> : <Redirect to='/' />
+    (auth.isAuthenticated && auth.user.userTokenData.identity === "teacher") 
+    ? auth.user.exp > (dateNow.getTime()/1000) 
+    ? <Component {...props} /> : <Redirect to='/login' /> 
+    : <Redirect to='/' />
   )} />
 )
 
 export const StudentRoute = ({component: Component, auth, ...rest}) => (
   <Route {...rest} render={(props) => (
-    (auth.isAuthenticated && auth.user.userTokenData.identity === "student") ? <Component {...props} /> : auth.user.exp < (dateNow.getTime()/1000) ? <Redirect to='/login' /> : <Redirect to='/' />
+    (auth.isAuthenticated && auth.user.userTokenData.identity === "student") 
+    ? auth.user.exp > (dateNow.getTime()/1000) 
+    ? <Component {...props} /> : <Redirect to='/login' /> 
+    : <Redirect to='/' />
   )} />
 )
