@@ -3,6 +3,7 @@ import { Row, Col, Card } from 'react-materialize';
 import { connect } from 'react-redux';
 
 import SearchTeacher from './SearchTeacher';
+import Loading from '../../components/Loading'
 import TeacherSalaryDetail from './TeacherSalaryDetail';
 import PaginationContainer from '../PaginationContainer';
 import MonthlyReport from './MongthlyReport';
@@ -10,6 +11,7 @@ import PaycheckList from './PaycheckList';
 import SearchTeacherList from './SearchTeacherList';
 
 import { setMode } from '../../actions/mode_action';
+import { setLoadingStatus } from "../../actions/status_actions";
 import { getPaychecks } from '../../actions/paychecks_actions';
 import { getActiveTeachers } from '../../actions/teachers_actions';
 
@@ -21,9 +23,11 @@ class TeacherSalary extends React.Component {
     this.paycheck = {reports: []}
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.setLoadingStatus(true)
     this.props.getPaychecks(`?paid=${false}`)
     this.props.getActiveTeachers()
+    this.props.setLoadingStatus(false)
   }
 
   state = {
@@ -55,6 +59,10 @@ class TeacherSalary extends React.Component {
   }
 
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     let teacherContent = <SearchTeacher />
     let _teacher = {
       _id: this.props.teacher._id,
@@ -139,6 +147,7 @@ const mapStateToProps = state => {
     teachers: state.teachersData.teachers,
     paychecks: state.paycheckData.paychecks,
     mode: state.mode.value,
+    isLoading: state.status.loading,
     levelSalaries: state.levelSalary.levelSalaries.map(ls => {
       return { level: ls.level, rate: ls.rate, type: ls.type }
     }),
@@ -149,6 +158,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setMode: (mode) => {
       dispatch(setMode(mode))
+    },
+    setLoadingStatus: (isLoading) => {
+      dispatch(setLoadingStatus(isLoading))
     },
     getPaychecks: (query) => {
       dispatch(getPaychecks(query))

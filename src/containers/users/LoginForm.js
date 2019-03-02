@@ -21,6 +21,7 @@ class LoginForm extends React.Component {
     this.passwordInput = React.createRef();
     this.checkboxInput = React.createRef();
 
+    this.login = this.login.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -29,7 +30,12 @@ class LoginForm extends React.Component {
     M.AutoInit();
   }
 
-  login(user) {
+  login() {
+    const user = {
+      username: this.usernameInput.current.value.trim(),
+      password: this.passwordInput.current.value.trim(),
+      remember_me: this.checkboxInput.current.checked
+    }
     this.props.login(user);
   }
 
@@ -38,8 +44,9 @@ class LoginForm extends React.Component {
     const user = {
       username: this.usernameInput.current.value,
       password: this.passwordInput.current.value,
-      // checkbox: this.checkboxInput.current.state.checked
+      remember_me: this.checkboxInput.current.state.checked
     }
+    console.log(user)
     this.props.login(user);
   }
 
@@ -70,9 +77,9 @@ class LoginForm extends React.Component {
                         <h4 className="center">登录</h4>
                         <br/>
                         <Formik
-                          initialValues={{ username: '', password: '' }}
+                          initialValues={{ username: '', password: '', remember_me: false }}
                           onSubmit={(values, { setSubmitting }) => {
-                            this.props.login(values);
+                            this.login(values);
                           }}
                           validationSchema={Yup.object().shape({
                             username: Yup.string()
@@ -130,7 +137,7 @@ class LoginForm extends React.Component {
                                   <div className="col m12 s12">
                                     <input 
                                       type="checkbox" 
-                                      name="remember"
+                                      name="remember_me"
                                       className="filled-in"
                                       id="remember_me"
                                       ref={this.checkboxInput}
