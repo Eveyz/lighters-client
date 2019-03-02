@@ -75,8 +75,8 @@ class Header extends Component {
 
       links = <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><Link to="/advantage">课程体系</Link></li>
-                <li><Link to="/login">上课流程</Link></li>
-                <li><Link to="/login">关于我们</Link></li>
+                <li><Link to="/advantage">上课流程</Link></li>
+                <li><Link to="/advantage">关于我们</Link></li>
                 {path}
                 <li className="dp"><a href=''>更多<i className="material-icons right">arrow_drop_down</i></a>
                   {accountDropdown}
