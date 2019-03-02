@@ -7,9 +7,9 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 
-// import history from './history';
+import history from './history';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router';
 
 import rootReducer from './reducers/index';
 import { saveToLocalStorage, loadFromLocalStorage } from './ultis';
@@ -43,7 +43,7 @@ store.subscribe(() => saveToLocalStorage(store.getState()));
 ReactDOM.render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
-    <Router>
+    <Router history={history}>
       <ScrollToTop>
         <Route path="/" component={App}>
         </Route>
