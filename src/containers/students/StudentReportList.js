@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Col, Table } from 'react-materialize';
 
-import Book from '../../components/books/book';
-
 class StudentReportList extends React.Component {
   render() {
     let content = <h5 className="center">没有课后反馈表</h5>;

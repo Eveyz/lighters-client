@@ -171,9 +171,19 @@ export const userFromToken = (token) => {
 export const logout = () => {
   return dispatch => {
     dispatch(setCurrentUser({}));
-    setAuthToken(false);
     localStorage.clear()
+    setAuthToken(false);
     history.push('/');
+  }
+};
+
+export const sessionExpired = () => {
+  return dispatch => {
+    localStorage.clear()
+    dispatch(setCurrentUser({}))
+    setAuthToken(false)
+    history.push('/login');
+    window.Materialize.toast(`登录时效过期, 请重新登录`, 3000, 'red');
   }
 };
 

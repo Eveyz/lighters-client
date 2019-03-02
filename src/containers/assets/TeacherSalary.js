@@ -92,6 +92,8 @@ class TeacherSalary extends React.Component {
                             back={this.back}
                           />
         break;
+      default:
+        break;
     };
 
     let switchWidget = this.props.mode === "BROWSE" || "SEARCH" ? 

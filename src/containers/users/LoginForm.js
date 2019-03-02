@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
       minHeight: "100vh"
     };
 
-    const errMsg = this.props.status.success ? "" : <FlashMessage props={{status: "error", msg: this.props.status.msg}} />
+    // const errMsg = this.props.status.success ? "" : <FlashMessage props={{status: "error", msg: this.props.status.msg}} />
 
     return (
       <div>
@@ -94,8 +94,6 @@ class LoginForm extends React.Component {
                               <form onSubmit={handleSubmit}>
                                 {errors.email && touched.email && <FlashMessage props={{status: "error", msg: errors.email}} />}
                                 {errors.password && touched.password && <FlashMessage props={{status: "error", msg: errors.password}} />}
-
-                                {/* {errMsg} */}
 
                                 <div className="row no-margin">
                                   <div className="input-field col m12 s12">

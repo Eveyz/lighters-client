@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-materialize';
 
 import { getPaychecks } from '../../actions/paychecks_actions';
-import { getLevelSalaries } from '../../actions/level_salary_actions';
 import TeacherPaycheckList from './TeacherPaycheckList';
 
 class TeacherPaychecks extends React.Component {

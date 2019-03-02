@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import '../css/App.css';
 import '../css/flash.css';
 import '../css/richtext-editor.css';
 
 import { AdminRoute, TeacherRoute, StudentRoute, PrivateRoute } from './auth/requireAuth';
+import { sessionExpired } from '../actions/users_actions'
+
 // Components
 import Home from './layouts/Home';
 import CourseHierarchy from './mainpages/courseHierarchy';
@@ -56,6 +59,11 @@ class App extends Component {
         let id = this.props.auth.identityData._id;
         // fetch data for current student if page refresh
         this.props.getStudent(id);
+      }
+
+      var dateNow = new Date();
+      if(this.props.auth.user.exp < (dateNow.getTime()/1000)) {
+        this.props.sessionExpired()
       }
     }
   }
@@ -109,4 +117,11 @@ class App extends Component {
   }
 }
 
-export default App;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    sessionExpired: () => dispatch(sessionExpired())
+  };
+}
+
+export default connect(null, mapDispatchToProps)(App);

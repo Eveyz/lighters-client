@@ -28,12 +28,16 @@ class StudentForm extends Component {
     let formData = new FormData(f);
     let valid = true;
     for (var field of formData.entries()) {
-      if(field[0] !== "englishname" && !field[1] || !formData.has("estimate") || !formData.has("expectation") || !formData.has("dailyreading") || !formData.has("currentreadingstatus") || !formData.has("penglishlevel") || !formData.has("custody") || (field[0] === "estimate" && field[1] === "other" && !formData.has("estimateOther")) || (field[0] === "dailyreading" && field[1] === "other" && !formData.has("dailyreadingOther")) || (field[0] === "currentreadingstatus" && field[1] === "other" && !formData.has("currentreadingstatusOther")) ) {
+      if((field[0] !== "englishname" && !field[1]) || !formData.has("estimate") || !formData.has("expectation") || !formData.has("dailyreading") || !formData.has("currentreadingstatus") || !formData.has("penglishlevel") || !formData.has("custody") || (field[0] === "estimate" && field[1] === "other" && !formData.has("estimateOther")) || (field[0] === "dailyreading" && field[1] === "other" && !formData.has("dailyreadingOther")) || (field[0] === "currentreadingstatus" && field[1] === "other" && !formData.has("currentreadingstatusOther")) ) {
         valid = false;
         break;
       }
     }
-    valid ? this.state.valid ? "" : this.setState({valid: true}) : this.state.valid ? this.setState({valid: false}) : "";
+    if(valid) {
+      if(!this.state.valid) this.setState({valid: true})
+    } else {
+      if(this.state.valid) this.setState({valid: false});
+    }
   }
 
   handleSubmit = (e) => {
