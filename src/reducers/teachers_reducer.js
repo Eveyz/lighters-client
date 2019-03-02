@@ -1,6 +1,7 @@
 const initialState = {
   currentTeacher: {},
-  teachers: []
+  teachers: [],
+  count: 0
 }
 
 export default (state = initialState, action) => {
@@ -9,6 +10,12 @@ export default (state = initialState, action) => {
       return {
         currentTeacher: state.currentTeacher,
         teachers: [...action.payload]
+      }
+    case 'GET_TEACHERS_SIZE':
+      return {
+        currentTeacher: state.currentTeacher,
+        teachers: [...state.teachers],
+        count: action.payload
       }
     case "ADD_TEACHER":
       return {

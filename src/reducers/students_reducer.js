@@ -1,6 +1,7 @@
 const initialState = {
   currentStudent: {},
   students: [],
+  count: 0,
   reports: [],
   loading: false,
   error: null
@@ -13,6 +14,12 @@ export default (state = initialState, action) => {
         ...state,
         currentStudent: state.currentStudent,
         students: [...action.payload]
+      }
+    case 'GET_STUDENTS_SIZE':
+      return {
+        currentStudent: state.currentStudent,
+        students: [...state.students],
+        count: action.payload
       }
     case 'ADD_STUDENT':
       return {

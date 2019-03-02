@@ -43,7 +43,7 @@ class Dashboard extends Component {
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #69639a"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>课程管理</b></span>
-                              <p>{this.props.courses.length} 个课程</p>
+                              <p>{this.props.courses} 个课程</p>
                             </div>
                           </div>
                         </div>
@@ -54,7 +54,7 @@ class Dashboard extends Component {
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #4c7ef3"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color airbnb-font" style={{fontWeight: "400"}}><b>教师管理</b></span>
-                              <p>{this.props.teachers.length} 个教师</p>
+                              <p>{this.props.teachers} 个教师</p>
                             </div>
                           </div>
                         </div>
@@ -67,7 +67,7 @@ class Dashboard extends Component {
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #6df0c2"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>学生管理</b></span>
-                              <p>{this.props.students.length} 个学生</p>
+                              <p>{this.props.students} 个学生</p>
                             </div>
                           </div>
                         </div>
@@ -78,7 +78,7 @@ class Dashboard extends Component {
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #ffc107"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>绘本管理</b></span>
-                              <p>{this.props.books.length} 本绘本</p>
+                              <p>{this.props.books} 本绘本</p>
                             </div>
                           </div>
                         </div>
@@ -91,7 +91,7 @@ class Dashboard extends Component {
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #FF5A5F"}}>
                             <div className="card-content" style={{padding: "30px"}}>
                               <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>资金管理</b></span>
-                              <p>{this.props.transactions.length} 个账目</p>
+                              <p>{this.props.paychecks} 个教师未付账目</p>
                             </div>
                           </div>
                         </div>
@@ -120,11 +120,11 @@ const mapStateToProps = state => {
   return {
     identity: state.identity,
     auth: state.auth,
-    books: state.booksData.books,
-    courses: state.coursesData.courses,
-    teachers: state.teachersData.teachers,
-    students: state.studentsData.students,
-    transactions: state.transactionsData.transactions,
+    books: state.booksData.count,
+    courses: state.coursesData.count,
+    teachers: state.teachersData.count,
+    students: state.studentsData.count,
+    paychecks: state.paycheckData.count,
     loading: state.status.loading
   };
 }

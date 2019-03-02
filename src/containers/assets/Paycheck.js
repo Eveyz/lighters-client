@@ -32,11 +32,11 @@ class Paycheck extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
+// const mapStateToProps = state => {
+//   return {
     
-  };
-}
+//   };
+// }
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -52,4 +52,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Paycheck)
+export default connect(null, mapDispatchToProps)(Paycheck)

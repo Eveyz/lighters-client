@@ -1,6 +1,7 @@
 const initialState = {
   currentBook: {},
-  books: []
+  books: [],
+  count: 0
 }
 
 export default (state = initialState, action) => {
@@ -9,6 +10,12 @@ export default (state = initialState, action) => {
       return {
         currentBook: state.currentBook,
         books: [...action.payload]
+      }
+    case 'GET_BOOKS_SIZE':
+      return {
+        currentBook: state.currentBook,
+        books: [...state.books],
+        count: action.payload
       }
     case 'SELECT_BOOK':
       return {

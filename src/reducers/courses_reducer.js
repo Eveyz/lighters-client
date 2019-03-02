@@ -1,7 +1,8 @@
 const initialState = {
   currentCourse: {},
   searchStudent: true,
-  courses: []
+  courses: [],
+  count: 0
 }
 
 const updateCourse = (state, action, idx) => {
@@ -25,6 +26,12 @@ export default (state = initialState, action = {}) => {
         currentCourse: state.currentCourse,
         searchStudent: state.searchStudent,
         courses: [...action.payload]
+      }
+    case 'GET_COURSES_SIZE':
+      return {
+        currentCourse: state.currentCourse,
+        courses: [...state.courses],
+        count: action.payload
       }
     case "ADD_COURSE":
       return {

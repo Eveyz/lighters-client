@@ -1,6 +1,7 @@
 const initialState = {
   paycheck: {},
-  paychecks: []
+  paychecks: [],
+  count: 0
 }
 
 export default (state = initialState, action = {}) => {
@@ -9,6 +10,12 @@ export default (state = initialState, action = {}) => {
       return {
         paycheck: state.paycheck,
         paychecks: action.payload
+      }
+    case 'GET_PAYCHECKS_SIZE':
+      return {
+        paycheck: state.paycheck,
+        paychecks: [...state.paychecks],
+        count: action.payload
       }
     case 'ADD_PAYCHECK':
       return {

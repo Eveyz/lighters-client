@@ -36,14 +36,6 @@ class TeacherSalary extends React.Component {
     teacher: {}
   }
 
-  levelToSalary = (level) => {
-    let ls
-    ls = this.props.levelSalaries.find(ele => {
-      return ele.level === `${level}级`
-    })
-    return ls ? ls.rate : 0
-  }
-
   changeMode = (e) => {
     let m = e.target.checked ? "SEARCH" : "BROWSE"
     this.props.setMode(m)
@@ -67,8 +59,7 @@ class TeacherSalary extends React.Component {
     let _teacher = {
       _id: this.props.teacher._id,
       name: this.props.teacher.lastname + this.props.teacher.firstname,
-      level: this.props.teacher.level,
-      rate: this.props.teacher.rate || this.levelToSalary(this.props.teacher.level)
+      level: this.props.teacher.level
     }
 
     let content = this.props.teachers.length > 0 ? <SearchTeacherList /> : <h5 className="center">当前没有教师</h5>
