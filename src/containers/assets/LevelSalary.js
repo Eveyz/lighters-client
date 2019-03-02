@@ -56,7 +56,7 @@ class LevelandSalary extends React.Component {
                         <thead>
                           <tr>
                             <th>教师等级</th>
-                            <th>工资每课时/元</th>
+                            <th>工资(元/课时/学生)</th>
                             <th>课程类型</th>
                             <th>课程等级</th>
                             <th>编辑</th>
