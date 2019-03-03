@@ -221,7 +221,7 @@ export const adminInit = (token) => {
         window.location.replace('/login');
         // dispatch(setCurrentUser({}));
         setAuthToken(false);
-        dispatch({type: ADMIN_INIT_FAILURE, payload: err});
+        // dispatch({type: ADMIN_INIT_FAILURE, payload: err});
       })
   }
 };
