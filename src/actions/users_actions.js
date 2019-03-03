@@ -170,7 +170,7 @@ export const userFromToken = (token) => {
 
 export const logout = () => {
   return dispatch => {
-    dispatch(setCurrentUser({}));
+    // dispatch(setCurrentUser({}));
     localStorage.clear()
     setAuthToken(false);
     history.push('/');
@@ -216,7 +216,7 @@ export const adminInit = (token) => {
       .catch(function(err){
         localStorage.clear()
         history.push('/login');
-        dispatch(setCurrentUser({}));
+        // dispatch(setCurrentUser({}));
         setAuthToken(false);
         dispatch({type: ADMIN_INIT_FAILURE, payload: err});
       })
