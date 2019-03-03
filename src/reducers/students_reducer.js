@@ -1,6 +1,7 @@
 const initialState = {
   currentStudent: {},
   students: [],
+  lowBalanceStudents: [],
   count: 0,
   reports: [],
   loading: false,
@@ -13,25 +14,36 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentStudent: state.currentStudent,
-        students: [...action.payload]
+        students: [...action.payload],
+        lowBalanceStudents: [...state.lowBalanceStudents]
+      }
+    case 'GET_LOW_BALANCE_STUDENTS':
+      return {
+        ...state,
+        currentStudent: state.currentStudent,
+        students: [...state.students],
+        lowBalanceStudents: [...action.payload],
       }
     case 'GET_STUDENTS_SIZE':
       return {
         currentStudent: state.currentStudent,
         students: [...state.students],
+        lowBalanceStudents: [...state.lowBalanceStudents],
         count: action.payload
       }
     case 'ADD_STUDENT':
       return {
         ...state,
         currentStudent: action.payload,
-        students: [...state.students, ...action.payload]
+        students: [...state.students, ...action.payload],
+        lowBalanceStudents: [...state.lowBalanceStudents]
       }
     case 'DELETE_STUDENT': 
       return {
         ...state,
         currentStudent: state.currentStudent._id === action.payload ? {} : state.currentStudent,
-        students: state.students.filter(student => student._id !== action.payload)
+        students: state.students.filter(student => student._id !== action.payload),
+        lowBalanceStudents: [...state.lowBalanceStudents]
       }
     case 'UPDATE_STUDENT':
       const idx = state.students.findIndex(student => student._id === action.payload._id);
@@ -42,13 +54,15 @@ export default (state = initialState, action) => {
                     ...state.students.slice(0, idx), // everything before current obj
                     action.payload,
                     ...state.students.slice(idx + 1), // everything after current obj
-                  ]
+                  ],
+        lowBalanceStudents: [...state.lowBalanceStudents]
       }
     case "SELECT_STUDENT":
       return {
         ...state,
         currentStudent: action.payload,
-        students: state.students
+        students: [...state.students],
+        lowBalanceStudents: [...state.lowBalanceStudents]
       }
     case "GET_STUDENT_REPORTS_BEGIN":
       return {

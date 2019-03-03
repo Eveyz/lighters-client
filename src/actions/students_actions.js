@@ -1,6 +1,6 @@
 import history from '../history';
 import axios from 'axios';
-import { GET_STUDENTS, GET_STUDENTS_FAILURE, ADD_STUDENT, ADD_STUDENT_FAILURE, UPDATE_STUDENT, UPDATE_STUDENT_FAILURE, GET_STUDENT_FAILURE, SELECT_STUDENT, GET_STUDENT_REPORTS_BEGIN, GET_STUDENT_REPORTS_SUCCESS, GET_STUDENT_REPORTS_FAILURE } from './constants';
+import { GET_STUDENTS, GET_STUDENTS_FAILURE, GET_LOW_BALANCE_STUDENTS, ADD_STUDENT, ADD_STUDENT_FAILURE, UPDATE_STUDENT, UPDATE_STUDENT_FAILURE, GET_STUDENT_FAILURE, SELECT_STUDENT, GET_STUDENT_REPORTS_BEGIN, GET_STUDENT_REPORTS_SUCCESS, GET_STUDENT_REPORTS_FAILURE } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getStudents = (query) => {
@@ -9,6 +9,19 @@ export const getStudents = (query) => {
     axios.get(url)
       .then((response) => {
         dispatch({type: GET_STUDENTS, payload: response.data})
+      })
+      .catch((err) => {
+        dispatch({type: GET_STUDENTS_FAILURE, payload: err})
+      })
+  }
+};
+
+export const getStudentsWithLowBalance = () => {
+  return (dispatch) => {
+    axios.get(`/students/low_balance`)
+      .then((response) => {
+        dispatch({type: GET_STUDENTS, payload: response.data.students})
+        dispatch({type: GET_LOW_BALANCE_STUDENTS, payload: response.data.lowBalanceStudents})
       })
       .catch((err) => {
         dispatch({type: GET_STUDENTS_FAILURE, payload: err})
