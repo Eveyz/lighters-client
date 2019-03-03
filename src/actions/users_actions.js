@@ -213,12 +213,12 @@ export const adminInit = (token) => {
         dispatch({type: GET_PAYCHECKS_SIZE, payload: response.data.paychecks});
         dispatch({type: SET_LOADING_STATUS, payload: false});
       })
-      .catch(function(err){
-        history.push('/login');
-        dispatch(setCurrentUser({}));
-        setAuthToken(false);
-        localStorage.clear()
-        dispatch({type: ADMIN_INIT_FAILURE, payload: err});
-      })
+      // .catch(function(err){
+      //   history.push('/login');
+      //   dispatch(setCurrentUser({}));
+      //   setAuthToken(false);
+      //   localStorage.clear()
+      //   dispatch({type: ADMIN_INIT_FAILURE, payload: err});
+      // })
   }
 };
