@@ -214,6 +214,7 @@ export const adminInit = (token) => {
         dispatch({type: SET_LOADING_STATUS, payload: false});
       })
       .catch(function(err){
+        console.log(err)
         history.push('/login');
         dispatch(setCurrentUser({}));
         setAuthToken(false);
