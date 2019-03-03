@@ -45,7 +45,7 @@ class Header extends Component {
     let links = <li><a onClick={this.logout}>退出</a></li>;
 
     /*----- render header for corresponding user -----*/
-    if(this.props.auth.isAuthenticated) {
+    if(this.props.auth.isAuthenticated || !this.props.auth) {
       // authenticated user
 
       /*----- define path and dropdown for corresponding user -----*/

@@ -172,9 +172,10 @@ export const userFromToken = (token) => {
 export const logout = () => {
   return dispatch => {
     localStorage.clear()
-    dispatch(setCurrentUser({}));
+    // dispatch(setCurrentUser({}));
     setAuthToken(false);
-    history.push('/');
+    // history.push('/');
+    window.location.replace('/');
   }
 };
 
@@ -216,8 +217,9 @@ export const adminInit = (token) => {
       })
       .catch(function(err){
         localStorage.clear()
-        history.push('/login');
-        dispatch(setCurrentUser({}));
+        // history.push('/login');
+        window.location.replace('/login');
+        // dispatch(setCurrentUser({}));
         setAuthToken(false);
         dispatch({type: ADMIN_INIT_FAILURE, payload: err});
       })
