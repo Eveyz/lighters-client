@@ -204,7 +204,7 @@ export const adminInit = (token) => {
     setAuthToken(token);
     axios.get("/users/admin/init", token)
       .then(function(response) {
-        dispatch({type: GET_BOOKS, payload: response.data.books});
+        // dispatch({type: GET_BOOKS, payload: response.data.books});
         dispatch({type: GET_BOOKS_SIZE, payload: response.data.books});
         // dispatch({type: GROUPED_BOOKS, payload: groupBooks(response.data.books)});
         dispatch({type: GET_COURSES_SIZE, payload: response.data.courses});
@@ -214,7 +214,6 @@ export const adminInit = (token) => {
         dispatch({type: SET_LOADING_STATUS, payload: false});
       })
       .catch(function(err){
-        console.log(err)
         history.push('/login');
         dispatch(setCurrentUser({}));
         setAuthToken(false);
