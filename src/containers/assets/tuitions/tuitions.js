@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import TuitionInputForm from './TuitionInputForm';
 import { getTuitions, addTuition, updateTuition, deleteTuition } from '../../../actions/tuitions_actions';
+import { getStudents } from '../../../actions/students_actions'
 
 class Tuitions extends React.Component {
   state = {
@@ -14,6 +15,7 @@ class Tuitions extends React.Component {
 
   componentWillMount() {
     this.props.getTuitions()
+    this.props.getStudents("")
   }
 
   toggleEdit = (tuition) => e => {
@@ -36,7 +38,7 @@ class Tuitions extends React.Component {
   }
 
   render() {
-    let showInput = this.state.show ? <TuitionInputForm action={this.state.action} tuition={this.state.tuition} students={this.props.students} courses={this.props.courses} onSubmit={this.onSubmit} cancel={this.onSubmit} /> : ""
+    let showInput = this.state.show ? <TuitionInputForm action={this.state.action} tuition={this.state.tuition} students={this.props.students} onSubmit={this.onSubmit} cancel={this.onSubmit} /> : ""
     let btn = this.state.show ? "" : <button className="btn" onClick={this.toggleShow}>新建条目</button>
 
     let tuitionsList = ""
@@ -44,11 +46,8 @@ class Tuitions extends React.Component {
     if(this.props.tuitions.length > 0 && !this.state.show) {
       tuitionsList = this.props.tuitions.map((tuition, idx) => {
         return <tr key={idx}>
-                  <td>{tuition.course_id.name}</td>
                   <td>{tuition.student_id.englishname}</td>
-                  <td>{tuition.course_hour}</td>
                   <td>{tuition.amount}</td>
-                  <td>{tuition.remain}</td>
                   <td>
                     <button className="btn cyan" onClick={this.toggleEdit(tuition)}>编辑</button>
                   </td>
@@ -60,11 +59,8 @@ class Tuitions extends React.Component {
       tuitionsTable = <table className="highlight">
                         <thead>
                           <tr>
-                            <th>课程</th>
                             <th>学生</th>
-                            <th>课时</th>
-                            <th>总数</th>
-                            <th>剩余课时</th>
+                            <th>总额(元)</th>
                             <th>编辑</th>
                             <th>删除</th>
                           </tr>
@@ -101,9 +97,6 @@ const mapStateToProps = state => {
     students: state.studentsData.students.map(student => {
       return {id: student._id, name: student.englishname, firstname: student.firstname, lastname: student.lastname}
     }),
-    courses: state.coursesData.courses.map(course => {
-      return {id: course._id, name: course.name}
-    }),
   };
 }
 
@@ -111,6 +104,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getTuitions: (query) => {
       dispatch(getTuitions(query))
+    },
+    getStudents: (query) => {
+      dispatch(getStudents(query))
     },
     addTuition: (tuition) => {
       dispatch(addTuition(tuition))

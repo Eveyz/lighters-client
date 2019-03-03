@@ -21,7 +21,7 @@ class StudentList extends React.Component {
 
   componentWillMount() {
     this.props.setLoadingStatus(true);
-    this.props.getStudents();
+    this.props.getStudents("");
   }
 
   componentDidMount() {
@@ -190,7 +190,7 @@ const mapDispatchToProps = dispatch => {
     setLoadingStatus: (status) => {
       dispatch(setLoadingStatus(status))
     },
-    getStudents: () => dispatch(getStudents()),
+    getStudents: (query) => dispatch(getStudents(query)),
   };
 }
 
