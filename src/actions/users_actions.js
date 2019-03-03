@@ -3,7 +3,7 @@ import setAuthToken from '../helper/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import history from '../history';
 // import { groupBooks } from '../ultis';
-import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES_SIZE, GET_BOOKS, GET_BOOKS_SIZE, GET_TEACHERS_SIZE, GET_STUDENTS_SIZE, GET_PAYCHECKS_SIZE, ADMIN_INIT_FAILURE, SET_LOADING_STATUS, SET_CURRENT_IDENTITY_DATA, LOGIN_USER_FAILURE } from './constants';
+import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES_SIZE, GET_BOOKS_SIZE, GET_TEACHERS_SIZE, GET_STUDENTS_SIZE, GET_PAYCHECKS_SIZE, ADMIN_INIT_FAILURE, SET_LOADING_STATUS, SET_CURRENT_IDENTITY_DATA, LOGIN_USER_FAILURE } from './constants';
 
 export const setCurrentUser = (user) => {
   return {
@@ -65,6 +65,7 @@ export const login = (user) => {
   return (dispatch) => {
     axios.post("/users/authenticate", user)
       .then((response) => {
+        localStorage.clear()
         // response.data should be able to return the token we get from the api and we store the token
         const token = response.data.token;
         try {
