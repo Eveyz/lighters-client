@@ -1,13 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '../../css/App.css';
+import { Link } from 'react-router-dom';
 import { updateStudent } from '../../actions/students_actions';
+
+import M from 'materialize-css';
 
 class Student extends React.Component {
   constructor(props) {
     super(props);
 
+    this.dropdown = React.createRef();
     this.updateStudent = this.updateStudent.bind(this);
+  }
+
+  componentDidMount() {
+    M.AutoInit();
+    M.Dropdown.init(this.dropdown.current, {
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: true,
+      hover: true
+    });
   }
 
   updateStudent = () => {
@@ -26,18 +39,18 @@ class Student extends React.Component {
     if(this.props.tab === "RESET_REQUIRED") {
       return (
         <tr>
-          <td>{this.props.student.englishname}</td>
+          <td><Link to={`/students/${this.props.student._id}`}><span className="airbnb-font">{this.props.student.englishname}</span></Link></td>
           <td>{this.props.student.lastname + this.props.student.firstname}</td>
           <td>{this.props.student.age}</td>
           <td>{this.props.student.gender}</td>
           <td>{`${this.props.student.systemid}`}</td>
           <td>{this.props.student.systemid}</td>
           <td>
-            <a ref={this.dropdown} className='dropdown-trigger btn  blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
+            <a ref={this.dropdown} className='dropdown-trigger btn blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
 
             <ul id={this.props.id} className='dropdown-content'>
-              <li><a className="aribnb-font bold" href="">编辑</a></li>
-              <li><a className="aribnb-font bold" href="">查看</a></li>
+              <li><Link to={`/admin/students/${this.props.student._id}/edit`} className="aribnb-font bold">编辑</Link></li>
+              <li><Link to={`/students/${this.props.student._id}`} className="aribnb-font bold">查看</Link></li>
               <li className="divider"></li>
               <li><a className="aribnb-font bold red-text" href="">注销</a></li>
             </ul>
@@ -48,18 +61,18 @@ class Student extends React.Component {
 
     return(
       <tr>
-        <td>{this.props.student.englishname}</td>
+        <td><Link to={`/students/${this.props.student._id}`}><span className="airbnb-font">{this.props.student.englishname}</span></Link></td>
         <td>{this.props.student.lastname + this.props.student.firstname}</td>
         <td>{this.props.student.age}</td>
         <td>{this.props.student.birthday}</td>
         <td>{this.props.student.gender}</td>
         <td><button className={classes} onClick={this.updateStudent}>{action}</button></td>
         <td>
-          <a className='dropdown-trigger btn cyan' href='' data-target={this.props.id}>更多操作</a>
+          <a ref={this.dropdown} className='dropdown-trigger btn cyan' href='' data-target={this.props.id}>更多操作</a>
 
           <ul id={this.props.id} className='dropdown-content'>
-            <li><a href="">编辑</a></li>
-            <li><a href="">查看</a></li>
+            <li><Link to={`/admin/students/${this.props.student._id}/edit`} className="aribnb-font bold">编辑</Link></li>
+            <li><Link to={`/students/${this.props.student._id}`} className="aribnb-font bold">查看</Link></li>
             <li><a href="" className="red-text">注销</a></li>
           </ul>
         </td>

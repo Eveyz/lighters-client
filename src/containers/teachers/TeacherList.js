@@ -157,9 +157,9 @@ class TeacherList extends React.Component {
           <div className="row">
             <div className="col s12">
               <ul className="tabs">
-                <li className="tab col s3"><a className={active} href="#active" onClick={(e) => this.active = "active"}>在职教师({activeTeacher.length})</a></li>
-                <li className="tab col s3"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">待定教师({pendingTeacher.length})</a></li>
-                <li className="tab col s3"><a onClick={(e) => this.active = "created"} className={created} href="#created">管理员生成的教师({createdTeacher.length})</a></li>
+                <li className="tab col s4 m4"><a className={active} href="#active" onClick={(e) => this.active = "active"}>在职教师({activeTeacher.length})</a></li>
+                <li className="tab col s4 m4"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">待定教师({pendingTeacher.length})</a></li>
+                <li className="tab col s4 m4"><a onClick={(e) => this.active = "created"} className={created} href="#created">管理员生成的教师({createdTeacher.length})</a></li>
               </ul>
             </div>
             <div id="active" className="col s12">{activeTeacherTable}</div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '../../css/App.css';
 import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 
@@ -64,8 +63,8 @@ class Teacher extends React.Component {
             <a ref={this.dropdown} className='dropdown-trigger btn  blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
 
             <ul id={this.props.id} className='dropdown-content'>
-              <li><a className="aribnb-font bold" href="">编辑</a></li>
-              <li><a className="aribnb-font bold" href="">查看</a></li>
+              <li><Link to={`/admin/teachers/${this.props.teacher._id}/edit`} className="aribnb-font bold">编辑</Link></li>
+              <li><Link to={`/teachers/${this.props.teacher._id}`} className="aribnb-font bold">查看</Link></li>
               <li className="divider"></li>
               <li><a className="aribnb-font bold red-text" href="">注销</a></li>
             </ul>
@@ -82,13 +81,13 @@ class Teacher extends React.Component {
         <td>{this.props.teacher.gender}</td>
         <td><button className={classes} onClick={this.updateTeacher("STATUS")}>{action}</button></td>
         <td>
-          <a ref={this.dropdown} className='dropdown-trigger btn  blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
+          <a ref={this.dropdown} className='dropdown-trigger btn blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
 
           <ul id={this.props.id} className='dropdown-content'>
             <li><a className="aribnb-font bold" href="" onClick={this.updateTeacher("LEVELUP")}>升级</a></li>
             <li><a className="aribnb-font bold" href="" onClick={this.updateTeacher("LEVELDOWN")}>降级</a></li>
-            <li><a className="aribnb-font bold" href="">编辑</a></li>
-            <li><a className="aribnb-font bold" href="">查看</a></li>
+            <li><Link to={`/admin/teachers/${this.props.teacher._id}/edit`} className="aribnb-font bold">编辑</Link></li>
+            <li><Link to={`/teachers/${this.props.teacher._id}`} className="aribnb-font bold">查看</Link></li>
             <li className="divider"></li>
             <li><a className="aribnb-font bold red-text" href="">注销</a></li>
           </ul>

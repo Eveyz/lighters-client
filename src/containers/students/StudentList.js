@@ -47,13 +47,13 @@ class StudentList extends React.Component {
 
       pendingStudentList = pendingStudent.map((student, index) => {
         return (
-          <Student key={index} id={index} student={student} />
+          <Student key={index} id={`pending${index}`} student={student} />
         );
       });
 
       activeStudentList = activeStudent.map((student, index) => {
         return (
-          <Student key={index} id={index} student={student} />
+          <Student key={index} id={`active${index}`} student={student} />
         )
       });
 
@@ -162,9 +162,9 @@ class StudentList extends React.Component {
           <div className="row">
             <div className="col s12">
               <ul className="tabs">
-                <li className="tab col s3"><a className={active} href="#active" onClick={(e) => this.active = "active"}>上课学生({activeStudent.length})</a></li>
-                <li className="tab col s3"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">试课学生({pendingStudent.length})</a></li>
-                <li className="tab col s3"><a onClick={(e) => this.active = "created"} className={created} href="#created">管理员生成的学生({createdStudent.length})</a></li>
+                <li className="tab col s4 m4"><a className={active} href="#active" onClick={(e) => this.active = "active"}>上课学生({activeStudent.length})</a></li>
+                <li className="tab col s4 m4"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">试课学生({pendingStudent.length})</a></li>
+                <li className="tab col s4 m4"><a onClick={(e) => this.active = "created"} className={created} href="#created">管理员生成的学生({createdStudent.length})</a></li>
               </ul>
             </div>
             <div id="active" className="col s12">{activeStudentTable}</div>

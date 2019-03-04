@@ -8,7 +8,7 @@ import { createStudent, updateStudent } from '../../../../actions/admin_actions'
 const mapDispatchToProps = dispatch => {
   return {
     createStudent: (student) => dispatch(createStudent(student)),
-    updateStudent: (student) => dispatch(updateStudent(student)),
+    updateStudent: (id, student) => dispatch(updateStudent(id, student)),
   }
 };
 
@@ -34,7 +34,7 @@ const AdminStudentNewWithFormik = connect(null, mapDispatchToProps)(
     }),
     handleSubmit: (values, { props, setSubmitting }) => {
       setSubmitting(false);
-      props.action === "NEW" ? props.createStudent(values) : props.updateStudent(values);
+      props.action === "NEW" ? props.createStudent(values) : props.updateStudent(props.student._id, values);
     }
   })(AdminStudentNewForm)
 );

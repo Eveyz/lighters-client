@@ -41,6 +41,18 @@ export const getStudent = (id) => {
   }
 };
 
+export const getStudentData = (id) => {
+  return (dispatch) => {
+    axios.get(`/students/${id}`)
+      .then((response) => {
+        dispatch({type: SELECT_STUDENT, payload: response.data})
+      })
+      .catch((err) => {
+        dispatch({type: GET_STUDENT_FAILURE, payload: err})
+      })
+  }
+};
+
 export const getStudentReports = (student_id) => {
   return (dispatch) => {
     dispatch({type: GET_STUDENT_REPORTS_BEGIN, payload: null});

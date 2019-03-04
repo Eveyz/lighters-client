@@ -8,7 +8,8 @@ class Course extends React.Component {
   constructor(props) {
     super(props);
 
-    this.updateCourse = this.updateCourse.bind(this);
+    this.activateCourse = this.activateCourse.bind(this);
+    this.deactivateCourse = this.deactivateCourse.bind(this);
     this.editCourse = this.editCourse.bind(this);
     this.addStudent = this.addStudent.bind(this);
     this.addStudent = this.addStudent.bind(this);
@@ -30,10 +31,13 @@ class Course extends React.Component {
     this.props.addBook(this.props.course);
   }
 
-  updateCourse(e) {
-    e.preventDefault();
-    let field = this.props.course.status === "active" ? {status: "inactive"} : {status: "active"};
-    this.props.updateCourse(this.props.id, field);
+  activateCourse() {
+    // let field = this.props.course.status === "active" ? {status: "inactive"} : {status: "active"};
+    this.props.updateCourse(this.props.id, {status: "active"});
+  }
+
+  deactivateCourse() {
+    this.props.updateCourse(this.props.id, {status: "inactive"});
   }
 
   render() {
@@ -42,6 +46,8 @@ class Course extends React.Component {
         <span key={index}>{teacher.lastname + teacher.firstname}</span>
       )
     });
+
+    let statusBtn = this.props.course.status === "active" ? <a href="" onClick={() => { if (window.confirm('确认要关闭课程嘛?')) this.deactivateCourse() }}>关闭</a> : <a href="" onClick={() => { if (window.confirm('确认要激活课程嘛?')) this.activateCourse() }}>激活</a>
 
     return(
       <div className="col s12 m6">
@@ -59,7 +65,7 @@ class Course extends React.Component {
             <a onClick={this.editCourse} href="">编辑课程</a>
             <a onClick={this.addStudent} href="">添加学生</a>
             <a onClick={this.addBook} href="">添加绘本</a>
-            <a onClick={this.updateCourse} href="">关闭</a>
+            {statusBtn}
           </div>
         </div>
       </div>

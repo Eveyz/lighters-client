@@ -50,6 +50,8 @@ class AssetsDashboard extends React.Component {
       name = "公司资金明细"
     }
 
+    const num = this.props.lowBalanceStudentsNum > 0 ? <span className="new badge red" data-badge-caption="个">{this.props.lowBalanceStudentsNum}</span> : "";
+
     return (
       <div>
         <Header />
@@ -64,7 +66,7 @@ class AssetsDashboard extends React.Component {
               <li><Link to="/assets/level_salaries" className={`${active === "level_salaries" ? "active" : ""} airbnb-font bold`}>标准等级工资设定</Link></li>
               <li><Link to="/assets/teacher_rates" className={`${active === "teacher_rates" ? "active" : ""} airbnb-font bold`}>个别教师工资设定</Link></li>
               <li><Link to="/assets/teacher_salaries" className={`${active === "teacher_salaries" ? "active" : ""} airbnb-font bold`}>教师工资管理</Link></li>
-              <li><Link to="/assets/tuitions" className={`${active === "tuitions" ? "active" : ""} airbnb-font bold`}>学员学费管理</Link></li>
+              <li><Link to="/assets/tuitions" className={`${active === "tuitions" ? "active" : ""} airbnb-font bold`}>学员学费管理{num}</Link></li>
               <li><Link to="/assets/transactions" className={`${active === "transactions" ? "active" : ""} airbnb-font bold`}>公司资金明细</Link></li>
             </ul>
           </div>
@@ -79,6 +81,12 @@ class AssetsDashboard extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    lowBalanceStudentsNum: state.studentsData.lowBalanceStudents.length
+  };
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     setLoadingStatus: (status) => {
@@ -90,4 +98,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(AssetsDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(AssetsDashboard);

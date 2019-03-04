@@ -8,7 +8,7 @@ import { createTeacher, updateTeacher } from '../../../../actions/admin_actions'
 const mapDispatchToProps = dispatch => {
   return {
     createTeacher: (teacher) => dispatch(createTeacher(teacher)),
-    updateTeacher: (teacher) => dispatch(updateTeacher(teacher))
+    updateTeacher: (id, teacher) => dispatch(updateTeacher(id, teacher))
   }
 };
 
@@ -31,7 +31,7 @@ const AdminTeacherNewWithFormik = connect(null, mapDispatchToProps)(
     }),
     handleSubmit: (values, { props, setSubmitting }) => {
       setSubmitting(false);
-      props.action === "NEW" ? props.createTeacher(values) : props.updateTeacher(values);
+      props.action === "NEW" ? props.createTeacher(values) : props.updateTeacher(props.teacher._id, values);
     }
   })(AdminTeacherNewForm)
 );

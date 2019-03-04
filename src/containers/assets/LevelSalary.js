@@ -1,6 +1,8 @@
 import React from 'react';
 import { Row, Col, Card } from 'react-materialize';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+import { CLASS_LEVEL_RANK } from '../../ultis';
 
 import EntryInputForm from './EntryInputForm';
 import { addLevelSalary, updateLevelSalary, deleteLevelSalary } from '../../actions/level_salary_actions';
@@ -91,7 +93,13 @@ class LevelandSalary extends React.Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    entries: state.levelSalary.levelSalaries
+    entries: _(state.levelSalary.levelSalaries).chain().sortBy(function(ls) {
+                return CLASS_LEVEL_RANK[ls.course_level];
+            }).sortBy(function(ls) {
+                return ls.type;
+            }).sortBy(function(ls) {
+              return parseInt(ls.level, 10);
+            }).value()
   };
 }
 
