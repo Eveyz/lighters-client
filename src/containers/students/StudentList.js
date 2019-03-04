@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import M from 'materialize-css';
 import { Row, Col, Table, Card } from 'react-materialize';
 
@@ -194,4 +194,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StudentList));
