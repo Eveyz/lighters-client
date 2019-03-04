@@ -13,7 +13,13 @@ import Footer from '../../components/layouts/Footer';
 import TeacherCourseBooks from './TeacherCourseBooks';
 import TuiCalendar from '../TuiCalendar';
 
+import { getTeacherCourses } from '../../actions/teachers_actions'
+
 class TeacherDashboard extends React.Component {
+
+  componentWillMount() {
+    this.props.getTeacherCourses(this.props.teacher._id)
+  }
 
   render() {
     if(_.isEmpty(this.props.teacher) || this.props.teacher.status === "pending") {
@@ -52,8 +58,8 @@ class TeacherDashboard extends React.Component {
                       </Card>
                     </Col>
                   </Row>;
-    if(this.props.teacher.courses.length > 0) {
-      courses = this.props.teacher.courses.map((course, idx) => {
+    if(this.props.courses.length > 0) {
+      courses = this.props.courses.map((course, idx) => {
         return <TeacherCourse key={idx} user_id={this.props.user_id} course={course} />
       });
     };
@@ -66,8 +72,8 @@ class TeacherDashboard extends React.Component {
                     </Col>
                   </Row>;
     let studentsArr = [];
-    if(this.props.teacher.courses.length > 0) {
-      this.props.teacher.courses.forEach((c) => {
+    if(this.props.courses.length > 0) {
+      this.props.courses.forEach((c) => {
         studentsArr = [...new Set(studentsArr.concat(c.students))];
       });
     }
@@ -82,8 +88,8 @@ class TeacherDashboard extends React.Component {
                     </Card>
                   </Col>
                 </Row>;
-    if(this.props.teacher.courses.length > 0) {
-      books = this.props.teacher.courses.map((c, index) => {
+    if(this.props.courses.length > 0) {
+      books = this.props.courses.map((c, index) => {
         return <TeacherCourseBooks key={index} course={c} />
       });
     }
@@ -167,13 +173,16 @@ class TeacherDashboard extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user_id: state.auth.user.userTokenData.id,
-    teacher: state.auth.identityData
+    teacher: state.auth.identityData,
+    courses: state.coursesData.courses
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    getTeacherCourses: (teacher_id) => {
+      dispatch(getTeacherCourses(teacher_id))
+    }
   }
 }
 

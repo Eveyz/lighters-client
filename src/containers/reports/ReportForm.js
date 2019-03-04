@@ -247,9 +247,8 @@ class ReportForm extends React.Component {
           </div>
           <blockquote className="blockquote-style no-margin">
             <p>此行填写格式为：</p>
-            <p>阅读资源类型 + 翻译比例 + 绘本系列名/绘本书名（学员书单中有，会提供给老师参考）</p>
             <br/>
-            <p>Lighters绘说英语阅读资源类型有：主流分级绘本, 名家绘本, 自然拼读, 科普读物, 动画视频, 写作教程, 学生自读</p>
+            <p>Lighters绘说英语阅读资源类型有：主流分级绘本, 名家绘本, 自然拼读, 科普读物, 动画视频, 写作教程, 章节小说, 学生自读</p>
           </blockquote>
           <TableForm 
             action={action} 

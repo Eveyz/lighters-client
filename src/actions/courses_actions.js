@@ -3,7 +3,7 @@ import history from '../history';
 
 import store from '../index';
 import { groupBooks } from '../ultis';
-import { GET_COURSES, GET_COURSE_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK, GROUPED_BOOKS } from './constants';
+import { GET_COURSES, GET_COURSES_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK, GROUPED_BOOKS } from './constants';
 
 export const selectCourse = (course, path) => {
   return (dispatch) => {
@@ -24,7 +24,7 @@ export const getCourses = () => {
         dispatch({type: GET_COURSES, payload: response.data})
       })
       .catch(function(err){
-        dispatch({type: GET_COURSE_FAILURE, payload: err})
+        dispatch({type: GET_COURSES_FAILURE, payload: err})
         history.push('/');
       })
   }

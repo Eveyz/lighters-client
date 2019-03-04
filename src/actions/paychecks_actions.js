@@ -10,7 +10,7 @@ export const selectPaycheck = (paycheck) => {
 
 export const getPaychecks = (query) => {
   return (dispatch) => {
-    axios.get(`/paychecks/${query}`).then((response) => {
+    axios.get(`/paychecks${query}`).then((response) => {
       dispatch({type: GET_PAYCHECKS, payload: response.data})
     }).catch((err) => {
       dispatch({type: GET_PAYCHECKS_FAILURE, payload: "there was an error while fetching paychecks"})
