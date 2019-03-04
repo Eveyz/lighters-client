@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 // import { BrowserRouter as Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -75,7 +75,7 @@ class App extends Component {
 
   render() {
     return(
-      <div>
+      <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/advantage" component={CourseHierarchy} />
         <Route exact path="/teachers/new" component={NewTeacher} />
@@ -121,7 +121,7 @@ class App extends Component {
         <TeacherRoute exact path="/teachers/:_id/new_report" auth={this.props.auth} component={ReportFormContainer} />
         <TeacherRoute exact path="/teachers/:_id/edit_report" auth={this.props.auth} component={ReportFormContainer} />
         <TeacherRoute exact path="/teachers/:_id/reports" auth={this.props.auth} component={AllReports} />
-      </div>
+      </Switch>
     );
   }
 }
