@@ -20,8 +20,8 @@ class StudentList extends React.Component {
   }
 
   componentWillMount() {
-    this.props.setLoadingStatus(true);
-    this.props.getStudents("");
+    // this.props.setLoadingStatus(true);
+    // this.props.getStudents("");
   }
 
   componentDidMount() {
