@@ -58,7 +58,7 @@ class AssetsDashboard extends React.Component {
         <div className="custom-container">
           <br/>
           <div className="row no-margin">
-            <Link to={`/users/admin/dashboard`} className="airbnb-font bold"><u>管理员面板</u></Link> > <Link to={path} className="airbnb-font bold grey-text">{name}</Link>
+            <Link to={`/admin/dashboard`} className="airbnb-font bold"><u>管理员面板</u></Link> > <Link to={path} className="airbnb-font bold grey-text">{name}</Link>
           </div>
           <br/>
           <div className="left-fixed-bar space-one">

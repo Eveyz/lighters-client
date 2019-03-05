@@ -55,7 +55,7 @@ class Teacher extends React.Component {
     if(this.props.tab === "RESET_REQUIRED") {
       return (
         <tr>
-          <td><Link to={`/teachers/${this.props.teacher._id}`}><span className="airbnb-font">{this.props.teacher.lastname + this.props.teacher.firstname}</span></Link></td>
+          <td><Link to={`/teachers/${this.props.teacher._id}/view`}><span className="airbnb-font">{this.props.teacher.lastname + this.props.teacher.firstname}</span></Link></td>
           <td>{this.props.teacher.gender}</td>
           <td>{this.props.teacher.systemid}</td>
           <td>{this.props.teacher.systemid}</td>
@@ -75,7 +75,7 @@ class Teacher extends React.Component {
 
     return(
       <tr>
-        <td><Link to={`/teachers/${this.props.teacher._id}`}><span className="airbnb-font">{this.props.teacher.lastname + this.props.teacher.firstname}</span></Link></td>
+        <td><Link to={`/teachers/${this.props.teacher._id}/view`}><span className="airbnb-font">{this.props.teacher.lastname + this.props.teacher.firstname}</span></Link></td>
         <td>{this.props.teacher.age}</td>
         <td>{`${this.props.teacher.level}级`}</td>
         <td>{this.props.teacher.gender}</td>

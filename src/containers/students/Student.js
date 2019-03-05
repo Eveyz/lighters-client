@@ -39,7 +39,7 @@ class Student extends React.Component {
     if(this.props.tab === "RESET_REQUIRED") {
       return (
         <tr>
-          <td><Link to={`/students/${this.props.student._id}`}><span className="airbnb-font">{this.props.student.englishname}</span></Link></td>
+          <td><Link to={`/students/${this.props.student._id}/view`}><span className="airbnb-font">{this.props.student.englishname}</span></Link></td>
           <td>{this.props.student.lastname + this.props.student.firstname}</td>
           <td>{this.props.student.age}</td>
           <td>{this.props.student.gender}</td>
@@ -61,7 +61,7 @@ class Student extends React.Component {
 
     return(
       <tr>
-        <td><Link to={`/students/${this.props.student._id}`}><span className="airbnb-font">{this.props.student.englishname}</span></Link></td>
+        <td><Link to={`/students/${this.props.student._id}/view`}><span className="airbnb-font">{this.props.student.englishname}</span></Link></td>
         <td>{this.props.student.lastname + this.props.student.firstname}</td>
         <td>{this.props.student.age}</td>
         <td>{this.props.student.birthday}</td>

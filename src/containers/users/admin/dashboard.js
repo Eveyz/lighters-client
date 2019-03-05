@@ -38,7 +38,7 @@ class Dashboard extends Component {
                     </div>
                     
                     <div className="row">
-                      <Link to="/courses">
+                      <Link to="/admin/courses/all">
                         <div className="col s12 m6">
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #69639a"}}>
                             <div className="card-content" style={{padding: "30px"}}>
@@ -49,7 +49,7 @@ class Dashboard extends Component {
                         </div>
                       </Link>
 
-                      <Link to="/teachers">
+                      <Link to="/admin/teachers/all">
                         <div className="col s12 m6">
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #4c7ef3"}}>
                             <div className="card-content" style={{padding: "30px"}}>
@@ -62,7 +62,7 @@ class Dashboard extends Component {
                     </div>
 
                     <div className="row">
-                      <Link to="/students">
+                      <Link to="/admin/students/all">
                         <div className="col s12 m6">
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #6df0c2"}}>
                             <div className="card-content" style={{padding: "30px"}}>
@@ -73,7 +73,7 @@ class Dashboard extends Component {
                         </div>
                       </Link>
 
-                      <Link to="/books">
+                      <Link to="/admin/books/all">
                         <div className="col s12 m6">
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #ffc107"}}>
                             <div className="card-content" style={{padding: "30px"}}>

@@ -52,7 +52,7 @@ class Header extends Component {
       // let user_id = this.props.auth.user.userTokenData.id;
       if(this.props.auth.user.userTokenData.identity === "admin") {
         // admin
-        path = <li><Link to="/users/admin/dashboard">管理员面板</Link></li>
+        path = <li><Link to="/admin/dashboard">管理员面板</Link></li>
       } else if(this.props.auth.user.userTokenData.identity === "teacher") {
         // teachers
         path = _.isEmpty(this.props.auth.identityData) ? <li><Link to={`/teachers/new`}>我的主页</Link></li> : <li><Link to={`/teachers/${this.props.auth.identityData._id}/dashboard`}>我的主页</Link></li>;

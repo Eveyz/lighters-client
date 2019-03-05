@@ -87,15 +87,15 @@ class App extends Component {
         <PrivateRoute exact path="/users/:_id/activate" auth={this.props.auth} component={ActivateUser} />
         <PrivateRoute exact path="/books/:_id/show" auth={this.props.auth} component={ViewBook} />
         <PrivateRoute exact path="/reports/:_id/view" auth={this.props.auth} component={ViewReport} />
-        <AdminRoute exact path="/users/admin/dashboard" auth={this.props.auth} component={Dashboard} />
-        <AdminRoute exact path="/courses" auth={this.props.auth} component={CourseList} />
+        <AdminRoute exact path="/admin/dashboard" auth={this.props.auth} component={Dashboard} />
+        <AdminRoute exact path="/admin/courses/all" auth={this.props.auth} component={CourseList} />
         <AdminRoute exact path="/courses/add_course" auth={this.props.auth} component={AddCourse} />
         <AdminRoute exact path="/courses/:_id/edit_course" auth={this.props.auth} component={EditCourse} />
         <AdminRoute exact path="/courses/:_id/add_student" auth={this.props.auth} component={CourseAddStudent} />
         <AdminRoute exact path="/courses/:_id/add_book" auth={this.props.auth} component={CourseAddBook} />
-        <AdminRoute exact path="/students" auth={this.props.auth} component={StudentList} />
-        <AdminRoute exact path="/students/:_id" auth={this.props.auth} component={ShowStudent} />
-        <AdminRoute exact path="/books" auth={this.props.auth} component={BookListContainer} />
+        <AdminRoute exact path="/admin/students/all" auth={this.props.auth} component={StudentList} />
+        <AdminRoute exact path="/students/:_id/view" auth={this.props.auth} component={ShowStudent} />
+        <AdminRoute exact path="/admin/books/all" auth={this.props.auth} component={BookListContainer} />
         <AdminRoute exact path="/books/new" auth={this.props.auth} component={NewBook} />
         <AdminRoute exact path="/books/:_id/edit" auth={this.props.auth} component={EditBook} />
         <AdminRoute exact path="/admin/teachers/new" auth={this.props.auth} component={AdminTeacherNew} />
@@ -108,8 +108,8 @@ class App extends Component {
         <AdminRoute exact path="/assets/transactions" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/assets/tuitions" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/assets/teacher_rates" auth={this.props.auth} component={AssetsDashboard} />
-        <AdminRoute exact path="/teachers" auth={this.props.auth} component={TeacherList} />
-        <AdminRoute exact path="/teachers/:_id" auth={this.props.auth} component={ShowTeacher} />
+        <AdminRoute exact path="/admin/teachers/all" auth={this.props.auth} component={TeacherList} />
+        <AdminRoute exact path="/teachers/:_id/view" auth={this.props.auth} component={ShowTeacher} />
         <StudentRoute exact path="/students/:_id/dashboard" auth={this.props.auth} component={StudentDashboard} />
         <StudentRoute exact path="/students/:_id/profile" auth={this.props.auth} component={StudentProfile} />
         <StudentRoute exact path="/students/:_id/courses" auth={this.props.auth} component={StudentDashboard} />

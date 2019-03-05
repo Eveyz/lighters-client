@@ -80,7 +80,7 @@ export const login = (user) => {
 
         // redirect to own page
         if(userToken.userTokenData.identity === "admin") {
-          history.push('/users/admin/dashboard');
+          history.push('/admin/dashboard');
         } else if(userToken.userTokenData.identity === "teacher") {
           const teacher = response.data.teacher;
           if(userToken.userTokenData.status === "RESET_REQUIRED") {
