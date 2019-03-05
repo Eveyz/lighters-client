@@ -55,11 +55,11 @@ class ViewReport extends React.Component {
 
     const tableRows = report.course_content.map((row, idx) => {
       return  <tr key={idx}>
-                <td>{row.category}</td>
-                <td>{row.serialName}</td>
-                <td>{row.type}</td>
-                <td>{row.ratio}</td>
-                <td>{row.keywords}</td>
+                <td className="col m2">{row.category}</td>
+                <td className="col m3">{row.serialName}</td>
+                <td className="col m2">{row.type}</td>
+                <td className="col m2">{row.ratio}</td>
+                <td className="col m3">{row.keywords}</td>
               </tr>
     })
 
@@ -82,12 +82,11 @@ class ViewReport extends React.Component {
               <table>
                 <thead>
                   <tr>
-                    <th colSpan="1">读物类型</th>
-                    <th colSpan="1">读物系列名/书名/章节</th>
-                    <th colSpan="1">类别</th>
-                    <th colSpan="1">翻译比例</th>
-                    <th colSpan="1">Key Words/Patterns</th>
-                    <th colSpan="1"></th>
+                    <th className="col m2">读物类型</th>
+                    <th className="col m3">读物系列名/书名/章节</th>
+                    <th className="col m2">类别</th>
+                    <th className="col m2">翻译比例</th>
+                    <th className="col m3">Key Words/Patterns</th>
                   </tr>
                 </thead>
 

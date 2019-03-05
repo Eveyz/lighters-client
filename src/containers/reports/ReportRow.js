@@ -28,8 +28,11 @@ class ReportRow extends React.Component {
   }
 
   initSelect() {
-    var elems = document.querySelectorAll('select');
-    M.FormSelect.init(elems, {});
+    var selects = document.querySelectorAll('select');
+    M.FormSelect.init(selects, {});
+
+    var tooltips = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(tooltips, {});
   }
 
   componentDidMount() {
@@ -145,12 +148,12 @@ class ReportRow extends React.Component {
         <td>{ this.props.course_name }</td>
         <td>
           <Link to={`/reports/${this.props.report._id}/view`} target="_blank">
-            <i className="material-icons cyan-text clickable">pageview</i>
+            <i className="material-icons cyan-text clickable tooltipped" data-position="bottom" data-tooltip="查看反馈表">visibility</i>
           </Link>
         </td>
-        <td><i className="material-icons blue-text clickable" onClick={this.editReport}>edit</i></td>
+        <td><i className="material-icons blue-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表" onClick={this.editReport}>edit</i></td>
         <td>{copyModal}</td>
-        <td><i className="material-icons red-text clickable" onClick={() => { if (window.confirm('确定要删除此反馈表?')) this.deleteReport()}}>delete</i></td>
+        <td><i className="material-icons red-text clickable tooltipped" data-position="bottom" data-tooltip="删除反馈表" onClick={() => { if (window.confirm('确定要删除此反馈表?')) this.deleteReport()}}>delete</i></td>
       </tr>
     )
   }

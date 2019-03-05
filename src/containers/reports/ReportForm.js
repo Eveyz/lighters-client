@@ -22,7 +22,7 @@ class ReportForm extends React.Component {
       situation: this.props.action === "NEW" ? 1 : this.props.report.situation === "取消" ? -1 : 1,
       comment: this.props.action === "NEW" ? "" : (this.props.report.comment || ""),
       homework: this.props.action === "NEW" ? "" : (this.props.report.homework || ""),
-      course_content: this.props.action === "NEW" ? "" : (this.props.report.course_content || [])
+      course_content: this.props.action === "NEW" ? [{}] : this.props.report.course_content
     }
 
     this.courseDate = React.createRef();
@@ -252,7 +252,7 @@ class ReportForm extends React.Component {
           </blockquote>
           <TableForm 
             action={action} 
-            value={action === "EDIT" ? this.state.course_content : ""}
+            value={action === "EDIT" ? this.state.course_content : [{}] }
             saveValue={this.getTableFormData}
           />
           {/* <FormTextarea

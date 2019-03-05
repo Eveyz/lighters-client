@@ -20,12 +20,16 @@ class TableCell extends React.Component {
   }
 
   cancelEdit() {
-    let inputValue = this.cellContent.current.value
-    this.setState({
-      mode: "READ",
-      cellValue: inputValue
-    })
-    this.props.saveValue([this.props.ky, inputValue])
+    let inputValue = this.cellContent.current.value.trim()
+    if(inputValue) {
+      this.setState({
+        mode: "READ",
+        cellValue: inputValue
+      })
+      this.props.saveValue([this.props.idx, this.props.ky, inputValue])
+    } else {
+      this.setState({mode: "READ"})
+    }
   }
 
   render() {
