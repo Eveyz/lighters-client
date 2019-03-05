@@ -66,6 +66,15 @@ export const editReport = (report, path) => {
   }
 }
 
+export const viewReport = (report, path) => {
+  return (dispatch) => {
+    dispatch({type: SET_CURRENT_REPORT, payload: report});
+    history.push(path);
+    // var win = window.open(path, '_blank');
+    // win.focus();
+  }
+}
+
 export const updateReport = (report_id, report, path) => {
   return (dispatch) => {
     var data = new FormData();

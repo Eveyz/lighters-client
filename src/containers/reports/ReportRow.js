@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Modal } from 'react-materialize';
 import M from 'materialize-css';
 
-import { editReport, copyReport, deleteReport } from '../../actions/reports_actions';
+import { viewReport, editReport, copyReport, deleteReport } from '../../actions/reports_actions';
 
 class ReportRow extends React.Component {
 
@@ -24,6 +24,7 @@ class ReportRow extends React.Component {
     this.selectCourse = this.selectCourse.bind(this);
     this.selectStudent = this.selectStudent.bind(this);
     this.copyReport = this.copyReport.bind(this);
+    this.viewReport = this.viewReport.bind(this);
     this.deleteReport = this.deleteReport.bind(this);
   }
 
@@ -71,8 +72,13 @@ class ReportRow extends React.Component {
   }
 
   editReport = () => {
-    let path = "/teachers/" + this.props.user_id + "/edit_report";
-    this.props.editReport(this.props.report, path);
+    const path = "/teachers/" + this.props.user_id + "/edit_report"
+    this.props.editReport(this.props.report, path)
+  }
+
+  viewReport = () => {
+    const path = `/reports/${this.props.report._id}`
+    this.props.viewReport(this.props.report, path)
   }
 
   render() {
@@ -143,14 +149,10 @@ class ReportRow extends React.Component {
         <td>{ this.props.student.englishname }</td>
         <td>{ this.props.student.age }</td>
         <td>{ this.props.course_name }</td>
-        <td>
-          <Link to={`/reports/${this.props.report._id}`} target="_blank">
-            <i className="material-icons cyan-text clickable tooltipped" data-position="bottom" data-tooltip="查看反馈表">pageview</i>
-          </Link>
-        </td>
-        <td><i className="material-icons blue-text clickable tooltipped" onClick={this.editReport} data-position="bottom" data-tooltip="编辑反馈表">edit</i></td>
+        <td><i className="material-icons cyan-text clickable" onClick={this.viewReport}>pageview</i></td>
+        <td><i className="material-icons blue-text clickable" onClick={this.editReport}>edit</i></td>
         <td>{copyModal}</td>
-        <td><i className="material-icons red-text clickable tooltipped" data-position="bottom" data-tooltip="删除反馈表" onClick={() => { if (window.confirm('确定要删除此条目?')) this.deleteReport()}}>delete</i></td>
+        <td><i className="material-icons red-text clickable" onClick={() => { if (window.confirm('确定要删除此反馈表?')) this.deleteReport()}}>delete</i></td>
       </tr>
     )
   }
@@ -181,6 +183,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     copyReport: (course_id, student_id, teacher_id, report_id) => dispatch(copyReport(course_id, student_id, teacher_id, report_id)),
     deleteReport: (report_id) => dispatch(deleteReport(report_id)),
+    viewReport: (report, path) => dispatch(viewReport(report, path)),
     editReport: (report, path) => dispatch(editReport(report, path))
   }
 }
