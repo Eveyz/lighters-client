@@ -86,7 +86,7 @@ class App extends Component {
         <Route exact path="/students/me" component={BookListContainer} />
         <PrivateRoute exact path="/users/:_id/activate" auth={this.props.auth} component={ActivateUser} />
         <PrivateRoute exact path="/books/:_id/show" auth={this.props.auth} component={ViewBook} />
-        <PrivateRoute exact path="/reports/:_id" auth={this.props.auth} component={ViewReport} />
+        <PrivateRoute exact path="/reports/:_id/view" auth={this.props.auth} component={ViewReport} />
         <AdminRoute exact path="/users/admin/dashboard" auth={this.props.auth} component={Dashboard} />
         <AdminRoute exact path="/courses" auth={this.props.auth} component={CourseList} />
         <AdminRoute exact path="/courses/add_course" auth={this.props.auth} component={AddCourse} />

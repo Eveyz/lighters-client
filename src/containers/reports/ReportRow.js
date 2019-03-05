@@ -77,7 +77,7 @@ class ReportRow extends React.Component {
   }
 
   viewReport = () => {
-    const path = `/reports/${this.props.report._id}`
+    const path = `/reports/${this.props.report._id}/view`
     this.props.viewReport(this.props.report, path)
   }
 
