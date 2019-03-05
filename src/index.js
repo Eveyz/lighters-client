@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 
 import history from './history';
 
-import { Router, Route, HashRouter } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 
 import rootReducer from './reducers/index';
 import { saveToLocalStorage, loadFromLocalStorage } from './ultis';
