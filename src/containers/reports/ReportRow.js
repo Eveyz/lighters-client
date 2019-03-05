@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Modal } from 'react-materialize';
 import M from 'materialize-css';
 
-import { viewReport, editReport, copyReport, deleteReport } from '../../actions/reports_actions';
+import { editReport, copyReport, deleteReport } from '../../actions/reports_actions';
 
 class ReportRow extends React.Component {
 
@@ -24,7 +24,6 @@ class ReportRow extends React.Component {
     this.selectCourse = this.selectCourse.bind(this);
     this.selectStudent = this.selectStudent.bind(this);
     this.copyReport = this.copyReport.bind(this);
-    this.viewReport = this.viewReport.bind(this);
     this.deleteReport = this.deleteReport.bind(this);
   }
 
@@ -72,13 +71,8 @@ class ReportRow extends React.Component {
   }
 
   editReport = () => {
-    const path = "/teachers/" + this.props.user_id + "/edit_report"
-    this.props.editReport(this.props.report, path)
-  }
-
-  viewReport = () => {
-    const path = `/reports/${this.props.report._id}/view`
-    this.props.viewReport(this.props.report, path)
+    let path = "/teachers/" + this.props.user_id + "/edit_report";
+    this.props.editReport(this.props.report, path);
   }
 
   render() {
@@ -149,7 +143,11 @@ class ReportRow extends React.Component {
         <td>{ this.props.student.englishname }</td>
         <td>{ this.props.student.age }</td>
         <td>{ this.props.course_name }</td>
-        <td><i className="material-icons cyan-text clickable" onClick={this.viewReport}>pageview</i></td>
+        <td>
+          <Link to={`/reports/${this.props.report._id}/view`} target="_blank">
+            <i className="material-icons cyan-text clickable">pageview</i>
+          </Link>
+        </td>
         <td><i className="material-icons blue-text clickable" onClick={this.editReport}>edit</i></td>
         <td>{copyModal}</td>
         <td><i className="material-icons red-text clickable" onClick={() => { if (window.confirm('确定要删除此反馈表?')) this.deleteReport()}}>delete</i></td>
@@ -183,7 +181,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     copyReport: (course_id, student_id, teacher_id, report_id) => dispatch(copyReport(course_id, student_id, teacher_id, report_id)),
     deleteReport: (report_id) => dispatch(deleteReport(report_id)),
-    viewReport: (report, path) => dispatch(viewReport(report, path)),
     editReport: (report, path) => dispatch(editReport(report, path))
   }
 }

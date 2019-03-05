@@ -22,7 +22,7 @@ class ViewReport extends React.Component {
   }
   
   componentDidMount() {
-    axios.get(`${this.props.match.url}`).then((response) => {
+    axios.get(`/reports/${this.props.match.params._id}`).then((response) => {
       this.setState({
         report: response.data,
         isLoading: false
