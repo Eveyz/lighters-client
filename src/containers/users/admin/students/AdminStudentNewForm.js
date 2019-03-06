@@ -148,7 +148,7 @@ const AdminStudentNewForm = props => {
         <div className="input-field">
           <Link 
             className="col m12 s12 white r-box-shadow" 
-            to={"/students"}
+            to={`/admin/students/all`}
             style={
               {padding: "11px 0px 11px 0px", borderRadius: "15px", border: "none", cursor: "pointer"}
             }
