@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-materialize';
 import { selectStudent } from '../../actions/students_actions';
 import { updateBooks } from '../../actions/select_book_actions';
+import { getTeacherCourses } from '../../actions/teachers_actions';
 
 class ReportList extends React.Component {
   constructor(props) {
@@ -15,8 +16,9 @@ class ReportList extends React.Component {
 
   newReport = () => {
     let path = "/teachers/" + this.props.user_id + "/new_report";
-    this.props.updateBooks([], [], []);
-    this.props.setStudent(this.props.student, path);
+    this.props.updateBooks([], [], [])
+    this.props.setStudent(this.props.student, path)
+    this.props.getTeacherCourses(this.props.identity._id)
   }
 
   render() {
@@ -25,7 +27,8 @@ class ReportList extends React.Component {
         <ReportRow 
           key={idx}
           idx={idx}
-          report={report} 
+          report={report}
+          courses={this.props.courses}
         />
       );
     });
@@ -73,12 +76,21 @@ class ReportList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user_id: state.auth.user.userTokenData.id,
+    identity: state.auth.identityData,
     student: state.studentsData.currentStudent,
+    courses: state.coursesData.courses.map(course => ({
+        id: course._id,
+        name: course.name
+      })
+    )
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getTeacherCourses: (teacher_id) => {
+      dispatch(getTeacherCourses(teacher_id))
+    },
     setStudent: (student, path) => {
       dispatch(selectStudent(student, path))
     },
