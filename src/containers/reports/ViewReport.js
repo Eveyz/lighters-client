@@ -68,7 +68,7 @@ class ViewReport extends React.Component {
     const _report = this.state.img ? "" :
     <div id="report_content">
       <div className="card r-box-shadow report-border">
-        <div className="card-content" style={{padding: "30px"}}>
+        <div className="card-content" style={{padding: "25px"}}>
           <div className="row no-margin">
             <div className="input-field col m12 s12">
               <h4 className="center orange-text no-margin">Lighters 绘说英语 - 上课反馈</h4>
@@ -110,9 +110,8 @@ class ViewReport extends React.Component {
     return (
       <div className="page-min-height">
         <Header />
-        <div className="container">
           <div className="row no-margin">
-            <div className="input-field col m10 s12 offset-m1">
+            <div className="input-field col m8 s12 offset-m2">
               <br/>
               {btn}
               <br/>
@@ -120,7 +119,6 @@ class ViewReport extends React.Component {
               {_report}
             </div>
           </div>
-        </div>
         <Footer />
       </div>
     )
