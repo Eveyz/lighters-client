@@ -29,7 +29,7 @@ class Transactions extends React.Component {
         content = <TransactionForm transaction={{}} />
         break;
       case "TRANSACTION_EDIT":
-        content = <TransactionForm transaction={this.props.transaction} />
+        // content = <TransactionForm transaction={this.props.transaction} />
         break;
       case "TRANSACTION_LIST":
         content = this.props.transactions.length > 0 ? <TransactionList transactions={sortTransactionsByDate(this.props.transactions)} /> : <h6 className="airbnb-font bold">当前没有交易明细</h6>
@@ -70,18 +70,26 @@ class Transactions extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    auth: state.auth,
-    transaction: state.transactionsData.transaction,
-    transactions: [...state.transactionsData.transactions, ...state.paycheckData.paychecks.map((pc, idx) => {
-      return {
+
+  let _transactions = state.transactionsData.transactions
+  let paychecks = []
+  state.paycheckData.paychecks.forEach((pc, idx) => {
+    if(pc.amount !== 0) {
+      paychecks.push({
         src: 'Lighters',
         dest: pc.teacher_id.lastname + pc.teacher_id.firstname,
         amount: pc.amount ? pc.amount.toFixed(2) : 0,
         created_at: pc.updated_at,
         status: "OUT"
-      }
-    })],
+      })
+    }
+  })
+  if(paychecks.length > 0) _transactions = [...state.transactionsData.transactions, ...paychecks]
+
+  return {
+    auth: state.auth,
+    // transaction: state.transactionsData.transaction,
+    transactions: _transactions,
     mode: state.mode.value,
   };
 }

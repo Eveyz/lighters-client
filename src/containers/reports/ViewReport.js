@@ -54,13 +54,15 @@ class ViewReport extends React.Component {
     }
 
     const tableRows = report.course_content.map((row, idx) => {
-      return  <tr key={idx}>
-                <td className="col m2">{row.category}</td>
-                <td className="col m3">{row.serialName}</td>
-                <td className="col m2">{row.type}</td>
-                <td className="col m2">{row.ratio}</td>
-                <td className="col m3">{row.keywords}</td>
-              </tr>
+      if(row) {
+        return  <tr key={idx}>
+                  <td className="col m2">{row.category}</td>
+                  <td className="col m3">{row.serialName}</td>
+                  <td className="col m2">{row.type}</td>
+                  <td className="col m2">{row.ratio}</td>
+                  <td className="col m3">{row.keywords}</td>
+                </tr>
+      }
     })
 
     const btn = this.state.img ? <div>已生成报告图片, 如果没有开始自动下载, 请右键点击报告保存图片</div> : <button className="btn" onClick={this.downloadReport}>下载报告</button>;

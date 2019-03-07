@@ -78,7 +78,7 @@ class MonthlyReport extends React.Component {
             <tr>
               <th>教师名字</th>
               <th>教师等级</th>
-              <th>总课时</th>
+              <th>课程反馈表数量</th>
               <th>月工资(元)</th>
             </tr>
           </thead>
