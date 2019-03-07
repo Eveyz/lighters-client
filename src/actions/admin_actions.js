@@ -11,7 +11,7 @@ export const createTeacher = (teacher) => {
     axios.post(`/admin/createTeacher`, data)
       .then((response) => {
         dispatch({type: ADMIN_CREATE_TEACHER, payload: response.data});
-        history.push(`/teachers`);
+        history.push(`/admin/teachers/all`);
         window.Materialize.toast('成功添加', 1000, 'green');
       })
       .catch((err) => {
@@ -30,7 +30,7 @@ export const updateTeacher = (id, teacher) => {
     axios.put(`/admin/updateTeacher`, data)
       .then((response) => {
         dispatch({type: ADMIN_UPDATE_TEACHER, payload: response.data});
-        history.push(`/teachers`);
+        history.push(`/admin/teachers/all`);
       })
       .catch((err) => {
         console.log(err);
@@ -47,7 +47,7 @@ export const createStudent = (student) => {
     axios.post(`/admin/createStudent`, data)
       .then((response) => {
         dispatch({type: ADMIN_CREATE_STUDENT, payload: response.data});
-        history.push(`/students`);
+        history.push(`/admin/students/all`);
       })
       .catch((err) => {
         console.log(err);
@@ -65,7 +65,7 @@ export const updateStudent = (id, student) => {
     axios.put(`/admin/updateStudent`, data)
       .then((response) => {
         dispatch({type: ADMIN_UPDATE_STUDENT, payload: response.data});
-        history.push(`/students`);
+        history.push(`/admin/students/all`);
       })
       .catch((err) => {
         console.log(err);
