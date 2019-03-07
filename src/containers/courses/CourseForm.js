@@ -16,8 +16,8 @@ class CourseForm extends React.Component {
     this.nameInput = React.createRef();
     this.typeInput = React.createRef();
     this.levelInput = React.createRef();
-    this.capacityInput = React.createRef();
-    this.hoursInput = React.createRef();
+    // this.capacityInput = React.createRef();
+    // this.hoursInput = React.createRef();
     this.courseRate = React.createRef();
     this.timeInput = React.createRef();
     this.teachersSelect = React.createRef();
@@ -55,8 +55,8 @@ class CourseForm extends React.Component {
       name: this.nameInput.current.value,
       level: this.levelInput.current.value,
       type: this.typeInput.current.value,
-      capacity: this.capacityInput.current.value,
-      course_hours: this.hoursInput.current.value,
+      // capacity: this.capacityInput.current.value,
+      // course_hours: this.hoursInput.current.value,
       course_rate: this.courseRate.current.value,
       // timeInput: this.timeInput.current.value,
       teachers: [teacher]
@@ -85,8 +85,8 @@ class CourseForm extends React.Component {
     let nameVal = "";
     let levelVal = "";
     let typeVal = "";
-    let capacityVal = "";
-    let coursehoursVal = "";
+    // let capacityVal = "";
+    // let coursehoursVal = "";
     let courseRateVal = "";
     // let timeInputVal = "";
     let teacherVal = "default";
@@ -94,9 +94,9 @@ class CourseForm extends React.Component {
       nameVal = this.props.currentCourse.name;
       typeVal = this.props.currentCourse.type;
       levelVal = this.props.currentCourse.level;
-      capacityVal = this.props.currentCourse.capacity;
+      // capacityVal = this.props.currentCourse.capacity;
       courseRateVal = this.props.currentCourse.course_rate;
-      coursehoursVal = this.props.currentCourse.course_hours;
+      // coursehoursVal = this.props.currentCourse.course_hours;
 
       let defaultTeacher = this.props.currentCourse.teachers[0]
       teacherVal = defaultTeacher ? defaultTeacher._id : "";

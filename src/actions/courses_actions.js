@@ -36,6 +36,7 @@ export const addCourse = (course) => {
       .then(function(response){
         dispatch({type: ADD_COURSE, payload: response.data})
         history.push("/admin/courses/all");
+        window.Materialize.toast('成功添加课程', 1000, 'green');
       })
       .catch(function(err){
         dispatch({type: ADD_COURSE_FAILURE, payload: "there was an error while posting a new course"})
@@ -46,7 +47,7 @@ export const addCourse = (course) => {
 export const editCourse = (course) => {
   return (dispatch) => {
     dispatch(selectCourse(course));
-    history.push(`/courses/${course._id}/edit_course`);
+    history.push(`/courses/${course._id}/edit_course`)
   }
 }
 
@@ -55,7 +56,8 @@ export const updateCourse = (course_id, field) => {
     axios.put(`/courses/${course_id}`, field)
       .then((response) => {
         dispatch({type: UPDATE_COURSE, payload: response.data})
-        history.push('/admin/courses/all');
+        history.push('/admin/courses/all')
+        window.Materialize.toast('成功更新课程', 1000, 'green')
       })
       .catch((err) => {
         dispatch({type: UPDATE_COURSE_FAILURE, payload: err})
@@ -68,7 +70,7 @@ export const deleteCourse = id => {
     return axios.delete("/courses/" + id)
       .then(response => {
         dispatch({type: DELETE_COURSE, payload: id})
-        // history.push("/courses");
+        // history.push("/admin/courses/all");
       })
       .catch(err => {
         if(err) throw(err);

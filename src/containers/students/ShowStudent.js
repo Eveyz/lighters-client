@@ -27,6 +27,7 @@ class ShowStudent extends React.Component {
                 <h6>名字: { this.props.student.lastname}{this.props.student.firstname}</h6>
                 <h6>英文名字: {this.props.student.englishname}</h6>
                 <h6>性别: {this.props.student.gender}</h6>
+                <h6>课时费: {this.props.student.tuition_amount}元</h6>
               </div>
             </div>
           </div>
