@@ -50,10 +50,11 @@ class MonthlyReport extends React.Component {
                       </table>
 
     // 反馈表得到的基本工资
-    let base = this.props.paycheck.amount
+    let base = 0
 
     let details = ""
     this.props.paycheck.reports.forEach(report => {
+      base += (report.credit * report.teacher_rate)
       details += `${report.credit} * ${report.teacher_rate} + `
     })
     details = details.slice(0, -3);
@@ -61,6 +62,7 @@ class MonthlyReport extends React.Component {
 
     let btn = this.props.paycheck.paid ? <button disabled className="btn btn-large red">已结算</button> : <button className="btn btn-large" onClick={() => { if (window.confirm('确认要进行结算? 结算之后将无法更改, 请核查准确')) this.pay() }}>结算</button>
 
+    // 加上补助计算出总的工资
     this.sum = base
     if(this.props.compensations.length > 0) {
       this.props.compensations.forEach((c, idx) => {
