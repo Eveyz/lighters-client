@@ -28,7 +28,7 @@ class MonthlyReport extends React.Component {
                 <td>{report.course_id.name}</td>
                 <td>{report.course_id.type}</td>
                 <td>{report.course_date}</td>
-                <td>{report.student_id.lastname + report.student_id.firstname}</td>
+                <td>{report.student_id.englishname}</td>
                 <td><Link to={`/reports/${report._id}/view`} target="_blank">查看报告</Link></td>
               </tr>
     })
