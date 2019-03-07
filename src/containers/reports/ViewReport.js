@@ -73,7 +73,7 @@ class ViewReport extends React.Component {
             <div className="input-field col m12 s12">
               <h4 className="center orange-text no-margin">Lighters 绘说英语 - 上课反馈</h4>
               <p><span className="orange-text">上课学员:</span> {report.student_id.englishname}</p>
-              <p><span className="orange-text">上课老师:</span> {report.teacher_id.lastname + report.teacher_id.firstname}</p>
+              <p><span className="orange-text">上课老师:</span> {report.teacher_id.englishname}老师</p>
               <p><span className="orange-text">课程名称:</span> {report.course_id.name}</p>
               <p><span className="orange-text">课程时间:</span> {report.course_date} {report.start_time}-{report.end_time}</p>
               <p><span className="orange-text">专注时长:</span> {report.focus}</p>
