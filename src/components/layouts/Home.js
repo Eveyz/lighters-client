@@ -54,12 +54,12 @@ class Home extends Component {
           </div>
           <div className="row above-img">
             <div className="col offset-m6 m6">
-              <div className="transparent-btn center-align" onClick={this.teacherSignup}>教师端</div>
+              <div className="transparent-btn center-align" onClick={this.studentSignup}>申请试课</div>
             </div>
           </div>
           <div className="row above-img">
             <div className="col offset-m6 m6">
-              <div className="transparent-btn center-align" onClick={this.studentSignup}>学员端</div>
+              <div className="transparent-btn center-align" onClick={this.teacherSignup}>申请教职</div>
             </div>
           </div>
         </div>
