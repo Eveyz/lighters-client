@@ -31,7 +31,7 @@ class TeacherRates extends React.Component {
     this.setState({teacher_rate: {}, show: !this.state.show, action: "NEW"})
   }
 
-  deleteTuition = (teacher_rate_id) => {
+  deleteTeacherRate = (teacher_rate_id) => {
     this.props.deleteTeacherRate(teacher_rate_id)
   }
 
