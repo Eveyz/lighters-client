@@ -35,7 +35,7 @@ export const addCourse = (course) => {
     axios.post("/courses", course)
       .then(function(response){
         dispatch({type: ADD_COURSE, payload: response.data})
-        history.push("/courses");
+        history.push("/admin/courses/all");
       })
       .catch(function(err){
         dispatch({type: ADD_COURSE_FAILURE, payload: "there was an error while posting a new course"})
@@ -55,7 +55,7 @@ export const updateCourse = (course_id, field) => {
     axios.put(`/courses/${course_id}`, field)
       .then((response) => {
         dispatch({type: UPDATE_COURSE, payload: response.data})
-        history.push('/courses');
+        history.push('/admin/courses/all');
       })
       .catch((err) => {
         dispatch({type: UPDATE_COURSE_FAILURE, payload: err})

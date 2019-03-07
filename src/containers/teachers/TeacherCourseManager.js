@@ -57,7 +57,9 @@ class TeacherCourseManager extends React.Component {
                 <td>{ student.lastname + student.firstname }</td>
                 <td>{ student.age }</td>
                 <td>{ this.props.course.name }</td>
-                <td><button onClick={this.newReport(student)} className="btn">填写新课程回馈表</button></td>
+                {
+                  this.props.course.status === "active" ? <td><button onClick={this.newReport(student)} className="btn">填写新课程回馈表</button></td> : null
+                }
                 <td><button onClick={this.reportsList(student)} className="btn cyan">查看所有课程回馈表</button></td>
                </tr>
       });

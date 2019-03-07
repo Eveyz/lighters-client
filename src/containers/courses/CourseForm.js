@@ -6,6 +6,7 @@ import { CLASS_TYPE, CLASS_LEVEL } from '../../ultis';
 
 import '../../css/App.css';
 import { addCourse, updateCourse } from "../../actions/courses_actions";
+import { getActiveTeachers } from '../../actions/teachers_actions';
 import Option from '../../components/Option';
 
 class CourseForm extends React.Component {
@@ -34,15 +35,16 @@ class CourseForm extends React.Component {
   }
 
   componentWillMount() {
-    this.initMaterilize();
+    this.initMaterilize()
+    this.props.getActiveTeachers()
   }
 
   componentDidMount() {
-    this.initMaterilize();
+    this.initMaterilize()
   }
 
   componentDidUpdate() {
-    this.initMaterilize();
+    this.initMaterilize()
   }
 
   handleSubmit(e) {
@@ -208,6 +210,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   // Whenever search is called, the result should be passed to all reducers
   return {
+    getActiveTeachers: () => {
+      dispatch(getActiveTeachers())
+    },
     addCourse: (course) => {
       dispatch(addCourse(course))
     },

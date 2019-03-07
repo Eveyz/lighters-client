@@ -24,14 +24,14 @@ class Student extends React.Component {
   }
 
   updateStudent = () => {
-    let field = this.props.student.status === "pending" ? {status: "active"} : {status: "pending"};
+    let field = (this.props.student.status === "pending" || this.props.student.status === "inactive") ? {status: "active"} : {status: "inactive"};
     this.props.updateStudent(this.props.student._id, field);
   }
 
   render() {
     let action = "关闭";
     let classes = "btn amber";
-    if(this.props.student.status === "pending") {
+    if(this.props.student.status === "pending" || this.props.student.status === "inactive") {
       action = "激活";
       classes = "btn green";
     }

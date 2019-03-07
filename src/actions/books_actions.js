@@ -63,7 +63,7 @@ export const addBook = (book) => {
     axios.post(`/books`, book_data)
       .then((response) => {
         dispatch({type: ADD_BOOK, payload: response.data})
-        history.push("/books");
+        history.push("/admin/books/all");
       })
       .catch((err) => {
         dispatch({type: ADD_BOOK_FAILURE, payload: "there was an error while posting a new book"})
@@ -84,7 +84,7 @@ export const updateBook = (book) => {
     axios.put(`/books/${id}`, book_data)
       .then((response) => {
         dispatch({type: UPDATE_BOOK, payload: response.data})
-        history.push(`/books`);
+        history.push(`/admin/books/all`);
       })
       .catch((err) => {
         dispatch({type: UPDATE_BOOK_FAILURE, payload: err})

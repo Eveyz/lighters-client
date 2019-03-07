@@ -32,6 +32,9 @@ class StudentList extends React.Component {
     let pendingStudentList;
     let pendingStudent = [];
 
+    let inactiveStudentList;
+    let inactiveStudent = [];
+
     let activeStudentList;
     let activeStudent = [];
 
@@ -40,8 +43,11 @@ class StudentList extends React.Component {
 
     if(this.props.students.length > 0) {
       this.props.students.forEach((student) => {
+
         if(student.status === "pending") pendingStudent.push(student);
         else if(student.status === "active" || student.status === "RESET_REQUIRED") activeStudent.push(student);
+        else if(student.status === "inactive") inactiveStudent.push(student)
+
         if(student.temporary) createdStudent.push(student);
       });
 
@@ -49,6 +55,12 @@ class StudentList extends React.Component {
         return (
           <Student key={index} id={`pending${index}`} student={student} />
         );
+      });
+
+      inactiveStudentList = inactiveStudent.map((student, index) => {
+        return (
+          <Student key={index} id={`inactive${index}`} student={student} />
+        )
       });
 
       activeStudentList = activeStudent.map((student, index) => {
@@ -64,22 +76,23 @@ class StudentList extends React.Component {
       });
     }
 
+    const commonHeader = <thead>
+                            <tr>
+                              <th>英文名</th>
+                              <th>姓名</th>
+                              <th>年龄</th>
+                              <th>出生日期</th>
+                              <th>性别</th>
+                              <th>更改状态</th>
+                              <th>更多操作</th>
+                            </tr>
+                          </thead>
+
     let pendingStudentTable = pendingStudent.length > 0 ?
                               <Row>
                                 <Col m={12}>
                                   <Table>
-                                    <thead>
-                                      <tr>
-                                        <th>英文名</th>
-                                        <th>姓名</th>
-                                        <th>年龄</th>
-                                        <th>出生日期</th>
-                                        <th>性别</th>
-                                        <th>更改状态</th>
-                                        <th>更多操作</th>
-                                      </tr>
-                                    </thead>
-
+                                    {commonHeader}
                                     <tbody>
                                       {pendingStudentList}
                                     </tbody>
@@ -90,22 +103,26 @@ class StudentList extends React.Component {
                                 <h4 className="center">没有试课学生</h4>
                               </Card>
     
+    let inactiveStudentTable = inactiveStudent.length > 0 ? 
+                              <Row>
+                                <Col m={12}>
+                                  <Table>
+                                    {commonHeader}
+                                    <tbody>
+                                      {inactiveStudentList}
+                                    </tbody>
+                                  </Table>
+                                </Col>
+                              </Row> :
+                              <Card className='white' textClassName='blue-text'>
+                                <h4 className="center">没有往期的学生</h4>
+                              </Card>
+    
     let activeStudentTable = activeStudent.length > 0 ? 
                               <Row>
                                 <Col m={12}>
                                   <Table>
-                                    <thead>
-                                      <tr>
-                                        <th>英文名</th>
-                                        <th>姓名</th>
-                                        <th>年龄</th>
-                                        <th>出生日期</th>
-                                        <th>性别</th>
-                                        <th>更改状态</th>
-                                        <th>更多操作</th>
-                                      </tr>
-                                    </thead>
-
+                                    {commonHeader}
                                     <tbody>
                                       {activeStudentList}
                                     </tbody>
@@ -120,18 +137,7 @@ class StudentList extends React.Component {
                               <Row>
                                 <Col m={12}>
                                   <Table className="highlight">
-                                    <thead>
-                                      <tr>
-                                        <th>英文名</th>
-                                        <th>姓名</th>
-                                        <th>年龄</th>
-                                        <th>性别</th>
-                                        <th>用户名</th>
-                                        <th>临时密码</th>
-                                        <th>更多操作</th>
-                                      </tr>
-                                    </thead>
-
+                                    {commonHeader}
                                     <tbody>
                                       {createdStudentList}
                                     </tbody>
@@ -143,6 +149,7 @@ class StudentList extends React.Component {
                               </Card>
 
     let active = this.active === "active" ? "active" : "";
+    let inactive = this.active === "inactive" ? "active" : "";
     let pending = this.active === "pending" ? "active" : "";
     let created = this.active === "created" ? "active" : "";
 
@@ -162,13 +169,15 @@ class StudentList extends React.Component {
           <div className="row">
             <div className="col s12">
               <ul className="tabs">
-                <li className="tab col s4 m4"><a className={active} href="#active" onClick={(e) => this.active = "active"}>上课学生({activeStudent.length})</a></li>
-                <li className="tab col s4 m4"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">试课学生({pendingStudent.length})</a></li>
-                <li className="tab col s4 m4"><a onClick={(e) => this.active = "created"} className={created} href="#created">管理员生成的学生({createdStudent.length})</a></li>
+                <li className="tab col s3 m3"><a className={active} href="#active" onClick={(e) => this.active = "active"}>上课学生({activeStudent.length})</a></li>
+                <li className="tab col s3 m3"><a onClick={(e) => this.active = "pending"} className={pending} href="#pending">试课学生({pendingStudent.length})</a></li>
+                <li className="tab col s3 m3"><a onClick={(e) => this.active = "inactive"} className={inactive} href="#inactive">往期学生({inactiveStudent.length})</a></li>
+                <li className="tab col s3 m3"><a onClick={(e) => this.active = "created"} className={created} href="#created">管理员生成的学生({createdStudent.length})</a></li>
               </ul>
             </div>
             <div id="active" className="col s12">{activeStudentTable}</div>
             <div id="pending" className="col s12">{pendingStudentTable}</div>
+            <div id="inactive" className="col s12">{inactiveStudentTable}</div>
             <div id="created" className="col s12">{createdStudentTable}</div>
           </div>
           

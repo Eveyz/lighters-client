@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-materialize'
 import _ from 'lodash';
-
 import 'tui-calendar/dist/tui-calendar.min.css';
-import '../../css/App.css';
+
 import TeacherCourse from '../../containers/teachers/TeacherCourse';
 import TeacherStudentList from '../../containers/teachers/TeacherStudentList';
 import TeacherPaychecks from './TeacherPaychecks';
@@ -14,8 +13,20 @@ import TeacherCourseBooks from './TeacherCourseBooks';
 import TuiCalendar from '../TuiCalendar';
 
 import { getTeacherCourses } from '../../actions/teachers_actions'
+import { selectCourse } from '../../actions/courses_actions'
 
 class TeacherDashboard extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+    this.clickCourse = this.clickCourse.bind(this)
+  }
+
+  clickCourse = (course) => e => {
+    let path = `/teachers/${this.props.user_id}/course_manager`
+    this.props.selectCourse(course, path);
+  }
 
   componentWillMount() {
     this.props.getTeacherCourses(this.props.teacher._id)
@@ -58,10 +69,49 @@ class TeacherDashboard extends React.Component {
                       </Card>
                     </Col>
                   </Row>;
+    
+    let inactive_courses_widget = <Row>
+                                    <Col m={12} s={12}>
+                                      <Card className='white r-box-shadow' textClassName='black-text' title=''>
+                                      <h5 className="center">当前没有往期课程</h5>
+                                      </Card>
+                                    </Col>
+                                  </Row>;
+    
+    var inactive_courses = []
+    var active_courses = []
     if(this.props.courses.length > 0) {
-      courses = this.props.courses.map((course, idx) => {
-        return <TeacherCourse key={idx} user_id={this.props.user_id} course={course} />
-      });
+      this.props.courses.forEach(course => {
+        course.status === "active" ? active_courses.push(course) : inactive_courses.push(course)
+      })
+      if(active_courses.length > 0) {
+        courses = active_courses.map((course, idx) => {
+          return <TeacherCourse key={idx} user_id={this.props.user_id} course={course} />
+        });
+      }
+      if(inactive_courses.length > 0) {
+        let inactive_courses_list = inactive_courses.map((course, idx) => {
+          return <tr key={idx} className="clickable" onClick={this.clickCourse(course)}>
+                  <td>{course.name}</td>
+                  <td>{course.level}</td>
+                  <td>{course.reports.length}</td>
+                </tr>
+        })
+        inactive_courses_widget = 
+                              <table className="highlight">
+                                <thead>
+                                  <tr>
+                                    <th>课程名称</th>
+                                    <th>课程级别</th>
+                                    <th>反馈表数量</th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  {inactive_courses_list}
+                                </tbody>
+                              </table>
+      }
     };
 
     let students = <Row>
@@ -130,9 +180,17 @@ class TeacherDashboard extends React.Component {
                 <br/>
                 <div className="row">
                   <div className="col m12">
-                    <h4><b>课程</b></h4>
+                    <div className="row no-margin">
+                      <h4 className="cyan-text"><b>课程</b></h4>
+                    </div>
                     <div className="row">
                       {courses}
+                    </div>
+                    <div className="row">
+                      <h4 className="grey-text"><b>往期课程</b></h4>
+                    </div>
+                    <div className="row no-margin">
+                      {inactive_courses_widget}
                     </div>
                   </div>
                 </div>
@@ -182,6 +240,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getTeacherCourses: (teacher_id) => {
       dispatch(getTeacherCourses(teacher_id))
+    },
+    selectCourse: (course, path) => {
+      dispatch(selectCourse(course, path))
     }
   }
 }

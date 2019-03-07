@@ -101,7 +101,7 @@ export const getTeacherReports = (teacher_id) => {
 
 export const getTeacherCourses = (teacher_id) => {
   return (dispatch) => {
-    axios.get(`/courses?teacher_id=${teacher_id}&status=active`)
+    axios.get(`/courses?teacher_id=${teacher_id}`)
       .then((response) => {
         dispatch({type: GET_COURSES, payload: response.data})
       })

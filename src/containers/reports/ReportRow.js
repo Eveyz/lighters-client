@@ -151,9 +151,15 @@ class ReportRow extends React.Component {
             <i className="material-icons cyan-text clickable tooltipped" data-position="bottom" data-tooltip="查看反馈表">visibility</i>
           </Link>
         </td>
-        <td><i className="material-icons blue-text clickable tooltipped" data-position="bottom" data-tooltip="编辑反馈表" onClick={this.editReport}>edit</i></td>
-        <td>{copyModal}</td>
-        <td><i className="material-icons red-text clickable tooltipped" data-position="bottom" data-tooltip="删除反馈表" onClick={() => { if (window.confirm('确定要删除此反馈表?')) this.deleteReport()}}>delete</i></td>
+        {
+          this.props.course_status === "active" ? <td><i className="material-icons blue-text clickable tooltipped" data-position="bottom" data-tooltip="编辑反馈表" onClick={this.editReport}>edit</i></td> : null
+        }
+        { 
+          this.props.course_status === "active" ? <td>{copyModal}</td> : null
+        }
+        { 
+          this.props.course_status === "active" ? <td><i className="material-icons red-text clickable tooltipped" data-position="bottom" data-tooltip="删除反馈表" onClick={() => { if (window.confirm('确定要删除此反馈表?')) this.deleteReport()}}>delete</i></td> : null
+        }
       </tr>
     )
   }
@@ -165,6 +171,7 @@ const mapStateToProps = (state) => {
     teacher_id: state.auth.identityData._id,
     student: state.studentsData.currentStudent,
     course_name: state.coursesData.currentCourse.name,
+    course_status: state.coursesData.currentCourse.status
     // courses: state.auth.identityData.courses.map(course => ({
     //   id: course._id,
     //   name: course.name,

@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { selectCourse } from '../../actions/courses_actions';
- 
+
 class TeacherCourse extends React.Component {
   constructor(props) {
     super(props)
 
-    this.clickCourse = this.clickCourse.bind(this);
+    this.clickCourse = this.clickCourse.bind(this)
   }
 
   clickCourse = (e) => {
