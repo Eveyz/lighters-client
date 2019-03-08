@@ -58,6 +58,8 @@ class ProfitList extends React.Component {
 
     return (
       <div>
+        <h6 className="airbnb-font bold">所有反馈表</h6>
+        <hr/>
         {profitTable}
       </div>
     )
