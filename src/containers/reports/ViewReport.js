@@ -78,6 +78,7 @@ class ViewReport extends React.Component {
               <p><span className="orange-text">上课老师:</span> {report.teacher_id.englishname}老师</p>
               <p><span className="orange-text">课程名称:</span> {report.course_id.name}</p>
               <p><span className="orange-text">课程时间:</span> {report.course_date} {report.start_time}-{report.end_time}</p>
+              <p><span className="orange-text">上课情况:</span> {report.situation}</p>
               <p><span className="orange-text">专注时长:</span> {report.focus}</p>
               <br />
               <h5 className="orange-text">上课内容</h5>
