@@ -107,6 +107,7 @@ class App extends Component {
         <AdminRoute exact path="/assets/teacher_salaries" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/assets/transactions" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/assets/tuitions" auth={this.props.auth} component={AssetsDashboard} />
+        <AdminRoute exact path="/assets/profit" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/assets/teacher_rates" auth={this.props.auth} component={AssetsDashboard} />
         <AdminRoute exact path="/admin/teachers/all" auth={this.props.auth} component={TeacherList} />
         <AdminRoute exact path="/teachers/:_id/view" auth={this.props.auth} component={ShowTeacher} />

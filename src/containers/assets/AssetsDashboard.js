@@ -8,6 +8,7 @@ import TeacherSalary from './TeacherSalary';
 import Transactions from './transactions/Transactions';
 import Tuitions from './tuitions/tuitions';
 import TeacherRates from './rates/TeacherRates';
+import Profit from './profit/Profit';
 
 import { getLevelSalaries } from '../../actions/level_salary_actions';
 import { setLoadingStatus } from "../../actions/status_actions";
@@ -48,6 +49,11 @@ class AssetsDashboard extends React.Component {
       active = "transactions"
       path = "/assets/transactions"
       name = "公司资金明细"
+    } else if (this.props.location.pathname.includes("profit")) {
+      content = <Profit />
+      active = "profit"
+      path = "/assets/profit"
+      name = "当前课程盈利"
     }
 
     const num = this.props.lowBalanceStudentsNum > 0 ? <span className="new badge red" data-badge-caption="个">{this.props.lowBalanceStudentsNum}</span> : "";
@@ -68,6 +74,7 @@ class AssetsDashboard extends React.Component {
               <li><Link to="/assets/teacher_salaries" className={`${active === "teacher_salaries" ? "active" : ""} airbnb-font bold`}>教师工资管理</Link></li>
               <li><Link to="/assets/tuitions" className={`${active === "tuitions" ? "active" : ""} airbnb-font bold`}>学员学费管理{num}</Link></li>
               <li><Link to="/assets/transactions" className={`${active === "transactions" ? "active" : ""} airbnb-font bold`}>公司资金明细</Link></li>
+              <li><Link to="/assets/profit" className={`${active === "profit" ? "active" : ""} airbnb-font bold`}>当前课程盈利</Link></li>
             </ul>
           </div>
           <div className="main-content-wrapper space-one">

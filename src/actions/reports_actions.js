@@ -5,6 +5,17 @@ import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELET
 
 import { updateBooks } from './select_book_actions';
 
+export const getAllReports = () => {
+  let url = `/reports`;
+  return (dispatch) => {
+    axios.get(url).then((response) => {
+      dispatch({type: GET_REPORTS, payload: response.data})
+    }).catch((err) => {
+      dispatch({type: GET_REPORTS_FAILURE, payload: "there was an error while fetching reports"})
+    })
+  }
+}
+
 export const getReports = (course_id, student_id, teacher_id) => {
   let url = `/reports?course_id=${course_id}&student_id=${student_id}&teacher_id=${teacher_id}`;
   return (dispatch) => {

@@ -77,6 +77,7 @@ class LevelandSalary extends React.Component {
         <Col m={12} s={12}>
           <Card className='white r-box-shadow no-margin' textClassName='black-text' title=''>
             <h6 className="airbnb-font bold">教师等级以及对应的工资</h6>
+            <hr/>
             <br/>
             {btn}
             {showInput}

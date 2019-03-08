@@ -100,9 +100,11 @@ class Tuitions extends React.Component {
         <Col m={12} s={12}>
           <Card className='white r-box-shadow no-margin' textClassName='black-text' title=''>
             <h6 className="airbnb-font bold">需要提醒缴费的学生</h6>
+            <hr/>
             {studentsTable}
             <br/>
             <h6 className="airbnb-font bold">学生学费</h6>
+            <hr/>
             <br/>
             {btn}
             {showInput}

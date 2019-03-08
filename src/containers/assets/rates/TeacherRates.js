@@ -81,6 +81,7 @@ class TeacherRates extends React.Component {
         <Col m={12} s={12}>
           <Card className='white r-box-shadow no-margin' textClassName='black-text' title=''>
             <h6 className="airbnb-font bold">教师课时费</h6>
+            <hr/>
             <br/>
             {btn}
             {showInput}
