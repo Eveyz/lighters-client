@@ -18,6 +18,8 @@ class TeacherStudentList extends React.Component {
         <Col m={12} s={12}>
           <div className="row">
             <div className="col m12">
+              <h6 className="airbnb-font bold">学生</h6>
+              <hr/>
               <table className="striped">
                 <thead>
                   <tr>

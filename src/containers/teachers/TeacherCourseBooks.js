@@ -1,11 +1,17 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'react-materialize';
+import { Row, Col, Card } from 'react-materialize';
 
 class TeacherCourseBooks extends React.Component {
   render() {
-    let content = <h5 className="center">当前没有绘本</h5>;
+    let content = <Row>
+                    <Col m={12} s={12}>
+                      <Card className='white r-box-shadow' textClassName='black-text' title=''>
+                      <h5 className="center">当前课程没有绘本</h5>
+                      </Card>
+                    </Col>
+                  </Row>
 
     if(this.props.course.books.length > 0) {
       let bookList = this.props.course.books.map((book, idx) => {
@@ -43,6 +49,8 @@ class TeacherCourseBooks extends React.Component {
         <Col m={12} s={12}>
           <div className="row">
             <div className="col m12">
+              <h6 className="airbnb-font bold">{this.props.course.name}绘本</h6>
+              <hr/>
               {content}
             </div>
           </div>
