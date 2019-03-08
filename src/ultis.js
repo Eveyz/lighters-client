@@ -106,6 +106,31 @@ export const sortTransactionsByDate = (transactions) => {
   return results
 }
 
+export const getReportCredit = (situation) => {
+  let res;
+  switch(situation) {
+    case ("正常上课"):
+    case ("学员上课时间后才请假或无故缺课(1个课时费)"):
+    case ("学员迟到(不必补全课时, 可按时下课, 1个课时费)"):
+    case ("老师迟到早退10分钟以内(需免费于当堂或下堂课补全课时才可得1个课时费, 但会影响薪资晋级)"):
+      res = 1;
+      break;
+    case ("学员开课前2小时内才请假(0.5个课时费)"):
+    case ("老师无故迟到10分钟以上20分钟以内并且课程依旧进行(0.5个课时费)"):
+      res = 0.5;
+      break;
+    case ("老师无故迟到并且取消课程(0个课时费, 需免费补课一节)"):
+    case ("免费补课(0个课时费)"):
+    case ("试课"):
+      res = 0;
+      break;
+    default:
+      res = 0;
+      break;
+  }
+  return res;
+}
+
 export const CLASS_TYPE = ["一对一", "一对二", "一对三", "一对四", "一对五"]
 
 export const CLASS_LEVEL = ["启蒙", "起步", "初级上", "初级下", "中级上", "中级下", "中高级", "高级"]

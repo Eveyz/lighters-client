@@ -1,9 +1,10 @@
 import React from 'react';
-import { Row, Col, Table } from 'react-materialize';
+
+import { getReportCredit } from '../../../ultis'
 
 class ProfitList extends React.Component {
   render() {
-    let profitList = ""
+    let profitList = []
     let profitTable = <div className="col m12">
                         <div className="card white r-box-shadow">
                           <div className="card-content">
@@ -12,17 +13,31 @@ class ProfitList extends React.Component {
                         </div>
                       </div>
     if(this.props.data.length > 0) {
-      profitList = this.props.data.map((report, idx) => {
-        const profit = report.course_id.course_rate - report.amount
-        const cls = profit > 0 ? "green-text" : "red-text"
-        return <tr key={idx}>
-                  <td>{report.course_id.name}</td>
-                  <td>{report.updated_at}</td>
-                  <td>{report.teacher_id.englishname}</td>
-                  <td>{report.student_id.englishname}</td>
-                  <td className={cls}>{profit}</td>
-               </tr>
+      this.props.data.forEach((report, idx) => {
+        const report_credit = getReportCredit(report.situation)
+        if(report_credit > 0) {
+          const profit = report.course_id.course_rate - report.amount
+          const cls = profit > 0 ? "green-text" : "red-text"
+          profitList.push(<tr key={idx}>
+                            <td>{report.course_id.name}</td>
+                            <td>{report.updated_at}</td>
+                            <td>{report.teacher_id.englishname}</td>
+                            <td>{report.student_id.englishname}</td>
+                            <td className={cls}>{profit}</td>
+                          </tr>)
+        }
       })
+      // profitList = _profit.map((report, idx) => {
+      //   const profit = report.course_id.course_rate - report.amount
+      //   const cls = profit > 0 ? "green-text" : "red-text"
+      //   return <tr key={idx}>
+      //             <td>{report.course_id.name}</td>
+      //             <td>{report.updated_at}</td>
+      //             <td>{report.teacher_id.englishname}</td>
+      //             <td>{report.student_id.englishname}</td>
+      //             <td className={cls}>{profit}</td>
+      //          </tr>
+      // })
       profitTable = <table className="highlight">
                         <thead>
                           <tr>

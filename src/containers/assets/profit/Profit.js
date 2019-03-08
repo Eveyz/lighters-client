@@ -6,6 +6,8 @@ import { getAllReports } from '../../../actions/reports_actions'
 import PaginationContainer from '../../PaginationContainer'
 import ProfitList from './ProfitList'
 
+import { getReportCredit } from '../../../ultis'
+
 class Profit extends React.Component {
   
   componentWillMount() {
@@ -23,8 +25,11 @@ class Profit extends React.Component {
                       </div>
     var sum = 0
     if(this.props.reports.length > 0) {
-      this.props.reports.map((report, idx) => {
-        sum += report.course_id.course_rate - report.amount
+      this.props.reports.forEach((report, idx) => {
+        const report_credit = getReportCredit(report.situation)
+        if(report_credit > 0) {
+          sum += (report.course_id.course_rate - report.amount)
+        }
       })
       reportContent = <PaginationContainer 
                         itemsPerPage={20} 
