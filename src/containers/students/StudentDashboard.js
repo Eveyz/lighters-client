@@ -16,7 +16,6 @@ class StudentDashboard extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     let height = {};
     let mainContent = <div className="card white r-box-shadow">
                         <div className="card-content">

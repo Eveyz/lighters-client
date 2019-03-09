@@ -3,6 +3,10 @@ import { Row, Col } from 'react-materialize';
 
 import PaginationContainer from '../PaginationContainer';
 import BookList from '../books/BookList';
+import { COURSE_TOP_BAR_COLOR } from '../../ultis'
+import CD1 from '../../images/course_decoration1.svg'
+import CD2 from '../../images/course_dec2.svg'
+import CD3 from '../../images/course_dec3.svg'
 
 class StudentCourseList extends React.Component {
   constructor(props) {
@@ -35,10 +39,10 @@ class StudentCourseList extends React.Component {
 
   render() {
     let content = <div className="card white r-box-shadow">
-                        <div className="card-content">
-                          <h5 className="center">当前没有课程</h5>
-                        </div>
-                      </div>;
+                    <div className="card-content">
+                      <h5 className="center">当前没有课程</h5>
+                    </div>
+                  </div>;
     
     if(this.props.courses.length > 0) {
       if(this.state.render === "course") {
@@ -48,8 +52,12 @@ class StudentCourseList extends React.Component {
               <span key={index}>{teacher.lastname + teacher.firstname}</span>
             )
           });
+          let cls_color = COURSE_TOP_BAR_COLOR[idx%3]
+          const _img = idx%3 === 0 ? CD1 : idx%3 === 1 ? CD2 : CD3
           return <div key={idx} className="col s12 m6">
                   <div className="card r-box-shadow">
+                    {/* <div className="course-top-bar" style={cls_color}></div>
+                    <img className="course-left-top-img" src={_img} alt="course-decoration" /> */}
                     <div className="card-content">
                       <span className="card-title cyan-text" style={{fontWeight: "400"}}><b>{ course.name }</b></span>
                       <p>授课老师: { nameList }</p>
@@ -109,11 +117,7 @@ class StudentCourseList extends React.Component {
 
     return(
       <div>
-        <Row className="no-margin">
-          <Col m={12}>
-            {title}
-          </Col>
-        </Row>
+        {title}
         <Row>
           {content}
         </Row>

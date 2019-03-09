@@ -194,6 +194,7 @@ export const activate = (user) => {
     axios.post(`/users/${user.id}/activate`, user)
       .then((response) => {
         history.push('/login');
+        window.Materialize.toast(`账号激活成功, 欢迎来到Lighters绘说英语! 请试用新密码登录`, 3000, 'green');
       })
       .catch((err) => {
         dispatch({type: LOGIN_USER_FAILURE, payload: err.response.data});

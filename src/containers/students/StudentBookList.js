@@ -7,12 +7,8 @@ import BookList from '../../containers/books/BookList';
 class StudentBookList extends React.Component {
 
   render() {
-    let bookContent = <div className="card white r-box-shadow">
-                        <div className="card-content">
-                          <h4 className="center">当前没有绘本</h4>
-                        </div>
-                      </div>
-
+    let bookContent = <h5 className="center">当前没有绘本</h5>
+                        
     if(this.props.books.length > 0) {
       bookContent = <PaginationContainer 
                       itemsPerPage={10} 
@@ -26,6 +22,7 @@ class StudentBookList extends React.Component {
     return (
       <div>
         <div className="no-margin">
+          <h6>当前所有绘本</h6>
           <Row>
             <div className="card white r-box-shadow">
               <div className="card-content">

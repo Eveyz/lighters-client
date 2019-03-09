@@ -147,3 +147,5 @@ export const CLASS_LEVEL_RANK = {
 }
 
 export const TEACHER_LEVEL = ["1级", "2级", "3级", "4级", "5级", "6级", "7级", "8级", "9级", "10级", "11级", "12级"]
+
+export const COURSE_TOP_BAR_COLOR = [{"backgroundColor": "rgb(147, 133, 245)"}, {"backgroundColor": "rgb(45, 170, 166)"}, {"backgroundColor": "rgb(45, 170, 166)"}]

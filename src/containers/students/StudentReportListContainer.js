@@ -22,6 +22,7 @@ class StudentReportListContainer extends React.Component {
     return(
       <div>
         <div className="no-margin">
+          <h6>当前所有课程回馈表</h6>
           <Row>
             <div className="card white r-box-shadow">
               <div className="card-content">
