@@ -30,6 +30,7 @@ export default (state = initialState, action = {}) => {
     case 'GET_COURSES_SIZE':
       return {
         currentCourse: state.currentCourse,
+        searchStudent: state.searchStudent,
         courses: [...state.courses],
         count: action.payload
       }

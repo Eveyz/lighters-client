@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-materialize';
 
 import { addStudent, deleteStudent, switchMode } from "../../actions/courses_actions";
-import '../../css/App.css';
+import { getStudents } from '../../actions/students_actions';
+import { setLoadingStatus } from '../../actions/status_actions';
+
+import Loading from '../../components/Loading';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
@@ -14,6 +17,10 @@ class CourseAddStudents extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      search: false
+    }
+
     this.name = React.createRef();
 
     this.switchMode = this.switchMode.bind(this);
@@ -21,13 +28,25 @@ class CourseAddStudents extends React.Component {
     this.addStudent = this.addStudent.bind(this);
   }
 
+  componentWillMount() {
+    this.props.setLoadingStatus(true)
+    this.props.getStudents()
+  }
+
+  componentDidMount() {
+    this.props.setLoadingStatus(false)
+  }
+
   addStudent(studentID) {
 
   }
 
   switchMode() {
-    let mode = this.props.search ? false : true;
-    this.props.switchMode(mode);
+    // let mode = this.state.search ? false : true;
+    // this.props.switchMode(mode);
+    this.setState({
+      search: !this.state.search
+    })
   }
 
   searchName() {
@@ -62,7 +81,7 @@ class CourseAddStudents extends React.Component {
       allStudentsList = <ul className="collection">{studentsList}</ul>
     }
 
-    let widget = this.props.search ? 
+    let widget = this.state.search ? 
       <div>
         <nav>
           <div className="nav-wrapper blue-grey">
@@ -102,25 +121,30 @@ class CourseAddStudents extends React.Component {
               </div>
             </div>
             
-            <div className="row">
-              <div className="col s12 m12">
-                <div className="card">
-                  <div className="card-content">
+            {
+              this.props.loading ? 
+                <Loading /> 
+                :
+                <div className="row">
+                  <div className="col s12 m12">
+                    <div className="card">
+                      <div className="card-content">
 
-                    <div className="switch">
-                      <label>
-                        搜索
-                        <input type="checkbox" onChange={this.switchMode.bind(this)} />
-                        <span className="lever"></span>
-                        浏览
-                      </label>
+                        <div className="switch">
+                          <label>
+                            浏览
+                            <input type="checkbox" onChange={this.switchMode.bind(this)} />
+                            <span className="lever"></span>
+                            搜索
+                          </label>
+                        </div>
+                        <br/>
+                        {widget}
+                      </div>
                     </div>
-                    <br/>
-                    {widget}
                   </div>
                 </div>
-              </div>
-            </div>
+            }
 
           </div>
         </div>
@@ -136,7 +160,8 @@ const mapStateToProps = state => {
     course: state.coursesData.currentCourse,
     search: state.coursesData.searchStudent,
     courses: state.coursesData.courses,
-    students: state.studentsData.students
+    students: state.studentsData.students,
+    loading: state.status.loading
   };
 }
 
@@ -144,6 +169,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   // Whenever search is called, the result should be passed to all reducers
   return {
+    setLoadingStatus: (status) => dispatch(setLoadingStatus(status)),
+    getStudents: () => dispatch(getStudents()),
     addStudent: () => dispatch(addStudent()),
     deleteStudent: () => dispatch(deleteStudent()),
     switchMode: (mode) => dispatch(switchMode(mode))
