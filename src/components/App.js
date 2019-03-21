@@ -11,40 +11,45 @@ import { AdminRoute, TeacherRoute, StudentRoute, PrivateRoute } from './auth/req
 import { sessionExpired } from '../actions/users_actions'
 
 // Components
-import Home from './layouts/Home';
-import CourseHierarchy from './mainpages/courseHierarchy';
-import LoginForm from '../containers/users/LoginForm';
-import SignupForm from '../containers/users/SignupForm';
-import Dashboard from '../containers/users/admin/dashboard';
-import BookListContainer from '../containers/books/BookListContainer';
-import NewBook from '../components/books/NewBook';
-import EditBook from '../components/books/EditBook';
-import ViewBook from '../components/books/ViewBook';
-import CourseList from '../containers/courses/CourseList';
-import AddCourse from '../containers/courses/AddCourse';
-import EditCourse from '../containers/courses/EditCourse';
-import CourseAddStudent from '../containers/courses/AddStudent';
-import CourseAddBook from '../containers/courses/AddBook';
-import StudentList from '../containers/students/StudentList';
-import NewStudent from '../containers/students/NewStudent';
-import TeacherList from '../containers/teachers/TeacherList';
-import NewTeacher from '../containers/teachers/NewTeacher';
-import TeacherDashboard from '../containers/teachers/TeacherDashboard';
-import ShowTeacher from '../containers/teachers/ShowTeacher';
-import TeacherProfile from '../components/teachers/TeacherProfile';
-import TeacherCourseManager from '../containers/teachers/TeacherCourseManager';
-import ReportFormContainer from '../containers/reports/ReportFormContainer';
-import AllReports from '../containers/reports/AllReports';
-import ViewReport from '../containers/reports/ViewReport';
-import StudentDashboard from '../containers/students/StudentDashboard';
-import StudentProfile from '../components/students/StudentProfile';
-import ShowStudent from '../containers/students/ShowStudent';
-import AssetsDashboard from '../containers/assets/AssetsDashboard';
-import AdminTeacherNew from '../containers/users/admin/teachers/AdminTeacherNew';
-import AdminTeacherEdit from '../containers/users/admin/teachers/AdminTeacherEdit';
-import AdminStudentNew from '../containers/users/admin/students/AdminStudentNew';
-import AdminStudentEdit from '../containers/users/admin/students/AdminStudentEdit';
-import ActivateUser from '../containers/users/activate/ActivateUser';
+import asyncComponent from '../components/AsyncComponent';
+
+// const Home = asyncComponent(() => import('./layouts/Home'))
+const Home = asyncComponent(() => import("./layouts/Home"));
+
+// import Home from './layouts/Home';
+const CourseHierarchy = asyncComponent(() => import('./mainpages/courseHierarchy'));
+const  LoginForm = asyncComponent(() => import('../containers/users/LoginForm'));
+const SignupForm = asyncComponent(() => import('../containers/users/SignupForm'));
+const Dashboard = asyncComponent(() => import('../containers/users/admin/dashboard'));
+const BookListContainer = asyncComponent(() => import('../containers/books/BookListContainer'));
+const NewBook = asyncComponent(() => import('../components/books/NewBook'));
+const EditBook = asyncComponent(() => import('../components/books/EditBook'));
+const ViewBook = asyncComponent(() => import('../components/books/ViewBook'));
+const CourseList = asyncComponent(() => import('../containers/courses/CourseList'));
+const AddCourse = asyncComponent(() => import('../containers/courses/AddCourse'));
+const EditCourse = asyncComponent(() => import('../containers/courses/EditCourse'));
+const CourseAddStudent = asyncComponent(() => import('../containers/courses/AddStudent'));
+const CourseAddBook = asyncComponent(() => import('../containers/courses/AddBook'));
+const StudentList = asyncComponent(() => import('../containers/students/StudentList'));
+const NewStudent = asyncComponent(() => import('../containers/students/NewStudent'));
+const TeacherList = asyncComponent(() => import('../containers/teachers/TeacherList'));
+const NewTeacher = asyncComponent(() => import('../containers/teachers/NewTeacher'));
+const TeacherDashboard = asyncComponent(() => import('../containers/teachers/TeacherDashboard'));
+const ShowTeacher = asyncComponent(() => import('../containers/teachers/ShowTeacher'));
+const TeacherProfile = asyncComponent(() => import('../components/teachers/TeacherProfile'));
+const TeacherCourseManager = asyncComponent(() => import('../containers/teachers/TeacherCourseManager'));
+const ReportFormContainer = asyncComponent(() => import('../containers/reports/ReportFormContainer'));
+const AllReports = asyncComponent(() => import('../containers/reports/AllReports'));
+const ViewReport = asyncComponent(() => import('../containers/reports/ViewReport'));
+const StudentDashboard = asyncComponent(() => import('../containers/students/StudentDashboard'));
+const StudentProfile = asyncComponent(() => import('../components/students/StudentProfile'));
+const ShowStudent = asyncComponent(() => import('../containers/students/ShowStudent'));
+const AssetsDashboard = asyncComponent(() => import('../containers/assets/AssetsDashboard'));
+const AdminTeacherNew = asyncComponent(() => import('../containers/users/admin/teachers/AdminTeacherNew'));
+const AdminTeacherEdit = asyncComponent(() => import('../containers/users/admin/teachers/AdminTeacherEdit'));
+const AdminStudentNew = asyncComponent(() => import('../containers/users/admin/students/AdminStudentNew'));
+const AdminStudentEdit = asyncComponent(() => import('../containers/users/admin/students/AdminStudentEdit'));
+const ActivateUser = asyncComponent(() => import('../containers/users/activate/ActivateUser'));
 
 class App extends Component {
   

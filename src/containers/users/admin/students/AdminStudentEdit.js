@@ -6,19 +6,35 @@ import Footer from '../../../../components/layouts/Footer';
 import M from 'materialize-css';
 
 import AdminStudentNewWithFormik from './AdminStudentNewWithFormik';
+import Loading from '../../../../components/Loading';
 
+import { setLoadingStatus } from '../../../../actions/status_actions';
 import { getStudentData } from '../../../../actions/students_actions';
 
 class AdminStudentEdit extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   componentWillMount() {
-    this.props.getStudentData(this.props.match.params._id)
+    this.props.setLoadingStatus(true)
+  }
+
+  componentDidUpdate() {
+    M.updateTextFields()
   }
 
   componentDidMount() {
-    M.updateTextFields();
+    this.props.getStudentData(this.props.match.params._id)
+    M.updateTextFields()
   }
 
   render() {
+    
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     return (
       <div>
         <Header />
@@ -49,12 +65,16 @@ class AdminStudentEdit extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    student: state.studentsData.currentStudent
+    student: state.studentsData.currentStudent,
+    isLoading: state.status.loading
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     getStudentData: (id) => dispatch(getStudentData(id))
   };
 }
