@@ -12,9 +12,6 @@ import { setLoadingStatus } from '../../../../actions/status_actions';
 import { getStudentData } from '../../../../actions/students_actions';
 
 class AdminStudentEdit extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentWillMount() {
     this.props.setLoadingStatus(true)

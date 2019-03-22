@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { GET_TEACHERS, GET_TEACHERS_FAILURE, ADD_TEACHER, ADD_TEACHER_FAILURE, UPDATE_TEACHER, UPDATE_TEACHER_FAILURE, GET_TEACHER_FAILURE, GET_ACTIVE_TEACHERS_FAILURE, GET_REPORTS, GET_REPORTS_FAILURE, SELECT_TEACHER, GET_COURSES, GET_COURSES_FAILURE } from './constants';
+import { GET_TEACHERS, GET_TEACHERS_FAILURE, ADD_TEACHER, ADD_TEACHER_FAILURE, UPDATE_TEACHER, UPDATE_TEACHER_FAILURE, GET_TEACHER_FAILURE, GET_ACTIVE_TEACHERS_FAILURE, GET_REPORTS, GET_REPORTS_FAILURE, SELECT_TEACHER, GET_COURSES, GET_COURSES_FAILURE, SET_LOADING_STATUS } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getTeacher = (id) => {
@@ -20,6 +20,7 @@ export const getTeacherData = (id) => {
     axios.get(`/teachers/${id}`)
       .then((response) => {
         dispatch({type: SELECT_TEACHER, payload: response.data})
+        dispatch({type: SET_LOADING_STATUS, payload: false})
       })
       .catch((err) => {
         dispatch({type: GET_TEACHER_FAILURE, payload: err})

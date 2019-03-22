@@ -6,19 +6,32 @@ import Footer from '../../../../components/layouts/Footer';
 import M from 'materialize-css';
 
 import AdminTeacherNewWithFormik from './AdminTeacherNewWithFormik';
+import Loading from '../../../../components/Loading';
 
+import { setLoadingStatus } from '../../../../actions/status_actions';
 import { getTeacherData } from '../../../../actions/teachers_actions';
 
 class AdminTeacherEdit extends React.Component {
+
   componentWillMount() {
-    this.props.getTeacherData(this.props.match.params._id)
+    this.props.setLoadingStatus(true)
+  }
+
+  componentDidUpdate() {
+    M.updateTextFields()
   }
 
   componentDidMount() {
-    M.updateTextFields();
+    this.props.getTeacherData(this.props.match.params._id)
+    M.updateTextFields()
   }
 
   render() {
+
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     return (
       <div>
         <Header />
@@ -50,12 +63,16 @@ class AdminTeacherEdit extends React.Component {
 const mapStateToProps = state => {
   // this.props.search
   return {
-    teacher: state.teachersData.currentTeacher
+    teacher: state.teachersData.currentTeacher,
+    isLoading: state.status.loading
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     getTeacherData: (id) => dispatch(getTeacherData(id))
   };
 }
