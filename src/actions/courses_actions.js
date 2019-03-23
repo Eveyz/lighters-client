@@ -8,11 +8,11 @@ import { GET_COURSES, GET_COURSES_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDAT
 export const selectCourse = (course, path) => {
   return (dispatch) => {
     dispatch({type: SELECT_COURSE, payload: course});
-    if(store.getState().auth.user.userTokenData.identity !== "admin") {
-      dispatch({type: GROUPED_BOOKS, payload: groupBooks(course.books)});
-    }
+    // if(store.getState().auth.user.userTokenData.identity !== "admin") {
+    //   dispatch({type: GROUPED_BOOKS, payload: groupBooks(course.books)})
+    // }
     if(path) {
-      history.push(path);
+      history.push(path)
     }
   }
 }
@@ -25,7 +25,7 @@ export const getCourses = () => {
       })
       .catch(function(err){
         dispatch({type: GET_COURSES_FAILURE, payload: err})
-        history.push('/');
+        history.push('/')
       })
   }
 };

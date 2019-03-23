@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../history';
 
-import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, COPY_REPORT, COPY_REPORT_FAILURE, REMOVE_UPLOADED_FILE } from './constants';
+import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, COPY_REPORT, COPY_REPORT_FAILURE, REMOVE_UPLOADED_FILE, SET_LOADING_STATUS } from './constants';
 
 import { updateBooks } from './select_book_actions';
 
@@ -21,6 +21,7 @@ export const getReports = (course_id, student_id, teacher_id) => {
   return (dispatch) => {
     axios.get(url).then((response) => {
       dispatch({type: GET_REPORTS, payload: response.data})
+      dispatch({type: SET_LOADING_STATUS, payload: false})
     }).catch((err) => {
       dispatch({type: GET_REPORTS_FAILURE, payload: "there was an error while fetching reports"})
     })

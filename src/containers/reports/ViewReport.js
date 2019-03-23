@@ -62,6 +62,8 @@ class ViewReport extends React.Component {
                   <td className="col m2">{row.ratio}</td>
                   <td className="col m3">{row.keywords}</td>
                 </tr>
+      } else {
+        return null
       }
     })
 
