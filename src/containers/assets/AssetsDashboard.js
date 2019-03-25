@@ -9,6 +9,7 @@ import Transactions from './transactions/Transactions';
 import Tuitions from './tuitions/tuitions';
 import TeacherRates from './rates/TeacherRates';
 import Profit from './profit/Profit';
+import Loading from '../../components/Loading';
 
 import { getLevelSalaries } from '../../actions/level_salary_actions';
 import { setLoadingStatus } from "../../actions/status_actions";
@@ -20,6 +21,10 @@ class AssetsDashboard extends React.Component {
   }
 
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     let content = ""
     let active = ""
     let path = ""
@@ -90,6 +95,7 @@ class AssetsDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    isLoading: state.status.loading,
     lowBalanceStudentsNum: state.studentsData.lowBalanceStudents.length
   };
 }

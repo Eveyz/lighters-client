@@ -23,7 +23,7 @@ class ProfitList extends React.Component {
                             <td>{report.updated_at}</td>
                             <td>{report.teacher_id.englishname}</td>
                             <td>{report.student_id.englishname}</td>
-                            <td className={cls}>{profit}</td>
+                            <td className={cls}>{profit.toFixed(2)}</td>
                           </tr>)
         }
       })

@@ -5,6 +5,8 @@ import _ from 'lodash';
 import { CLASS_LEVEL_RANK } from '../../ultis';
 
 import EntryInputForm from './EntryInputForm';
+import Loading from '../../components/Loading';
+import { setLoadingStatus } from '../../actions/status_actions';
 import { addLevelSalary, updateLevelSalary, deleteLevelSalary } from '../../actions/level_salary_actions';
 
 class LevelandSalary extends React.Component {
@@ -12,6 +14,14 @@ class LevelandSalary extends React.Component {
     show: false,
     action: "NEW",
     entry: {}
+  }
+
+  componentWillMount() {
+    this.props.setLoadingStatus(true)
+  }
+
+  componentDidMount() {
+    this.props.setLoadingStatus(false)
   }
 
   toggleEdit = (entry) => e => {
@@ -34,6 +44,10 @@ class LevelandSalary extends React.Component {
   }
 
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     let showInput = this.state.show ? <EntryInputForm action={this.state.action} entry={this.state.entry} onSubmit={this.onSubmit} cancel={this.onSubmit} /> : ""
     let btn = this.state.show ? "" : <button className="btn" onClick={this.toggleShow}>新建条目</button>
 
@@ -94,6 +108,7 @@ class LevelandSalary extends React.Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    isLoading: state.status.loading,
     entries: _(state.levelSalary.levelSalaries).chain().sortBy(function(ls) {
                 return CLASS_LEVEL_RANK[ls.course_level];
             }).sortBy(function(ls) {
@@ -106,6 +121,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (isLoading) => {
+      dispatch(setLoadingStatus(isLoading))
+    },
     addEntry: (entry) => {
       dispatch(addLevelSalary(entry))
     },

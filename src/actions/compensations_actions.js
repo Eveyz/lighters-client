@@ -3,7 +3,7 @@ import axios from 'axios';
 import { GET_COMPENSATIONS, GET_COMPENSATIONS_FAILURE, ADD_COMPENSATION, ADD_COMPENSATION_FAILURE, UPDATE_COMPENSATION, UPDATE_COMPENSATION_FAILURE, DELETE_COMPENSATION, DELETE_COMPENSATION_FAILURE } from './constants';
 
 export const getCompensations = (query) => {
-  let url = query ? `/compensations/?${query}` : `/compensations`;
+  let url = query ? `/compensations/${query}` : `/compensations`;
   return (dispatch) => {
     axios.get(url).then((response) => {
       dispatch({type: GET_COMPENSATIONS, payload: response.data})

@@ -36,14 +36,17 @@ class Student extends React.Component {
       classes = "btn green";
     }
 
+    const cls = this.props.student.tuition_amount < 0 ? "red-text" : null
+
     if(this.props.tab === "RESET_REQUIRED") {
       return (
         <tr>
           <td><Link to={`/students/${this.props.student._id}/view`}><span className="airbnb-font">{this.props.student.englishname}</span></Link></td>
           <td>{this.props.student.lastname + this.props.student.firstname}</td>
           <td>{this.props.student.age}</td>
+          <td className={cls}>{this.props.student.tuition_amount}</td>
           <td>{this.props.student.gender}</td>
-          <td>{`${this.props.student.systemid}`}</td>
+          <td>{this.props.student.city}</td>
           <td>{this.props.student.systemid}</td>
           <td>
             <a ref={this.dropdown} className='dropdown-trigger btn blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
@@ -64,8 +67,9 @@ class Student extends React.Component {
         <td><Link to={`/students/${this.props.student._id}/view`}><span className="airbnb-font">{this.props.student.englishname}</span></Link></td>
         <td>{this.props.student.lastname + this.props.student.firstname}</td>
         <td>{this.props.student.age}</td>
-        <td>{this.props.student.birthday}</td>
+        <td className={cls}>{this.props.student.tuition_amount}</td>
         <td>{this.props.student.gender}</td>
+        <td>{this.props.student.city}</td>
         <td><button className={classes} onClick={this.updateStudent}>{action}</button></td>
         <td>
           <a ref={this.dropdown} className='dropdown-trigger btn cyan' href='' data-target={this.props.id}>更多操作</a>

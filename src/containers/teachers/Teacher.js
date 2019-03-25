@@ -79,6 +79,7 @@ class Teacher extends React.Component {
         <td>{this.props.teacher.age}</td>
         <td>{`${this.props.teacher.level}级`}</td>
         <td>{this.props.teacher.gender}</td>
+        <td>{this.props.teacher.city}</td>
         <td><button className={classes} onClick={this.updateTeacher("STATUS")}>{action}</button></td>
         <td>
           <a ref={this.dropdown} className='dropdown-trigger btn blue-grey bold' href='' data-target={this.props.id}>更多操作</a>

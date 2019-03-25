@@ -13,10 +13,10 @@ class CompensationList extends React.Component {
     if(this.props.data.length > 0) {
       compensationList = this.props.data.map((compensation, idx) => {
         let cls = "red-text"
-        let _amount = `-${compensation.amount}`
+        let _amount = `-${compensation.amount.toFixed(2)}`
         if(compensation.type === "罚款") {
           cls = "green-text"
-          _amount = `${compensation.amount}`
+          _amount = `${compensation.amount.toFixed(2)}`
         }
         return <tr key={idx}>
                 <td>{compensation.type}</td>
@@ -28,7 +28,7 @@ class CompensationList extends React.Component {
                         <thead>
                           <tr>
                             <th>类型</th>
-                            <th>金额</th>
+                            <th>金额(元)</th>
                             <th>备忘录</th>
                           </tr>
                         </thead>

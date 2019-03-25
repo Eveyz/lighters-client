@@ -5,15 +5,94 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
+import Loading from '../../components/Loading';
 
 import { getStudentData, updateStudent } from '../../actions/students_actions';
+import { setLoadingStatus } from '../../actions/status_actions';
+import { getReportCredit } from '../../ultis';
 
 class ShowStudent extends React.Component {
   componentWillMount() {
+    this.props.setLoadingStatus(true)
     this.props.getStudentData(this.props.match.params._id)
   }
 
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
+    const cls = this.props.student.tuition_amount < 0 ? "red-text" : "green-text"
+
+    var coursesHistory = <h5 className="center">没有上课记录</h5>
+    
+    var charges = []
+    if(this.props.student.courses.length > 0) {
+      var coursesList = []
+      this.props.student.courses.forEach((course, index) => {
+        course.reports.forEach((report, idx) => {
+          const charge = (getReportCredit(report.situation) * course.course_rate).toFixed(2)
+          charges.push(charge)
+          coursesList.push(<tr key={`course-${index}-report-${idx}`}>
+                              <td>{course.name}</td>
+                              <td>{report.teacher_id.lastname + report.teacher_id.firstname}</td>
+                              <td>{report.course_date}</td>
+                              <td>{course.course_rate}</td>
+                              <td>{report.situation}</td>
+                              <td>{charge}</td>
+                            </tr>)
+        })
+      })
+
+      coursesHistory = <table className="highlight">
+                        <thead>
+                          <tr>
+                            <th>课程名称</th>
+                            <th>教师</th>
+                            <th>上课日期</th>
+                            <th>课时费(元)</th>
+                            <th>上课情况</th>
+                            <th>实际收费(元)</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {coursesList}
+                        </tbody>
+                      </table>
+    }
+
+    var tuitionHistory = <h5 className="center">没有缴费记录</h5>
+    
+    var sum = 0
+    if(this.props.student.tuitions.length > 0) {
+      var tuiitionsList = this.props.student.tuitions.map((tuition, index) => {
+        sum += tuition.amount
+        return <tr key={index}>
+                  <td>{tuition.amount.toFixed(2)}</td>
+                  <td>{tuition.created_at}</td>
+                </tr>
+      })
+      tuitionHistory = <table className="highlight">
+                        <thead>
+                          <tr>
+                            <th>课时费(元)</th>
+                            <th>时间</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {tuiitionsList}
+                        </tbody>
+                      </table>
+    }
+
+
+    var remain = sum
+    charges.forEach(charge => {
+      remain -= charge
+    })
+
     return(
       <div>
         <Header />
@@ -27,11 +106,28 @@ class ShowStudent extends React.Component {
                 <h6>名字: { this.props.student.lastname}{this.props.student.firstname}</h6>
                 <h6>英文名字: {this.props.student.englishname}</h6>
                 <h6>性别: {this.props.student.gender}</h6>
-                <h6>课时费: {this.props.student.tuition_amount}元</h6>
+                <h6>课时费余额(元): <span className={cls}> {this.props.student.tuition_amount.toFixed(2)}</span></h6>
+                <Link to={`/admin/students/${this.props.student._id}/edit`} className="btn">编辑</Link>
               </div>
             </div>
           </div>
-          <Link to={`/admin/students/${this.props.student._id}/edit`} className="btn">编辑</Link>
+          <div className="col s12 m12">
+            <div className="card r-box-shadow">
+              <div className="card-content">
+                <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>缴费记录 (总额: <span className={cls}>{sum.toFixed(2)}</span>元)</b></span>
+                {tuitionHistory}
+              </div>
+            </div>
+          </div>
+          <div className="col s12 m12">
+            <div className="card r-box-shadow">
+              <div className="card-content">
+                <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>上课记录</b></span>
+                {coursesHistory}
+                <h5>余额总计(元): <span className={cls}>{remain.toFixed(2)}</span></h5>
+              </div>
+            </div>
+          </div>
         </div>
         <Footer />
       </div>
@@ -41,12 +137,16 @@ class ShowStudent extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    student: state.studentsData.currentStudent
+    student: state.studentsData.currentStudent,
+    isLoading: state.status.loading
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     getStudentData: (id) => dispatch(getStudentData(id)),
     updateStudent: (id, field) => dispatch(updateStudent(id, field))
   };

@@ -5,16 +5,23 @@ import { connect } from 'react-redux';
 import { getTransactions } from '../../../actions/transactions_actions';
 import { getPaychecks } from '../../../actions/paychecks_actions';
 import { setMode } from '../../../actions/mode_action';
+import { setLoadingStatus } from '../../../actions/status_actions';
 import { sortTransactionsByDate } from '../../../ultis';
 import TransactionForm from './TransactionForm';
 import TransactionList from './TransactionList';
+import Loading from '../../../components/Loading';
 
 class Transactions extends React.Component {
 
   componentWillMount() {
+    this.props.setLoadingStatus(true)
     this.props.setMode("TRANSACTION_LIST")
     this.props.getTransactions(`?`)
     this.props.getPaychecks(`?paid=${true}`)
+  }
+
+  componentDidMount() {
+    this.props.setLoadingStatus(false)
   }
 
   setMode = () => {
@@ -22,6 +29,10 @@ class Transactions extends React.Component {
   }
 
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     let content = ""
 
     switch (this.props.mode) {
@@ -89,6 +100,7 @@ const mapStateToProps = state => {
   return {
     auth: state.auth,
     // transaction: state.transactionsData.transaction,
+    isLoading: state.status.loading,
     transactions: _transactions,
     mode: state.mode.value,
   };
@@ -96,6 +108,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (isLoading) => {
+      dispatch(setLoadingStatus(isLoading))
+    },
     setMode: (mode) => {
       dispatch(setMode(mode))
     },

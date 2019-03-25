@@ -94,7 +94,7 @@ class TeacherDashboard extends React.Component {
           return <tr key={idx} className="clickable" onClick={this.clickCourse(course)}>
                   <td>{course.name}</td>
                   <td>{course.level}</td>
-                  <td>{course.reports.length}</td>
+                  <td>{course.count}</td>
                 </tr>
         })
         inactive_courses_widget = 
@@ -181,13 +181,13 @@ class TeacherDashboard extends React.Component {
                 <div className="row">
                   <div className="col m12">
                     <div className="row no-margin">
-                      <h4 className="cyan-text"><b>课程</b></h4>
+                      <h5 className="cyan-text"><b>课程</b></h5>
                     </div>
                     <div className="row">
                       {courses}
                     </div>
                     <div className="row">
-                      <h4 className="grey-text"><b>往期课程</b></h4>
+                      <h5 className="grey-text"><b>往期课程</b></h5>
                     </div>
                     <div className="row no-margin">
                       {inactive_courses_widget}

@@ -67,7 +67,7 @@ class Compensation extends React.Component {
     let button = this.state.add || this.props.paid ? "" : <button onClick={this.addEntry} className="btn cyan">新增条目</button>
 
     let compensationList = this.props.compensations.map((c, idx) => {
-      let td = c.type !== "罚款" ? <td className="green-text">+{c.amount}</td> : <td className="red-text">-{c.amount}</td>
+      let td = c.type !== "罚款" ? <td className="green-text">+{c.amount.toFixed(2)}</td> : <td className="red-text">-{c.amount.toFixed(2)}</td>
 
       if(this.props.paid) {
         return  <tr key={idx} className="action-hide">

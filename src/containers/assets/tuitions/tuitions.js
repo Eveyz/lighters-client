@@ -1,10 +1,14 @@
 import React from 'react';
 import { Row, Col, Card } from 'react-materialize';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import TuitionInputForm from './TuitionInputForm';
+import Loading from '../../../components/Loading';
+
 import { getTuitions, addTuition, updateTuition, deleteTuition } from '../../../actions/tuitions_actions';
 import { getStudentsWithLowBalance } from '../../../actions/students_actions'
+import { setLoadingStatus } from '../../../actions/status_actions';
 
 class Tuitions extends React.Component {
   state = {
@@ -14,8 +18,13 @@ class Tuitions extends React.Component {
   }
 
   componentWillMount() {
+    this.props.setLoadingStatus(true)
     this.props.getTuitions()
     this.props.getStudentsWithLowBalance()
+  }
+
+  componentDidMount() {
+    this.props.setLoadingStatus(false)
   }
 
   toggleEdit = (tuition) => e => {
@@ -38,6 +47,10 @@ class Tuitions extends React.Component {
   }
 
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     let showInput = this.state.show ? <TuitionInputForm action={this.state.action} tuition={this.state.tuition} students={this.props.students} onSubmit={this.onSubmit} cancel={this.onSubmit} /> : ""
     let btn = this.state.show ? "" : <button className="btn" onClick={this.toggleShow}>新建条目</button>
 
@@ -46,8 +59,8 @@ class Tuitions extends React.Component {
     if(this.props.tuitions.length > 0 && !this.state.show) {
       tuitionsList = this.props.tuitions.map((tuition, idx) => {
         return <tr key={idx}>
-                  <td>{tuition.student_id.englishname}</td>
-                  <td>{tuition.amount}</td>
+                  <td><Link target="_blank" to={`/students/${tuition.student_id._id}/view`}><span className="airbnb-font">{tuition.student_id.englishname}</span></Link></td>
+                  <td>{tuition.amount.toFixed(2)}</td>
                   <td>
                     <button className="btn cyan" onClick={this.toggleEdit(tuition)}>编辑</button>
                   </td>
@@ -77,8 +90,8 @@ class Tuitions extends React.Component {
     if(this.props.lowBalanceStudents.length > 0) {
       studentsList = this.props.lowBalanceStudents.map((student, idx) => {
         return <tr key={idx}>
-                  <td>{student.name}</td>
-                  <td className="red-text">{student.tuition_amount}</td>
+                  <td><Link target="_blank" to={`/students/${student.id}/view`}><span className="airbnb-font">{student.name}</span></Link></td>
+                  <td className="red-text">{student.tuition_amount.toFixed(2)}</td>
                </tr>
       })
       studentsTable = <table className="highlight">
@@ -103,9 +116,8 @@ class Tuitions extends React.Component {
             <hr/>
             {studentsTable}
             <br/>
-            <h6 className="airbnb-font bold">学生学费</h6>
+            <h6 className="airbnb-font bold">学生已缴学费</h6>
             <hr/>
-            <br/>
             {btn}
             {showInput}
             <br/>
@@ -121,6 +133,7 @@ class Tuitions extends React.Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    isLoading: state.status.loading,
     tuitions: state.tuitionsData.tuitions,
     students: state.studentsData.students.map(student => {
       return {id: student._id, name: student.englishname, firstname: student.firstname, lastname: student.lastname, tuition_amount: student.tuition_amount}
@@ -133,6 +146,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (isLoading) => {
+      dispatch(setLoadingStatus(isLoading))
+    },
     getTuitions: (query) => {
       dispatch(getTuitions(query))
     },

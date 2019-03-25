@@ -73,6 +73,7 @@ class TeacherList extends React.Component {
                                         <th>年龄</th>
                                         <th>级别</th>
                                         <th>性别</th>
+                                        <th>城市</th>
                                         <th>更改状态</th>
                                         <th>更多操作</th>
                                       </tr>
@@ -98,6 +99,7 @@ class TeacherList extends React.Component {
                                         <th>年龄</th>
                                         <th>级别</th>
                                         <th>性别</th>
+                                        <th>城市</th>
                                         <th>更改状态</th>
                                         <th>更多操作</th>
                                       </tr>

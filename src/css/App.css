@@ -26,6 +26,16 @@
   visibility: hidden;
 }
 
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-overflow:hover {
+  overflow: visible;
+}
+
 .display-none {
   display: none;
 }

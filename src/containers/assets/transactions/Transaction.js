@@ -2,7 +2,7 @@ import React from 'react';
 
 class Transaction extends React.Component {
   render() {
-    let td = this.props.transaction.status === "IN" ? <td className="green-text bold">+{this.props.transaction.amount}</td> : <td className="red-text bold">-{this.props.transaction.amount}</td>
+    let td = this.props.transaction.status === "IN" ? <td className="green-text bold">+{this.props.transaction.amount.toFixed(2)}</td> : <td className="red-text bold">-{this.props.transaction.amount.toFixed(2)}</td>
 
     let date = new Date(this.props.transaction.created_at)
 

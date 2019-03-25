@@ -134,6 +134,14 @@ export const getReportCredit = (situation) => {
 
 export const CLASS_TYPE = ["一对一", "一对二", "一对三", "一对四", "一对五"]
 
+export const CLASS_TYPE_RANK = {
+  "一对一": 0, 
+  "一对二": 1, 
+  "一对三": 2, 
+  "一对四": 3, 
+  "一对五": 4,
+}
+
 export const CLASS_LEVEL = ["启蒙", "起步", "初级上", "初级下", "中级上", "中级下", "中高级", "高级"]
 
 export const CLASS_LEVEL_RANK = {

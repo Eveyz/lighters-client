@@ -4,20 +4,30 @@ import { connect } from 'react-redux';
 
 import { getAllReports } from '../../../actions/reports_actions'
 import { getCompensations } from '../../../actions/compensations_actions'
+import { setLoadingStatus } from '../../../actions/status_actions';
+
 import PaginationContainer from '../../PaginationContainer'
 import ProfitList from './ProfitList'
 import CompensationList from './CompensationList'
-
+import Loading from '../../../components/Loading';
 import { getReportCredit } from '../../../ultis'
 
 class Profit extends React.Component {
   
   componentWillMount() {
+    this.props.setLoadingStatus(true)
     this.props.getAllReports()
     this.props.getCompensations()
   }
 
+  componentDidMount() {
+    this.props.setLoadingStatus(false)
+  }
+
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
     // profit = 每个课程的单价 course.course_rate - 每张反馈表老师得到的钱 report.amout
     var sum = 0
     let reportContent = <div className="col m12">
@@ -43,13 +53,7 @@ class Profit extends React.Component {
                       </PaginationContainer>
     }
 
-    let compensationContent = <div className="col m12">
-                                <div className="card white r-box-shadow">
-                                  <div className="card-content">
-                                    <h4 className="center">当前没有补助或者罚款</h4>
-                                  </div>
-                                </div>
-                              </div>
+    let compensationContent = <h4 className="center">当前没有补助或者罚款</h4>
     if(this.props.compensations.length > 0) {
       this.props.compensations.forEach((compensation, idx) => {
         if(compensation.type === "罚款") sum += compensation.amount
@@ -86,6 +90,7 @@ class Profit extends React.Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    isLoading: state.status.loading,
     reports: state.reportsData.reports,
     compensations: state.compensationsData.compensations
   };
@@ -93,6 +98,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setLoadingStatus: (isLoading) => {
+      dispatch(setLoadingStatus(isLoading))
+    },
     getAllReports: () => {
       dispatch(getAllReports())
     },
