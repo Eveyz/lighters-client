@@ -5,6 +5,7 @@ import { Modal } from 'react-materialize';
 import M from 'materialize-css';
 
 import { editReport, copyReport, deleteReport } from '../../actions/reports_actions';
+import Working from '../../components/Working';
 
 class ReportRow extends React.Component {
 
@@ -15,7 +16,8 @@ class ReportRow extends React.Component {
       course: '',
       student: '',
       disabled: true,
-      open: false
+      open: false,
+      submit: false
     }
 
     this.course = React.createRef()
@@ -63,10 +65,11 @@ class ReportRow extends React.Component {
     const student_id = this.state.student
     const teacher_id = this.props.teacher_id
     const report_id = this.props.report._id
-    this.props.copyReport(course_id, student_id, teacher_id, report_id)
     this.setState({
-      open: false
+      open: false,
+      submit: true
     })
+    this.props.copyReport(course_id, student_id, teacher_id, report_id)
   }
 
   deleteReport = () => {
@@ -79,6 +82,10 @@ class ReportRow extends React.Component {
   }
 
   render() {
+
+    if(this.state.submit) {
+      return <Working msg="正在复制反馈表, 请耐心等候 :)" />
+    }
 
     let courseOptions = this.props.courses.map((course, idx) => {
       return <option key={idx} value={course.id}>{course.name}</option>
@@ -98,9 +105,8 @@ class ReportRow extends React.Component {
       }
     }
 
-    let btnDisabled = this.state.course && this.state.student ? false : true
-
-    let copyModal = <Modal
+    const btnDisabled = this.state.submit ? true : false
+    const copyModal = <Modal
                       header='复制反馈表'
                       trigger={<i className="material-icons blue-grey-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表">content_copy</i>}>
                       <div style={{minHeight: "200px"}}>

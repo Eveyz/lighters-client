@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
@@ -30,7 +31,9 @@ class ShowStudent extends React.Component {
     if(this.props.student.courses.length > 0) {
       var coursesList = []
       this.props.student.courses.forEach((course, index) => {
-        course.reports.forEach((report, idx) => {
+        _(course.reports).sortBy((report) => {
+          return report.course_date
+        }).value().forEach((report, idx) => {
           const charge = (getReportCredit(report.situation) * course.course_rate).toFixed(2)
           charges.push(charge)
           coursesList.push(<tr key={`course-${index}-report-${idx}`}>
@@ -124,7 +127,7 @@ class ShowStudent extends React.Component {
               <div className="card-content">
                 <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>上课记录</b></span>
                 {coursesHistory}
-                <h5>余额总计(元): <span className={cls}>{remain.toFixed(2)}</span></h5>
+                <h5>余额总计(元): <span className={ remain < 0 ? "red-text" : "green-text"}>{remain.toFixed(2)}</span></h5>
               </div>
             </div>
           </div>

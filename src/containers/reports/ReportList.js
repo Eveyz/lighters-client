@@ -1,11 +1,15 @@
 import React from "react";
-import ReportRow from "./ReportRow";
-
 import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-materialize';
+
+import ReportRow from "./ReportRow";
+import Loading from '../../components/Loading';
+
+import { setLoadingStatus } from '../../actions/status_actions';
 import { selectStudent } from '../../actions/students_actions';
-import { updateBooks } from '../../actions/select_book_actions';
+// import { updateBooks } from '../../actions/select_book_actions';
 import { getTeacherCourses } from '../../actions/teachers_actions';
+import { getReports } from '../../actions/reports_actions';
 
 class ReportList extends React.Component {
   constructor(props) {
@@ -14,14 +18,26 @@ class ReportList extends React.Component {
     this.newReport = this.newReport.bind(this);
   }
 
+  componentWillMount() {
+    this.props.setLoadingStatus(true)
+  }
+
+  componentDidMount() {
+    this.props.getReports(this.props.course_id, this.props.student._id, this.props.teacher_id)
+  }
+
   newReport = () => {
-    let path = "/teachers/" + this.props.user_id + "/new_report";
-    this.props.updateBooks([], [], [])
-    this.props.setStudent(this.props.student, path)
+    // let path = "/teachers/" + this.props.user_id + "/new_report";
+    // this.props.updateBooks([], [], [])
+    // this.props.setStudent(this.props.student, path)
     this.props.getTeacherCourses(this.props.identity._id)
   }
 
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     let reportList = this.props.reports.map((report, idx) => {
       return (
         <ReportRow 
@@ -77,7 +93,11 @@ const mapStateToProps = (state) => {
   return {
     user_id: state.auth.user.userTokenData.id,
     identity: state.auth.identityData,
+    isLoading: state.status.loading,
+    course_id: state.coursesData.currentCourse._id,
+    teacher_id: state.auth.identityData._id,
     student: state.studentsData.currentStudent,
+    reports: state.reportsData.reports,
     courses: state.coursesData.courses.map(course => ({
         id: course._id,
         name: course.name
@@ -88,15 +108,21 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
+    getReports: (course_id, student_id, teacher_id) => {
+      dispatch(getReports(course_id, student_id, teacher_id))
+    },
     getTeacherCourses: (teacher_id) => {
       dispatch(getTeacherCourses(teacher_id))
     },
     setStudent: (student, path) => {
       dispatch(selectStudent(student, path))
     },
-    updateBooks: (review_books, new_books, future_books) => {
-      dispatch(updateBooks(review_books, new_books, future_books))
-    }
+    // updateBooks: (review_books, new_books, future_books) => {
+    //   dispatch(updateBooks(review_books, new_books, future_books))
+    // }
   }
 }
 

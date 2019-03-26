@@ -10,6 +10,7 @@ export const getAllReports = () => {
   return (dispatch) => {
     axios.get(url).then((response) => {
       dispatch({type: GET_REPORTS, payload: response.data})
+      dispatch({type: SET_LOADING_STATUS, payload: false})
     }).catch((err) => {
       dispatch({type: GET_REPORTS_FAILURE, payload: "there was an error while fetching reports"})
     })
@@ -47,6 +48,7 @@ export const addReport = (report, path) => {
       .then((response) => {
         dispatch({type: ADD_REPORT, payload: response.data})
         dispatch({type: SET_CURRENT_REPORT, payload: response.data})
+        dispatch({type: SET_LOADING_STATUS, payload: false})
         history.push(path);
         window.Materialize.toast('成功添加反馈表', 1000, 'green');
       })
@@ -61,7 +63,8 @@ export const copyReport = (course_id, student_id, teacher_id, report_id) => {
   return (dispatch) => {
     axios.get(url).then((response) => {
       dispatch({type: COPY_REPORT, payload: response.data})
-      // history.push(`/teachers/${response.data.teacher_id}/course_manager`)
+      dispatch({type: SET_LOADING_STATUS, payload: false})
+      // history.push(`/teachers/${response.data.teacher_id}/reports`)
       window.location.reload()
       window.Materialize.toast('成功复制反馈表', 1000, 'green');
     }).catch((err) => {
@@ -100,6 +103,7 @@ export const updateReport = (report_id, report, path) => {
     axios.post(`/reports/${report_id}`, data)
     .then((response) => {
       dispatch({type: UPDATE_REPORT, payload: response.data});
+      dispatch({type: SET_LOADING_STATUS, payload: false})
       history.push(path);
       window.Materialize.toast('成功更新反馈表', 1000, 'green');
     })

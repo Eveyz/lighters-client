@@ -44,7 +44,7 @@ export const getActiveTeachers = () => {
   return (dispatch) => {
     axios.get(`/teachers?status=active`)
       .then((response) => {
-        dispatch({type: GET_TEACHERS, payload: response.data});
+        dispatch({type: GET_TEACHERS, payload: response.data})
       })
       .catch((err) => {
         dispatch({type: GET_ACTIVE_TEACHERS_FAILURE, payload: {err: true}})
@@ -105,6 +105,7 @@ export const getTeacherCourses = (teacher_id) => {
     axios.get(`/courses?teacher_id=${teacher_id}`)
       .then((response) => {
         dispatch({type: GET_COURSES, payload: response.data})
+        dispatch({type: SET_LOADING_STATUS, payload: false})
       })
       .catch((err) => {
         dispatch({type: GET_COURSES_FAILURE, payload: {err: true}})

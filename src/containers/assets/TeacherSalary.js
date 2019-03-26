@@ -25,9 +25,9 @@ class TeacherSalary extends React.Component {
 
   componentWillMount() {
     this.props.setLoadingStatus(true)
-    this.props.getPaychecks(`?paid=${false}`)
     this.props.getActiveTeachers()
-    this.props.setLoadingStatus(false)
+    this.props.getPaychecks(`?paid=${false}`)
+    // this.props.setLoadingStatus(false)
   }
 
   componentDidMount() {

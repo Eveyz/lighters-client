@@ -10,8 +10,11 @@ import FormSelect from '../forms/FormSelect';
 import FormTextarea from '../forms/FormTextarea';
 import TableForm from './TableForm';
 // import BooksForReport from './BooksForReport';
+import Working from '../../components/Working';
 import AudiosFileList from './AudiosFileList';
+
 import { addReport, updateReport } from '../../actions/reports_actions';
+import { setLoadingStatus } from '../../actions/status_actions';
 
 class ReportForm extends React.Component {
   constructor(props) {
@@ -38,6 +41,10 @@ class ReportForm extends React.Component {
     this.checkFileBeforeUpload = this.checkFileBeforeUpload.bind(this);
     this.getTableFormData = this.getTableFormData.bind(this);
     this.submitForm = this.handleSubmit.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.setLoadingStatus(false)
   }
 
   getInputData(field_name, val) {
@@ -124,10 +131,12 @@ class ReportForm extends React.Component {
     }
     let path = "/teachers/" + this.props.user_id + "/course_manager";
 
+    this.props.setLoadingStatus(true)
+
     if(this.props.action === "NEW") {
-      this.props.addReport(report, path);
+      this.props.addReport(report, path)
     } else if(this.props.action === "EDIT") {
-      this.props.updateReport(this.props.report._id, report, path);
+      this.props.updateReport(this.props.report._id, report, path)
     }
   }
 
@@ -136,16 +145,22 @@ class ReportForm extends React.Component {
     let visiblity = this.state.situation < 0 ? "display-none" : "display-block";
     let notVisiblity = this.state.situation < 0 ? "display-block" : "display-none";
 
-    // let buttonColor = disabled ? "#bdc3c7" : "#2ecc71";
-    let buttonStyle = {padding: "15px 0px 15px 0px", borderRadius: "15px", backgroundColor: "#2ecc71", border: "none", cursor: "pointer"}
+    let buttonColor = this.props.isLoading ? "#bdc3c7" : "#2ecc71";
+    let buttonStyle = {padding: "15px 0px 15px 0px", borderRadius: "15px", backgroundColor: buttonColor, border: "none", cursor: "pointer"}
 
     let action = this.props.action;
 
     let path = action === "EDIT" ? "/teachers/" + this.props.user_id + "/reports" : "/teachers/" + this.props.user_id + "/course_manager";
 
     let audiosFileList = this.props.action === "EDIT" ? <AudiosFileList files={this.props.files} /> : "";
+
+    const workingInfo = this.props.isLoading ? <Working msg={`正在提交反馈表, 请耐心等候 :) ${this.props.englishname}老师辛苦了, 先去放松一下吧!`} /> : null
+
+    const disabled = this.props.isLoading ? true : false
+
     return(
       <div>
+        {workingInfo}
         <div className="row no-margin">
           <FormPick
             classes="input-field col m12 s12"
@@ -366,7 +381,8 @@ class ReportForm extends React.Component {
         <div className="row no-margin">
           <div className="input-field col m12 s12">
             <button  
-              className="col m12 s12" 
+              className="col m12 s12"
+              disabled={disabled}
               onClick={this.submitForm}
               style={buttonStyle}
             >
@@ -397,6 +413,8 @@ class ReportForm extends React.Component {
 const mapStateToProps = (state, ownProps) => {  
   return {
     user_id: state.auth.user.userTokenData.id,
+    englishname: state.auth.identityData.englishname,
+    isLoading: state.status.loading,
     selectBooks: state.selectBooks.books,
     reviewBooks: state.reviewBooks.books,
     newBooks: state.newBooks.books,
@@ -409,6 +427,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     addReport: (report, path) => dispatch(addReport(report, path)),
     updateReport: (report_id, report, path) => dispatch(updateReport(report_id, report, path))
   }
