@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getReportCredit } from '../../../ultis'
+import { getReportCredit, getLocalTime } from '../../../ultis'
 
 class ProfitList extends React.Component {
   render() {
@@ -20,7 +20,7 @@ class ProfitList extends React.Component {
           const cls = profit > 0 ? "green-text" : "red-text"
           profitList.push(<tr key={idx}>
                             <td>{report.course_id.name}</td>
-                            <td>{report.updated_at}</td>
+                            <td>{getLocalTime(report.updated_at)}</td>
                             <td>{report.teacher_id.englishname}</td>
                             <td>{report.student_id.englishname}</td>
                             <td className={cls}>{profit.toFixed(2)}</td>

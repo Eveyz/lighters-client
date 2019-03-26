@@ -132,6 +132,11 @@ export const getReportCredit = (situation) => {
   return res;
 }
 
+export const getLocalTime = (date) => {
+  var date = new Date(date)
+  return `${date.toLocaleDateString()}-${date.toLocaleTimeString('en-US', { hour12: false })}`
+}
+
 export const ACTIONS = Object.freeze({ "NEW": 1, "EDIT": 2 })
 
 export const CLASS_TYPE = ["一对一", "一对二", "一对三", "一对四", "一对五"]

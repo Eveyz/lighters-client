@@ -59,7 +59,7 @@ class Transactions extends React.Component {
 
     let header = this.props.mode === "TRANSACTION_LIST" ? 
                 <div>
-                  <h5 className="airbnb-font bold">总计: <span className={sum > 0 ? "green-text" : "red-text"}>{sum.toFixed(2)}元</span></h5>
+                  <h5 className="airbnb-font bold">总计: <span className={sum > 0 ? "green-text" : "red-text"}>{sum.toFixed(2)}</span>元</h5>
                   <br/>
                   <button className="btn" onClick={this.setMode}>增加条目</button>
                   <br/>

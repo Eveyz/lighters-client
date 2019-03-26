@@ -10,7 +10,7 @@ import Loading from '../../components/Loading';
 
 import { getStudentData, updateStudent } from '../../actions/students_actions';
 import { setLoadingStatus } from '../../actions/status_actions';
-import { getReportCredit } from '../../ultis';
+import { getReportCredit, getLocalTime } from '../../ultis';
 
 class ShowStudent extends React.Component {
   componentWillMount() {
@@ -73,7 +73,7 @@ class ShowStudent extends React.Component {
         sum += tuition.amount
         return <tr key={index}>
                   <td>{tuition.amount.toFixed(2)}</td>
-                  <td>{tuition.created_at}</td>
+                  <td>{getLocalTime(tuition.created_at)}</td>
                 </tr>
       })
       tuitionHistory = <table className="highlight">
