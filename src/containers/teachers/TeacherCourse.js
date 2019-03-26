@@ -22,7 +22,7 @@ class TeacherCourse extends React.Component {
         <div className="col s12 m6">
           <div className="card r-box-shadow">
             <div className="card-content">
-              <span className="card-title cyan-text" style={{fontWeight: "400"}}><b>{ this.props.course.name }</b></span>
+              <span className="card-title cyan-text text-overflow" style={{fontWeight: "400"}}><b>{ this.props.course.name }</b></span>
               <p className="black-text">课程级别: { this.props.course.level }</p>
               <p className="black-text">学生数量: { this.props.course.students.length }</p>
               <p className="black-text">绘本数量: { this.props.course.books.length }</p>

@@ -6,6 +6,8 @@ import '../../css/App.css'
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import PathNavigator from '../../components/layouts/PathNavigator';
+
+import { setMode } from '../../actions/mode_action';
 import { selectStudent } from '../../actions/students_actions';
 import { updateBooks } from '../../actions/select_book_actions';
 import { selectBook } from '../../actions/books_actions';
@@ -15,6 +17,11 @@ class TeacherCourseManager extends React.Component {
     super(props)
 
     this.newReport = this.newReport.bind(this);
+    this.back = this.back.bind(this);
+  }
+
+  back() {
+    // this.props.setMode("courses")
   }
 
   newReport = student => e => {
@@ -125,7 +132,11 @@ class TeacherCourseManager extends React.Component {
       <div>
         <Header />
         <div className="page-min-height">
-          <PathNavigator path={"/teachers/" + this.props.user_id + "/dashboard"} content={this.props.course.name} />
+          <PathNavigator 
+            path={"/teachers/" + this.props.user_id + "/dashboard"} 
+            content={this.props.course.name} 
+            back={this.back}
+          />
           <div className="container">
             <div className="row no-margin">
               <div className="col m12">
@@ -158,6 +169,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setMode: (mode) => {
+      dispatch(setMode(mode))
+    },
     selectBook: (book, path) => {
       dispatch(selectBook(book, path))
     },

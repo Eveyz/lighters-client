@@ -1,16 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import history from '../../history';
 
-const PathNavigator = props => (
-  <div style={{backgroundColor: "#ffca28", padding: "10px 0px 13px 0px"}}>
-    <div className="container">
-      <div className="row no-margin">
-        <div className="col s12">
-          <h5 className="white-text" style={{fontWeight: "500"}}> <Link to={props.path} style={{color: "white"}}>返回</Link> <span style={{color: "#eeeeee"}}> > { props.content }</span></h5>
+class PathNavigator extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    if(this.props.back) {
+      this.props.back()
+    }
+    history.push(this.props.path)
+  }
+
+  render() {
+    return(
+      <div style={{backgroundColor: "#ffca28", padding: "10px 0px 13px 0px"}}>
+        <div className="container">
+          <div className="row no-margin">
+            <div className="col s12">
+              <h5 className="white-text" style={{fontWeight: "500"}}> <a className="clickable" style={{color: "white"}} onClick={this.handleClick}>返回</a> <span style={{color: "#eeeeee"}}> > { this.props.content }</span></h5>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-)
+    )
+  }
+}
 
 export default PathNavigator;

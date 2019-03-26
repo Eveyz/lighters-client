@@ -164,8 +164,8 @@ class TeacherDashboard extends React.Component {
             <div className="row">
               <div className="col s12">
                 <ul className="tabs">
-                  <li className="tab col s2"><a href="#teacher-calendar-tab">课程表</a></li>
                   <li className="tab col s3"><a href="#courses">课程以及课程反馈表</a></li>
+                  <li className="tab col s2"><a href="#teacher-calendar-tab">课程表</a></li>
                   <li className="tab col s2"><a href="#students">学生</a></li>
                   <li className="tab col s2"><a href="#books">绘本</a></li>
                   <li className="tab col s3"><a href="#paychecks">工资</a></li>
@@ -232,7 +232,8 @@ const mapStateToProps = (state) => {
   return {
     user_id: state.auth.user.userTokenData.id,
     teacher: state.auth.identityData,
-    courses: state.coursesData.courses
+    courses: state.coursesData.courses,
+    activeTab: state.mode.value
   }
 }
 
