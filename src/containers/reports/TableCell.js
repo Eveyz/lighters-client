@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { tableFormRatio } from '../../ultis'
+
 class TableCell extends React.Component {
 
   constructor(props) {
@@ -33,22 +35,23 @@ class TableCell extends React.Component {
   }
 
   render() {
-    let inputForm = <td>
-                      <textarea 
-                        className="materialize-textarea"
+    let inputForm = <div style={{width: tableFormRatio[this.props.ky]}}>
+                      <input
+                        type="text"
+                        className="cell-input browser-default"
                         defaultValue={this.props.value}
                         ref={this.cellContent}
                         autoFocus
                         onBlur={this.cancelEdit}
-                      ></textarea>
-                    </td>
+                      ></input>
+                    </div>
     
     if(this.state.mode === "EDIT") {
       return inputForm;
     }
 
     return(
-      <td className="clickable hover-highlight" onClick={this.edit} >{this.props.value}</td>
+      <div style={{width: tableFormRatio[this.props.ky]}} className="clickable hover-highlight valign-wrapper" onClick={this.edit} ><span>{this.props.value}</span></div>
     )
   }
 }

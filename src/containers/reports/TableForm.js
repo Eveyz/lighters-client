@@ -62,22 +62,16 @@ class TableForm extends React.Component {
 
     return (
       <div>
-        <table>
-          <thead>
-            <tr>
-              <th>读物类型</th>
-              <th>读物系列名/书名/章节</th>
-              <th>类别</th>
-              <th>翻译比例</th>
-              <th>Key Words/Patterns</th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {tableRows}
-          </tbody>
-        </table>
+        <br/>
+        <div className="flex-row title">
+          <div style={{width: "15%"}}>读物类型</div>
+          <div style={{width: "25%"}}>读物系列名/书名/章节</div>
+          <div style={{width: "10%"}}>类别</div>
+          <div style={{width: "10%"}}>翻译比例</div>
+          <div style={{width: "35%"}}>Key Words/Patterns</div>
+          <div style={{width: "5%"}}></div>
+        </div>
+        {tableRows}
         <br/>
         <a className="btn" onClick={this.addRow}><i className="material-icons left">add</i>添加读物</a>
       </div>
