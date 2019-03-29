@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import M from 'materialize-css';
 
 import { deleteCourse, addStudent, addBook, editCourse, updateCourse } from '../../actions/courses_actions';
 import { Modal } from 'react-materialize';
@@ -33,8 +34,11 @@ class Course extends React.Component {
     this.props.addBook(this.props.course);
   }
 
-  selectTheme() {
-
+  selectTheme(theme) {
+    this.props.updateCourse(this.props.id, {theme: theme});
+    var elem = document.querySelector(`#modal-${this.props.id}`)
+    var instance = M.Modal.getInstance(elem)
+    instance.close()
   }
 
   activateCourse() {
@@ -55,18 +59,24 @@ class Course extends React.Component {
 
     const modal = <Modal
                     header='选择课程主题'
-                    large="true"
+                    id={`modal-${this.props.id}`}
+                    className="theme-modal"
                     trigger={<a href="">选择主题</a>}>
-                    <ThemeList />
+                    <ThemeList selectTheme={this.selectTheme} />
                   </Modal>
 
     let statusBtn = this.props.course.status === "active" ? <a href="" onClick={() => { if (window.confirm('确认要关闭课程嘛?')) this.deactivateCourse() }}>关闭</a> : <a href="" onClick={() => { if (window.confirm('确认要激活课程嘛?')) this.activateCourse() }}>激活</a>
 
+    const image = this.props.course.theme ? this.props.course.theme : "WorldStudies-title.jpg"
+
     return(
       <div className="col s12 m6">
         <div className="card r-box-shadow">
+          <div className="card-image">
+            <img src={require(`../../images/classroom/${image}`)} alt="course_background" />
+            <span className="card-title text-overflow" style={{fontWeight: "400"}}><b>{ this.props.course.name }</b></span>
+          </div>
           <div className="card-content">
-            <p className="card-title cyan-text text-overflow" style={{fontWeight: "400"}}><b>{ this.props.course.name }</b></p>
             <p>授课老师: {nameList}</p>
             <p>课程级别: { this.props.course.level }</p>
             <p>课程类型: { this.props.course.type }</p>

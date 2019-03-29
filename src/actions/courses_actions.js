@@ -1,9 +1,8 @@
 import axios from 'axios';
 import history from '../history';
 
-import store from '../index';
-import { groupBooks } from '../ultis';
-import { GET_COURSES, GET_COURSES_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK, GROUPED_BOOKS } from './constants';
+// import { groupBooks } from '../ultis';
+import { GET_COURSES, GET_COURSES_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK  } from './constants';
 
 export const selectCourse = (course, path) => {
   return (dispatch) => {

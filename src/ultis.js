@@ -133,8 +133,8 @@ export const getReportCredit = (situation) => {
 }
 
 export const getLocalTime = (date) => {
-  var date = new Date(date)
-  return `${date.toLocaleDateString()}-${date.toLocaleTimeString('en-US', { hour12: false })}`
+  var d = new Date(date)
+  return `${d.toLocaleDateString()}-${d.toLocaleTimeString('en-US', { hour12: false })}`
 }
 
 export const ACTIONS = Object.freeze({ "NEW": 1, "EDIT": 2 })

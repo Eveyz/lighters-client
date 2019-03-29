@@ -43,6 +43,9 @@ class ReportRow extends React.Component {
 
   componentDidUpdate() {
     this.initSelect()
+    // var elem = document.querySelector(`#report-${this.props.report._id}`)
+    // var instance = M.Modal.getInstance(elem)
+    // instance.close()
   }
 
   selectCourse() {
@@ -69,7 +72,13 @@ class ReportRow extends React.Component {
       open: false,
       submit: true
     })
-    this.props.copyReport(course_id, student_id, teacher_id, report_id)
+    this.props.copyReport(this.props.student._id, course_id, student_id, teacher_id, report_id)
+    setTimeout(() => {
+        var elem = document.querySelector(`#report-${this.props.report._id}`)
+        var instance = M.Modal.getInstance(elem)
+        instance.close()
+      },
+    200);
   }
 
   deleteReport = () => {
@@ -83,8 +92,8 @@ class ReportRow extends React.Component {
 
   render() {
 
-    if(this.state.submit) {
-      return <Working msg="正在复制反馈表, 请耐心等候 :)" />
+    if(this.state.submit && this.props.success) {
+      return <tr><td><Working msg="正在复制反馈表, 请耐心等候 :)" /></td></tr>
     }
 
     let courseOptions = this.props.courses.map((course, idx) => {
@@ -105,45 +114,46 @@ class ReportRow extends React.Component {
       }
     }
 
-    const btnDisabled = this.state.submit ? true : false
+    const btnDisabled = this.state.submit && this.props.success ? true : false
     const copyModal = <Modal
-                      header='复制反馈表'
-                      trigger={<i className="material-icons blue-grey-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表">content_copy</i>}>
-                      <div style={{minHeight: "200px"}}>
-                        <div className="row">
-                          <div className="input-field col m6 s12">
-                            <select
-                              ref={this.course}
-                              id="course"
-                              defaultValue="default"
-                              onChange={this.selectCourse}
-                            >
-                              <option key="default" value="default" disabled>请选择课程</option>
-                              {courseOptions}
-                            </select>
-                            <label htmlFor="course">请选择课程 <span className="required">*</span></label>
-                          </div>
-                          <div className="input-field col m6 s12">
-                            <select
-                              ref={this.student}
-                              id="student"
-                              disabled={disabled}
-                              defaultValue="default"
-                              onChange={this.selectStudent}
-                            >
-                              <option key="default" value="default" disabled>请选择课程学生</option>
-                              {studentOptions}
-                            </select>
-                            <label htmlFor="student">请选择课程学生 <span className="required">*</span></label>
-                          </div>
+                        header='复制反馈表'
+                        id={`report-${this.props.report._id}`}
+                        trigger={<i className="material-icons blue-grey-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表">content_copy</i>}>
+                        <div style={{minHeight: "200px"}}>
                           <div className="row">
                             <div className="input-field col m6 s12">
-                              <button className="btn cyan" disabled={btnDisabled} onClick={this.copyReport}>复制</button>
+                              <select
+                                ref={this.course}
+                                id="course"
+                                defaultValue="default"
+                                onChange={this.selectCourse}
+                              >
+                                <option key="default" value="default" disabled>请选择课程</option>
+                                {courseOptions}
+                              </select>
+                              <label htmlFor="course">请选择课程 <span className="required">*</span></label>
+                            </div>
+                            <div className="input-field col m6 s12">
+                              <select
+                                ref={this.student}
+                                id="student"
+                                disabled={disabled}
+                                defaultValue="default"
+                                onChange={this.selectStudent}
+                              >
+                                <option key="default" value="default" disabled>请选择课程学生</option>
+                                {studentOptions}
+                              </select>
+                              <label htmlFor="student">请选择课程学生 <span className="required">*</span></label>
+                            </div>
+                            <div className="row">
+                              <div className="input-field col m6 s12">
+                                <button className="btn cyan" disabled={btnDisabled} onClick={this.copyReport}>复制</button>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </Modal>
+                      </Modal>
 
     return (
       <tr>
@@ -175,6 +185,7 @@ const mapStateToProps = (state) => {
   return {
     user_id: state.auth.user.userTokenData.id,
     teacher_id: state.auth.identityData._id,
+    isSuccess: state.status.success,
     student: state.studentsData.currentStudent,
     course_name: state.coursesData.currentCourse.name,
     course_status: state.coursesData.currentCourse.status,
@@ -195,7 +206,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    copyReport: (course_id, student_id, teacher_id, report_id) => dispatch(copyReport(course_id, student_id, teacher_id, report_id)),
+    copyReport: (current_student_id, course_id, student_id, teacher_id, report_id) => dispatch(copyReport(current_student_id, course_id, student_id, teacher_id, report_id)),
     deleteReport: (report_id) => dispatch(deleteReport(report_id)),
     editReport: (report, path) => dispatch(editReport(report, path))
   }

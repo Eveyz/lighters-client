@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../history';
 
-import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, COPY_REPORT, COPY_REPORT_FAILURE, REMOVE_UPLOADED_FILE, SET_LOADING_STATUS } from './constants';
+import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, COPY_REPORT, COPY_REPORT_FAILURE, REMOVE_UPLOADED_FILE, SET_LOADING_STATUS, SET_SUCCESS_STATUS } from './constants';
 
 import { updateBooks } from './select_book_actions';
 
@@ -50,7 +50,7 @@ export const addReport = (report, path) => {
         dispatch({type: SET_CURRENT_REPORT, payload: response.data})
         dispatch({type: SET_LOADING_STATUS, payload: false})
         history.push(path);
-        window.Materialize.toast('成功添加反馈表', 1000, 'green');
+        window.Materialize.toast('成功添加反馈表', 2000, 'green');
       })
       .catch((err) => {
         dispatch({type: ADD_REPORT_FAILURE, payload: "there was an error while adding a new report"})
@@ -58,15 +58,18 @@ export const addReport = (report, path) => {
   }
 };
 
-export const copyReport = (course_id, student_id, teacher_id, report_id) => {
+export const copyReport = (current_student_id, course_id, student_id, teacher_id, report_id) => {
   let url = `/reports/copy_report?course_id=${course_id}&student_id=${student_id}&teacher_id=${teacher_id}&report_id=${report_id}`;
   return (dispatch) => {
     axios.get(url).then((response) => {
-      dispatch({type: COPY_REPORT, payload: response.data})
+      if(current_student_id === student_id) {
+        dispatch({type: COPY_REPORT, payload: response.data})
+      }
+      dispatch({type: SET_SUCCESS_STATUS, payload: true})
       dispatch({type: SET_LOADING_STATUS, payload: false})
       // history.push(`/teachers/${response.data.teacher_id}/reports`)
-      window.location.reload()
-      window.Materialize.toast('成功复制反馈表', 1000, 'green');
+      // window.location.reload()
+      window.Materialize.toast('成功复制反馈表', 2000, 'green');
     }).catch((err) => {
       dispatch({type: COPY_REPORT_FAILURE, payload: "there was an error while copying reports"})
     })

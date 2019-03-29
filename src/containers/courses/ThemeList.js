@@ -6,7 +6,7 @@ import Theme from './Theme'
 class ThemeList extends React.Component {
   render() {
     const images = imagesList.map((img, idx) => {
-      return <Theme key={idx} src={img} />
+      return <Theme key={idx} selectTheme={this.props.selectTheme} src={img} />
     })
 
     return(

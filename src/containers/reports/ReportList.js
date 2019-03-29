@@ -8,6 +8,7 @@ import Loading from '../../components/Loading';
 import { setLoadingStatus } from '../../actions/status_actions';
 import { selectStudent } from '../../actions/students_actions';
 // import { updateBooks } from '../../actions/select_book_actions';
+import { setSuccessStatus } from '../../actions/status_actions';
 import { getTeacherCourses } from '../../actions/teachers_actions';
 import { getReports } from '../../actions/reports_actions';
 
@@ -20,6 +21,7 @@ class ReportList extends React.Component {
 
   componentWillMount() {
     this.props.setLoadingStatus(true)
+    this.props.setSuccessStatus(false)
   }
 
   componentDidMount() {
@@ -34,6 +36,7 @@ class ReportList extends React.Component {
   }
 
   render() {
+    console.log("called????")
     if(this.props.isLoading) {
       return <Loading />
     }
@@ -108,6 +111,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setSuccessStatus: (status) => {
+      dispatch(setSuccessStatus(status))
+    },
     setLoadingStatus: (status) => {
       dispatch(setLoadingStatus(status))
     },

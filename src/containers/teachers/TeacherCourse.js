@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { selectCourse } from '../../actions/courses_actions';
-import BackgroundImage from '../../images/classroom/img_arts-title.jpg';
 
 class TeacherCourse extends React.Component {
   constructor(props) {
@@ -18,12 +17,14 @@ class TeacherCourse extends React.Component {
   }
 
   render() {
+    const image = this.props.course.theme ? this.props.course.theme : "WorldStudies-title.jpg"
+
     return(
       <a href="" onClick={this.clickCourse}>
         <div className="col s12 m6">
           <div className="card r-box-shadow">
             <div className="card-image">
-              <img src={BackgroundImage} />
+              <img src={require(`../../images/classroom/${image}`)} alt="course_background" />
               <span className="card-title text-overflow" style={{fontWeight: "400"}}><b>{ this.props.course.name }</b></span>
             </div>
             <div className="card-content">

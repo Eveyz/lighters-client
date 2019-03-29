@@ -19,7 +19,16 @@ export default (state = initialState, action) => {
     case 'ADD_REPORT':
       return {
         currentReport: action.payload,
-        reports: [...state.reports, ...action.payload],
+        reports: [...state.reports, action.payload],
+        removedFiles: [],
+        loading: false,
+        error: null
+      }
+    case 'COPY_REPORT':
+      console.log("its here in the report reducer")
+      return {
+        currentReport: action.payload,
+        reports: [...state.reports, action.payload],
         removedFiles: [],
         loading: false,
         error: null
