@@ -60,7 +60,7 @@ class Teacher extends React.Component {
           <td>{this.props.teacher.systemid}</td>
           <td>{this.props.teacher.systemid}</td>
           <td>
-            <a ref={this.dropdown} className='dropdown-trigger btn  blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
+            <a ref={this.dropdown} className='dropdown-trigger icon-link-wrapper' href='' data-target={this.props.id}><i className="material-icons circle-icon">more_vert</i></a>
 
             <ul id={this.props.id} className='dropdown-content'>
               <li><Link to={`/admin/teachers/${this.props.teacher._id}/edit`} className="aribnb-font bold">编辑</Link></li>
@@ -82,7 +82,9 @@ class Teacher extends React.Component {
         <td>{this.props.teacher.city}</td>
         <td><button className={classes} onClick={this.updateTeacher("STATUS")}>{action}</button></td>
         <td>
-          <a ref={this.dropdown} className='dropdown-trigger btn blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
+          <a ref={this.dropdown} className='dropdown-trigger icon-link-wrapper' href='' data-target={this.props.id}>
+            <i className="material-icons circle-icon">more_vert</i>
+          </a>
 
           <ul id={this.props.id} className='dropdown-content'>
             <li><a className="aribnb-font bold" href="" onClick={this.updateTeacher("LEVELUP")}>升级</a></li>

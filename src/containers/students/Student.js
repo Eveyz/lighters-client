@@ -29,8 +29,8 @@ class Student extends React.Component {
   }
 
   render() {
-    let action = "关闭";
-    let classes = "btn amber";
+    let action = "冻结";
+    let classes = "btn red";
     if(this.props.student.status === "pending" || this.props.student.status === "inactive") {
       action = "激活";
       classes = "btn green";
@@ -49,7 +49,7 @@ class Student extends React.Component {
           <td>{this.props.student.city}</td>
           <td>{this.props.student.systemid}</td>
           <td>
-            <a ref={this.dropdown} className='dropdown-trigger btn blue-grey bold' href='' data-target={this.props.id}>更多操作</a>
+            <a ref={this.dropdown} className='dropdown-trigger' href='' data-target={this.props.id}><i className="material-icons circle-icon">more_vert</i></a>
 
             <ul id={this.props.id} className='dropdown-content'>
               <li><Link to={`/admin/students/${this.props.student._id}/edit`} className="aribnb-font bold">编辑</Link></li>
@@ -72,7 +72,7 @@ class Student extends React.Component {
         <td>{this.props.student.city}</td>
         <td><button className={classes} onClick={this.updateStudent}>{action}</button></td>
         <td>
-          <a ref={this.dropdown} className='dropdown-trigger btn cyan' href='' data-target={this.props.id}>更多操作</a>
+          <a ref={this.dropdown} className='dropdown-trigger' href='' data-target={this.props.id}><i className="material-icons circle-icon">more_vert</i></a>
 
           <ul id={this.props.id} className='dropdown-content'>
             <li><Link to={`/admin/students/${this.props.student._id}/edit`} className="aribnb-font bold">编辑</Link></li>

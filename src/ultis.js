@@ -173,3 +173,28 @@ export const tableFormRatio = {
   "ratio": "10%",
   "keywords": "35%"
 }
+
+export const imagesList = [
+  "img_coffee-title.jpg", 
+  "img_violin2-title.jpg",
+  "img_arts-title.jpg",
+  "img_theatreopera-title.jpg",
+  "img_learninstrument-title.jpg",
+  "Design-title.jpg",
+  "img_breakfast-title.jpg",
+  "Honors-title.jpg",
+  "img_graduation-title.jpg",
+  "img_bookclub-title.jpg",
+  "img_code-title.jpg",
+  "img_reachout-title.jpg",
+  "img_learnlanguage-title.jpg",
+  "img_backtoschool-title.jpg",
+  "English-title.jpg",
+  "WorldHistory-title.jpg",
+  "SocialStudies-title.jpg",
+  "Geography-title.jpg",
+  "USHistory-title.jpg",
+  "Writing-title.jpg",
+  "LanguageArts-title.jpg",
+  "WorldStudies-title.jpg"
+]

@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '../../css/App.css';
-import { deleteCourse, addStudent, addBook, editCourse, updateCourse } from '../../actions/courses_actions';
 
+import { deleteCourse, addStudent, addBook, editCourse, updateCourse } from '../../actions/courses_actions';
+import { Modal } from 'react-materialize';
+import ThemeList from './ThemeList';
 
 class Course extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Course extends React.Component {
     this.addStudent = this.addStudent.bind(this);
     this.addStudent = this.addStudent.bind(this);
     this.addBook = this.addBook.bind(this);
+    this.selectTheme = this.selectTheme.bind(this);
   }
 
   editCourse(e) {
@@ -31,6 +33,10 @@ class Course extends React.Component {
     this.props.addBook(this.props.course);
   }
 
+  selectTheme() {
+
+  }
+
   activateCourse() {
     // let field = this.props.course.status === "active" ? {status: "inactive"} : {status: "active"};
     this.props.updateCourse(this.props.id, {status: "active"});
@@ -46,6 +52,13 @@ class Course extends React.Component {
         <span key={index}>{teacher.lastname + teacher.firstname}</span>
       )
     });
+
+    const modal = <Modal
+                    header='选择课程主题'
+                    large="true"
+                    trigger={<a href="">选择主题</a>}>
+                    <ThemeList />
+                  </Modal>
 
     let statusBtn = this.props.course.status === "active" ? <a href="" onClick={() => { if (window.confirm('确认要关闭课程嘛?')) this.deactivateCourse() }}>关闭</a> : <a href="" onClick={() => { if (window.confirm('确认要激活课程嘛?')) this.activateCourse() }}>激活</a>
 
@@ -65,6 +78,7 @@ class Course extends React.Component {
             <a onClick={this.editCourse} href="">编辑课程</a>
             <a onClick={this.addStudent} href="">添加学生</a>
             <a onClick={this.addBook} href="">添加绘本</a>
+            {modal}
             {statusBtn}
           </div>
         </div>
