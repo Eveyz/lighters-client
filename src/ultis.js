@@ -196,5 +196,11 @@ export const imagesList = [
   "USHistory-title.jpg",
   "Writing-title.jpg",
   "LanguageArts-title.jpg",
-  "WorldStudies-title.jpg"
+  "WorldStudies-title.jpg",
+  "Psychology-title.jpg",
+  "Math-title.jpg",
+  "Physics-title.jpg",
+  "Chemistry-title.jpg",
+  "Biology-title.jpg",
+  "Geometry-title.jpg"
 ]
