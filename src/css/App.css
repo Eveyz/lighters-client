@@ -188,12 +188,16 @@
 /*---------- Calendar Style ----------*/
 
 .calendar-height {
-  height: 700px;
+  height: 700px !important;
+}
+
+.tui-full-calendar-layout {
+  overflow: scroll;
 }
 
 @media screen and (max-width: 1300px) {
   .calendar-height {
-    height: 600px;
+    height: 600px !important;
   }
 }
 
