@@ -41,7 +41,7 @@
   "scripts": {
     "start": "cross-env PORT=3001 react-scripts start",
     "dev": "next",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
