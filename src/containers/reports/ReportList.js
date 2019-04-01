@@ -36,7 +36,6 @@ class ReportList extends React.Component {
   }
 
   render() {
-    console.log("called????")
     if(this.props.isLoading) {
       return <Loading />
     }

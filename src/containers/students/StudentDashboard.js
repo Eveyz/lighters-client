@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import 'tui-calendar/dist/tui-calendar.min.css';
 
 import Header from '../../components/layouts/Header';
 import TuiCalendar from '../TuiCalendar';
@@ -23,13 +24,13 @@ class StudentDashboard extends React.Component {
                         </div>
                       </div>;
     
-    if(this.props.location.pathname.includes("courses")) {
+    if(this.props.location.pathname.includes("dashboard")) {
       mainContent = <StudentCourseList 
                       courses={this.props.student.courses} 
                       student_id={this.props.student._id}
                       reports={this.props.reports} 
                     />;
-    } else if (this.props.location.pathname.includes("reports")) {
+    } else if (this.props.location.pathname.includes("assets")) {
       mainContent = this.props.loading ? <Loading /> : <StudentReportListContainer reports={this.props.reports} />;
     } else if (this.props.location.pathname.includes("books")) {
       let _books = [];
@@ -50,13 +51,13 @@ class StudentDashboard extends React.Component {
             <h5 className="cyan-text" style={{marginLeft: "30px"}}>我的教室</h5>
             <div className="left-bar-menu">
               <Link to={`/students/${this.props.student._id}/dashboard`} className={this.props.location.pathname.includes("dashboard") ? "active" : ""}>
-                <i className="material-icons">home</i><span>主页</span>
-              </Link>
-              <Link to={`/students/${this.props.student._id}/courses`} className={this.props.location.pathname.includes("courses") ? "active" : ""}>
                 <i className="material-icons">event_note</i><span>课程</span>
               </Link>
-              <Link to={`/students/${this.props.student._id}/reports`} className={this.props.location.pathname.includes("reports") ? "active" : ""}>
-                <i className="material-icons">description</i><span>课后回馈表</span>
+              <Link to={`/students/${this.props.student._id}/assets`} className={this.props.location.pathname.includes("assets") ? "active" : ""}>
+                <i className="material-icons">description</i><span>缴费记录</span>
+              </Link>
+              <Link to={`/students/${this.props.student._id}/schedule`} className={this.props.location.pathname.includes("schedule") ? "active" : ""}>
+                <i className="material-icons">schedule</i><span>课程表</span>
               </Link>
               <Link to={`/students/${this.props.student._id}/books`} className={this.props.location.pathname.includes("books") ? "active" : ""}>
                 <i className="material-icons">book</i><span>绘本</span>

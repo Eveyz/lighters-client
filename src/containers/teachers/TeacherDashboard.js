@@ -173,7 +173,11 @@ class TeacherDashboard extends React.Component {
               </div>
               <div id="teacher-calendar-tab" className="col s12 m12">
                 <br />
-                <TuiCalendar isReadOnly={false} />
+                <div className="card white r-box-shadow">
+                  <div className="card-content">
+                    <TuiCalendar isReadOnly={false} />
+                  </div>
+                </div>
                 <br/>
               </div>
               <div id="courses" className="col s12">

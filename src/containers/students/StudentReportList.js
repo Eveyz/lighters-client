@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col, Table } from 'react-materialize';
 
 class StudentReportList extends React.Component {
@@ -12,7 +13,11 @@ class StudentReportList extends React.Component {
             <td>{ report.course_date } - {report.start_time } - {report.end_time}</td>
             <td>{ report.teacher_id.englishname }</td>
             <td>{ report.course_id.name }</td>
-            <td><button className="btn" onClick={this.editReport}>查看课程回馈表</button></td>
+            <td>
+              <Link to={`/reports/${report._id}/view`} target="_blank">
+                <button type="button" className="btn">查看课程回馈表</button>
+              </Link>
+            </td>
           </tr>
         );
       });
