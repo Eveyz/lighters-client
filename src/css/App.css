@@ -508,6 +508,13 @@
   flex-wrap: wrap;
 }
 
+.flex-row-no-underline {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .flex-row .title div {
   font-weight: 700;
 }

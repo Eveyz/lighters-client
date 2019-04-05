@@ -14,14 +14,38 @@ const CourseHierarchy = props => (
         <thead>
           <tr className="cell-style head">
             <th>Lighters绘说英语</th>
-            <th>启蒙</th>
-            <th>起步</th>
-            <th>初级上</th>
-            <th>初级下</th>
-            <th>中级上</th>
-            <th>中级下</th>
-            <th>中高级</th>
-            <th>高级</th>
+            <th>
+              <p className="no-margin">启蒙</p>
+              <p className="no-margin">easystarter</p>
+            </th>
+            <th>
+              <p className="no-margin">起步</p>
+              <p className="no-margin">beginner</p>
+            </th>
+            <th>
+              <p className="no-margin">初级上</p>
+              <p className="no-margin">pre-elementary</p>
+            </th>
+            <th>
+              <p className="no-margin">初级下</p>
+              <p className="no-margin">elementary</p>
+            </th>
+            <th>
+              <p className="no-margin">中级上</p>
+              <p className="no-margin">pre-intermediate</p>
+            </th>
+            <th>
+              <p className="no-margin">中级下</p>
+              <p className="no-margin">intermediate</p>
+            </th>
+            <th>
+              <p className="no-margin">中高级</p>
+              <p className="no-margin">upper-intermediate</p>
+            </th>
+            <th>
+              <p className="no-margin">高级</p>
+              <p className="no-margin">advanced</p>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -60,7 +84,7 @@ const CourseHierarchy = props => (
           </tr>
           <tr className="cell-style purc">
             <td>美国年级</td>
-            <td>美pre</td>
+            <td>美幼稚园</td>
             <td>美K</td>
             <td>美G1</td>
             <td>美G1</td>
@@ -114,12 +138,11 @@ const CourseHierarchy = props => (
               <p>入门科普读物</p>
             </td>
             <td colSpan="2">
-              <p>桥梁小说</p>
-              <p>纯文字章节小说</p>
+              <p>桥梁初中章小说</p>
               <p>中级科普读物</p>
               <p>写作入门</p>
               <p>各类题材读物</p>
-              <p>(散文诗歌传记)</p>
+              <p>(新闻社科传记)</p>
             </td>
             <td colSpan="2">
               <p>高级章节小说</p>
@@ -127,7 +150,7 @@ const CourseHierarchy = props => (
               <p>自然历史社科</p>
               <p>社论新闻</p>
               <p>高级写作</p>
-              <p>公共演讲展示</p>
+              <p>公共演讲与展示</p>
             </td>
           </tr>
         </tbody>

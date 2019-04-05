@@ -33,7 +33,7 @@ class ViewReport extends React.Component {
   }
 
   downloadReport() {
-    const report_name = `${this.state.report.student_id.englishname}课程反馈表.png`;
+    const report_name = `${this.state.report.student_id.englishname}课程反馈表-${this.state.report.course_date}.png`;
     html2canvas(document.querySelector("#report_content")).then(canvas => {
       document.querySelector("#report_img").appendChild(canvas)
       var a = document.createElement('a');
@@ -116,7 +116,7 @@ class ViewReport extends React.Component {
       <div className="page-min-height">
         <Header />
           <div className="row no-margin">
-            <div className="input-field col m8 s12 offset-m2">
+            <div className="input-field col m6 s12 offset-m3">
               <br/>
               {btn}
               <br/>

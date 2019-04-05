@@ -263,7 +263,7 @@ class ReportForm extends React.Component {
           <blockquote className="blockquote-style no-margin">
             <p>此行填写格式为：</p>
             <br/>
-            <p>Lighters绘说英语阅读资源类型有：主流分级绘本, 名家绘本, 自然拼读, 科普读物, 动画视频, 写作教程, 章节小说, 学生自读</p>
+            <p>Lighters绘说英语阅读资源类型有：主流分级绘本, 名家绘本, 自然拼读, 科普读物, 动画视频, 写作教程, (初高中)章节小说, 学生自读</p>
           </blockquote>
           <TableForm 
             action={action} 
@@ -295,12 +295,12 @@ class ReportForm extends React.Component {
             <p><b>说</b> （发音、自然拼读能力、英语对话口语能力）</p>
             <p><b>读</b> （朗读语音语调、role play、猜词推理能力）</p>
             <p><b>写</b> （表达、描述、议论、逻辑语言组织等）</p>
-            <p><b>综合英语能力</b> （词汇句型掌握情况等）</p>
-            <p>（基本技能）</p>
+            <p><b>综合英语能力</b> （词汇句型掌握情况, 语法等）</p>
+            <p>【基本技能】</p>
             <p>+ </p>
-            <p>（扩展技能）</p>
-            <p>想象力、记忆力、理解力、总结复述能力、知识面、分析思考评判能力、批判性思维、创新性思维、知识运用能力</p>
-
+            <p>【扩展技能】</p>
+            <p>想象力、记忆力、理解力、总结复述能力、知识面、分析思考评判能力、批判性思维、创新性思维、知识运用能力、上课专注力配合等</p>
+            <br/>
             <p>不用面面俱到，可选择最关键点进行课堂总结与学生学习情况反馈</p>
           </blockquote>
           <FormTextarea
@@ -322,7 +322,7 @@ class ReportForm extends React.Component {
             </div>
           </div>
           <blockquote className="blockquote-style no-margin">
-            <p>在此布置课下作业（主要提醒打卡听音频、复习和录音）</p>
+            <p>在此布置课下作业：主要提醒每日听音频 (精听+泛听)、复习 (精读+泛读)、朗读模仿、并打卡录音；创意性的作业设计能更大地激发学生的学习热情；请多设计task-based, inquiry-based, research-based, project-based 等能激发孩子学习动力的趣味性作业任务。</p>
             <p>也可在此与家长进行正式交流，提出家长配合需求与建议</p>
           </blockquote>
           <FormTextarea

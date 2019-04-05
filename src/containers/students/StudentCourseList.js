@@ -136,12 +136,12 @@ class StudentCourseList extends React.Component {
       }
     }
 
-    let title = <h6>当前所有课程</h6>;
-    if(this.state.render === "book") {
-      title = <h6>绘本资料</h6>;
-    } else if(this.state.render === "report") {
-      title = <h6>课程反馈表</h6>;
-    }
+    // let title = <h6>当前所有课程</h6>;
+    // if(this.state.render === "book") {
+    //   title = <h6>绘本资料</h6>;
+    // } else if(this.state.render === "report") {
+    //   title = <h6>课程反馈表</h6>;
+    // }
 
     return(
       <div>
