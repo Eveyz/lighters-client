@@ -124,11 +124,11 @@ class TeacherDashboard extends React.Component {
     let studentsArr = [];
     if(this.props.courses.length > 0) {
       this.props.courses.forEach((c) => {
-        studentsArr = [...new Set(studentsArr.concat(c.students))];
+        studentsArr = studentsArr.concat(c.students);
       });
     }
     if(studentsArr.length > 0) {
-      students = <TeacherStudentList students={studentsArr} />;
+      students = <TeacherStudentList students={_.uniqBy(studentsArr, '_id')} />;
     }
 
     let books = <Row>
