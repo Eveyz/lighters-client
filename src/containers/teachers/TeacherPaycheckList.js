@@ -1,13 +1,19 @@
 import React from 'react'
+import M from 'materialize-css'
 
 import { getReportCredit } from '../../ultis'
 
 class TeacherPaycheckList extends React.Component {
+  componentDidMount() {
+    var elems = document.querySelectorAll('.collapsible');
+    M.Collapsible.init(elems, {});
+  }
+
   render() {
     let paycheckList = this.props.paychecks.map((pc, idx) => {
       var extraBonus = 0
-      if(pc.compensatons.length > 0) {
-        pc.compensatons.forEach(c => {
+      if(pc.compensations.length > 0) {
+        pc.compensations.forEach(c => {
           extraBonus += c.amount
         })
       }
@@ -47,7 +53,7 @@ class TeacherPaycheckList extends React.Component {
                     </tbody>
                   </table>
                   {
-                    pc.compensatons.length > 0 ?
+                    pc.compensations.length > 0 ?
                     <React.Fragment>
                       <br/>
                       <h6 className="blue-text">奖励, 津贴或罚款</h6>
@@ -62,7 +68,7 @@ class TeacherPaycheckList extends React.Component {
     
                         <tbody>
                           {
-                            pc.compensatons.map((c, idx) => {
+                            pc.compensations.map((c, idx) => {
                               return  <tr key={idx}>
                                         <td>{c.type}</td>
                                         {

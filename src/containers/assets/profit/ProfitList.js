@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getReportCredit, getLocalTime } from '../../../ultis'
+import { getStudentReportCredit, getLocalTime } from '../../../ultis'
 
 class ProfitList extends React.Component {
   render() {
@@ -14,9 +14,9 @@ class ProfitList extends React.Component {
                       </div>
     if(this.props.data.length > 0) {
       this.props.data.forEach((report, idx) => {
-        const report_credit = getReportCredit(report.situation)
+        const report_credit = getStudentReportCredit(report.situation)
         if(report_credit > 0) {
-          const profit = report.course_id.course_rate - report.amount
+          const profit = report.course_id.course_rate * report_credit - report.amount
           const cls = profit > 0 ? "green-text" : "red-text"
           profitList.push(<tr key={idx}>
                             <td>{report.course_id.name}</td>

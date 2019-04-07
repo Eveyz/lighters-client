@@ -150,7 +150,7 @@ class CourseForm extends React.Component {
               <Row>
                 <div className="col input-field s12">
                   <input type="number" defaultValue={courseRateVal} ref={this.courseRate} id="courseRate" />
-                  <label htmlFor="courseRate">课时费(元/课时/人)</label>
+                  <label htmlFor="courseRate">课时费(元/课时/人) <span className="required">*</span></label>
                 </div>
               </Row>
               <Row>

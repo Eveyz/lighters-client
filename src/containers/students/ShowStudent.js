@@ -10,12 +10,14 @@ import Loading from '../../components/Loading';
 
 import { getStudentData, updateStudent } from '../../actions/students_actions';
 import { setLoadingStatus } from '../../actions/status_actions';
-import { getReportCredit, getLocalTime } from '../../ultis';
+import { getStudentReportCredit, getLocalTime } from '../../ultis';
 
 class ShowStudent extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.setLoadingStatus(true)
-    this.props.getStudentData(this.props.match.params._id)
+    this.props.getStudentData(this.props.match.params._id).then(() => {
+      this.props.setLoadingStatus(false)
+    })
   }
 
   render() {
@@ -34,7 +36,7 @@ class ShowStudent extends React.Component {
         _(course.reports).sortBy((report) => {
           return report.course_date
         }).value().forEach((report, idx) => {
-          const charge = (getReportCredit(report.situation) * course.course_rate).toFixed(2)
+          const charge = (getStudentReportCredit(report.situation) * course.course_rate).toFixed(2)
           charges.push(charge)
           coursesList.push(<tr key={`course-${index}-report-${idx}`}>
                               <td>{course.name}</td>

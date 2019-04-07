@@ -1,6 +1,6 @@
 import history from '../history';
 import axios from 'axios';
-import { GET_STUDENTS, GET_STUDENTS_FAILURE, GET_LOW_BALANCE_STUDENTS, ADD_STUDENT, ADD_STUDENT_FAILURE, UPDATE_STUDENT, UPDATE_STUDENT_FAILURE, GET_STUDENT_FAILURE, SELECT_STUDENT, GET_STUDENT_REPORTS_BEGIN, GET_STUDENT_REPORTS_SUCCESS, GET_STUDENT_REPORTS_FAILURE, SET_LOADING_STATUS } from './constants';
+import { GET_STUDENTS, GET_STUDENTS_FAILURE, GET_LOW_BALANCE_STUDENTS, ADD_STUDENT, ADD_STUDENT_FAILURE, UPDATE_STUDENT, UPDATE_STUDENT_FAILURE, GET_STUDENT_FAILURE, SELECT_STUDENT, GET_STUDENT_REPORTS_BEGIN, GET_STUDENT_REPORTS_SUCCESS, GET_STUDENT_REPORTS_FAILURE } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getStudents = (query) => {
@@ -41,17 +41,17 @@ export const getStudent = (id) => {
   }
 };
 
-export const getStudentData = (id) => {
-  return (dispatch) => {
+export const getStudentData = (id) => dispatch => {
+  dispatch(() => {
     axios.get(`/students/${id}`)
       .then((response) => {
         dispatch({type: SELECT_STUDENT, payload: response.data})
-        dispatch({type: SET_LOADING_STATUS, payload: false})
       })
       .catch((err) => {
         dispatch({type: GET_STUDENT_FAILURE, payload: err})
       })
-  }
+  })
+  return Promise.resolve()
 };
 
 export const getStudentReports = (student_id) => {
