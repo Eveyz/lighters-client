@@ -7,8 +7,7 @@ import Header from '../../components/layouts/Header';
 import TuiCalendar from '../TuiCalendar';
 import StudentCourseList from './StudentCourseList';
 import StudentBookList from './StudentBookList';
-import StudentReportListContainer from './StudentReportListContainer';
-import Loading from '../../components/Loading';
+import StudentAsset from './StudentAsset';
 import { getStudentReports } from '../../actions/students_actions';
 
 class StudentDashboard extends React.Component {
@@ -31,7 +30,7 @@ class StudentDashboard extends React.Component {
                       reports={this.props.reports} 
                     />;
     } else if (this.props.location.pathname.includes("assets")) {
-      mainContent = this.props.loading ? <Loading /> : <StudentReportListContainer reports={this.props.reports} />;
+      mainContent = <StudentAsset student_id={this.props.student._id} />
     } else if (this.props.location.pathname.includes("books")) {
       let _books = [];
       this.props.student.courses.forEach(course => {
@@ -54,7 +53,7 @@ class StudentDashboard extends React.Component {
                 <i className="material-icons">event_note</i><span>课程</span>
               </Link>
               <Link to={`/students/${this.props.student._id}/assets`} className={this.props.location.pathname.includes("assets") ? "active" : ""}>
-                <i className="material-icons">description</i><span>缴费记录</span>
+                <i className="material-icons">description</i><span>学费记录</span>
               </Link>
               <Link to={`/students/${this.props.student._id}/schedule`} className={this.props.location.pathname.includes("schedule") ? "active" : ""}>
                 <i className="material-icons">schedule</i><span>课程表</span>

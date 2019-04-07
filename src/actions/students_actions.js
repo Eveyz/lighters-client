@@ -45,6 +45,7 @@ export const getStudentData = (id) => dispatch => {
   dispatch(() => {
     axios.get(`/students/${id}`)
       .then((response) => {
+        console.log("student data: ", response.data)
         dispatch({type: SELECT_STUDENT, payload: response.data})
       })
       .catch((err) => {
