@@ -28,7 +28,7 @@ class Footer extends Component {
             </div>
             <div className="col l4 m2 s12">
               <h5 className="white-text">关注我们的公众号</h5>
-              <img src={QRCode} className="materialboxed" width="200" alt="Lighters绘说英语公众号" />
+              <img src={QRCode} className="materialboxed" width="100" alt="Lighters绘说英语公众号" />
             </div>
           </div>
         </div>
