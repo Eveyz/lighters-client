@@ -69,7 +69,7 @@ class Home extends Component {
         </div>
         <section className="section-one">
           <div>
-            <img src={triangle} width="960px" />
+            <img src={triangle} width="960px" alt="triangle" />
             <div>
               <h3>为什么选择Lighters绘说英语</h3>
               <ul>
@@ -112,7 +112,7 @@ class Home extends Component {
           <div className="section-two-first-div">
             <img src={circle} alt="circle-bg" className="floating-circle" />
             <div className="computer-left">
-              <img src={computer} alt="computer image" />
+              <img src={computer} alt="computer-img" />
             </div>
             <div>
               <h3 className="title-style">所有教学均为线上教学</h3>
