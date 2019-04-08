@@ -9,13 +9,20 @@ import StudentCourseList from './StudentCourseList';
 import StudentBookList from './StudentBookList';
 import StudentAsset from './StudentAsset';
 import { getStudentReports } from '../../actions/students_actions';
+import { setLoadingStatus } from '../../actions/status_actions'
+import Loading from '../../components/Loading'
 
 class StudentDashboard extends React.Component {
   componentDidMount = () => {
-    this.props.getStudentReports(this.props.student._id);
+    this.props.setLoadingStatus(true)
+    this.props.getStudentReports(this.props.student._id)
   }
 
   render() {
+    if(this.props.loading) {
+      return <Loading />
+    }
+
     let height = {};
     let mainContent = <div className="card white r-box-shadow">
                         <div className="card-content">
@@ -86,6 +93,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     getStudentReports: (student_id) => {
       dispatch(getStudentReports(student_id))
     }

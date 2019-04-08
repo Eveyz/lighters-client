@@ -11,7 +11,9 @@ import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import TeacherCourseBooks from './TeacherCourseBooks';
 import TuiCalendar from '../TuiCalendar';
+import Loading from '../../components/Loading'
 
+import { setLoadingStatus } from '../../actions/status_actions'
 import { getTeacherCourses } from '../../actions/teachers_actions'
 import { selectCourse } from '../../actions/courses_actions'
 
@@ -28,11 +30,16 @@ class TeacherDashboard extends React.Component {
     this.props.selectCourse(course, path);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.setLoadingStatus(true)
     this.props.getTeacherCourses(this.props.teacher._id)
   }
 
   render() {
+    if(this.props.isLoading) {
+      return <Loading />
+    }
+
     if(_.isEmpty(this.props.teacher) || this.props.teacher.status === "pending") {
       return (
         <div>
@@ -237,12 +244,16 @@ const mapStateToProps = (state) => {
     user_id: state.auth.user.userTokenData.id,
     teacher: state.auth.identityData,
     courses: state.coursesData.courses,
-    activeTab: state.mode.value
+    activeTab: state.mode.value,
+    isLoading: state.reportsData.loading
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setLoadingStatus: (status) => {
+      dispatch(setLoadingStatus(status))
+    },
     getTeacherCourses: (teacher_id) => {
       dispatch(getTeacherCourses(teacher_id))
     },

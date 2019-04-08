@@ -15,10 +15,9 @@ import book3 from '../../images/b3.png'
 import book4 from '../../images/b4.jpg'
 // import book5 from '../../images/b5.jpeg'
 import uphill from '../../images/hillup.svg'
-import triangle from '../../images/triangle.svg'
 import circle from '../../images/circle.svg'
 import computer from '../../images/computer.png'
-import verticalBars from '../../images/vertical-bars.svg'
+// import verticalBars from '../../images/vertical-bars.svg'
 
 class Home extends Component {
   constructor(props) {
@@ -150,12 +149,6 @@ class Home extends Component {
             <div className="books-section">
               <h3 className="center title-style">原滋原味绘本教材</h3>
               <div className="center">
-                <div className="uphill-container">
-                  <img src={uphill} alt="uphill" />
-                </div>
-                <div className="vertical-bars-container">
-                  <img src={verticalBars} alt="vertical-bars" />
-                </div>
                 <Row>
                   <img style={{width: "225px", zIndex: "1"}} src={book1} alt="Yvonne冰冰老师"></img>
                   <img style={{width: "225px", zIndex: "1"}} src={book2} alt="Yvonne冰冰老师"></img>
@@ -167,6 +160,12 @@ class Home extends Component {
           </div>
           
           <div className="uphill-bg card-padding">
+            <div className="uphill-container">
+              <img src={uphill} alt="uphill" />
+            </div>
+            {/* <div className="vertical-bars-container">
+              <img src={verticalBars} alt="vertical-bars" />
+            </div> */}
             <h4 className="center black-text">准备好了嘛?</h4>
             <h5 className="center black-text">点击申请试课, 让您的孩子加入我们的绘本英语学习之旅吧.</h5>
             <br/>

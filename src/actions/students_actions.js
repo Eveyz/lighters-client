@@ -1,6 +1,6 @@
 import history from '../history';
 import axios from 'axios';
-import { GET_STUDENTS, GET_STUDENTS_FAILURE, GET_LOW_BALANCE_STUDENTS, ADD_STUDENT, ADD_STUDENT_FAILURE, UPDATE_STUDENT, UPDATE_STUDENT_FAILURE, GET_STUDENT_FAILURE, SELECT_STUDENT, GET_STUDENT_REPORTS_BEGIN, GET_STUDENT_REPORTS_SUCCESS, GET_STUDENT_REPORTS_FAILURE } from './constants';
+import { GET_STUDENTS, GET_STUDENTS_FAILURE, GET_LOW_BALANCE_STUDENTS, ADD_STUDENT, ADD_STUDENT_FAILURE, UPDATE_STUDENT, UPDATE_STUDENT_FAILURE, GET_STUDENT_FAILURE, SELECT_STUDENT, GET_STUDENT_REPORTS_BEGIN, GET_STUDENT_REPORTS_SUCCESS, GET_STUDENT_REPORTS_FAILURE, SET_LOADING_STATUS } from './constants';
 import { setCurrentIdentityData } from './users_actions';
 
 export const getStudents = (query) => {
@@ -45,8 +45,10 @@ export const getStudentData = (id) => dispatch => {
   dispatch(() => {
     axios.get(`/students/${id}`)
       .then((response) => {
-        console.log("student data: ", response.data)
-        dispatch({type: SELECT_STUDENT, payload: response.data})
+        var setStudentDone = new Promise((resolve, reject) => {
+          resolve(dispatch({type: SELECT_STUDENT, payload: response.data}))
+        })
+        setStudentDone.then(dispatch({type: SET_LOADING_STATUS, payload: false}))
       })
       .catch((err) => {
         dispatch({type: GET_STUDENT_FAILURE, payload: err})
@@ -61,6 +63,7 @@ export const getStudentReports = (student_id) => {
     axios.get(`/students/${student_id}/reports`)
     .then((response) => {
       dispatch({type: GET_STUDENT_REPORTS_SUCCESS, payload: response.data})
+      dispatch({type: SET_LOADING_STATUS, payload: false})
     })
     .catch((err) => {
       dispatch({type: GET_STUDENT_REPORTS_FAILURE, payload: err})
@@ -104,7 +107,7 @@ export const updateStudent = (id, field) => {
 
 export const selectStudent = (student, path) => {
   return (dispatch) => {
-    dispatch({type: SELECT_STUDENT, payload: student});
+    dispatch({type: SELECT_STUDENT, payload: student})
     if(path) {
       history.push(path);
     }

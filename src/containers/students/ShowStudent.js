@@ -15,9 +15,7 @@ import { getStudentReportCredit, getLocalTime } from '../../ultis';
 class ShowStudent extends React.Component {
   componentDidMount() {
     this.props.setLoadingStatus(true)
-    this.props.getStudentData(this.props.match.params._id).then(() => {
-      this.props.setLoadingStatus(false)
-    })
+    this.props.getStudentData(this.props.match.params._id)
   }
 
   render() {
