@@ -15,6 +15,10 @@ import book3 from '../../images/b3.png'
 import book4 from '../../images/b4.jpg'
 // import book5 from '../../images/b5.jpeg'
 import uphill from '../../images/hillup.svg'
+import triangle from '../../images/triangle.svg'
+import circle from '../../images/circle.svg'
+import computer from '../../images/computer.png'
+import verticalBars from '../../images/vertical-bars.svg'
 
 class Home extends Component {
   constructor(props) {
@@ -63,13 +67,63 @@ class Home extends Component {
             </div>
           </div>
         </div>
-        <div style={{display: "none"}}>
-          <br/>
+        <section className="section-one">
           <div>
-            <br/>
-            <br/>
-            <h4 className="center banner-font">Lighters绘说英语</h4>
-            <div className="container">
+            <img src={triangle} width="960px" />
+            <div>
+              <h3>为什么选择Lighters绘说英语</h3>
+              <ul>
+                <li>
+                  <div className="no-margin" style={{padding: "0px 10px 0px 0px"}}><i className="material-icons section-one-icon" style={{color: "#3f51b5"}}>share</i></div>
+                  <div className="no-margin no-padding">
+                    <h4>结构性课程设计</h4>
+                    <p>Our courses are designed to keep you on track, so you learn to code "today" not "someday."</p>
+                  </div>
+                </li>
+                <li>
+                  <div className="no-margin" style={{padding: "0px 10px 0px 0px"}}><i className="material-icons section-one-icon" style={{color: "#009688"}}>web</i></div>
+                  <div className="no-margin no-padding">
+                    <h4>在线模式</h4>
+                    <p>Drill the material with 85 coding quizzes and feel comfortable and confident.</p>
+                  </div>
+                </li>
+                <li>
+                  <div className="no-margin" style={{padding: "0px 10px 0px 0px"}}><i className="material-icons section-one-icon" style={{color: "#f57f17"}}>group</i></div>
+                  <div className="no-margin no-padding">
+                    <h4>教师跟踪</h4>
+                    <p>Most of our free courses take fewer than 11 hours.</p>
+                  </div>
+                </li>
+                <li>
+                  <div className="no-margin" style={{padding: "0px 10px 0px 0px"}}><i className="material-icons section-one-icon" style={{color: "#ea80fc"}}>import_contacts</i></div>
+                  <div className="no-margin no-padding">
+                    <h4>丰富的绘本资源</h4>
+                    <p>Our global community of coaches, advisors, and graduates means there’s always someone to answer your question.</p>
+                  </div>
+                </li>
+              </ul>
+              <div className="section-one-button no-padding no-margin">
+                <a onClick={this.studentSignup} className="clickable">点击开始</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section-two">
+          <div className="section-two-first-div">
+            <img src={circle} alt="circle-bg" className="floating-circle" />
+            <div className="computer-left">
+              <img src={computer} alt="computer image" />
+            </div>
+            <div>
+              <h3 className="title-style">所有教学均为线上教学</h3>
+              <p>Our online coding tutorials with easy-to-follow instructions, immediate feedback, and a tested curriculum take anyone from non-technical to “I can code.”</p>
+            </div>
+          </div>
+        </section>
+        <div>
+          <div>
+            <h4 className="center banner-font" style={{display: "none"}}>Lighters绘说英语</h4>
+            <div className="container" style={{display: "none"}}>
               <Row>
                 <Col m={6} className="center advantages">
                   <p>欧美英语硕士博士</p>
@@ -91,17 +145,27 @@ class Home extends Component {
               </Row>
             </div>
 
-            <h4 className="center banner-font">原版教材</h4>
-            <div className="container center" style={{backgroundImage: `${uphill}`}}>
-              <Row>
-                <img style={{width: "225px"}} src={book1} alt="Yvonne冰冰老师"></img>
-                <img style={{width: "225px"}} src={book2} alt="Yvonne冰冰老师"></img>
-                <img style={{width: "225px"}} src={book4} alt="Yvonne冰冰老师"></img>
-                <img style={{width: "225px"}} src={book3} alt="Yvonne冰冰老师"></img>
-              </Row>
+            <div className="books-section">
+              <h3 className="center title-style white-text">原滋原味绘本教材</h3>
+              <div className="center">
+                <div className="uphill-container">
+                  <img src={uphill} alt="uphill" />
+                </div>
+                <div className="vertical-bars-container">
+                  <img src={verticalBars} alt="vertical-bars" />
+                </div>
+                <Row>
+                  <img style={{width: "225px", zIndex: "1"}} src={book1} alt="Yvonne冰冰老师"></img>
+                  <img style={{width: "225px", zIndex: "1"}} src={book2} alt="Yvonne冰冰老师"></img>
+                  <img style={{width: "225px", zIndex: "1"}} src={book4} alt="Yvonne冰冰老师"></img>
+                  <img style={{width: "225px", zIndex: "1"}} src={book3} alt="Yvonne冰冰老师"></img>
+                </Row>
+              </div>
             </div>
           </div>
+
           <TeachersCards />
+          
           <div className="gradient-bg card-padding">
             <h4 className="center white-text">准备好了嘛?</h4>
             <h5 className="center white-text">点击申请试课, 让您的孩子加入我们的绘本英语学习之旅吧.</h5>

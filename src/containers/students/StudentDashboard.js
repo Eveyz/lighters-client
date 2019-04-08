@@ -53,7 +53,7 @@ class StudentDashboard extends React.Component {
                 <i className="material-icons">event_note</i><span>课程</span>
               </Link>
               <Link to={`/students/${this.props.student._id}/assets`} className={this.props.location.pathname.includes("assets") ? "active" : ""}>
-                <i className="material-icons">description</i><span>学费记录</span>
+                <i className="material-icons">attach_money</i><span>学费记录</span>
               </Link>
               <Link to={`/students/${this.props.student._id}/schedule`} className={this.props.location.pathname.includes("schedule") ? "active" : ""}>
                 <i className="material-icons">schedule</i><span>课程表</span>

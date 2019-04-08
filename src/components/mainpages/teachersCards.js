@@ -8,9 +8,7 @@ import Yan from '../../images/yan2.jpg';
 
 const TeachersCards = props => (
   <div>
-    <br/>
-    <br/>
-    <h4 className="center banner-font">Learn with the best</h4>
+    <h3 className="center title-style">雄厚的师资力量</h3>
     <Row>
       <Col m={3} s={12}>
         <Card key={0} style={{borderTop: "3px solid #02b3e4"}} className='center white teacher-card' textClassName='black-text' title='Yvonne冰冰老师'>

@@ -282,3 +282,165 @@ td p {
   content: "\00b7";
   margin: 0 5px;
 }
+
+.section-one {
+  position: relative;
+}
+
+.section-one div {
+  margin: 0 auto 6rem auto;
+  max-width: 60rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section-one div img {
+  display: block;
+  vertical-align: middle;
+  position: absolute;
+  z-index: 0;
+  bottom: -3rem;
+  right: -3rem;
+}
+
+.section-one div div {
+  padding: 4rem 2rem;
+  background-color: white;
+  z-index: 1;
+  position: relative;
+}
+
+.section-one div div h3 {
+  color: #141c3a;
+  line-height: 1.1;
+  font-size: 3.2rem;
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto 2rem auto;
+  font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", serif;
+  font-weight: 530;
+}
+
+.section-one div div ul {
+  flex-direction: row;
+  text-align: left;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-one div div ul li {
+  display: flex;
+  width: 50%;
+  height: 200px;
+  padding: 24px;
+  flex-direction: row;
+}
+
+.section-one div div ul li div h4 {
+  font-size: 25.6px;
+  border-bottom: 3px solid #141c3a;
+  padding-bottom: 8px;
+  margin-top: 0px;
+}
+
+.section-one-icon {
+  font-size: 36px;
+  margin: 0px;
+}
+
+.section-one-button {
+  text-align: center;
+}
+
+.section-one-button a {
+  display: inline-flex;
+  justify-content: center;
+  width: 200px;
+  max-width: 100%;
+  padding: 12px 20px;
+  line-height: 1.33333;
+  min-width: 10rem;
+  border-radius: 50px;
+  color: white;
+  background-color: #6400e4;
+  font-weight: bold;
+}
+
+.section-two {
+  display: flex;
+  margin-top: 100px;
+}
+
+.section-two-first-div {
+  flex-direction: row;
+  display: flex;
+  position: relative;
+  max-width: 90rem;
+  margin: auto;
+  padding: 0 2rem 0 2rem;
+  width: 100%;
+}
+
+.floating-circle {
+  position: absolute;
+  right: -15rem;
+  z-index: -1;
+  top: -18rem;
+  max-width: 40rem;
+}
+
+.computer-left {
+  margin: 0px;
+  padding: 0px;
+  flex: 1 0 50%;
+}
+
+.computer-left img {
+  margin-bottom: 0;
+  max-width: 150%;
+  position: relative;
+  right: 48%;
+  height: 553px;
+}
+
+.title-style {
+  max-width: 28rem;
+  font-size: 3.2rem;
+  margin-top: 5rem;
+  color: #141c3a;
+  line-height: 1.1;
+}
+
+.books-section {
+  position: relative;
+  background-color: #141B39;
+  padding: 1px 0 20px 0;
+}
+
+.uphill-container {
+  position: relative;
+}
+
+.uphill-container img {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  left: 0px;
+  top: -400px;
+}
+
+.uphill-book {
+  width: "225px";
+  z-index: 1;
+}
+
+.vertical-bars-container img {
+  position: absolute;
+  right: 10rem;
+  top: -4rem;
+  max-width: 6rem;
+}
