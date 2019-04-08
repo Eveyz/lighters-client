@@ -42,7 +42,7 @@ export const getStudent = (id) => {
 };
 
 export const getStudentData = (id) => dispatch => {
-  dispatch(() => {
+  return (dispatch) => {
     axios.get(`/students/${id}`)
       .then((response) => {
         var setStudentDone = new Promise((resolve, reject) => {
@@ -53,8 +53,7 @@ export const getStudentData = (id) => dispatch => {
       .catch((err) => {
         dispatch({type: GET_STUDENT_FAILURE, payload: err})
       })
-  })
-  return Promise.resolve()
+  }
 };
 
 export const getStudentReports = (student_id) => {

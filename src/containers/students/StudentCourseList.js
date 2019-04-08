@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-materialize';
+import _ from 'lodash';
 
 import PaginationContainer from '../PaginationContainer';
 import BookList from '../books/BookList';
@@ -111,6 +112,7 @@ class StudentCourseList extends React.Component {
           if(report.course_id._id === current_course)
             _reports.push(report);
         });
+        _reports = _.sortBy(_reports, 'course_date')
         content = _reports.length > 0 ? <Col m={12} s={12}>
                                           <div className="card r-box-shadow">
                                             <div className="card-content">

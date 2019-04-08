@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 
-import Loading from '../../components/Loading'
+// import Loading from '../../components/Loading'
 
 import { getStudentData } from '../../actions/students_actions'
 import { setLoadingStatus } from '../../actions/status_actions'
@@ -11,17 +11,15 @@ import { getStudentReportCredit, getLocalTime } from '../../ultis'
 class StudentAsset extends React.Component {
 
 	componentDidMount() {
-		this.props.setLoadingStatus(true)
-    this.props.getStudentData(this.props.student_id).then(() => {
-      this.props.setLoadingStatus(false)
-    })
+		// this.props.setLoadingStatus(true)
+    // this.props.getStudentData(this.props.student_id)
 	}
 
 	render() {
 
-		if(this.props.isLoading) {
-      return <Loading />
-    }
+		// if(this.props.isLoading) {
+    //   return <Loading />
+    // }
 
     const cls = this.props.student.tuition_amount < 0 ? "red-text" : "green-text"
 
@@ -133,7 +131,7 @@ class StudentAsset extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    student: state.studentsData.currentStudent,
+    student: state.auth.identityData,
     isLoading: state.status.loading
   };
 }
