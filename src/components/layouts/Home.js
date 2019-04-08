@@ -69,9 +69,9 @@ class Home extends Component {
         </div>
         <section className="section-one">
           <div>
-            <img src={triangle} width="960px" alt="triangle" />
+            {/* <img src={triangle} width="960px" alt="triangle" /> */}
             <div>
-              <h3>为什么选择Lighters绘说英语</h3>
+              <h3>我们的优势</h3>
               <ul>
                 <li>
                   <div className="no-margin" style={{padding: "0px 10px 0px 0px"}}><i className="material-icons section-one-icon" style={{color: "#3f51b5"}}>share</i></div>
@@ -145,8 +145,10 @@ class Home extends Component {
               </Row>
             </div>
 
+            <TeachersCards />
+
             <div className="books-section">
-              <h3 className="center title-style white-text">原滋原味绘本教材</h3>
+              <h3 className="center title-style">原滋原味绘本教材</h3>
               <div className="center">
                 <div className="uphill-container">
                   <img src={uphill} alt="uphill" />
@@ -163,12 +165,10 @@ class Home extends Component {
               </div>
             </div>
           </div>
-
-          <TeachersCards />
           
-          <div className="gradient-bg card-padding">
-            <h4 className="center white-text">准备好了嘛?</h4>
-            <h5 className="center white-text">点击申请试课, 让您的孩子加入我们的绘本英语学习之旅吧.</h5>
+          <div className="uphill-bg card-padding">
+            <h4 className="center black-text">准备好了嘛?</h4>
+            <h5 className="center black-text">点击申请试课, 让您的孩子加入我们的绘本英语学习之旅吧.</h5>
             <br/>
             <div onClick={this.studentSignup} className="center large-btn">申请试课</div>
           </div>

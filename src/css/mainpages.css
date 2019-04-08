@@ -195,11 +195,13 @@
 
 .large-btn {
   padding: 15px 40px 15px 40px;
-  background-color: white;
+  color: white;
+  background-color: rgba(255, 190, 0, 1.0);
   width: 200px;
   border-radius: 5px;
   cursor: pointer;
-  color: #2196f3;
+  font-weight: bold;
+  /* color: #2196f3; */
 }
 
 .large-btn:hover {
@@ -305,7 +307,7 @@ td p {
 
 .section-one div div {
   padding: 4rem 2rem;
-  background-color: white;
+  /* background-color: white; */
   z-index: 1;
   position: relative;
 }
@@ -366,7 +368,7 @@ td p {
   min-width: 10rem;
   border-radius: 50px;
   color: white;
-  background-color: #6400e4;
+  background-color: rgba(255, 190, 0, 1.0);
   font-weight: bold;
 }
 
@@ -417,8 +419,8 @@ td p {
 
 .books-section {
   position: relative;
-  background-color: #141B39;
-  padding: 1px 0 20px 0;
+  /* background-color: rgba(255, 190, 0, 1.0); */
+  padding: 0px;
 }
 
 .uphill-container {
@@ -430,7 +432,7 @@ td p {
   z-index: -1;
   width: 100%;
   left: 0px;
-  top: -400px;
+  top: -280px;
 }
 
 .uphill-book {
@@ -443,4 +445,8 @@ td p {
   right: 10rem;
   top: -4rem;
   max-width: 6rem;
+}
+
+.uphill-bg {
+  background-color: #FFF4DC;
 }
