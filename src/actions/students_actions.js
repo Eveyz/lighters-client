@@ -41,7 +41,7 @@ export const getStudent = (id) => {
   }
 };
 
-export const getStudentData = (id) => dispatch => {
+export const getStudentData = (id) => {
   return (dispatch) => {
     axios.get(`/students/${id}`)
       .then((response) => {
