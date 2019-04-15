@@ -91,7 +91,8 @@ const mapStateToProps = state => {
         dest: pc.teacher_id.lastname + pc.teacher_id.firstname,
         amount: pc.amount ? pc.amount.toFixed(2) : 0,
         created_at: pc.updated_at,
-        status: "OUT"
+        status: "OUT",
+        memo: pc.memo
       })
     }
   })
