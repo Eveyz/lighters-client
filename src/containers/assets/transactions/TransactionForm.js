@@ -95,7 +95,7 @@ class TransactionForm extends React.Component {
                           onBlur={handleBlur} 
                           value={values.src} 
                         />
-                        <label htmlFor="src">来源 <span className="required">*</span></label>
+                        <label htmlFor="src">从 <span className="required">*</span></label>
                       </div>
                       <div className="input-field col s12 m6">
                         <input 

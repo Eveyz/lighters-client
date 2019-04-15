@@ -12,7 +12,7 @@ class TransactionList extends React.Component {
                             <thead>
                               <tr>
                                 <th>时间</th>
-                                <th>来源</th>
+                                <th>从</th>
                                 <th>目的地</th>
                                 <th>金额(元)</th>
                                 <th>状态</th>

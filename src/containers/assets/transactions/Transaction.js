@@ -13,7 +13,7 @@ class Transaction extends React.Component {
         <td>{this.props.transaction.dest}</td>
         {td}
         <td>{this.props.transaction.status === "IN" ? "收入" : "支出"}</td>
-        <td className="text-overflow">{this.props.transaction.memo}</td>
+        <td className="text-overflow" style={{maxWidth: "200px"}}>{this.props.transaction.memo}</td>
       </tr>
     )
   }
