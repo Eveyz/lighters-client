@@ -66,7 +66,7 @@ class Home extends Component {
             </div>
           </div>
         </div>
-        <section className="section-one">
+        <section className="section-one" style={{display: "none"}}>
           <div>
             {/* <img src={triangle} width="960px" alt="triangle" /> */}
             <div>
@@ -107,7 +107,7 @@ class Home extends Component {
             </div>
           </div>
         </section>
-        <section className="section-two">
+        <section className="section-two" style={{display: "none"}}>
           <div className="section-two-first-div">
             <img src={circle} alt="circle-bg" className="floating-circle" />
             <div className="computer-left">
@@ -119,7 +119,7 @@ class Home extends Component {
             </div>
           </div>
         </section>
-        <div>
+        <div style={{display: "none"}}>
           <div>
             <h4 className="center banner-font" style={{display: "none"}}>Lighters绘说英语</h4>
             <div className="container" style={{display: "none"}}>
