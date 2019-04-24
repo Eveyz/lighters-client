@@ -15,6 +15,7 @@ class TableCell extends React.Component {
 
     this.edit = this.edit.bind(this)
     this.cancelEdit = this.cancelEdit.bind(this)
+    this.autoSize = this.autoSize.bind(this)
   }
 
   edit() {
@@ -34,16 +35,22 @@ class TableCell extends React.Component {
     }
   }
 
+  autoSize(e) {
+    e.target.style.cssText = 'height:auto; padding:0';
+    e.target.style.cssText = 'height:' + e.target.scrollHeight + 'px';
+  }
+
   render() {
     let inputForm = <div style={{width: tableFormRatio[this.props.ky]}}>
-                      <input
+                      <textarea
                         type="text"
                         className="cell-input browser-default"
                         defaultValue={this.props.value}
                         ref={this.cellContent}
                         autoFocus
                         onBlur={this.cancelEdit}
-                      ></input>
+                        onKeyDown={this.autoSize}
+                      ></textarea>
                     </div>
     
     if(this.state.mode === "EDIT") {

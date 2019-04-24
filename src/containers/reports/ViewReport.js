@@ -55,12 +55,12 @@ class ViewReport extends React.Component {
 
     const tableRows = report.course_content.map((row, idx) => {
       if(row) {
-        return  <tr key={idx}>
-                  <td className="col m2">{row.category}</td>
-                  <td className="col m3">{row.serialName}</td>
-                  <td className="col m2">{row.type}</td>
-                  <td className="col m2">{row.ratio}</td>
-                  <td className="col m3">{row.keywords}</td>
+        return  <tr key={idx} align="center">
+                  <td className="col m1 report-cell-padding">{row.category}</td>
+                  <td className="col m3 report-cell-padding">{row.serialName}</td>
+                  <td className="col m1 report-cell-padding">{row.type}</td>
+                  <td className="col m1 report-cell-padding">{row.ratio}</td>
+                  <td className="col m6 report-cell-padding">{row.keywords}</td>
                 </tr>
       } else {
         return null
@@ -72,10 +72,11 @@ class ViewReport extends React.Component {
     const _report = this.state.img ? "" :
     <div id="report_content">
       <div className="card r-box-shadow report-border">
-        <div className="card-content" style={{padding: "25px"}}>
+        <div className="card-content" style={{padding: "5px"}}>
           <div className="row no-margin">
             <div className="input-field col m12 s12">
               <h4 className="center orange-text no-margin">Lighters 绘说英语 - 上课反馈</h4>
+              <br/>
               <p><span className="orange-text">上课学员:</span> {report.student_id.englishname}</p>
               <p><span className="orange-text">上课老师:</span> {report.teacher_id.englishname}老师</p>
               <p><span className="orange-text">课程名称:</span> {report.course_id.name}</p>
@@ -87,11 +88,11 @@ class ViewReport extends React.Component {
               <table>
                 <thead>
                   <tr>
-                    <th className="col m2">读物类型</th>
-                    <th className="col m3">读物系列名/书名/章节</th>
-                    <th className="col m2">类别</th>
-                    <th className="col m2">翻译比例</th>
-                    <th className="col m3">Key Words/Patterns</th>
+                    <th className="col m1 report-cell-padding">读物类型</th>
+                    <th className="col m3 report-cell-padding">读物系列名/书名/章节</th>
+                    <th className="col m1 report-cell-padding">类别</th>
+                    <th className="col m1 report-cell-padding">翻译比例</th>
+                    <th className="col m6 report-cell-padding">Key Words/Patterns</th>
                   </tr>
                 </thead>
 
