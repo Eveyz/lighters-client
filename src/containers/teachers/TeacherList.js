@@ -152,7 +152,7 @@ class TeacherList extends React.Component {
           <Row>
             <Col m={12}>
               <Link to="/admin/teachers/new">
-                <button className="btn">添加教师</button>
+                <button className="btn"><i className="material-icons left">add</i>添加教师</button>
               </Link>
             </Col>
           </Row>

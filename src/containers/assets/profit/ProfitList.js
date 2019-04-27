@@ -27,17 +27,7 @@ class ProfitList extends React.Component {
                           </tr>)
         }
       })
-      // profitList = _profit.map((report, idx) => {
-      //   const profit = report.course_id.course_rate - report.amount
-      //   const cls = profit > 0 ? "green-text" : "red-text"
-      //   return <tr key={idx}>
-      //             <td>{report.course_id.name}</td>
-      //             <td>{report.updated_at}</td>
-      //             <td>{report.teacher_id.englishname}</td>
-      //             <td>{report.student_id.englishname}</td>
-      //             <td className={cls}>{profit}</td>
-      //          </tr>
-      // })
+      
       profitTable = <table className="highlight">
                         <thead>
                           <tr>

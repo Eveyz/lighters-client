@@ -174,7 +174,7 @@ class StudentList extends React.Component {
           <Row>
             <Col m={12}>
               <Link to="/admin/students/new">
-                <button className="btn">添加学生</button>
+                <button className="btn blue"><i className="material-icons left">add</i>添加学生</button>
               </Link>
             </Col>
           </Row>

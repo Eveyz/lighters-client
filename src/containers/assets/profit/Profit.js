@@ -60,7 +60,7 @@ class Profit extends React.Component {
         else sum -= compensation.amount
       })
       compensationContent = <PaginationContainer 
-                              itemsPerPage={20} 
+                              itemsPerPage={30} 
                               data={this.props.compensations} 
                               readOnly={false} 
                             >

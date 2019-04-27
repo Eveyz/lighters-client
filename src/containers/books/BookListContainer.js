@@ -28,7 +28,7 @@ class BookListContainer extends React.Component {
           <br />
           <Row>
             <Col m={2}>
-              <Link to="/books/new" className="btn">添加绘本</Link>
+              <Link to="/books/new" className="btn"><i className="material-icons left">add</i>添加绘本</Link>
             </Col>
             <Col m={10}>
               <Link to="/books/new" className="btn cyan">从CSV中导入</Link>

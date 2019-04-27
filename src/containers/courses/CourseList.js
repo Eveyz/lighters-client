@@ -84,7 +84,7 @@ class CourseList extends React.Component {
             <br/>
             <div className="row">
               <div className="col m12">
-                <Link to="/courses/add_course" className="btn">添加课程</Link>
+                <Link to="/courses/add_course" className="btn"><i className="material-icons left">add</i>添加课程</Link>
               </div>
             </div>
             <div className="row">
