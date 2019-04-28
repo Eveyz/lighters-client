@@ -71,7 +71,6 @@ class TableFilter extends React.Component {
 
     const t = typeof(this.props.items[0][field])
     var valueOptions = null
-    console.log(options)
     if(field !== "default") {
       if(t === "number") {
         valueOptions = <div className="input-field col m5 s12" key="text-input">

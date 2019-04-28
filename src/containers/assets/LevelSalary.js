@@ -79,8 +79,8 @@ class LevelandSalary extends React.Component {
       var _options = {
         "level": new Set(), 
         "rate": new Set(), 
-        "type": new Set(), 
-        "course_level": new Set()
+        "course_level": new Set(),
+        "type": new Set()
       }
       this.props.entries.forEach(entry => {
         _options["level"].add(entry["level"])
@@ -105,8 +105,8 @@ class LevelandSalary extends React.Component {
       const _fields = {
         "level": "教师等级", 
         "rate": "工资", 
-        "type": "课程等级", 
-        "course_level": "课程类型"
+        "course_level": "课程等级",
+        "type": "课程类型"
       }
       entriesTable =  <React.Fragment>
                         <TableFilter fields={_fields} options={_options} items={this.props.entries} filterItems={this.filterItems} />
