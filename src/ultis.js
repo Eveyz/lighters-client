@@ -204,6 +204,13 @@ export const tableFormRatio = {
   "keywords": "35%"
 }
 
+export const CHINESE_MAPPING = {
+  "level": "教师等级", 
+  "rate": "工资", 
+  "type": "课程等级", 
+  "course_level": "课程类型",
+}
+
 export const imagesList = [
   "img_coffee-title.jpg", 
   "img_violin2-title.jpg",

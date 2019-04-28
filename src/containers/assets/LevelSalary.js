@@ -4,16 +4,24 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { CLASS_LEVEL_RANK } from '../../ultis';
 
+import TableFilter from '../../components/layouts/TableFilter'
 import EntryInputForm from './EntryInputForm';
 import Loading from '../../components/Loading';
 import { setLoadingStatus } from '../../actions/status_actions';
 import { addLevelSalary, updateLevelSalary, deleteLevelSalary } from '../../actions/level_salary_actions';
 
 class LevelandSalary extends React.Component {
-  state = {
-    show: false,
-    action: "NEW",
-    entry: {}
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      show: false,
+      action: "NEW",
+      entry: {},
+      entries: this.props.entries || []
+    }
+
+    this.filterItems = this.filterItems.bind(this)
   }
 
   componentWillMount() {
@@ -22,6 +30,18 @@ class LevelandSalary extends React.Component {
 
   componentDidMount() {
     this.props.setLoadingStatus(false)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.entries !== nextProps.entries) {
+      this.setState(nextProps)
+    }
+  }
+
+  filterItems(entries) {
+    this.setState({
+      entries: entries
+    })
   }
 
   toggleEdit = (entry) => e => {
@@ -36,7 +56,7 @@ class LevelandSalary extends React.Component {
     if(entry) {
       this.state.action === "NEW" ? this.props.addEntry(entry) : this.props.updateEntry(entry)
     }
-    this.setState({entry: {}, show: !this.state.show, action: "NEW"})
+    this.setState({entry: {}, show: !this.state.show, action: "NEW", entries: this.props.entries})
   }
 
   deleteEntry = (entry_id) => {
@@ -44,46 +64,69 @@ class LevelandSalary extends React.Component {
   }
 
   render() {
+    const { entries } = this.state
+
     if(this.props.isLoading) {
       return <Loading />
     }
 
     let showInput = this.state.show ? <EntryInputForm action={this.state.action} entry={this.state.entry} onSubmit={this.onSubmit} cancel={this.onSubmit} /> : ""
-    let btn = this.state.show ? "" : <button className="btn" onClick={this.toggleShow}>新建条目</button>
+    let btn = this.state.show ? "" : <button className="btn" onClick={this.toggleShow}><i className="material-icons left">add</i>新建条目</button>
 
     let entriesList = ""
     let entriesTable = ""
     if(this.props.entries.length > 0 && !this.state.show) {
-      entriesList = this.props.entries.map((entry, idx) => {
+      var _options = {
+        "level": new Set(), 
+        "rate": new Set(), 
+        "type": new Set(), 
+        "course_level": new Set()
+      }
+      this.props.entries.forEach(entry => {
+        _options["level"].add(entry["level"])
+        _options["rate"].add(entry["rate"])
+        _options["type"].add(entry["type"])
+        _options["course_level"].add(entry["course_level"])
+      })
+      entriesList = entries.map((entry, idx) => {
         return <tr key={idx}>
                   <td>{entry.level}</td>
                   <td>{entry.rate}</td>
-                  <td>{entry.type}</td>
                   <td>{entry.course_level}</td>
+                  <td>{entry.type}</td>
                   <td>
-                    <button className="btn cyan" onClick={this.toggleEdit(entry)}>编辑</button>
+                    <i className="material-icons clickable left cyan-text" onClick={this.toggleEdit(entry)}>edit</i>
                   </td>
                   <td>
-                    <button className="btn red" onClick={() => { if (window.confirm('确定要删除此条目?')) this.deleteEntry(entry._id)}}>删除</button>
+                    <i className="material-icons clickable left red-text" onClick={() => { if (window.confirm('确定要删除此条目?')) this.deleteEntry(entry._id)}}>delete</i>
                   </td>
                </tr>
       })
-      entriesTable = <table className="highlight">
-                        <thead>
-                          <tr>
-                            <th>教师等级</th>
-                            <th>工资(元/课时/学生)</th>
-                            <th>课程类型</th>
-                            <th>课程等级</th>
-                            <th>编辑</th>
-                            <th>删除</th>
-                          </tr>
-                        </thead>
+      const _fields = {
+        "level": "教师等级", 
+        "rate": "工资", 
+        "type": "课程等级", 
+        "course_level": "课程类型"
+      }
+      entriesTable =  <React.Fragment>
+                        <TableFilter fields={_fields} options={_options} items={this.props.entries} filterItems={this.filterItems} />
+                        <table className="highlight">
+                          <thead>
+                            <tr>
+                              <th>教师等级</th>
+                              <th>工资(元/课时/学生)</th>
+                              <th>课程等级</th>
+                              <th>课程类型</th>
+                              <th>编辑</th>
+                              <th>删除</th>
+                            </tr>
+                          </thead>
 
-                        <tbody>
-                          {entriesList}
-                        </tbody>
-                      </table>
+                          <tbody>
+                            {entriesList}
+                          </tbody>
+                        </table>
+                      </React.Fragment>
     }
 
     return(
