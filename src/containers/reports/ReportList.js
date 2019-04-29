@@ -45,6 +45,7 @@ class ReportList extends React.Component {
         <ReportRow 
           key={idx}
           idx={idx}
+          length={this.props.reports.length}
           report={report}
           courses={this.props.courses}
         />

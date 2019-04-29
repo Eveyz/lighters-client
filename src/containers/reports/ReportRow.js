@@ -157,7 +157,7 @@ class ReportRow extends React.Component {
 
     return (
       <tr>
-        <td>第{ this.props.idx + 1 }次</td>
+        <td>第{ this.props.length - this.props.idx }次</td>
         <td>{ this.props.report.course_date }</td>
         <td>{ this.props.student.englishname }</td>
         <td>{ this.props.student.age }</td>
