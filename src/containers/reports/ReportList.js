@@ -61,7 +61,7 @@ class ReportList extends React.Component {
                               <th>学生英文名</th>
                               <th>学生年龄</th>
                               <th>课程</th>
-                              <th colSpan="2"></th>
+                              <th colSpan="4"></th>
                             </tr>
                           </thead>
 
