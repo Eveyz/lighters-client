@@ -3,8 +3,6 @@ import history from '../history';
 
 import { GET_REPORTS, GET_REPORTS_FAILURE, ADD_REPORT, ADD_REPORT_FAILURE, DELETE_REPORT, DELETE_REPORT_FAILURE, SET_CURRENT_REPORT, UPDATE_REPORT, UPDATE_REPORT_FAILURE, COPY_REPORT, COPY_REPORT_FAILURE, REMOVE_UPLOADED_FILE, SET_LOADING_STATUS, SET_SUCCESS_STATUS } from './constants';
 
-import { updateBooks } from './select_book_actions';
-
 export const getAllReports = () => {
   let url = `/reports`;
   return (dispatch) => {
@@ -79,7 +77,7 @@ export const copyReport = (current_student_id, course_id, student_id, teacher_id
 export const editReport = (report, path) => {
   return (dispatch) => {
     dispatch({type: SET_CURRENT_REPORT, payload: report});
-    dispatch(updateBooks(report.review_books, report.new_books, report.future_books));
+    // dispatch(updateBooks(report.review_books, report.new_books, report.future_books));
     history.push(path);
   }
 }

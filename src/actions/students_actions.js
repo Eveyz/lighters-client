@@ -48,7 +48,9 @@ export const getStudentData = (id) => {
         var setStudentDone = new Promise((resolve, reject) => {
           resolve(dispatch({type: SELECT_STUDENT, payload: response.data}))
         })
-        setStudentDone.then(dispatch({type: SET_LOADING_STATUS, payload: false}))
+        setStudentDone.then(() => {
+          dispatch({type: SET_LOADING_STATUS, payload: false})
+        })
       })
       .catch((err) => {
         dispatch({type: GET_STUDENT_FAILURE, payload: err})

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "@react-pdf/renderer": "^1.0.0-alpha.25",
     "axios": "^0.18.0",
     "draft-js": "^0.10.5",

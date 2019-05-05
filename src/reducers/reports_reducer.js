@@ -25,10 +25,11 @@ export default (state = initialState, action) => {
         error: null
       }
     case 'COPY_REPORT':
-      console.log("its here in the report reducer")
       return {
         currentReport: action.payload,
-        reports: [...state.reports, action.payload],
+        reports: [...state.reports, action.payload].sort((a, b) => {
+          return a.course_date > b.course_date ? -1 : (a.course_date < b.course_date ? 1 : 0)
+        }),
         removedFiles: [],
         loading: false,
         error: null

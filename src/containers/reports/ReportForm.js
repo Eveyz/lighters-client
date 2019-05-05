@@ -129,7 +129,7 @@ class ReportForm extends React.Component {
         reason: this.reason.current.value
       }
     }
-    let path = "/teachers/" + this.props.user_id + "/course_manager";
+    let path = "/teachers/" + this.props.user_id + "/reports";
 
     this.props.setLoadingStatus(true)
 

@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Modal } from 'react-materialize';
+import Modal from '@material-ui/core/Modal';
 import M from 'materialize-css';
 
 import { editReport, copyReport, deleteReport } from '../../actions/reports_actions';
 import Working from '../../components/Working';
+import CopyReportModal from './CopyReportModal'
 
 class ReportRow extends React.Component {
 
@@ -27,6 +28,8 @@ class ReportRow extends React.Component {
     this.selectStudent = this.selectStudent.bind(this);
     this.copyReport = this.copyReport.bind(this);
     this.deleteReport = this.deleteReport.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   initSelect() {
@@ -43,9 +46,6 @@ class ReportRow extends React.Component {
 
   componentDidUpdate() {
     this.initSelect()
-    // var elem = document.querySelector(`#report-${this.props.report._id}`)
-    // var instance = M.Modal.getInstance(elem)
-    // instance.close()
   }
 
   selectCourse() {
@@ -73,12 +73,6 @@ class ReportRow extends React.Component {
       submit: true
     })
     this.props.copyReport(this.props.student._id, course_id, student_id, teacher_id, report_id)
-    setTimeout(() => {
-        var elem = document.querySelector(`#report-${this.props.report._id}`)
-        var instance = M.Modal.getInstance(elem)
-        instance.close()
-      },
-    200);
   }
 
   deleteReport = () => {
@@ -88,6 +82,18 @@ class ReportRow extends React.Component {
   editReport = () => {
     let path = "/teachers/" + this.props.user_id + "/edit_report";
     this.props.editReport(this.props.report, path);
+  }
+
+  handleOpen = () => {
+    this.setState({
+      open: true
+    })
+  }
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
   }
 
   render() {
@@ -115,45 +121,28 @@ class ReportRow extends React.Component {
     }
 
     const btnDisabled = this.state.submit && this.props.success ? true : false
-    const copyModal = <Modal
-                        header='复制反馈表'
-                        id={`report-${this.props.report._id}`}
-                        trigger={<i className="material-icons blue-grey-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表">content_copy</i>}>
-                        <div style={{minHeight: "200px"}}>
-                          <div className="row">
-                            <div className="input-field col m6 s12">
-                              <select
-                                ref={this.course}
-                                id="course"
-                                defaultValue="default"
-                                onChange={this.selectCourse}
-                              >
-                                <option key="default" value="default" disabled>请选择课程</option>
-                                {courseOptions}
-                              </select>
-                              <label htmlFor="course">请选择课程 <span className="required">*</span></label>
-                            </div>
-                            <div className="input-field col m6 s12">
-                              <select
-                                ref={this.student}
-                                id="student"
-                                disabled={disabled}
-                                defaultValue="default"
-                                onChange={this.selectStudent}
-                              >
-                                <option key="default" value="default" disabled>请选择课程学生</option>
-                                {studentOptions}
-                              </select>
-                              <label htmlFor="student">请选择课程学生 <span className="required">*</span></label>
-                            </div>
-                            <div className="row">
-                              <div className="input-field col m6 s12">
-                                <button className="btn cyan" disabled={btnDisabled} onClick={this.copyReport}>复制</button>
-                              </div>
-                            </div>
+    const copyModal = <div>
+                        <i className="material-icons blue-grey-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表" onClick={this.handleOpen}>content_copy</i>
+                        <Modal
+                          open={this.state.open}
+                          onClose={this.handleClose}
+                        >
+                          <div>
+                            <CopyReportModal
+                              disabled={disabled}
+                              courseRef={this.course}
+                              studentRef={this.student}
+                              btnDisabled={btnDisabled}
+                              courseOptions={courseOptions}
+                              studentOptions={studentOptions} 
+                              selectCourse={this.selectCourse} 
+                              selectStudent={this.selectStudent}
+                              copyReport={this.copyReport}
+                              handleClose={this.handleClose}
+                            />
                           </div>
-                        </div>
-                      </Modal>
+                        </Modal>
+                      </div>
 
     return (
       <tr>

@@ -13,8 +13,11 @@ import { setLoadingStatus } from '../../actions/status_actions';
 import { getStudentReportCredit, getLocalTime } from '../../ultis';
 
 class ShowStudent extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.setLoadingStatus(true)
+  }
+  
+  componentDidMount() {
     this.props.getStudentData(this.props.match.params._id)
   }
 

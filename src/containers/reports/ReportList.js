@@ -21,7 +21,7 @@ class ReportList extends React.Component {
 
   componentWillMount() {
     this.props.setLoadingStatus(true)
-    this.props.setSuccessStatus(false)
+    // this.props.setSuccessStatus(false)
   }
 
   componentDidMount() {
