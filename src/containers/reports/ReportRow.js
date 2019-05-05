@@ -163,7 +163,7 @@ class ReportRow extends React.Component {
           this.props.course_status === "active" ? <td>{copyModal}</td> : null
         }
         { 
-          (this.props.course_status === "active" && !this.props.report.paid) ? <td><i className="material-icons red-text clickable tooltipped" data-position="bottom" data-tooltip="删除反馈表" onClick={() => { if (window.confirm('确定要删除此反馈表?')) this.deleteReport()}}>delete</i></td> : null
+          (this.props.course_status === "active" && !this.props.report.paid) ? <td><i className="material-icons red-text clickable" onClick={() => { if (window.confirm('确定要删除此反馈表?')) this.deleteReport()}}>delete</i></td> : null
         }
       </tr>
     )

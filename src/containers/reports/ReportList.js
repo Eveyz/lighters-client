@@ -61,7 +61,7 @@ class ReportList extends React.Component {
                               <th>学生英文名</th>
                               <th>学生年龄</th>
                               <th>课程</th>
-                              <th colSpan="2"></th>
+                              <th colSpan="4"></th>
                             </tr>
                           </thead>
 
@@ -100,7 +100,9 @@ const mapStateToProps = (state) => {
     course_id: state.coursesData.currentCourse._id,
     teacher_id: state.auth.identityData._id,
     student: state.studentsData.currentStudent,
-    reports: state.reportsData.reports,
+    reports: state.reportsData.reports.sort((a, b) => {
+      return a.course_date > b.course_date ? -1 : (a.course_date < b.course_date ? 1 : 0)
+    }),
     courses: state.coursesData.courses.map(course => ({
         id: course._id,
         name: course.name
