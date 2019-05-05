@@ -21,8 +21,12 @@ class ShowStudent extends React.Component {
     this.props.getStudentData(this.props.match.params._id)
   }
 
+  componentDidUpdate() {
+    this.props.setLoadingStatus(false)
+  }
+
   render() {
-    if(this.props.isLoading) {
+    if(!this.props.student || this.props.isLoading) {
       return <Loading />
     }
 
@@ -31,24 +35,26 @@ class ShowStudent extends React.Component {
     var coursesHistory = <h5 className="center">没有上课记录</h5>
     
     var charges = []
-    if(this.props.student.courses.length > 0) {
-      var coursesList = []
-      this.props.student.courses.forEach((course, index) => {
-        _(course.reports).sortBy((report) => {
-          return report.course_date
-        }).value().forEach((report, idx) => {
-          const charge = (getStudentReportCredit(report.situation) * course.course_rate).toFixed(2)
-          charges.push(charge)
-          coursesList.push(<tr key={`course-${index}-report-${idx}`}>
-                              <td>{course.name}</td>
-                              <td>{report.teacher_id.lastname + report.teacher_id.firstname}</td>
-                              <td>{report.course_date}</td>
-                              <td>{course.course_rate}</td>
-                              <td>{report.situation}</td>
-                              <td>{charge}</td>
-                            </tr>)
+    if(this.props.student.courses) {
+      if(this.props.student.courses.length > 0) {
+        var coursesList = []
+        this.props.student.courses.forEach((course, index) => {
+          _(course.reports).sortBy((report) => {
+            return report.course_date
+          }).value().forEach((report, idx) => {
+            const charge = (getStudentReportCredit(report.situation) * course.course_rate).toFixed(2)
+            charges.push(charge)
+            coursesList.push(<tr key={`course-${index}-report-${idx}`}>
+                                <td>{course.name}</td>
+                                <td>{report.teacher_id.lastname + report.teacher_id.firstname}</td>
+                                <td>{report.course_date}</td>
+                                <td>{course.course_rate}</td>
+                                <td>{report.situation}</td>
+                                <td>{charge}</td>
+                              </tr>)
+          })
         })
-      })
+    }
 
       coursesHistory = <table className="highlight">
                         <thead>
@@ -71,33 +77,36 @@ class ShowStudent extends React.Component {
     var tuitionHistory = <h5 className="center">没有缴费记录</h5>
     
     var sum = 0
-    if(this.props.student.tuitions.length > 0) {
-      var tuiitionsList = this.props.student.tuitions.map((tuition, index) => {
-        sum += tuition.amount
-        return <tr key={index}>
-                  <td>{tuition.amount.toFixed(2)}</td>
-                  <td>{getLocalTime(tuition.created_at)}</td>
-                </tr>
-      })
-      tuitionHistory = <table className="highlight">
-                        <thead>
-                          <tr>
-                            <th>课时费(元)</th>
-                            <th>时间</th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          {tuiitionsList}
-                        </tbody>
-                      </table>
+    if(this.props.student.tuitions) {
+      if(this.props.student.tuitions.length > 0) {
+        var tuiitionsList = this.props.student.tuitions.map((tuition, index) => {
+          sum += tuition.amount
+          return <tr key={index}>
+                    <td>{tuition.amount.toFixed(2)}</td>
+                    <td>{getLocalTime(tuition.created_at)}</td>
+                  </tr>
+        })
+        tuitionHistory = <table className="highlight">
+                          <thead>
+                            <tr>
+                              <th>课时费(元)</th>
+                              <th>时间</th>
+                            </tr>
+                          </thead>
+  
+                          <tbody>
+                            {tuiitionsList}
+                          </tbody>
+                        </table>
+      }
     }
 
-
     var remain = sum
-    charges.forEach(charge => {
-      remain -= charge
-    })
+    if(charges.length > 0) {
+      charges.forEach(charge => {
+        remain -= charge
+      })
+    }
 
     return(
       <div>
@@ -112,7 +121,7 @@ class ShowStudent extends React.Component {
                 <h6>名字: { this.props.student.lastname}{this.props.student.firstname}</h6>
                 <h6>英文名字: {this.props.student.englishname}</h6>
                 <h6>性别: {this.props.student.gender}</h6>
-                <h6>课时费余额(元): <span className={cls}> {this.props.student.tuition_amount.toFixed(2)}</span></h6>
+                <h6>课时费余额(元): <span className={cls}> {this.props.student.tuition_amount ? this.props.student.tuition_amount.toFixed(2) : 0}</span></h6>
                 <Link to={`/admin/students/${this.props.student._id}/edit`} className="btn">编辑</Link>
               </div>
             </div>
