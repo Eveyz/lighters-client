@@ -20,7 +20,7 @@ class PathNavigator extends React.Component {
       <div style={{backgroundColor: "#ffca28", padding: "10px 0px 13px 0px"}}>
         <div className="container">
           <div className="row no-margin">
-            <div className="col s12">
+            <div className="col s12 no-padding">
               <h5 className="white-text" style={{fontWeight: "500"}}> <a className="clickable" style={{color: "white"}} onClick={this.handleClick}>返回</a> <span style={{color: "#eeeeee"}}> > { this.props.content }</span></h5>
             </div>
           </div>

@@ -15,7 +15,6 @@ class FormTextarea extends React.Component {
   }
 
   componentDidMount() {
-    // M.AutoInit();
     M.updateTextFields();
   }
 
@@ -32,19 +31,17 @@ class FormTextarea extends React.Component {
 
   render() {
     let hideOrNot = this.state.hasError ? "red-text" : "red-text hide";
-    // let required = this.props.required ? <span className="required">*</span> : "";
     let msg = this.props.required ? 
               <span className={hideOrNot}>
                 <i className="tiny material-icons">report_problem</i> {this.props.errorMsg}
               </span> :
-              "";
+              ""
               
     let defaultValue = ""
     if(this.props.action === "EDIT") defaultValue = this.props.value
 
     return(
       <div className={this.props.classes}>
-        {/* <p className="label-style airbnb-font">{this.props.label} {required}</p> */}
         <QuillTextEditor
           name={this.props.name}
           id={this.props.name}

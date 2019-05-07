@@ -65,9 +65,9 @@ class TeacherCourseManager extends React.Component {
                 <td>{ student.age }</td>
                 <td>{ this.props.course.name }</td>
                 {
-                  this.props.course.status === "active" ? <td><button onClick={this.newReport(student)} className="btn">填写新课程回馈表</button></td> : null
+                  this.props.course.status === "active" ? <td><button onClick={this.newReport(student)} className="btn"><i className="material-icons left">add</i>填写新课程回馈表</button></td> : null
                 }
-                <td><button onClick={this.reportsList(student)} className="btn cyan">查看所有课程回馈表</button></td>
+                <td><button onClick={this.reportsList(student)} className="btn cyan"><i className="material-icons left">list</i>查看所有课程回馈表</button></td>
                </tr>
       });
 
@@ -139,14 +139,14 @@ class TeacherCourseManager extends React.Component {
           />
           <div className="container">
             <div className="row no-margin">
-              <div className="col m12">
+              <div className="col m12 no-padding">
                 <h5><b>学生</b></h5>
               </div>
             </div>
             {students}
 
             <div className="row no-margin">
-              <div className="col m12">
+              <div className="col m12 no-padding">
                 <h5><b>绘本</b></h5>
               </div>
             </div>

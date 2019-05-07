@@ -67,7 +67,7 @@ class ViewReport extends React.Component {
       }
     })
 
-    const btn = this.state.img ? <div>已生成报告图片, 如果没有开始自动下载, 请右键点击报告保存图片</div> : <button className="btn" onClick={this.downloadReport}>下载报告</button>;
+    const btn = this.state.img ? <div>已生成报告图片, 如果没有开始自动下载, 请右键点击报告保存图片</div> : <button className="btn" onClick={this.downloadReport}><i className="material-icons left">cloud_download</i>下载报告</button>
 
     const _report = this.state.img ? "" :
     <div id="report_content">

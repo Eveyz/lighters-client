@@ -574,3 +574,7 @@
   width: 75% !important;
   max-height: 80% !important;
 }
+
+.ql-editor {
+  min-height: 200px;
+}
