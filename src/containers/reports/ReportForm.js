@@ -23,7 +23,7 @@ class ReportForm extends React.Component {
     this.state = {
       valid: false,
       situation: this.props.action === "NEW" ? 1 : this.props.report.situation === "取消" ? -1 : 1,
-      comment: this.props.action === "NEW" ? "" : (this.props.report.comment || ""),
+      comment: this.props.action === "NEW" ? "" : (this.props.report.tutor_comment || ""),
       homework: this.props.action === "NEW" ? "" : (this.props.report.homework || ""),
       course_content: this.props.action === "NEW" ? [{}] : this.props.report.course_content
     }
