@@ -29,10 +29,9 @@ class ReportList extends React.Component {
   }
 
   newReport = () => {
-    // let path = "/teachers/" + this.props.user_id + "/new_report";
-    // this.props.updateBooks([], [], [])
-    // this.props.setStudent(this.props.student, path)
-    this.props.getTeacherCourses(this.props.identity._id)
+    let path = "/teachers/" + this.props.user_id + "/new_report"
+    this.props.setStudent(this.props.student, path)
+    // this.props.getTeacherCourses(this.props.identity._id)
   }
 
   render() {
@@ -71,8 +70,6 @@ class ReportList extends React.Component {
                         </table>
                         :
                         <div>
-                          <button onClick={this.newReport} className="btn">填写新课程回馈表</button>
-                          <br/>
                           <Row>
                             <Col m={12} s={12}>
                               <Card className='white r-box-shadow' textClassName='black-text' title=''>
@@ -85,6 +82,8 @@ class ReportList extends React.Component {
     return (
       <div className="row page-min-height">
         <div className="col m12">
+          <button onClick={this.newReport} className="btn"><i className="material-icons left">add</i>填写新课程回馈表</button>
+          <br/>
           {renderContent}
         </div>
       </div>
