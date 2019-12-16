@@ -14,7 +14,7 @@
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "material-icons": "^0.2.3",
     "materialize-css": "^1.0.0-rc.2",
     "next": "^6.1.1",
