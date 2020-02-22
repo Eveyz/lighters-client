@@ -106,10 +106,12 @@ export const sortTransactionsByDate = (transactions) => {
   return results
 }
 
+// only for display teacher paycheck usage only
 export const getReportCredit = (situation) => {
   let res;
   switch(situation) {
     case ("正常上课"):
+    case ("平台赠课"):
     case ("学员上课时间后才请假或无故缺课(1个课时费)"):
     case ("学员迟到(不必补全课时, 可按时下课, 1个课时费)"):
     case ("老师迟到早退10分钟以内(需免费于当堂或下堂课补全课时才可得1个课时费, 但会影响薪资晋级)"):
@@ -150,6 +152,7 @@ export const getStudentReportCredit = (situation) => {
     case ("小组课单个学员首次请假(学员付0.5课时费观看上课录屏, 老师照旧获1课时费)"):
       res = 0.5;
       break;
+    case ("平台赠课"):
     case ("老师无故迟到并且取消课程(0个课时费, 需免费补课一节)"):
     case ("免费补课(0个课时费)"):
     case ("试课"):

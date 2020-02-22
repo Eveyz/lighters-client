@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+// import React, { useState, useEffect } from 'react'
 
-const Questionnaire = (props) => {
+// const Questionnaire = (props) => {
   
-}
+// }
 
-export default Questionnaire
+// export default Questionnaire

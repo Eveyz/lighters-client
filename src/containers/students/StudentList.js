@@ -146,7 +146,7 @@ class StudentList extends React.Component {
                                         <th>剩余课时费(元)</th>
                                         <th>性别</th>
                                         <th>城市</th>
-                                        <th>教师编号</th>
+                                        <th>学生编号</th>
                                         <th>更多操作</th>
                                       </tr>
                                     </thead>
