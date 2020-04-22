@@ -18,14 +18,14 @@ const Home = asyncComponent(() => import("./layouts/Home"));
 
 // import Home from './layouts/Home';
 const CourseHierarchy = asyncComponent(() => import('./mainpages/courseHierarchy'));
-const  LoginForm = asyncComponent(() => import('../containers/users/LoginForm'));
+const LoginForm = asyncComponent(() => import('../containers/users/LoginForm'));
 const SignupForm = asyncComponent(() => import('../containers/users/SignupForm'));
 const Dashboard = asyncComponent(() => import('../containers/users/admin/dashboard'));
 const BookListContainer = asyncComponent(() => import('../containers/books/BookListContainer'));
 const NewBook = asyncComponent(() => import('../components/books/NewBook'));
 const EditBook = asyncComponent(() => import('../components/books/EditBook'));
 const ViewBook = asyncComponent(() => import('../components/books/ViewBook'));
-const CourseList = asyncComponent(() => import('../containers/courses/CourseList'));
+const TableCourseList = asyncComponent(() => import('../containers/courses/TableCourseList'));
 const AddCourse = asyncComponent(() => import('../containers/courses/AddCourse'));
 const EditCourse = asyncComponent(() => import('../containers/courses/EditCourse'));
 const CourseAddStudent = asyncComponent(() => import('../containers/courses/AddStudent'));
@@ -93,7 +93,7 @@ class App extends Component {
         <PrivateRoute exact path="/books/:_id/show" auth={this.props.auth} component={ViewBook} />
         <PrivateRoute exact path="/reports/:_id/view" auth={this.props.auth} component={ViewReport} />
         <AdminRoute exact path="/admin/dashboard" auth={this.props.auth} component={Dashboard} />
-        <AdminRoute exact path="/admin/courses/all" auth={this.props.auth} component={CourseList} />
+        <AdminRoute exact path="/admin/courses/all" auth={this.props.auth} component={TableCourseList} />
         <AdminRoute exact path="/courses/add_course" auth={this.props.auth} component={AddCourse} />
         <AdminRoute exact path="/courses/:_id/edit_course" auth={this.props.auth} component={EditCourse} />
         <AdminRoute exact path="/courses/:_id/add_student" auth={this.props.auth} component={CourseAddStudent} />

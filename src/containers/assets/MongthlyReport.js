@@ -53,10 +53,15 @@ class MonthlyReport extends React.Component {
     let base = 0
 
     let details = ""
+    let cnt = {} // { 120: 2, 110: 3 } = 120 * 2 + 110 * 3
     this.props.paycheck.reports.forEach(report => {
-      base += (report.credit * report.teacher_rate)
-      details += `${report.credit} * ${report.teacher_rate} + `
+      let month_salary = report.credit * report.teacher_rate
+      month_salary in cnt ? cnt[month_salary] += 1 : cnt[month_salary] = 1
+      base += month_salary
     })
+    for (let [price, number] of Object.entries(cnt)) {
+      details += `${price} * ${number} + `
+    }
     details = details.slice(0, -3);
     details += ` = ${base.toFixed(2)}元`
 

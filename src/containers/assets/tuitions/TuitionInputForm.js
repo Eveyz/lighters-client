@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Card } from 'react-materialize';
-import M from 'materialize-css';
+import M from 'materialize-css'
 
 class TuitionInputForm extends React.Component {
   constructor(props) {
@@ -55,8 +55,15 @@ class TuitionInputForm extends React.Component {
   render() {
 
     let studentsList = this.props.students.map((student, idx) => {
-      return <option key={idx} value={student.id}>{student.name}</option>;
-    });
+      return <option key={idx} value={student._id}>
+                {
+                  student.lastname ? 
+                  `${student.lastname + student.firstname}(${student.englishname})`
+                  :
+                  student.englishname
+                }
+              </option>
+    })
 
     // let coursesList = this.props.courses.map((course, idx) => {
     //   return <option key={idx} value={course.id}>{course.name}</option>;
@@ -89,30 +96,10 @@ class TuitionInputForm extends React.Component {
                   />
                   <label htmlFor="amount">总数目(元) <span className="required">*</span></label>
                 </div>
+                <div className="input-field col s12 m12">
+                  <input type="date" className="validate"></input>
+                </div>
               </div>
-              {/* <div className="row">
-                <div className="input-field col s12 m6">
-                <input 
-                    defaultValue={this.props.action === "EDIT" ? this.props.tuition.course_hour : ""} 
-                    ref={this.course_hour} 
-                    id="course_hour" 
-                    type="number" 
-                    className="validate" 
-                  />
-                  <label htmlFor="course_hour">总课时 <span className="required">*</span></label>
-                </div>
-                <div className="input-field col s12 m6">
-                  <select
-                    ref={this.course_id}
-                    id="course_id"
-                    defaultValue={this.props.action === "EDIT" ? this.props.tuition.course_id._id : "default"}
-                  >
-                    <option key="default" value="default" disabled>请选择课程</option>
-                    {coursesList}
-                  </select>
-                  <label htmlFor="course_id">选择课程 <span className="required">*</span></label>
-                </div>
-              </div> */}
               <button className="btn" onClick={this.handleSubmit}>保存</button>
               <button className="btn white black-text right" onClick={this.handleCancel}>取消</button>
             </Card>

@@ -197,14 +197,14 @@ class TeacherDashboard extends React.Component {
                     <div className="row">
                       {courses}
                     </div>
-                    <div className="row">
+                    {/* <div className="row">
                       <div className="col m12">
                         <h5 className="grey-text"><b>往期课程</b></h5>
                       </div>
                     </div>
                     <div className="row no-margin">
                       {inactive_courses_widget}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

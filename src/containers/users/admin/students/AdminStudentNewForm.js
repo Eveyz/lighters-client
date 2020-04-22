@@ -1,7 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import M from 'materialize-css'
 
 const AdminStudentNewForm = props => {
+
+  useEffect(() => {
+    M.updateTextFields()
+  }, [])
+
   const {
       values,
       errors,
@@ -148,7 +154,7 @@ const AdminStudentNewForm = props => {
         <div className="input-field">
           <Link 
             className="col m12 s12 white r-box-shadow" 
-            to={`/admin/students/all`}
+            to={`/students/${props.student._id}/view`}
             style={
               {padding: "11px 0px 11px 0px", borderRadius: "15px", border: "none", cursor: "pointer"}
             }

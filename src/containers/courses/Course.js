@@ -70,13 +70,13 @@ class Course extends React.Component {
     const image = this.props.course.theme ? this.props.course.theme : "WorldStudies-title.jpg"
 
     return(
-      <div className="col s12 m6">
+      <div className="col s12 m3">
         <div className="card r-box-shadow">
           <div className="card-image">
             <img src={require(`../../images/classroom/${image}`)} alt="course_background" />
-            <span className="card-title text-overflow" style={{fontWeight: "400"}}><b>{ this.props.course.name }</b></span>
           </div>
           <div className="card-content">
+            <h6 className="text-overflow" style={{fontWeight: "400", marginTop: "0px"}}><b>{ this.props.course.name }</b></h6>
             <p>授课老师: {nameList}</p>
             <p>课程级别: { this.props.course.level }</p>
             <p>课程类型: { this.props.course.type }</p>
