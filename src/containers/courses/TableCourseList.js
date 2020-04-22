@@ -4,11 +4,10 @@ import M from 'materialize-css'
 import { Link } from 'react-router-dom'
 
 import Loading from '../../components/Loading'
-import Course from './Course'
 import Header from '../../components/layouts/Header'
 import Footer from '../../components/layouts/Footer'
 import Breadcrumb from '../../components/layouts/Breadcrumb'
-import { CLASS_LEVEL_RANK, CLASS_LEVEL } from '../../ultis'
+import { CLASS_LEVEL } from '../../ultis'
 import GourpCourseList from './GourpCourseList'
 
 const TableCourseList = props => {
