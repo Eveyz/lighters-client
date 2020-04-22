@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card } from 'react-materialize';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import axios from 'axios';
+import { connect } from 'react-redux'
 import { CLASS_LEVEL_RANK } from '../../ultis';
 
 import TableFilter from '../../components/layouts/TableFilter'
@@ -19,6 +19,7 @@ const LevelSalary = props => {
   const [entry, setEntry] = useState({})
   const [entries, setEntries] = useState([])
   const [allEntries, setAllEntries] = useState([])
+  const [fetch, setFetch] = useState(false)
 
   useEffect(() => {
     axios.get(`/level_salaries`)
@@ -38,7 +39,7 @@ const LevelSalary = props => {
     .catch((err) => {
       console.log(err)
     })
-  }, [])
+  }, [fetch])
 
   if(isLoading) return <Loading />
 
@@ -57,6 +58,40 @@ const LevelSalary = props => {
     setAction("NEW")
   }
 
+  const addLevelSalary = entry => {
+    // axios.post(`/level_salaries`, entry)
+    //   .then((response) => {
+    //     setFetch(!fetch)
+    //     window.Materialize.toast('成功添加', 1000, 'green');
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+  }
+
+  const updateLevelSalary = entry => {
+    // let {_id, ..._entry} = entry
+    // axios.put(`/level_salaries/${_id}`, _entry)
+    //   .then((response) => {
+    //     setFetch(!fetch)
+    //     window.Materialize.toast('成功更新', 1000, 'green');
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+  }
+
+  const deleteEntry = (entry_id) => {
+    // axios.delete(`/level_salaries/${entry_id}`)
+    //   .then((response) => {
+    //     setFetch(!fetch)
+    //     window.Materialize.toast('删除成功', 1000, 'green')
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+  }
+
   const onSubmit = entry => {
     if(entry) {
       action === "NEW" ? addLevelSalary(entry) : updateLevelSalary(entry)
@@ -64,11 +99,7 @@ const LevelSalary = props => {
     setEntry({})
     setShow(!show)
     setAction("NEW")
-    setEntries(allEntries)
-  }
-
-  const deleteEntry = (entry_id) => {
-    deleteLevelSalary(entry_id)
+    setFetch(!fetch)
   }
 
   let showInput = show ? <EntryInputForm action={action} entry={entry} onSubmit={onSubmit} cancel={onSubmit} /> : ""
