@@ -30,7 +30,7 @@ class TableFilter extends React.Component {
   refresh() {
     this.filterValue.current.value = ""
     this.filterField.current.value = "default"
-    this.props.filterItems(this.props.items)
+    this.props.filterItems(this.props.items) // restore back to original items
     this.setState({
       field: "default",
       options: []
@@ -39,7 +39,7 @@ class TableFilter extends React.Component {
 
   selectDiffField() {
     this.filterValue.current.value = "default"
-    this.props.filterItems(this.props.items)
+    this.props.filterItems(this.props.items) // restore back to original items
     this.setState({
       field: this.filterField.current.value,
       options: [...this.props.options[this.filterField.current.value]]
@@ -69,7 +69,10 @@ class TableFilter extends React.Component {
       return <option key={idx} value={h}>{CHINESE_MAPPING[h]}</option>
     })
 
-    const t = typeof(this.props.items[0][field])
+    var t = "string"
+    if(this.props.items.length > 0) {
+      t = typeof(this.props.items[0][field])
+    }
     var valueOptions = null
     if(field !== "default") {
       if(t === "number") {

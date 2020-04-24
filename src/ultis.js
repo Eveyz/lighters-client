@@ -1,5 +1,5 @@
 export const getToken = () => {
-  let token = localStorage.getItem("jwtToken");
+  let token = sessionStorage.getItem("jwtToken");
   if(!token || token === "") {//if there is no token, dont bother
     return null;
   }
@@ -15,18 +15,18 @@ export const fetchFromArr = (id, arr) => {
   return null;
 }
 
-export const saveToLocalStorage = (state) => {
+export const saveToSessionStorage = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
+    sessionStorage.setItem('state', serializedState);
   } catch (e) {
     throw e;
   }
 }
 
-export const loadFromLocalStorage = () => {
+export const loadFromSessionStorage = () => {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = sessionStorage.getItem('state');
     if(serializedState === null) return undefined;
     return JSON.parse(serializedState);
   } catch (e) {

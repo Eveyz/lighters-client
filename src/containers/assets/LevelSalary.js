@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Card } from 'react-materialize';
 import _ from 'lodash';
 import axios from 'axios';
-import { connect } from 'react-redux'
-import { CLASS_LEVEL_RANK } from '../../ultis';
+import { CLASS_LEVEL_RANK, CLASS_TYPE_RANK } from '../../ultis';
 
 import TableFilter from '../../components/layouts/TableFilter'
 import EntryInputForm from './EntryInputForm';
 import Loading from '../../components/Loading';
-import { setLoadingStatus } from '../../actions/status_actions';
-import { addLevelSalary, updateLevelSalary, deleteLevelSalary } from '../../actions/level_salary_actions';
+// import { addLevelSalary, updateLevelSalary, deleteLevelSalary } from '../../actions/level_salary_actions';
 
 const LevelSalary = props => {
 
@@ -19,27 +17,26 @@ const LevelSalary = props => {
   const [entry, setEntry] = useState({})
   const [entries, setEntries] = useState([])
   const [allEntries, setAllEntries] = useState([])
-  const [fetch, setFetch] = useState(false)
 
   useEffect(() => {
     axios.get(`/level_salaries`)
     .then((response) => {
       setIsLoading(false)
       
-      let entries = _(response.data).chain().sortBy(function(ls) {
+      let _entries = _(response.data).chain().sortBy(function(ls) {
         return CLASS_LEVEL_RANK[ls.course_level];
       }).sortBy(function(ls) {
-          return ls.type;
+          return CLASS_TYPE_RANK[ls.type];
       }).sortBy(function(ls) {
         return parseInt(ls.level, 10);
       }).value()
-      setEntries(entries)
-      setAllEntries(entries)
+      setEntries(_entries)
+      setAllEntries(_entries)
     })
     .catch((err) => {
       console.log(err)
     })
-  }, [fetch])
+  }, [])
 
   if(isLoading) return <Loading />
 
@@ -59,37 +56,48 @@ const LevelSalary = props => {
   }
 
   const addLevelSalary = entry => {
-    // axios.post(`/level_salaries`, entry)
-    //   .then((response) => {
-    //     setFetch(!fetch)
-    //     window.Materialize.toast('成功添加', 1000, 'green');
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
+    axios.post(`/level_salaries`, entry)
+      .then((res) => {
+        let _entries = [...allEntries, res.data]
+        setAllEntries(_entries)
+        setEntries(_entries)
+        window.Materialize.toast('成功添加', 1000, 'green');
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   const updateLevelSalary = entry => {
-    // let {_id, ..._entry} = entry
-    // axios.put(`/level_salaries/${_id}`, _entry)
-    //   .then((response) => {
-    //     setFetch(!fetch)
-    //     window.Materialize.toast('成功更新', 1000, 'green');
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
+    let {_id, ..._entry} = entry
+    axios.put(`/level_salaries/${_id}`, _entry)
+      .then((res) => {
+        const idx = allEntries.findIndex(e => e._id === res.data._id)
+        let _entries = [
+          ...allEntries.slice(0, idx), // everything before current obj
+          res.data,
+          ...allEntries.slice(idx + 1), // everything after current obj
+        ]
+        setAllEntries(_entries)
+        setEntries(_entries)
+        window.Materialize.toast('成功更新', 1000, 'green');
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   const deleteEntry = (entry_id) => {
-    // axios.delete(`/level_salaries/${entry_id}`)
-    //   .then((response) => {
-    //     setFetch(!fetch)
-    //     window.Materialize.toast('删除成功', 1000, 'green')
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
+    axios.delete(`/level_salaries/${entry_id}`)
+      .then((res) => {
+        let _entries = allEntries.filter(e => e._id !== entry_id)
+        setAllEntries(_entries)
+        setEntries(_entries)
+        window.Materialize.toast('删除成功', 1000, 'green')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   const onSubmit = entry => {
@@ -99,7 +107,6 @@ const LevelSalary = props => {
     setEntry({})
     setShow(!show)
     setAction("NEW")
-    setFetch(!fetch)
   }
 
   let showInput = show ? <EntryInputForm action={action} entry={entry} onSubmit={onSubmit} cancel={onSubmit} /> : ""
@@ -141,7 +148,7 @@ const LevelSalary = props => {
       "type": "课程类型"
     }
     entriesTable =  <React.Fragment>
-                      <TableFilter fields={_fields} options={_options} items={entries} filterItems={filterItems} />
+                      <TableFilter fields={_fields} options={_options} items={allEntries} filterItems={filterItems} />
                       <table className="highlight">
                         <thead>
                           <tr>

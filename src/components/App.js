@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 // import { BrowserRouter as Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios'
+import setAuthToken from '../helper/setAuthToken'
 
 import '../css/App.css';
 import '../css/flash.css';
@@ -55,6 +57,15 @@ class App extends Component {
   
   componentWillMount() {
     // this.props.loadUserFromToken();
+
+    // set axios header if page refreshed
+    if(!axios.defaults.headers.common['authorization']) {
+      let token = sessionStorage.getItem("jwtToken");
+      if(token) {
+        setAuthToken(token)
+      }
+    }
+
     if(this.props.category !== "") this.props.selectCategory("", "ADMIN");
     if(this.props.review_category !== "") this.props.selectCategory("","REVIEW");
     if(this.props.new_category !== "") this.props.selectCategory("","NEW");

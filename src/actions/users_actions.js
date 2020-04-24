@@ -65,11 +65,11 @@ export const login = (user) => {
   return (dispatch) => {
     axios.post("/users/authenticate", user)
       .then((response) => {
-        localStorage.clear()
+        sessionStorage.clear()
         // response.data should be able to return the token we get from the api and we store the token
         const token = response.data.token;
         try {
-          localStorage.setItem('jwtToken', token);
+          sessionStorage.setItem('jwtToken', token);
         } catch(err) {
           throw(err);
         }
@@ -122,8 +122,8 @@ export const signup = (user) => {
       .then(function(response) {
         // response.data should be able to return the token we get from the api and we store the token
         const token = response.data.token;
-        localStorage.setItem('jwtToken', token);
-        setAuthToken(token);
+        sessionStorage.setItem('jwtToken', token);
+        setAuthToken(token)
         let userToken = jwtDecode(token);
         dispatch(setCurrentUser(userToken));
         dispatch({type: SIGNUP_USER, payload: response.data});
@@ -146,12 +146,12 @@ export const signup = (user) => {
 export const userFromToken = (token) => {
   //check if the token is still valid, if so, get me from the server
   return function(dispatch){
-    setAuthToken(token);
+    // setAuthToken(token);
     axios.get("/users/from/token", token)
       .then(function(response) {
         // response.data should be able to return the token we get from the api and we store the token
         const token = response.data.token;
-        localStorage.setItem('jwtToken', token);
+        sessionStorage.setItem('jwtToken', token);
         let userToken = jwtDecode(token);
         dispatch(setCurrentUser(userToken));
         dispatch({type: USER_FROM_TOKEN_SUCCESS, payload: response.data})
@@ -171,7 +171,7 @@ export const userFromToken = (token) => {
 
 export const logout = () => {
   return dispatch => {
-    localStorage.clear()
+    sessionStorage.clear()
     // dispatch(setCurrentUser({}));
     setAuthToken(false);
     // history.push('/');
@@ -181,7 +181,7 @@ export const logout = () => {
 
 export const sessionExpired = () => {
   return dispatch => {
-    localStorage.clear()
+    sessionStorage.clear()
     dispatch(setCurrentUser({}))
     setAuthToken(false)
     history.push('/login');
@@ -204,7 +204,7 @@ export const activate = (user) => {
 
 export const adminInit = (token) => {
 	return function(dispatch){
-    setAuthToken(token);
+    // setAuthToken(token);
     axios.get("/users/admin/init", token)
       .then(function(response) {
         // dispatch({type: GET_BOOKS, payload: response.data.books});
@@ -217,11 +217,11 @@ export const adminInit = (token) => {
         dispatch({type: SET_LOADING_STATUS, payload: false});
       })
       .catch(function(err){
-        localStorage.clear()
+        sessionStorage.clear()
         // history.push('/login');
         window.location.replace('/login');
         // dispatch(setCurrentUser({}));
-        setAuthToken(false);
+        // setAuthToken(false);
         // dispatch({type: ADMIN_INIT_FAILURE, payload: err});
       })
   }
