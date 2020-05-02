@@ -135,10 +135,10 @@ const ShowStudent = props => {
               <h6>课时费余额(元): <span className={cls}> {student.tuition_amount ? student.tuition_amount.toFixed(2) : 0}</span></h6>
               <Link to={`/admin/students/${student._id}/edit`} className="btn">编辑</Link>
               {
-                student.tuition_amount !== remain ?
-                <button style={{marginLeft: "10px"}} className="btn" type="button" onClick={sync}>重新计算学生学费</button>
-                :
+                student.tuition_amount === remain ?
                 ""
+                :
+                <button style={{marginLeft: "10px"}} className="btn" type="button" onClick={sync}>重新计算学生学费</button>
               }
             </div>
           </div>
