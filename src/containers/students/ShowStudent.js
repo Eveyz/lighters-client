@@ -28,6 +28,19 @@ const ShowStudent = props => {
 
   if(isLoading) return <Loading />
 
+  const sync = () => {
+    setIsLoading(true)
+    axios.post(`/students/${props.match.params._id}/recalculate`, {
+      tuition_amount: remain
+    }).then(res => {
+        setStudent(res.data)
+        setIsLoading(false)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   const cls = student.tuition_amount < 0 ? "red-text" : "green-text"
 
   var coursesHistory = <h5 className="center">没有上课记录</h5>
@@ -121,6 +134,12 @@ const ShowStudent = props => {
               <h6>性别: {student.gender}</h6>
               <h6>课时费余额(元): <span className={cls}> {student.tuition_amount ? student.tuition_amount.toFixed(2) : 0}</span></h6>
               <Link to={`/admin/students/${student._id}/edit`} className="btn">编辑</Link>
+              {
+                student.tuition_amount !== remain ?
+                <button style={{marginLeft: "10px"}} className="btn" type="button" onClick={sync}>重新计算学生学费</button>
+                :
+                ""
+              }
             </div>
           </div>
         </div>
