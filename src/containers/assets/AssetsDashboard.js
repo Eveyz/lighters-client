@@ -176,5 +176,3 @@ export default AssetsDashboard
 //     }
 //   };
 // }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(AssetsDashboard);

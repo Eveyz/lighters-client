@@ -2,7 +2,7 @@ import axios from 'axios';
 import history from '../history';
 
 // import { groupBooks } from '../ultis';
-import { GET_COURSES, GET_COURSES_FAILURE, ADD_COURSE, ADD_COURSE_FAILURE, UPDATE_COURSE, UPDATE_COURSE_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK  } from './constants';
+import { GET_COURSES, GET_COURSES_FAILURE, DELETE_COURSE, SELECT_COURSE, COURSE_DELETE_STUDENT, SWITCH_MODE, COURSE_POST_STUDENT, COURSE_ADD_BOOK, COURSE_REMOVE_BOOK  } from './constants';
 
 export const selectCourse = (course, path) => {
   return (dispatch) => {
@@ -30,17 +30,14 @@ export const getCourses = () => {
 };
 
 export const addCourse = (course) => {
-  return function(dispatch) {
-    axios.post("/courses", course)
-      .then(function(response){
-        dispatch({type: ADD_COURSE, payload: response.data})
-        history.push("/admin/courses/all");
-        window.Materialize.toast('成功添加课程', 1000, 'green');
-      })
-      .catch(function(err){
-        dispatch({type: ADD_COURSE_FAILURE, payload: "there was an error while posting a new course"})
-      })
-  }
+  axios.post("/courses", course)
+    .then(function(response){
+      history.push("/admin/courses/all");
+      window.Materialize.toast('成功添加课程', 1000, 'green');
+    })
+    .catch(function(err){
+      console.log(err)
+    })
 };
 
 export const editCourse = (course) => {
@@ -51,17 +48,14 @@ export const editCourse = (course) => {
 }
 
 export const updateCourse = (course_id, field) => {
-  return (dispatch) => {
-    axios.put(`/courses/${course_id}`, field)
-      .then((response) => {
-        dispatch({type: UPDATE_COURSE, payload: response.data})
-        history.push('/admin/courses/all')
-        window.Materialize.toast('成功更新课程', 1000, 'green')
-      })
-      .catch((err) => {
-        dispatch({type: UPDATE_COURSE_FAILURE, payload: err})
-      })
-  }
+  axios.put(`/courses/${course_id}`, field)
+    .then((response) => {
+      history.push('/admin/courses/all')
+      window.Materialize.toast('成功更新课程', 1000, 'green')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 };
 
 export const deleteCourse = id => {

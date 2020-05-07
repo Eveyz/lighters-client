@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../../components/layouts/Header';
 import Footer from '../../../components/layouts/Footer';
 
-import ActivatewithFormik from './ActivatewithFormik';
+import ActivateForm from './ActivateForm';
 
 class ActivateUser extends React.Component {
   render() {
@@ -16,7 +16,7 @@ class ActivateUser extends React.Component {
                 <div className="card r-box-shadow">
                   <div className="card-content" style={{padding: "50px"}}>
                     <h5 className="cyan-text airbnb-font" style={{marginTop: "0px"}}>激活账号</h5>
-                    <ActivatewithFormik id={this.props.match.params._id} />
+                    <ActivateForm id={this.props.match.params._id} />
                   </div>
                 </div>
               </div>

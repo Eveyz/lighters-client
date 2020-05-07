@@ -179,5 +179,3 @@ export default Profit
 //     }
 //   };
 // }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Profit);

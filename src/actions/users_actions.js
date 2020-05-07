@@ -3,7 +3,7 @@ import setAuthToken from '../helper/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import history from '../history';
 // import { groupBooks } from '../ultis';
-import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, LOGIN_USER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES_SIZE, GET_BOOKS_SIZE, GET_TEACHERS_SIZE, GET_STUDENTS_SIZE, GET_PAYCHECKS_SIZE, SET_LOADING_STATUS, SET_CURRENT_IDENTITY_DATA, LOGIN_USER_FAILURE } from './constants';
+import { SET_CURRENT_USER, SET_ADMIN, SET_STUDENT, SET_TEACHER, SIGNUP_USER, USER_FROM_TOKEN_SUCCESS, USER_FROM_TOKEN_FAILURE, RESET_TOKEN, GET_COURSES_SIZE, GET_BOOKS_SIZE, GET_TEACHERS_SIZE, GET_STUDENTS_SIZE, GET_PAYCHECKS_SIZE, SET_LOADING_STATUS, SET_CURRENT_IDENTITY_DATA, LOGIN_USER_FAILURE } from './constants';
 
 export const setCurrentUser = (user) => {
   return {
@@ -61,59 +61,54 @@ export function resetToken() {
   };
 }
 
-export const login = (user) => {
-  return (dispatch) => {
-    axios.post("/users/authenticate", user)
-      .then((response) => {
-        sessionStorage.clear()
-        // response.data should be able to return the token we get from the api and we store the token
-        const token = response.data.token;
-        try {
-          sessionStorage.setItem('jwtToken', token);
-        } catch(err) {
-          throw(err);
-        }
-        setAuthToken(token);
-        let userToken = jwtDecode(token);
-        dispatch(setCurrentUser(userToken));
-        dispatch({type: LOGIN_USER, payload: response.data});
+export const login = (user, setState) => {
+  axios.post("/users/authenticate", user)
+    .then((response) => {
+      sessionStorage.clear()
+      // response.data should be able to return the token we get from the api and we store the token
+      const token = response.data.token;
+      try {
+        sessionStorage.setItem('jwtToken', token);
+      } catch(err) {
+        throw(err);
+      }
+      setAuthToken(token);
+      let userToken = jwtDecode(token);
+      console.log("usertoken: ", userToken)
+      setState({auth: true, current_user: userToken})
 
-        // redirect to own page
-        if(userToken.userTokenData.identity === "admin") {
-          history.push('/admin/dashboard');
-        } else if(userToken.userTokenData.identity === "teacher") {
-          const teacher = response.data.teacher;
-          if(userToken.userTokenData.status === "RESET_REQUIRED") {
-            history.push(`/users/${userToken.userTokenData.id}/activate`);
-          } else {
-            if(teacher) {
-              dispatch(setCurrentIdentityData(teacher));
-              history.push(`/teachers/${teacher._id}/dashboard`);
-            } else {
-              // teacher profile not created, redirect to new teacher
-              history.push(`/teachers/new`);
-            }
-          }
+      // redirect to own page
+      if(userToken.userTokenData.identity === "admin") {
+        history.push('/admin/dashboard');
+      } else if(userToken.userTokenData.identity === "teacher") {
+        const teacher = response.data.teacher;
+        if(userToken.userTokenData.status === "RESET_REQUIRED") {
+          history.push(`/users/${userToken.userTokenData.id}/activate`);
         } else {
-          const student = response.data.student;
-          if(userToken.userTokenData.status === "RESET_REQUIRED") {
-            history.push(`/users/${userToken.userTokenData.id}/activate`);
+          if(teacher) {
+            history.push(`/teachers/${teacher._id}/dashboard`);
           } else {
-            if(student) {
-              dispatch(setCurrentIdentityData(student));
-              history.push(`/students/${student._id}/dashboard`);
-            } else {
-              // student profile not created, redirect to new student
-              history.push(`/students/new`);
-            }
+            // teacher profile not created, redirect to new teacher
+            history.push(`/teachers/new`);
           }
         }
-      })
-      .catch((err) => {
-        window.Materialize.toast(`${err.response.data.msg}`, 3000, 'red');
-        dispatch({type: LOGIN_USER_FAILURE, payload: err.response.data});
-      })
-  }
+      } else {
+        const student = response.data.student;
+        if(userToken.userTokenData.status === "RESET_REQUIRED") {
+          history.push(`/users/${userToken.userTokenData.id}/activate`);
+        } else {
+          if(student) {
+            history.push(`/students/${student._id}/dashboard`);
+          } else {
+            // student profile not created, redirect to new student
+            history.push(`/students/new`);
+          }
+        }
+      }
+    })
+    .catch((err) => {
+      window.Materialize.toast(`${err.response.data.msg}`, 3000, 'red');
+    })
 };
 
 export const signup = (user) => {

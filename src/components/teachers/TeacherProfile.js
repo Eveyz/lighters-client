@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Row, Col, Card } from 'react-materialize';
 
 import Header from '../layouts/Header'
@@ -43,10 +42,4 @@ const TeacherProfile = (props) => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    teacher: state.auth.identityData
-  }
-}
-
-export default connect(mapStateToProps, null)(TeacherProfile)
+export default TeacherProfile

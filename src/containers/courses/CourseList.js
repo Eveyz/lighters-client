@@ -132,5 +132,3 @@
 //     deleteCourse: () => dispatch(deleteCourse())
 //   };
 // }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(CourseList);

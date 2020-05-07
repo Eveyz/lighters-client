@@ -221,5 +221,3 @@ export default Transactions
 //     }
 //   };
 // }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Transactions);

@@ -356,5 +356,3 @@ export default LevelSalary
 //     }
 //   };
 // }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(LevelandSalary);

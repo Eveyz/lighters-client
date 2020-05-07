@@ -1,33 +1,54 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import axios from 'axios'
+// import { deleteStudent } from '../actions/courses_actions';
 
-import { deleteStudent } from '../actions/courses_actions';
-
-class Tag extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.remove = this.remove.bind(this);
+const Tag = props => {
+  const remove = () => {
+    // this.props.remove(props.id, props.object._id);
+    axios.put(`/courses/${props.id}/delete_student`, {"studentID": props.object._id})
+      .then(response => {
+        console.log("success")
+      })
+      .catch(err => {
+        console.log(err)
+      });
   }
 
-  remove() {
-    this.props.remove(this.props.id, this.props.object._id);
-  }
-
-  render() {
-    return (
-      <div className="chip">
-        {this.props.content}
-        <span onClick={this.remove.bind(this)} style={{cursor: "pointer", color: "#e74c3c"}}> &#10005;</span>
-      </div>
-    )
-  }
+  return (
+    <div className="chip">
+      {props.content}
+      <span onClick={remove} style={{cursor: "pointer", color: "#e74c3c"}}> &#10005;</span>
+    </div>
+  )
 }
 
-const mapDispatchtoProps = dispatch => {
-  return {
-    remove: (id, studentID) => dispatch(deleteStudent(id, studentID))
-  }
-}
+export default Tag
 
-export default connect(null, mapDispatchtoProps)(Tag);
+// class Tag extends React.Component {
+//   constructor(props) {
+//     super(props)
+
+//     this.remove = this.remove.bind(this);
+//   }
+
+//   remove() {
+//     this.props.remove(this.props.id, this.props.object._id);
+//   }
+
+//   render() {
+//     return (
+//       <div className="chip">
+//         {this.props.content}
+//         <span onClick={this.remove.bind(this)} style={{cursor: "pointer", color: "#e74c3c"}}> &#10005;</span>
+//       </div>
+//     )
+//   }
+// }
+
+// const mapDispatchtoProps = dispatch => {
+//   return {
+//     remove: (id, studentID) => dispatch(deleteStudent(id, studentID))
+//   }
+// }
+
+// export default connect(null, mapDispatchtoProps)(Tag);

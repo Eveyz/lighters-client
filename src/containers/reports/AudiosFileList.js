@@ -6,7 +6,7 @@ import AudiosFile from './AudiosFile';
 class AudiosFileList extends React.Component {
   render() {
     let audiosFileList = this.props.files.length > 0 ? this.props.files.map((file, idx) => {
-      return <AudiosFile key={idx} file={file} />
+      return <AudiosFile key={idx} file={file} report_id={this.props.report_id} removeUploadedFile={this.props.removeUploadedFile} />
     }) : 
     <Row>
       <Col m={12} s={12}>

@@ -3,7 +3,7 @@ import M from 'materialize-css';
 
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
-import TeacherwithFormik from './TeacherwithFormik';
+import TeacherForm from './TeacherForm';
 
 class NewTeacher extends React.Component {
   componentDidMount() {
@@ -28,7 +28,7 @@ class NewTeacher extends React.Component {
               <div className="card r-box-shadow">
                 <div className="card-content" style={{padding: "50px"}}>
                   <h5 className="cyan-text airbnb-font" style={{marginTop: "0px"}}>填写基本资料</h5>
-                  <TeacherwithFormik 
+                  <TeacherForm 
                     teacher={{}} 
                     action="NEW"
                   />
