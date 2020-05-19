@@ -10,6 +10,7 @@ class TuitionInputForm extends React.Component {
     // this.course_id = React.createRef();
     // this.course_hour = React.createRef();
     this.amount = React.createRef();
+    this.time = React.createRef();
 
     this.handleCancel = this.handleCancel.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,6 +30,7 @@ class TuitionInputForm extends React.Component {
     // let _course_id = this.course_id.current.value
     // let _course_hour = this.course_hour.current.value
     let _amount = this.amount.current.value
+    let _time = this.time.current.value
     if(!_student_id || !_amount) {
       window.Materialize.toast('请确认填写所有的项目', 1000);
     } else {
@@ -38,6 +40,7 @@ class TuitionInputForm extends React.Component {
         // course_id: _course_id,
         // course_hour: _course_hour,
         amount: _amount,
+        time: _time,
         // remain: _course_hour
       } 
       :
@@ -46,7 +49,8 @@ class TuitionInputForm extends React.Component {
         student_id: _student_id,
         // course_id: _course_id,
         // course_hour: _course_hour,
-        amount: _amount
+        amount: _amount,
+        time: _time,
       }
       this.props.onSubmit(_tuition);
     }
@@ -97,7 +101,13 @@ class TuitionInputForm extends React.Component {
                   <label htmlFor="amount">总数目(元) <span className="required">*</span></label>
                 </div>
                 <div className="input-field col s12 m12">
-                  <input type="date" className="validate"></input>
+                  <input 
+                    defaultValue={this.props.action === "EDIT" ? this.props.tuition.time : ""}
+                    type="date" 
+                    className="validate"
+                    ref={this.time}
+                    id="time"
+                  ></input>
                 </div>
               </div>
               <button className="btn" onClick={this.handleSubmit}>保存</button>

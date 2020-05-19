@@ -15,12 +15,13 @@ const AdminTeacherNewForm = props => {
 
   useEffect(() => {
     M.updateTextFields()
+    M.AutoInit()
   }, [])
 
   const submit = (values) => {
     setIsSubmitting(true)
     if(props.action === "NEW") {
-      axios.post(`/admin/createTeacher`, values)
+      axios.post(`/admin/createTeacher`, { teacher: values })
         .then((response) => {
           setIsSubmitting(false)
           history.push(`/admin/teachers/all`);
@@ -56,7 +57,7 @@ const AdminTeacherNewForm = props => {
         gender: props.teacher.gender || "女",
         city: props.teacher.city || ""
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values) => {
         submit(values);
       }}
       validationSchema={Yup.object().shape({

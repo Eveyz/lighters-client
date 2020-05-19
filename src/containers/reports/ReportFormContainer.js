@@ -1,24 +1,50 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import PathNavigator from '../../components/layouts/PathNavigator';
 import ReportForm from './ReportForm';
-import { AppContext } from '../../AppContext';
+import Loading from '../../components/Loading';
 
 const ReportFormContainer = props => {
 
-  const [state, setState] = useContext(AppContext)
+  const [isLoading, setIsLoading] = useState(true)
+  const [report, setReport] = useState({})
 
-  let action = props.match.path.includes('edit_report') ? "EDIT" : "NEW";
+  useEffect(() => {
+    if(props.match.params.report_id) {
+      axios.get(`/reports/${props.match.params.report_id}`)
+      .then(res => {
+        setReport(res.data)
+        setIsLoading(false)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    } else {
+      setIsLoading(false)
+    }
+  }, [])
 
-  let path = action === "NEW" ? "/teachers/" + props.match.params._id + "/course_manager" : "/teachers/" + props.match.params._id + "/reports";
+  if(isLoading) {
+    return <Loading />
+  }
+
+  let action = props.match.params.report_id ? "EDIT" : "NEW";
+
+  let path = action === "NEW" ? `/teachers/${props.match.params._id}/courses/${props.match.params.course_id}` : `/teachers/${props.match.params._id}/reports`;
 
   return(
     <div>
       <Header />
       <PathNavigator 
-        path={path} 
+        path={path}
+        state={{
+          course: props.location.state.course,
+          teacher: props.location.state.teacher,
+          student: props.location.state.student
+        }}
         content={"填写新的课程反馈表"} 
       />
       <div className="container">
@@ -28,18 +54,19 @@ const ReportFormContainer = props => {
               <div className="row no-margin">
                 <div className="input-field col m12 s12">
                   <span className="card-title black-text"><b>课程基本信息</b></span>
-                  <p><span className="orange-text">上课学员:</span> {state.current_student.englishname}</p>
-                  <p><span className="orange-text">上课老师:</span> {state.current_teacher.englishname}老师</p>
-                  <p><span className="orange-text">课程名称:</span> {state.current_course.name}</p>
+                  <p><span className="orange-text">上课学员:</span> {props.location.state.student.englishname}</p>
+                  <p><span className="orange-text">上课老师:</span> {props.location.state.teacher.englishname}老师</p>
+                  <p><span className="orange-text">课程名称:</span> {props.location.state.course.name}</p>
                   <br />
                 </div>
               </div>
 
               <ReportForm 
                 action={action}
-                teacher_id={state.current_teacher._id}
-                course_id={state.current_course._id}
-                student_id={state.current_student._id} 
+                teacher={props.location.state.teacher}
+                course={props.location.state.course}
+                student={props.location.state.student}
+                report={report}
               />
               
             </div>

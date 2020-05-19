@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Card } from 'react-materialize';
+import axios from 'axios'
 
 import '../../css/App.css'
 import Header from '../../components/layouts/Header';
@@ -12,49 +13,66 @@ import Loading from '../../components/Loading'
 // import { updateBooks } from '../../actions/select_book_actions';
 // import { selectBook } from '../../actions/books_actions';
 import history from '../../history';
-import { AppContext } from '../../AppContext';
 
 const TeacherCourseManager = props => {
 
-  // const [mode, setMode] = useState()
-  // const [isLoading, setIsLoading] = useState(true)
-  const [state, setState] = useContext(AppContext)
+  const [isLoading, setIsLoading] = useState(true)
+  const [course, setCourse] = useState({})
 
-  if(!state.current_teacher) {
-    return <Loading />
-  }
+  useEffect(() => {
+    // console.log(props.location.state.course)
+    axios.get(`/courses/${props.match.params.course_id}`)
+    .then(res => {
+      setCourse(res.data)
+      setIsLoading(false)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }, [])
 
   const back = () => {
 
   }
+  
+  if(isLoading) {
+    return <div>
+              <Header />
+              <div className="page-min-height">
+                <PathNavigator 
+                  path={"/teachers/" + props.match.params._id + "/dashboard"} 
+                  content={course.name} 
+                  back={back}
+                />
+              </div>
+              <Loading />
+              <br/>
+              <Footer />
+            </div>
+  }
 
   const newReport = student => e => {
-    let path = "/teachers/" + props.match.params._id + "/new_report";
-    // this.props.updateBooks([], [], []);
-    // this.props.setStudent(student, path);
-    setState({
-      auth: state.auth,
-      current_user: state.current_user,
-      current_course: state.current_course,
-      current_teacher: state.current_teacher,
-      current_student: student,
-      current_report: state.current_report
+    let path = `/teachers/${props.match.params._id}/courses/${props.match.params.course_id}/new_report`;
+    history.push({
+      pathname: path,
+      state: {
+        student: student,
+        course: props.location.state.course,
+        teacher: props.location.state.teacher
+      }
     })
-    history.push(path)
   }
 
   const reportsList = student => e => {
-    let path = "/teachers/" + props.match.params._id + "/reports";
-    // this.props.setStudent(student, path);
-    setState({
-      auth: state.auth,
-      current_user: state.current_user,
-      current_course: state.current_course,
-      current_teacher: state.current_teacher,
-      current_student: student,
-      current_report: state.current_report
+    let path = `/teachers/${props.match.params._id}/reports`;
+    history.push({
+      pathname: path,
+      state: {
+        student: student,
+        course: props.location.state.course,
+        teacher: props.location.state.teacher
+      }
     })
-    history.push(path)
   }
 
   const selectBook = book => e => {
@@ -78,15 +96,15 @@ const TeacherCourseManager = props => {
                   </Col>
                 </Row>;
 
-  if(state.current_course.students.length > 0) {
-    let studentsList = state.current_course.students.map((student, idx) => {
+  if(course.students.length > 0) {
+    let studentsList = course.students.map((student, idx) => {
       return <tr key={idx}>
               <td>{ student.englishname }</td>
               <td>{ student.lastname + student.firstname }</td>
               <td>{ student.age }</td>
-              <td>{ state.current_course.name }</td>
+              <td>{ course.name }</td>
               {
-                state.current_course.status === "active" ? <td><button onClick={newReport(student)} className="btn"><i className="material-icons left">add</i>填写新课程回馈表</button></td> : null
+                course.status === "active" ? <td><button onClick={newReport(student)} className="btn"><i className="material-icons left">add</i>填写新课程回馈表</button></td> : null
               }
               <td><button onClick={reportsList(student)} className="btn cyan"><i className="material-icons left">list</i>查看所有课程回馈表</button></td>
               </tr>
@@ -113,8 +131,8 @@ const TeacherCourseManager = props => {
                 </div>
   }
 
-  if(state.current_course.books.length > 0) {
-    let bookList = state.current_course.books.map((book, idx) => {
+  if(course.books.length > 0) {
+    let bookList = course.books.map((book, idx) => {
       return <tr key={idx}>
               <td>{ book.rlevel }</td>
               <td>{ book.lslevel }</td>
@@ -155,7 +173,7 @@ const TeacherCourseManager = props => {
       <div className="page-min-height">
         <PathNavigator 
           path={"/teachers/" + props.match.params._id + "/dashboard"} 
-          content={state.current_course.name} 
+          content={course.name} 
           back={back}
         />
         <div className="container">

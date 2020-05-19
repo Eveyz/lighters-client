@@ -1,5 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
 import axios from 'axios'
 
 import { getFullDate } from '../../ultis';
@@ -14,18 +13,16 @@ import AudiosFileList from './AudiosFileList';
 
 // import { addReport, updateReport } from '../../actions/reports_actions';
 // import { setLoadingStatus } from '../../actions/status_actions';
-import { AppContext } from '../../AppContext';
 import history from '../../history';
 
 const ReportForm = props => {
 
-  const [state, setState] = useContext(AppContext)
   const [isLoading, setIsLoading] = useState(false)
   const [valid, setValid] = useState(false)
-  const [situation, setSituation] = useState(props.action === "NEW" ? 1 : state.current_report.situation === "取消" ? -1 : 1)
-  const [comment, setComment] = useState(props.action === "NEW" ? "" : (state.current_report.tutor_comment || ""))
-  const [homework, setHomework] = useState(props.action === "NEW" ? "" : (state.current_report.homework || ""))
-  const [course_content, setCourseContent] = useState(props.action === "NEW" ? [{}] : state.current_report.course_content)
+  const [situation, setSituation] = useState(props.action === "NEW" ? 1 : props.report.situation === "取消" ? -1 : 1)
+  const [comment, setComment] = useState(props.action === "NEW" ? "" : (props.report.tutor_comment || ""))
+  const [homework, setHomework] = useState(props.action === "NEW" ? "" : (props.report.homework || ""))
+  const [course_content, setCourseContent] = useState(props.action === "NEW" ? [{}] : props.report.course_content)
   const [removedFiles, setRemovedFiles] = useState([])
 
   const courseDate = useRef(null)
@@ -81,18 +78,19 @@ const ReportForm = props => {
     setCourseContent(tableFormData)
   }
 
+  // eslint-disable-next-line
   const removeUploadedFile = (file, report_id) => {
-    let _report = state.current_report;
+    let _report = props.report;
     _report.audios_files = _report.audios_files.filter(f => f.path !== file.path);
     // const index = state.reports.findIndex(report => report._id === report_id);
     setRemovedFiles([...removedFiles, file])
-    setState({
-      auth: state.auth,
-      current_user: state.current_user,
-      current_course: state.current_course,
-      current_teacher: state.current_teacher,
-      current_student: state.current_student,
-      current_report: _report
+  }
+
+  const back = (e) => {
+    e.preventDefault()
+    history.push({
+      pathname: `/teachers/${props.teacher._id}/reports`,
+      state: { student: props.student, teacher: props.teacher, course: props.course }
     })
   }
   
@@ -104,9 +102,9 @@ const ReportForm = props => {
       _course_date = getFullDate(_course_date)
     }
     let report = {
-      teacher_id: state.current_teacher._id,
-      course_id: state.current_course_.id,
-      student_id: state.current_student._id,
+      teacher_id: props.teacher._id,
+      course_id: props.course._id,
+      student_id: props.student._id,
       course_date: _course_date,
       situation: situationRef.current.value,
       start_time: startTime.current.value,
@@ -117,7 +115,7 @@ const ReportForm = props => {
       homework: homework,
       external_link: audioLinks.current.value,
       audios: audio_files,
-      audios_files: props.action === "EDIT" ? state.current_report.audios_files : [],
+      audios_files: props.action === "EDIT" ? props.report.audios_files : [],
       // review_books: this.props.reviewBooks,
       // new_books: this.props.newBooks,
       // future_books: this.props.futureBooks,
@@ -134,12 +132,12 @@ const ReportForm = props => {
       }
     }
 
-    let path = "/teachers/" + props.match.params._id + "/reports";
+    let path = "/teachers/" + props.teacher._id + "/reports";
 
     setIsLoading(true)
 
     var data = new FormData();
-    if(this.props.action === "NEW") {
+    if(props.action === "NEW") {
       // this.props.addReport(report, path)
       if(report['audios'] && report['audios'].length > 0) {
         report['audios'].forEach(file => {
@@ -150,16 +148,11 @@ const ReportForm = props => {
       data.append('report', report_json);
       axios.post(`/reports`, data)
         .then((response) => {
-          setState({
-            auth: state.auth,
-            current_user: state.current_user,
-            current_course: state.current_course,
-            current_teacher: state.current_teacher,
-            current_student: state.current_student,
-            current_report: response.data
-          })
           setIsLoading(false)
-          history.push(path);
+          history.push({
+            pathname: path,
+            state: { student: props.location.state.student }
+          })
           window.Materialize.toast('成功添加反馈表', 2000, 'green');
         })
         .catch((err) => {
@@ -174,21 +167,17 @@ const ReportForm = props => {
       }
       let report_json = JSON.stringify(report);
       data.append('report', report_json);
-      axios.post(`/reports/${state.report._id}`, data)
+      axios.post(`/reports/${props.report._id}`, data)
       .then((response) => {
-        setState({
-          auth: state.auth,
-          current_user: state.current_user,
-          current_course: state.current_course,
-          current_teacher: state.current_teacher,
-          current_student: state.current_student,
-          current_report: response.data
-        })
         setIsLoading(false)
-        history.push(path);
+        history.push({
+          pathname: path,
+          state: { student: props.student, course: props.course, teacher: props.teacher }
+        })
         window.Materialize.toast('成功更新反馈表', 1000, 'green');
       })
       .catch((err) => {
+        console.log(err)
         console.log("there are some erros while updating the report")
       })
     }
@@ -202,11 +191,11 @@ const ReportForm = props => {
   let buttonColor = isLoading ? "#bdc3c7" : "#2ecc71";
   let buttonStyle = {padding: "15px 0px 15px 0px", borderRadius: "15px", backgroundColor: buttonColor, border: "none", cursor: "pointer"}
 
-  let path = props.action === "EDIT" ? "/teachers/" + props.match.params._id + "/reports" : "/teachers/" + props.match.params._id + "/course_manager";
+  // let path = props.action === "EDIT" ? "/teachers/" + props.teacher_id + "/reports" : "/teachers/" + props.teacher_id + "/course_manager";
 
-  let audiosFileList = props.action === "EDIT" ? <AudiosFileList files={state.current_report.audios_files} report_id={state.current_report._id} /> : "";
+  let audiosFileList = props.action === "EDIT" ? <AudiosFileList files={props.report.audios_files} report_id={props.report._id} /> : "";
 
-  const workingInfo = isLoading ? <Working msg={`正在提交反馈表, 请耐心等候 :) ${state.current_teacher.englishname}老师辛苦了, 先去放松一下吧!`} /> : null
+  const workingInfo = isLoading ? <Working msg={`正在提交反馈表, 请耐心等候 :) ${props.teacher.englishname}老师辛苦了, 先去放松一下吧!`} /> : null
 
   const disabled = isLoading ? true : false
 
@@ -224,7 +213,7 @@ const ReportForm = props => {
           refFromParent={courseDate}
           getInputData={getInputData}
           action={props.action}
-          value={props.action === "EDIT" ? state.current_report.course_date : ""}
+          value={props.action === "EDIT" ? props.report.course_date : ""}
         />
       </div>
 
@@ -240,7 +229,7 @@ const ReportForm = props => {
           action={props.action}
           prompt="请选择上课情况"
           options={["正常上课", "平台赠课", "学员开课前2小时内才请假(0.5个课时费)", "学员上课时间后才请假或无故缺课(1个课时费)", "学员迟到(不必补全课时, 可按时下课, 1个课时费)", "老师迟到早退10分钟以内(需免费于当堂或下堂课补全课时才可得1个课时费, 但会影响薪资晋级)", "老师无故迟到10分钟以上20分钟以内并且课程依旧进行(0.5个课时费)", "老师无故迟到并且取消课程(0个课时费, 需免费补课一节)", "免费补课(0个课时费)", "试课(0个课时费)", "代课(1个课时费)", "小组课单个学员首次请假(学员付0.5课时费观看上课录屏, 老师照旧获1课时费)", "小组课单个学员非首次请假(学员付1课时费观看上课录屏, 老师获1课时费)"]}
-          value={props.action === "EDIT" ? state.current_report.situation : ""}
+          value={props.action === "EDIT" ? props.report.situation : ""}
         />
       </div>
 
@@ -255,7 +244,7 @@ const ReportForm = props => {
           refFromParent={reason}
           getInputData={getInputData}
           action={props.action}
-          value={props.action === "EDIT" ? state.current_report.reason : ""}
+          value={props.action === "EDIT" ? props.report.reason : ""}
         />
       </div>
 
@@ -270,7 +259,7 @@ const ReportForm = props => {
           refFromParent={startTime}
           getInputData={getInputData}
           action={props.action}
-          value={props.action === "EDIT" ? state.current_report.start_time : ""}
+          value={props.action === "EDIT" ? props.report.start_time : ""}
         />
         <FormPick
           classes="input-field col m6 s12"
@@ -279,10 +268,10 @@ const ReportForm = props => {
           label="结束时间"
           required={true}
           errorMsg="请选择结束时间"
-          refFromParent={this.endTime}
+          refFromParent={endTime}
           getInputData={getInputData}
           action={props.action}
-          value={props.action === "EDIT" ? state.current_report.end_time : ""}
+          value={props.action === "EDIT" ? props.report.end_time : ""}
         />
       </div>
 
@@ -297,7 +286,7 @@ const ReportForm = props => {
           refFromParent={focusTime}
           getInputData={getInputData}
           action={props.action}
-          value={props.action === "EDIT" ? state.current_report.focus : ""}
+          value={props.action === "EDIT" ? props.report.focus : ""}
         />
       </div>
 
@@ -330,7 +319,7 @@ const ReportForm = props => {
           errorMsg="请填写上课内容"
           getInputData={getInputData}
           action={action}
-          value={action === "EDIT" ? state.current_report.course_content : ""}
+          value={action === "EDIT" ? props.report.course_content : ""}
         /> */}
         <br/>
       </div>
@@ -363,7 +352,7 @@ const ReportForm = props => {
           errorMsg="请填写上课反馈"
           getInputData={getInputData}
           action={props.action}
-          value={props.action === "EDIT" ? state.current_report.tutor_comment : ""}
+          value={props.action === "EDIT" ? props.report.tutor_comment : ""}
         />
       </div>
 
@@ -385,7 +374,7 @@ const ReportForm = props => {
           errorMsg="请填写课后任务"
           getInputData={getInputData}
           action={props.action}
-          value={props.action === "EDIT" ? state.current_report.homework : ""}
+          value={props.action === "EDIT" ? props.report.homework : ""}
         />
       </div>
 
@@ -405,7 +394,7 @@ const ReportForm = props => {
           refFromParent={audioLinks}
           getInputData={getInputData}
           action={props.action}
-          value={props.action === "EDIT" ? state.current_report.external_link : ""}
+          value={props.action === "EDIT" ? props.report.external_link : ""}
         />
       </div>
       <div className={"row no-margin " + visiblity}>
@@ -445,15 +434,16 @@ const ReportForm = props => {
 
       <div className="row no-margin">
         <div className="input-field col m12 s12">
-          <Link 
-            className="col m12 s12 white r-box-shadow" 
-            to={path}
+          <a 
+            href=""
+            className="col m12 s12 white r-box-shadow"
             style={
               {padding: "11px 0px 11px 0px", borderRadius: "15px", border: "none", cursor: "pointer"}
             }
+            onClick={back}
           >
             <span className="center" style={{color: "black", fontSize: "20px"}}><b>返回</b></span>
-          </Link>
+          </a>
         </div>
       </div>
 

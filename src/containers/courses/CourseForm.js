@@ -1,15 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
+import axios from 'axios'
+
 import { Row, Col, Button } from 'react-materialize';
 import M from 'materialize-css';
 import { CLASS_TYPE, CLASS_LEVEL } from '../../ultis';
-import axios from 'axios'
 import '../../css/App.css';
 import { addCourse, updateCourse } from "../../actions/courses_actions";
 import Option from '../../components/Option';
+import Loading from '../../components/Loading'
 
 const CourseForm = props => {
 
   const [teachers, setActiveTeachers] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
   const nameInput = useRef(null)
   const typeInput = useRef(null)
   const levelInput = useRef(null)
@@ -27,10 +31,11 @@ const CourseForm = props => {
   }
 
   useEffect(() => {
-    initMaterilize()
     axios.get(`/teachers?status=active`)
-      .then((response) => {
+    .then((response) => {
         setActiveTeachers(response.data)
+        setIsLoading(false)
+        initMaterilize()
       })
       .catch((err) => {
         console.log(err)
@@ -39,7 +44,7 @@ const CourseForm = props => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let courseID = props.course._id;
+    let courseID = props.course ? props.course._id : null;
     let teacher = teachersSelect.current.value !== "default" ? teachersSelect.current.value : null;
     const course = {
       name: nameInput.current.value,
@@ -113,55 +118,59 @@ const CourseForm = props => {
 
   return (
     <Row>
-      <Col s={12} m={10} offset="m1">
-        <br/>
-        <div className="card">
-          <div className="card-content" style={{padding: "50px"}}>
-            <Row>
-              <div className="col input-field s12">
-                <input type="text" defaultValue={nameVal} ref={nameInput} id="name" />
-                <label htmlFor="name">课程名称</label>
-              </div>
-            </Row>
-            <Row>
-              <div className="input-field col s12 m12">
-                <select
-                  ref={levelInput}
-                  defaultValue={levelVal}
-                  id="level"
-                >
-                  <option key="default" value="default" disabled>请选择课程评级</option>
-                  {courseLevels}
-                </select>
-                <label htmlFor="level">课程评级 <span className="required">*</span></label>
-              </div>
-            </Row>
-            <Row>
-              <div className="col input-field s12">
-                <input type="number" defaultValue={courseRateVal} ref={courseRate} id="courseRate" />
-                <label htmlFor="courseRate">课时费(元/课时/人) <span className="required">*</span></label>
-              </div>
-            </Row>
-            <Row>
-              <div className="input-field col s12 m12">
-                <select
-                  ref={typeInput}
-                  defaultValue={typeVal}
-                  id="type"
-                >
-                  <option key="default" value="default" disabled>请选择课程类型</option>
-                  {courseTypes}
-                </select>
-                <label htmlFor="type">课程类型 <span className="required">*</span></label>
-              </div>
-            </Row>
-            <Row>
-              {selectEle}
-            </Row>
-            <Button onClick={handleSubmit}>提交</Button>
+      {
+        isLoading ?
+        <Loading /> :
+        <Col s={12} m={10} offset="m1">
+          <br/>
+          <div className="card">
+            <div className="card-content" style={{padding: "50px"}}>
+              <Row>
+                <div className="col input-field s12">
+                  <input type="text" defaultValue={nameVal} ref={nameInput} id="name" />
+                  <label htmlFor="name">课程名称</label>
+                </div>
+              </Row>
+              <Row>
+                <div className="input-field col s12 m12">
+                  <select
+                    ref={levelInput}
+                    defaultValue={levelVal}
+                    id="level"
+                  >
+                    <option key="default" value="default" disabled>请选择课程评级</option>
+                    {courseLevels}
+                  </select>
+                  <label htmlFor="level">课程评级 <span className="required">*</span></label>
+                </div>
+              </Row>
+              <Row>
+                <div className="col input-field s12">
+                  <input type="number" defaultValue={courseRateVal} ref={courseRate} id="courseRate" />
+                  <label htmlFor="courseRate">课时费(元/课时/人) <span className="required">*</span></label>
+                </div>
+              </Row>
+              <Row>
+                <div className="input-field col s12 m12">
+                  <select
+                    ref={typeInput}
+                    defaultValue={typeVal}
+                    id="type"
+                  >
+                    <option key="default" value="default" disabled>请选择课程类型</option>
+                    {courseTypes}
+                  </select>
+                  <label htmlFor="type">课程类型 <span className="required">*</span></label>
+                </div>
+              </Row>
+              <Row>
+                {selectEle}
+              </Row>
+              <Button onClick={handleSubmit}>提交</Button>
+            </div>
           </div>
-        </div>
-      </Col>
+        </Col>
+      }
     </Row>
   )
 }

@@ -1,9 +1,104 @@
-// import React from 'react';
-// import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 // import { updateStudent } from '../../actions/students_actions';
+import axios from 'axios'
 
-// import M from 'materialize-css';
+import M from 'materialize-css';
+
+const Student = props => {
+
+  const dropdown = useRef(null)
+
+  useEffect(() => {
+    M.AutoInit();
+    M.Dropdown.init(dropdown.current, {
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: true,
+      hover: true
+    });
+  }, [])
+
+  const updateStudent = () => {
+    if(action === "冻结") {
+      axios.put(`/students/${props.student._id}/deactivate?tuition_amount=${props.student.tuition_amount}`, {status: "inactive"})
+      .then(res => {
+        props.updatedStudent()
+        window.Materialize.toast('更新学生成功', 1000, 'green')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    } else {
+      let field = (props.student.status === "pending" || props.student.status === "inactive") ? {status: "active"} : {status: "inactive"};
+      axios.put(`/students/${props.student._id}`, field)
+      .then(res => {
+        props.updatedStudent()
+        window.Materialize.toast('更新学生成功', 1000, 'green')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  }
+
+
+  let action = "冻结";
+  let classes = "btn red";
+  if(props.student.status === "pending" || props.student.status === "inactive") {
+    action = "激活";
+    classes = "btn green";
+  }
+
+  const cls = props.student.tuition_amount < 0 ? "red-text" : null
+
+  if(props.tab === "RESET_REQUIRED") {
+    return (
+      <tr>
+        <td><Link to={`/students/${props.student._id}/view`}><span className="airbnb-font">{props.student.englishname}</span></Link></td>
+        <td>{props.student.lastname + props.student.firstname}</td>
+        <td>{props.student.age}</td>
+        <td className={cls}>{props.student.tuition_amount}</td>
+        <td>{props.student.gender}</td>
+        <td>{props.student.city}</td>
+        <td>{props.student.systemid}</td>
+        <td>
+          <a ref={dropdown} className='dropdown-trigger' href='' data-target={props.id}><i className="material-icons circle-icon">more_vert</i></a>
+
+          <ul id={props.id} className='dropdown-content'>
+            <li><Link to={`/admin/students/${props.student._id}/edit`} className="aribnb-font bold">编辑</Link></li>
+            <li><Link to={`/students/${props.student._id}`} className="aribnb-font bold">查看</Link></li>
+            <li className="divider"></li>
+            <li><a className="aribnb-font bold red-text" href="">注销</a></li>
+          </ul>
+        </td>
+      </tr>
+    )
+  }
+
+  return(
+    <tr>
+      <td><Link to={`/students/${props.student._id}/view`}><span className="airbnb-font">{props.student.englishname}</span></Link></td>
+      <td>{props.student.lastname + props.student.firstname}</td>
+      <td>{props.student.age}</td>
+      <td className={cls}>{props.student.tuition_amount}</td>
+      <td>{props.student.gender}</td>
+      <td>{props.student.city}</td>
+      <td><button className={classes} onClick={() => { if (window.confirm('确定要更新学生?')) updateStudent()}} disabled={props.student.tuition_amount >= 0 ? false : true}>{action}</button></td>
+      <td>
+        <a ref={dropdown} className='dropdown-trigger' href='' data-target={props.id}><i className="material-icons circle-icon">more_vert</i></a>
+
+        <ul id={props.id} className='dropdown-content'>
+          <li><Link to={`/admin/students/${props.student._id}/edit`} className="aribnb-font bold">编辑</Link></li>
+          <li><Link to={`/students/${props.student._id}`} className="aribnb-font bold">查看</Link></li>
+          <li><a href="" className="red-text">注销</a></li>
+        </ul>
+      </td>
+    </tr>
+  )
+}
+
+export default Student
 
 // class Student extends React.Component {
 //   constructor(props) {

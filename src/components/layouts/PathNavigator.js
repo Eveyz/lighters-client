@@ -12,7 +12,10 @@ class PathNavigator extends React.Component {
     if(this.props.back) {
       this.props.back()
     }
-    history.push(this.props.path)
+    history.push({
+      pathname: this.props.path,
+      state: this.props.state
+    })
   }
 
   render() {

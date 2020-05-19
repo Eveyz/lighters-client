@@ -74,7 +74,6 @@ export const login = (user, setState) => {
       }
       setAuthToken(token);
       let userToken = jwtDecode(token);
-      console.log("usertoken: ", userToken)
       setState({auth: true, current_user: userToken})
 
       // redirect to own page

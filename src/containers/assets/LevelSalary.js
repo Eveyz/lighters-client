@@ -59,6 +59,13 @@ const LevelSalary = props => {
     axios.post(`/level_salaries`, entry)
       .then((res) => {
         let _entries = [...allEntries, res.data]
+        _entries = _(_entries).chain().sortBy(function(ls) {
+                    return CLASS_LEVEL_RANK[ls.course_level];
+                  }).sortBy(function(ls) {
+                      return CLASS_TYPE_RANK[ls.type];
+                  }).sortBy(function(ls) {
+                    return parseInt(ls.level, 10);
+                  }).value()
         setAllEntries(_entries)
         setEntries(_entries)
         window.Materialize.toast('成功添加', 1000, 'green');

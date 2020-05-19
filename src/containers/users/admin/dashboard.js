@@ -72,7 +72,7 @@ const Dashboard = props => {
                         </div>
                       </Link>
 
-                      <Link to="/admin/books/all">
+                      <Link to="/admin/dashboard">
                         <div className="col s12 m6">
                           <div className="card r-box-shadow link" style={{borderTop: "6px solid #ffc107"}}>
                             <div className="card-content" style={{padding: "30px"}}>

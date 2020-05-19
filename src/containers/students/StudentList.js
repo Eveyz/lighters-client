@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // import M from 'materialize-css';
+import { Skeleton } from '@material-ui/lab'
 import { Row, Col, Table, Card } from 'react-materialize';
 
 import Breadcrumb from '../../components/layouts/Breadcrumb';
@@ -14,21 +15,28 @@ import axios from 'axios';
 
 const StudentList = props => {
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [students, setStudents] = useState([])
   const [status, setStatus] = useState("active")
 
-  useEffect(() => {
-    setLoading(true)
+  const fetData = () => {
     axios.get('/students')
     .then(res => {
-      setLoading(false)
       setStudents(res.data)
+      setLoading(false)
     })
     .catch(err => {
       console.log(err)
     })
+  }
+
+  useEffect(() => {
+    fetData()
   }, [])
+
+  const updatedStudent = () => {
+    fetData()
+  }
 
   let pendingStudentList;
   let pendingStudent = [];
@@ -54,19 +62,19 @@ const StudentList = props => {
 
     pendingStudentList = pendingStudent.map((student, index) => {
       return (
-        <Student key={index} id={`pending${index}`} student={student} />
+        <Student key={index} id={`pending${index}`} student={student} updatedStudent={updatedStudent} />
       );
     });
 
     inactiveStudentList = inactiveStudent.map((student, index) => {
       return (
-        <Student key={index} id={`inactive${index}`} student={student} />
+        <Student key={index} id={`inactive${index}`} student={student} updatedStudent={updatedStudent} />
       )
     });
 
     activeStudentList = activeStudent.map((student, index) => {
       return (
-        <Student key={index} id={`active${index}`} student={student} />
+        <Student key={index} id={`active${index}`} student={student} updatedStudent={updatedStudent} />
       )
     });
 
@@ -170,31 +178,54 @@ const StudentList = props => {
     <div>
       <Header />
       <Breadcrumb action="students" />
-      <div className="container page-min-height">
-        <br />
-        <Row>
-          <Col m={12}>
-            <Link to="/admin/students/new">
-              <button className="btn"><i className="material-icons left">add</i>添加学生</button>
-            </Link>
-          </Col>
-        </Row>
-        <div className="row">
-          <div className="col s12">
-            <ul className="tabs">
-              <li className="tab col s3 m3"><a className={active} href="#active" onClick={(e) => setStatus("active")}>上课学生({activeStudent.length})</a></li>
-              <li className="tab col s3 m3"><a onClick={(e) => setStatus("pending")} className={pending} href="#pending">试课学生({pendingStudent.length})</a></li>
-              <li className="tab col s3 m3"><a onClick={(e) => setStatus("inactive")} className={inactive} href="#inactive">往期学生({inactiveStudent.length})</a></li>
-              <li className="tab col s3 m3"><a onClick={(e) => setStatus("created")} className={created} href="#created">管理员生成的学生({createdStudent.length})</a></li>
-            </ul>
-          </div>
-          <div id="active" className="col s12">{activeStudentTable}</div>
-          <div id="pending" className="col s12">{pendingStudentTable}</div>
-          <div id="inactive" className="col s12">{inactiveStudentTable}</div>
-          <div id="created" className="col s12">{createdStudentTable}</div>
+      {
+        loading ?
+        <div className="container page-min-height">
+          <br/>
+          <Row>
+            <Col m={12}>
+              <Skeleton height={70} width="10%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+            </Col>
+          </Row>
         </div>
-        
-      </div>
+        :
+        <div className="container page-min-height">
+          <br />
+          <Row>
+            <Col m={12}>
+              <Link to="/admin/students/new">
+                <button className="btn"><i className="material-icons left">add</i>添加学生</button>
+              </Link>
+            </Col>
+          </Row>
+          <div className="row">
+            <div className="col s12">
+              <ul className="tabs">
+                <li className="tab col s3 m3"><a className={active} href="#active" onClick={(e) => setStatus("active")}>上课学生({activeStudent.length})</a></li>
+                <li className="tab col s3 m3"><a onClick={(e) => setStatus("pending")} className={pending} href="#pending">试课学生({pendingStudent.length})</a></li>
+                <li className="tab col s3 m3"><a onClick={(e) => setStatus("inactive")} className={inactive} href="#inactive">往期学生({inactiveStudent.length})</a></li>
+                <li className="tab col s3 m3"><a onClick={(e) => setStatus("created")} className={created} href="#created">管理员生成的学生({createdStudent.length})</a></li>
+              </ul>
+            </div>
+            <div id="active" className="col s12">{activeStudentTable}</div>
+            <div id="pending" className="col s12">{pendingStudentTable}</div>
+            <div id="inactive" className="col s12">{inactiveStudentTable}</div>
+            <div id="created" className="col s12">{createdStudentTable}</div>
+          </div>
+          
+        </div>
+      }
       <Footer />
     </div>
   )

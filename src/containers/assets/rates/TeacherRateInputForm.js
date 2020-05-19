@@ -57,7 +57,7 @@ class TeacherRateInputForm extends React.Component {
   render() {
 
     let teachersList = this.props.teachers.map((teacher, idx) => {
-      return <option key={idx} value={teacher.id}>{teacher.lastname}{teacher.firstname}</option>;
+      return <option key={idx} value={teacher._id}>{teacher.lastname}{teacher.firstname}</option>;
     });
 
     let courseTypes = CLASS_TYPE.map((cla, idx) => {
@@ -112,7 +112,7 @@ class TeacherRateInputForm extends React.Component {
               <div className="row">
                 <div className="input-field col s12 m12">
                   <input 
-                    defaultValue={this.props.teacher_rate.rate} 
+                    defaultValue={this.props.action === "EDIT" ? this.props.teacher_rate.rate : null} 
                     ref={this.rate} 
                     id="rate" 
                     type="number" 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
@@ -6,33 +6,27 @@ import Header from '../../components/layouts/Header'
 import Footer from '../../components/layouts/Footer'
 import { FlashMessage } from '../../components/FlashMessage'
 import Background from '../../images/bg.png'
-import { login } from '../../actions/users_actions'
+import history from '../../history'
+import axios from 'axios'
 
 const ResetPassword = props => {
-
-  const [valid, setValid] = useState(false)
 
   const submit = (values) => {
     var token = props.location.search.split("=")[1]
     values.token = token
     console.log(values)
-    login({
-      username: "T18010",
-      password: "saiop147"
-    });
-    // axios.post(`/users/reset_password`, values)
-    // .then(res => {
-    //   console.log(res.data)
-      
-    //   const user = {
-    //     username: res.data,
-    //     password: values.password,
-    //   }
-    //   login(user);
-    // })
-    // .catch(err => {
-    //   console.log(err)
-    // })
+    axios.post('/users/reset_password', {
+      token: token,
+      password: values.password,
+      passwordCon: values.passwordCon
+    })
+    .then(res => {
+      window.Materialize.toast('密码修改成功', 1000, 'green');
+      history.push("/login")
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   const bg_style = {
@@ -74,8 +68,6 @@ const ResetPassword = props => {
                             handleBlur,
                             handleSubmit,
                           } = props;
-
-                          errors.password === undefined && touched.password && errors.passwordCon === undefined && touched.passwordCon ? setValid(true) : setValid(false)
                           
                           return (
                             <form onSubmit={handleSubmit}>
@@ -85,7 +77,7 @@ const ResetPassword = props => {
                               <div className="row no-margin">
                                 <div className="input-field col m12 s12">
                                   <input 
-                                    type="text" 
+                                    type="password" 
                                     name="password" 
                                     id="password" 
                                     autoComplete="true"
@@ -100,7 +92,7 @@ const ResetPassword = props => {
                               <div className="row no-margin">
                                 <div className="input-field col m12 s12">
                                   <input 
-                                    type="text" 
+                                    type="password" 
                                     name="passwordCon" 
                                     id="passwordCon"
                                     autoComplete="false" 
@@ -115,7 +107,7 @@ const ResetPassword = props => {
                               <br/>
                               <div className="row no-margin">
                                 <div className="input-field col m12 s12">
-                                  <button type="submit" disabled={!valid} className="btn cyan">提交</button>
+                                  <button type="submit" className="btn cyan">提交</button>
                                 </div>
                               </div>
 

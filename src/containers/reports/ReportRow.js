@@ -11,12 +11,13 @@ import CopyReportModal from './CopyReportModal'
 
 const ReportRow = props => {
 
-  const [course, setCourse] = useState(null)
+  const [course, setCourse] = useState(props.course._id)
   const [student, setStudent] = useState(null)
-  const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState(props.course ? false : true)
   const [open, setOpen] = useState(false)
   const [submit, setSubmit] = useState(false)
   const [success, setSuccess] = useState(false)
+  // eslint-disable-next-line
   const [isLoading, setIsLoading] = useState(false)
 
   const courseRef = useRef(null)
@@ -34,12 +35,14 @@ const ReportRow = props => {
     initSelect()
   }, [])
 
+  // Select course in copy modal
   const selectCourse = () => {
     setCourse(courseRef.current.value)
     setStudent(null)
     setDisabled(false)
   }
 
+  // Select student in copy modal
   const selectStudent = () => {
     setStudent(studentRef.current.value)
     setDisabled(false)
@@ -48,20 +51,19 @@ const ReportRow = props => {
   const copyReport = () => {
     const course_id = course
     const student_id = student
-    const teacher_id = props.teacher_id
+    const teacher_id = props.teacher._id
     const report_id = props.report._id
     setOpen(false)
     setSubmit(true)
-    // this.props.copyReport(this.props.student._id, course_id, student_id, teacher_id, report_id)
     let url = `/reports/copy_report?course_id=${course_id}&student_id=${student_id}&teacher_id=${teacher_id}&report_id=${report_id}`;
     axios.get(url).then((response) => {
-      // if(props.current_student._id === student_id) {
-      //   dispatch({type: COPY_REPORT, payload: response.data})
-      // }
+      if(course_id === props.course._id) {
+        // only add to report list for rendering if copy targeted course is the same with current course
+        props.addToReportList(response.data)
+      }
       setSuccess(true)
+      setSubmit(false)
       setIsLoading(false)
-      // history.push(`/teachers/${response.data.teacher_id}/reports`)
-      // window.location.reload()
       window.Materialize.toast('成功复制反馈表', 2000, 'green');
     }).catch((err) => {
       console.log(err)
@@ -71,6 +73,7 @@ const ReportRow = props => {
   const deleteReport = () => {
     axios.delete(`/reports/${props.report._id}`)
       .then((response) => {
+        props.removeFromReportList(props.report._id)
         window.Materialize.toast('成功删除反馈表', 1000, 'green');
       })
       .catch((err) => {
@@ -79,11 +82,15 @@ const ReportRow = props => {
   }
 
   const editReport = () => {
-    let path = "/teachers/" + props.user_id + "/edit_report";
+    let path = `/teachers/${props.teacher._id}/courses/${props.course._id}/reports/${props.report._id}`;
     // this.props.editReport(this.props.report, path);
-    history.push(path);
+    history.push({
+      pathname: path,
+      state: { teacher: props.teacher, course: props.course, student: props.student }
+    })
   }
 
+  // eslint-disable-next-line
   const handleOpen = () => {
     setOpen(true)
   }
@@ -96,27 +103,33 @@ const ReportRow = props => {
     return <tr><td><Working msg="正在复制反馈表, 请耐心等候 :)" /></td></tr>
   }
 
-  let courseOptions = props.courses.map((course, idx) => {
-    return <option key={idx} value={course.id}>{course.name}</option>
+  let defaultCourseOption = ""
+
+  let courseOptions = [] 
+  props.courses.forEach((course, idx) => {
+    if(course.status === "active") {
+      if(course._id === props.course._id) defaultCourseOption = <option value={course._id}>{course.name}</option>
+      else courseOptions.push(<option key={idx} value={course._id}>{course.name}</option>)
+    }
   })
 
   // let disabled = disabled
   
   let studentOptions = ""
   if(course) {
-    let cre = props.courses.find(course => {
-      return course.id === course
+    let cre = props.courses.find(c => {
+      return c._id === course
     })
     if(cre) {
       studentOptions = cre.students.map((student, idx) => {
-        return <option key={idx} value={student.id}>{student.englishname}</option>
+        return <option key={idx} value={student._id}>{student.englishname}</option>
       })
     }
   }
 
   const btnDisabled = submit && success ? true : false
   const copyModal = <div>
-                      <i className="material-icons blue-grey-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表" onClick={this.handleOpen}>content_copy</i>
+                      <i className="material-icons blue-text clickable tooltipped" data-position="bottom" data-tooltip="复制反馈表" onClick={handleOpen}>content_copy</i>
                       <Modal
                         open={open}
                         onClose={handleClose}
@@ -124,8 +137,8 @@ const ReportRow = props => {
                         <div>
                           <CopyReportModal
                             disabled={disabled}
-                            courseRef={course}
-                            studentRef={student}
+                            courseRef={courseRef}
+                            studentRef={studentRef}
                             btnDisabled={btnDisabled}
                             courseOptions={courseOptions}
                             studentOptions={studentOptions} 
@@ -133,6 +146,7 @@ const ReportRow = props => {
                             selectStudent={selectStudent}
                             copyReport={copyReport}
                             handleClose={handleClose}
+                            defaultCourseOption={defaultCourseOption}
                           />
                         </div>
                       </Modal>
@@ -151,13 +165,13 @@ const ReportRow = props => {
         </Link>
       </td>
       {
-        (props.course.status === "active" && !props.report.paid) ? <td><i className="material-icons blue-text clickable" onClick={editReport}>edit</i></td> : null
+        (props.course.status === "active" && !props.report.paid) ? <td><i className="material-icons blue-text clickable" onClick={editReport}>edit</i></td> : <td><i className="material-icons grey-text clickable">edit</i></td>
       }
       { 
-        props.course.status === "active" ? <td>{copyModal}</td> : null
+        props.course.status === "active" ? <td>{copyModal}</td> : <td><i className="material-icons grey-text clickable">content_copy</i></td>
       }
       { 
-        (props.course.status === "active" && !props.report.paid) ? <td><i className="material-icons red-text clickable" onClick={() => { if (window.confirm('确定要删除此反馈表?')) deleteReport()}}>delete</i></td> : null
+        (props.course.status === "active" && !props.report.paid) ? <td><i className="material-icons red-text clickable" onClick={() => { if (window.confirm('确定要删除此反馈表?')) deleteReport()}}>delete</i></td> : <td><i className="material-icons grey-text clickable">delete</i></td>
       }
     </tr>
   )

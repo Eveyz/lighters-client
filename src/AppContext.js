@@ -13,7 +13,7 @@ const AppContextProvider = (props) => {
     }
     if(token) {
       var user = jwtDecode(token)
-      let t = parseInt(new Date().getTime()/1000)
+      let t = parseInt(new Date().getTime()/1000, 10)
       if(t - user.exp >= 0) return { 
         auth: false,
         current_user: null,

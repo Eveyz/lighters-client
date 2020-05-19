@@ -1,29 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import history from '../../history'
-import { AppContext } from '../../AppContext';
-
 
 const TeacherCourse = props => {
   
-  const [state, setState] = useContext(AppContext)
-  
-  const clickCourse = (course) => e => {
-    let path = `/teachers/${props.match.params._id}/course_manager`
-    setState({
-      auth: state.auth,
-      current_user: state.current_user,
-      current_course: course,
-      current_teacher: state.current_teacher,
-      current_student: state.current_student,
-      current_report: state.current_report
+  const clickCourse = e => {
+    e.preventDefault()
+    let path = `/teachers/${props.teacher._id}/courses/${props.course._id}`
+    history.push({
+      pathname: path,
+      state: { teacher: props.teacher, course: props.course }
     })
-    history.push(path)
   }
 
   const image = props.course.theme ? props.course.theme : "WorldStudies-title.jpg"
 
   return(
-    <a href="" onClick={(e) => clickCourse(props.course)}>
+    <a href="" onClick={clickCourse}>
       <div className="col s12 m6">
         <div className="card r-box-shadow">
           <div className="card-image">

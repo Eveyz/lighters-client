@@ -15,37 +15,38 @@ const ShowTeacher = props => {
   useEffect(() => {
     axios.get(`/teachers/${props.match.params._id}`)
     .then((response) => {
-        setIsLoading(false)
         setTeacher(response.data)
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err)
       })
   }, [])
 
-  if(isLoading) {
-    return <Loading />
-  }
-
   return (
     <div>
       <Header />
       <Breadcrumb action="showTeacher" />
-      <div className="container page-min-height">
-        <br />
-        <div className="col s12 m12">
-          <div className="card r-box-shadow">
-            <div className="card-content">
-              <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>教师信息</b></span>
-              <h6>名字: {teacher.lastname}{teacher.firstname}</h6>
-              <h6>英文名字: {teacher.englishname}</h6>
-              <h6>级别: {teacher.level}级</h6>
-              <h6>性别: {teacher.gender}</h6>
+      {
+        isLoading ?
+        <Loading />
+        :
+        <div className="container page-min-height">
+          <br />
+          <div className="col s12 m12">
+            <div className="card r-box-shadow">
+              <div className="card-content">
+                <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>教师信息</b></span>
+                <h6>名字: {teacher.lastname}{teacher.firstname}</h6>
+                <h6>英文名字: {teacher.englishname}</h6>
+                <h6>级别: {teacher.level}级</h6>
+                <h6>性别: {teacher.gender}</h6>
+              </div>
             </div>
           </div>
+          <Link to={`/admin/teachers/${teacher._id}/edit`} className="btn">编辑</Link>
         </div>
-        <Link to={`/admin/teachers/${props.teacher._id}/edit`} className="btn">编辑</Link>
-      </div>
+      }
       <Footer />
     </div>
   )

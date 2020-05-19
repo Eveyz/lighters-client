@@ -14,6 +14,7 @@ import { AppContext } from '../../AppContext'
 
 const SignupForm = props => {
 
+  // eslint-disable-next-line
   const [state, setState] = useContext(AppContext)
   const usernameInput = useRef(null)
   const wechatInput = useRef(null)
@@ -26,7 +27,8 @@ const SignupForm = props => {
     M.AutoInit()
     M.updateTextFields()
   }, [])
-
+  
+  // eslint-disable-next-line
   const handleSubmit = (values) => {
     let identityValue = identitySelect.current.state.value;
     const user = {
@@ -66,7 +68,7 @@ const SignupForm = props => {
                       <br/>
                       <Formik
                         initialValues={{ identity: defaultValue, email: '', wechat: '', phone: '', password: '', passwordCon: '' }}
-                        onSubmit={(values, { setSubmitting }) => {
+                        onSubmit={(values) => {
                           handleSubmit(values);
                         }}
                         validationSchema={Yup.object().shape({
@@ -85,7 +87,6 @@ const SignupForm = props => {
                             errors,
                             handleChange,
                             handleBlur,
-                            handleSubmit,
                           } = props;
                           return (
                             <form>

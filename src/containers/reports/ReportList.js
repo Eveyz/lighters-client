@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Card } from 'react-materialize';
 
 import ReportRow from "./ReportRow";
@@ -12,34 +12,56 @@ import Loading from '../../components/Loading';
 // import { getReports } from '../../actions/reports_actions';
 
 import axios from "axios";
-import { AppContext } from "../../AppContext";
 import history from "../../history";
 
 const ReportList = props => {
 
-  const [state, setState] = useContext(AppContext)
   const [isLoading, setIsLoading] = useState(true)
   const [reports, setReports] = useState([])
   const [courses, setCourses] = useState([])
 
   useEffect(() => {
-    let url = `/reports?course_id=${state.current_course._id}&student_id=${state.current_student._id}&teacher_id=${state.current_teacher._id}`;
-    let _reports = axios.get(url)
-    setReports(_reports.data)
-    let _coruses = axios.get(`/courses?teacher_id=${state.current_teacher._id}&status='active'`)
-    setCourses(_coruses.data)
-    setIsLoading(false)
+    const fetchData = async () => {
+      let url = `/reports?course_id=${props.course._id}&student_id=${props.student._id}&teacher_id=${props.teacher._id}`;
+      let _reports = await axios.get(url)
+      setReports(_reports.data)
+      let _coruses = await axios.get("/courses?teacher_id=" + props.teacher._id + "&status=active")
+      setCourses(_coruses.data)
+      setIsLoading(false)
+    }
+    fetchData()
   }, [])
 
   const newReport = () => {
-    let path = "/teachers/" + props.match.params._id + "/new_report"
-    // this.props.setStudent(this.props.student, path)
-    // this.props.getTeacherCourses(this.props.identity._id)
-    history.push(path)
+    let path = `/teachers/${props.teacher._id}/courses/${props.course._id}/new_report`;
+    history.push({
+      pathname: path,
+      state: {
+        student: props.student,
+        course: props.course,
+        teacher: props.teacher
+      }
+    })
   }
 
   if(isLoading) {
     return <Loading />
+  }
+
+  const removeFromReportList = (report_id) => {
+    var _reports = reports.filter(r => r._id !== report_id)
+    _reports = _reports.sort((a, b) => {
+      return a.course_date > b.course_date ? -1 : (a.course_date < b.course_date ? 1 : 0)
+    })
+    setReports(_reports)
+  }
+
+  const addToReportList = (report) => {
+    var _reports = [...reports, report]
+    _reports =_reports.sort((a, b) => {
+      return a.course_date > b.course_date ? -1 : (a.course_date < b.course_date ? 1 : 0)
+    })
+    setReports(_reports)
   }
 
   let reportList = reports.map((report, idx) => {
@@ -50,10 +72,11 @@ const ReportList = props => {
         length={reports.length}
         report={report}
         courses={courses}
-        course={state.current_course}
-        user_id={state.current_user._id}
-        current_student={state.current_student}
-        teacher_id={props.match.params._id}
+        course={props.course}
+        student={props.student}
+        teacher={props.teacher}
+        addToReportList={addToReportList}
+        removeFromReportList={removeFromReportList}
       />
     );
   });

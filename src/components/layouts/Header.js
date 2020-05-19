@@ -12,7 +12,9 @@ const Header = props => {
   const [state, setState] = useContext(AppContext)
 
   useEffect(() => {
-    M.AutoInit();
+    // 会影响report form选择项的正常显示，要disable掉
+    // M.AutoInit();
+
     // M.Dropdown.init(this.dropdown.current, {
     //   belowOrigin: true, // Displays dropdown below the button
     //   inDuration: 300,
@@ -43,18 +45,18 @@ const Header = props => {
 
     /*----- define path and dropdown for corresponding user -----*/
     // let user_id = this.props.auth.user.userTokenData.id;
-    if(state.current_user.identity === "admin") {
+    if(state.current_user.userTokenData.identity === "admin") {
       // admin
       path = <li><Link to="/admin/dashboard">管理员面板</Link></li>
-    } else if(state.current_user.identity === "teacher") {
+    } else if(state.current_user.userTokenData.identity === "teacher") {
       // teachers
-      path = _.isEmpty(state.auth.identityData) ? <li><Link to={`/teachers/new`}>我的主页</Link></li> : <li><Link to={`/teachers/${state.auth.identityData._id}/dashboard`}>我的主页</Link></li>;
+      path = _.isEmpty(state.current_user.userTokenData.identityData) ? <li><Link to={`/teachers/new`}>我的主页</Link></li> : <li><Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/dashboard`}>我的主页</Link></li>;
       accountDropdown = <div className="dp-content">
                           {
                             false ?
                             <React.Fragment>
-                              <Link to={`/teachers/${state.auth.identityData._id}/profile`} target="_blank"><div>我的资料</div></Link>
-                              <Link to={`/teachers/${state.auth.identityData._id}/edit`}><div>编辑个人资料</div></Link>
+                              <Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/profile`} target="_blank"><div>我的资料</div></Link>
+                              <Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/edit`}><div>编辑个人资料</div></Link>
                               <a href="#!"><div>账号设置</div></a>
                             </React.Fragment>
                             : ""
@@ -63,13 +65,13 @@ const Header = props => {
                         </div>;
     } else {
       // students
-      path = _.isEmpty(state.auth.identityData) ? <li><Link to={`/students/new`}>我的主页</Link></li> : <li><Link to={`/students/${state.auth.identityData._id}/dashboard`}>我的主页</Link></li>;
+      path = _.isEmpty(state.current_user.userTokenData.identityData) ? <li><Link to={`/students/new`}>我的主页</Link></li> : <li><Link to={`/students/${state.current_user.userTokenData.identityData._id}/dashboard`}>我的主页</Link></li>;
       accountDropdown = <div className="dp-content">
                           {
                             false ? 
                             <React.Fragment>
-                              <Link to={`/teachers/${state.auth.identityData._id}/profile`} target="_blank"><div>我的资料</div></Link>
-                              <Link to={`/teachers/${state.auth.identityData._id}/edit`}><div>编辑个人资料</div></Link>
+                              <Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/profile`} target="_blank"><div>我的资料</div></Link>
+                              <Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/edit`}><div>编辑个人资料</div></Link>
                               <a href="#!"><div>账号设置</div></a>
                             </React.Fragment>
                             : ""

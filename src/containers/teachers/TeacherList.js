@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 import { Row, Col, Table, Card } from 'react-materialize';
 import axios from 'axios'
+import _ from 'lodash'
+import { Skeleton } from '@material-ui/lab'
 
 import Teacher from '../../containers/teachers/Teacher';
 import Header from '../../components/layouts/Header';
@@ -14,12 +16,11 @@ import Breadcrumb from '../../components/layouts/Breadcrumb';
 const TeacherList = props => {
 
   const [isLoading, setIsLoading] = useState(true)
-  const [teachers, setTeachers] = useState([])
+  const [teachers, setTeachers] = useState({})
   const [status, setStatus] = useState("active")
 
-  useEffect(() => {
-    M.AutoInit()
-    axios.get(`/teachers`)
+  const fetchData = () => {
+    axios.get(`/teachers?group_by=status`)
       .then((res) => {
         setTeachers(res.data)
         setIsLoading(false)
@@ -27,44 +28,48 @@ const TeacherList = props => {
       .catch((err) => {
         console.log(err)
       })
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [])
 
-  let pendingTeacherList;
-  let pendingTeacher = [];
+  const updatedTeacher = () => {
+    fetchData()
+  }
 
-  let activeTeacherList;
-  let activeTeacher = [];
+  useEffect(() => {
+    M.AutoInit()
+  }, [isLoading])
 
-  let createdTeacherList;
-  let createdTeacher = [];
+  let pendingTeacherList = [];
 
-  if(teachers.length > 0) {
-    teachers.forEach((teacher) => {
-      if(teacher.status === "pending") pendingTeacher.push(teacher);
-      else if(teacher.status === "active" || teacher.status === "RESET_REQUIRED") activeTeacher.push(teacher);
-      if(teacher.temporary) createdTeacher.push(teacher);
-    });
+  let activeTeacherList = [];
 
-    pendingTeacherList = pendingTeacher.map((teacher, index) => {
+  let createdTeacherList = [];
+
+  if(!_.isEmpty(teachers)) {
+
+    pendingTeacherList = teachers["pending"].map((teacher, index) => {
       return (
-        <Teacher key={index} id={`pending${index}`} teacher={teacher} />
+        <Teacher key={index} id={`pending${index}`} teacher={teacher} updatedTeacher={updatedTeacher} />
       );
     });
 
-    activeTeacherList = activeTeacher.map((teacher, index) => {
+    activeTeacherList = teachers["active"].map((teacher, index) => {
       return (
-        <Teacher key={index} id={`active${index}`} teacher={teacher} />
+        <Teacher key={index} id={`active${index}`} teacher={teacher} updatedTeacher={updatedTeacher} />
       )
     });
 
-    createdTeacherList = createdTeacher.map((teacher, index) => {
+    createdTeacherList = teachers["system"].map((teacher, index) => {
       return (
-        <Teacher key={index} id={`created${index}`} teacher={teacher} tab="RESET_REQUIRED" />
+        <Teacher key={index} id={`created${index}`} teacher={teacher} tab="RESET_REQUIRED" updatedTeacher={updatedTeacher} />
       )
     })
   }
 
-  let pendingTeacherTable = pendingTeacher.length > 0 ?
+  let pendingTeacherTable = pendingTeacherList.length > 0 ?
                             <Row>
                               <Col m={12}>
                                 <Table className="highlight">
@@ -90,7 +95,7 @@ const TeacherList = props => {
                               <h5 className="center">当前没有待定教师</h5>
                             </Card>
   
-  let activeTeacherTable = activeTeacher.length > 0 ? 
+  let activeTeacherTable = activeTeacherList.length > 0 ? 
                             <Row>
                               <Col m={12}>
                                 <Table className="highlight">
@@ -116,7 +121,7 @@ const TeacherList = props => {
                               <h5 className="center">当前没有在职教师</h5>
                             </Card>
   
-  let createdTeacherTable = createdTeacher.length > 0 ? 
+  let createdTeacherTable = createdTeacherList.length > 0 ? 
                             <Row>
                               <Col m={12}>
                                 <Table className="highlight">
@@ -148,28 +153,51 @@ const TeacherList = props => {
     <div>
       <Header />
       <Breadcrumb action="teachers" />
-      <div className="container page-min-height">
-        <br />
-        <Row>
-          <Col m={12}>
-            <Link to="/admin/teachers/new">
-              <button className="btn"><i className="material-icons left">add</i>添加教师</button>
-            </Link>
-          </Col>
-        </Row>
-        <div className="row">
-          <div className="col s12">
-            <ul className="tabs">
-              <li className="tab col s4 m4"><a className={active} href="#active" onClick={(e) => setStatus("active") }>在职教师({activeTeacher.length})</a></li>
-              <li className="tab col s4 m4"><a onClick={(e) => setStatus("pending")} className={pending} href="#pending">待定教师({pendingTeacher.length})</a></li>
-              <li className="tab col s4 m4"><a onClick={(e) => setStatus("created")} className={created} href="#created">管理员生成的教师({createdTeacher.length})</a></li>
-            </ul>
-          </div>
-          <div id="active" className="col s12">{activeTeacherTable}</div>
-          <div id="pending" className="col s12">{pendingTeacherTable}</div>
-          <div id="created" className="col s12">{createdTeacherTable}</div>
+      {
+        isLoading ?
+        <div className="container page-min-height">
+          <br/>
+          <Row>
+            <Col m={12}>
+              <Skeleton height={70} width="10%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+              <Skeleton height={50} width="100%" />
+            </Col>
+          </Row>
         </div>
-      </div>
+        :
+        <div className="container page-min-height">
+          <br />
+          <Row>
+            <Col m={12}>
+              <Link to="/admin/teachers/new">
+                <button className="btn"><i className="material-icons left">add</i>添加教师</button>
+              </Link>
+            </Col>
+          </Row>
+          <div className="row">
+            <div className="col s12">
+              <ul className="tabs">
+                <li className="tab col s4 m4"><a className={active} href="#active" onClick={(e) => setStatus("active") }>在职教师({activeTeacherList.length})</a></li>
+                <li className="tab col s4 m4"><a onClick={(e) => setStatus("pending")} className={pending} href="#pending">待定教师({pendingTeacherList.length})</a></li>
+                <li className="tab col s4 m4"><a onClick={(e) => setStatus("created")} className={created} href="#created">管理员生成的教师({createdTeacherList.length})</a></li>
+              </ul>
+            </div>
+            <div id="active" className="col s12">{activeTeacherTable}</div>
+            <div id="pending" className="col s12">{pendingTeacherTable}</div>
+            <div id="created" className="col s12">{createdTeacherTable}</div>
+          </div>
+        </div>
+      }
       <Footer />
     </div>
   )

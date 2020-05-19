@@ -1,40 +1,39 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-export const PrivateRoute = ({ component: Component, state, ...rest }) => (
+export const PrivateRoute = ({ component: Component, context, ...rest }) => (
   <Route {...rest} render={(props) => (
-    state.auth === true
+    context.auth === true
       ? <Component {...props} />
       : <Redirect to='/login' />
   )} />
 )
 
-export const AdminRoute = ({component: Component, state, ...rest}) => (
+export const AdminRoute = ({component: Component, context, ...rest}) => (
   <Route {...rest} render={(props) => {
     const dateNow = new Date()
-    console.log(state)
-    return state.auth && state.current_user.identity === "admin" 
-    ? state.current_user.exp - (dateNow.getTime()/1000) >= 0 
+    return context.auth && context.current_user.userTokenData.identity === "admin" 
+    ? context.current_user.exp - (dateNow.getTime()/1000) >= 0 
     ? <Component {...props} /> : <Redirect to='/login' /> 
     : <Redirect to='/' />
   }} />
 )
 
-export const TeacherRoute = ({component: Component, state, ...rest}) => (
+export const TeacherRoute = ({component: Component, context, ...rest}) => (
   <Route {...rest} render={(props) => {
     const dateNow = new Date()
-    return state.auth && state.current_user.identity === "teacher" 
-    ? state.current_user.exp - (dateNow.getTime()/1000) >= 0 
+    return context.auth && context.current_user.userTokenData.identity === "teacher" 
+    ? context.current_user.exp - (dateNow.getTime()/1000) >= 0 
     ? <Component {...props} /> : <Redirect to='/login' /> 
     : <Redirect to='/' />
   }} />
 )
 
-export const StudentRoute = ({component: Component, state, ...rest}) => (
+export const StudentRoute = ({component: Component, context, ...rest}) => (
   <Route {...rest} render={(props) => {
     const dateNow = new Date()
-    return state.auth && state.current_user.identity === "student" 
-    ? state.current_user.exp - (dateNow.getTime()/1000) >= 0 
+    return context.auth && context.current_user.userTokenData.identity === "student" 
+    ? context.current_user.exp - (dateNow.getTime()/1000) >= 0 
     ? <Component {...props} /> : <Redirect to='/login' /> 
     : <Redirect to='/' />
   }} />

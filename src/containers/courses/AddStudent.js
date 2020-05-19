@@ -16,22 +16,33 @@ import axios from 'axios'
 const AddStudent = props => {
 
   const [search, setSearch] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [course, setCourse] = useState(null)
   const [students, setStudents] = useState([])
   const name = useRef(null)
 
-  useEffect(async () => {
-    setLoading(true)
+  const fetchData = async () => {
     const _course = await axios.get(`/courses/${props.match.params._id}`)
     const _students = await axios.get('/students')
-    setCourse(_course)
-    setStudents(_students)
+    setCourse(_course.data)
+    setStudents(_students.data)
     setLoading(false)
+  }
+  
+  useEffect(() => {
+    fetchData()
   }, [])
 
   const switchMode = () => {
     setSearch(!search)
+  }
+
+  const addedStudent = () => {
+    fetchData()
+  }
+
+  const removedStudent = () => {
+    fetchData()
   }
 
   const searchName = () => {
@@ -53,7 +64,7 @@ const AddStudent = props => {
     studentsList = course.students.map((student, index) => {
       var studentName = student.lastname ? `${student.lastname + student.firstname} (${student.englishname})` : `${student.englishname}`;
       return (
-        <Tag object={student} content={studentName} id={this.props.course._id} key={index} />
+        <Tag object={student} content={studentName} id={course._id} key={index} removedStudent={removedStudent} />
       )
     });
   }
@@ -62,7 +73,7 @@ const AddStudent = props => {
   if(students.length > 0 ) {
     let _allStudentsList = students.map((student, idx) => {
       return (
-        <StudentItem key={idx} student={student} />
+        <StudentItem key={idx} student={student} course={course} addedStudent={addedStudent} />
       )
     });
     allStudentsList = <ul className="collection">{_allStudentsList}</ul>

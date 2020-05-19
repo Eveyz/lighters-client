@@ -1,38 +1,30 @@
-import React, { useState, useContext } from 'react';
-// import axios from 'axios'
+import React from 'react';
 
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import PathNavigator from '../../components/layouts/PathNavigator';
 import ReportList from './ReportList';
-import Loading from '../../components/Loading';
-import { AppContext } from '../../AppContext';
 
 const AllReports = props => {
-
-  const [state, setState] = useContext(AppContext)
-  const [isLoading, setIsLoading] = useState(false)
-
-  const content = isLoading ? <Loading /> :
-                    <div className="container">
-                      <br />
-                      <div className="row">
-                        <div className="col m12">
-                          <h5><b>学生: {state.current_student.englishname}</b></h5>
-                        </div>
-                      </div>
-
-                      <ReportList />
-                    </div>
 
   return(
     <div>
       <Header />
       <PathNavigator 
-        path={"/teachers/" + props.match.params._id + "/course_manager"} 
-        content={"所有课程反馈表"} 
+        path={`/teachers/${props.match.params._id}/courses/${props.location.state.course._id}`} 
+        content={"所有课程反馈表"}
+        state={props.location.state}
       />
-      {content}
+      <div className="container">
+        <br />
+        <div className="row">
+          <div className="col m12">
+            <h5><b>学生: {props.location.state.student.englishname}</b></h5>
+          </div>
+        </div>
+
+        <ReportList teacher={props.location.state.teacher} course={props.location.state.course} student={props.location.state.student} />
+      </div>
       <Footer />
     </div>
   )

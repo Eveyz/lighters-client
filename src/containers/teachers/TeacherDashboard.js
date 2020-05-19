@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card } from 'react-materialize'
 import _ from 'lodash';
 import axios from 'axios'
+import M from 'materialize-css'
 
 import 'tui-calendar/dist/tui-calendar.min.css';
 import history from '../../history'
@@ -17,26 +18,22 @@ import Loading from '../../components/Loading'
 // import { setLoadingStatus } from '../../actions/status_actions'
 // import { getTeacherCourses } from '../../actions/teachers_actions'
 // import { selectCourse } from '../../actions/courses_actions'
-import { AppContext } from '../../AppContext';
 
 const TeacherDashboard = props => {
 
-  const [state, setState] = useContext(AppContext)
   const [isLoading, setIsLoading] = useState(true)
   const [teacher, setTeacher] = useState(null)
 
-  useEffect(async () => {
-    var _teacher = axios.get(`/teachers/${props.match.params._id}`)
-    setTeacher(_teacher.data)
-    setState({
-      auth: state.auth,
-      current_user: state.current_user,
-      current_course: state.current_course,
-      current_teacher: _teacher.data,
-      current_student: state.current_student,
-      current_report: state.current_report
+  useEffect(() => {
+    axios.get(`/teachers/${props.match.params._id}`)
+    .then(res => {
+      setTeacher(res.data)
+      setIsLoading(false)
+      M.AutoInit()
     })
-    setIsLoading(false)
+    .catch(err => {
+      console.log(err)
+    })
   }, [])
 
   if(isLoading) {
@@ -44,16 +41,11 @@ const TeacherDashboard = props => {
   }
 
   const clickCourse = (course) => e => {
-    let path = `/teachers/${props.match.params._id}/course_manager`
-    setState({
-      auth: state.auth,
-      current_user: state.current_user,
-      current_course: course,
-      current_teacher: state.current_teacher,
-      current_student: state.current_student,
-      current_report: state.current_report
+    let path = `/teachers/${props.match.params._id}/courses/${course._id}`
+    history.push({
+      pathname: path,
+      state: { teacher: teacher, course: course }
     })
-    history.push(path)
   }
 
   if(_.isEmpty(teacher) || teacher.status === "pending") {
@@ -61,20 +53,11 @@ const TeacherDashboard = props => {
       <div>
         <Header />
         <div className="page-min-height">
-          <div style={{backgroundColor: "#ffca28", padding: "10px 0px 13px 0px"}}>
-            <div className="container">
-              <div className="row no-margin">
-                <div className="col s12">
-                  <h5 className="white-text" style={{fontWeight: "500"}}>Welcome, {teacher.lastname + "老师"}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
           <div className="container">
             <Row>
               <Col m={12} s={12}>
                 <Card className='white r-box-shadow' textClassName='black-text' title=''>
-                <h5 className="center"><b>当前处于试课和评定环节, 试课结束之后网站将会开放</b></h5>
+                <h5 className="center"><b>您当前处于试课和评定环节, 试课结束之后网站将会开放</b></h5>
                 </Card>
               </Col>
             </Row>
@@ -109,7 +92,7 @@ const TeacherDashboard = props => {
     })
     if(active_courses.length > 0) {
       courses = active_courses.map((course, idx) => {
-        return <TeacherCourse key={idx} user_id={props.match.params._id} course={course} />
+        return <TeacherCourse key={idx} teacher={teacher} course={course} />
       });
     }
     if(inactive_courses.length > 0) {

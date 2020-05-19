@@ -2,15 +2,48 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import axios from 'axios'
+import history from '../../history'
 
 import QuillTextEditor from '../TextEditor/Quill'
-import { addTeacher, updateTeacher } from '../../actions/teachers_actions'
+// import { addTeacher, updateTeacher } from '../../actions/teachers_actions'
 
 const TeacherForm = props => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+
   const submit =(values) => {
-    props.action === "NEW" ? addTeacher(values) : updateTeacher(values)
+    setIsSubmitting(true)
+    if(props.action === "NEW") {
+      var teacher_data = new FormData();
+      // handle file here
+      if(values['file']) {
+        teacher_data.append('file', values['file']);
+      }
+      // handle data
+      let teacher_json = JSON.stringify(values, null, 2);
+      teacher_data.append('teacher', teacher_json);
+      axios.post(`/teachers`, teacher_data)
+        .then((response) => {
+          setIsSubmitting(false)
+          history.push(`/teachers/${response.data}/dashboard`);
+        })
+        .catch((err) => {
+          setIsSubmitting(false)
+          console.log(err)
+        })
+    } else { 
+      // updateTeacher(values, setIsSubmitting)
+      axios.put(`/teachers/${props.teacher._id}`, values)
+        .then((response) => {
+          setIsSubmitting(false)
+          // history.push("/teachers");
+        })
+        .catch((err) => {
+          setIsSubmitting(false)
+          console.log(err)
+        })
+    }
   }
 
   const buttonColor = isSubmitting ? "#bdc3c7" : "#2ecc71";
@@ -42,7 +75,7 @@ const TeacherForm = props => {
         story: null,
         certificates: null,
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values) => {
         submit(values);
       }}
       validationSchema={Yup.object().shape({

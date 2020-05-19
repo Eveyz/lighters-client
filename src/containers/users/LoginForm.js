@@ -10,6 +10,7 @@ import { FlashMessage } from '../../components/FlashMessage';
 
 const LoginForm = props => {
 
+  // eslint-disable-next-line
   const [state, setState] = useContext(AppContext)
 
   const bg_style = {

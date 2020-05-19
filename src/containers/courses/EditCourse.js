@@ -5,15 +5,18 @@ import CourseForm from './CourseForm';
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
+import Loading from '../../components/Loading'
 
 const EditCourse = props => {
 
   const [course, setCourse] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     axios.get(`/courses/${props.match.params._id}`)
     .then(res => {
       setCourse(res.data)
+      setIsLoading(false)
     })
     .catch(err => {
       console.log(err)
@@ -26,15 +29,20 @@ const EditCourse = props => {
       <div className="bg-light-grey page-min-height">
         <Breadcrumb action="updateCourse"/>
 
-        <div className="container">
-          <br/>
-          <div className="row">
-            <div className="col m12">
-              <CourseForm type="EDIT" course={course} />
+        {
+          isLoading ?
+          <Loading /> :
+          <div className="container">
+            <br/>
+            <div className="row">
+              <div className="col m12">
+                <CourseForm type="EDIT" course={course} />
+              </div>
             </div>
-          </div>
 
-        </div>
+          </div>
+        }
+
       </div>
       <Footer/>
     </div>

@@ -1,6 +1,4 @@
 import React from 'react';
-import M from 'materialize-css';
-import '../../css/App.css';
 import Option from '../../components/Option';
 
 class FormSelect extends React.Component {
@@ -12,10 +10,6 @@ class FormSelect extends React.Component {
     };
     this.inputValue = React.createRef();
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    M.AutoInit();
   }
 
   handleChange = (e) => {

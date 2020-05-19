@@ -7,7 +7,8 @@ const Tag = props => {
     // this.props.remove(props.id, props.object._id);
     axios.put(`/courses/${props.id}/delete_student`, {"studentID": props.object._id})
       .then(response => {
-        console.log("success")
+        props.removedStudent()
+        window.Materialize.toast('成功移除学生', 1000, 'green')
       })
       .catch(err => {
         console.log(err)

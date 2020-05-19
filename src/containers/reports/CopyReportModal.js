@@ -6,7 +6,7 @@ const CopyReportModal = (props) => {
   useEffect(() => {
     var selects = document.querySelectorAll('select')
     M.FormSelect.init(selects, {})
-  }, [])
+  })
 
   const modalStyle = {
     minWidth: "50%", 
@@ -30,10 +30,14 @@ const CopyReportModal = (props) => {
                 <select
                   ref={props.courseRef}
                   id="course"
-                  defaultValue="default"
                   onChange={props.selectCourse}
                 >
-                  <option key="default" value="default" disabled>请选择课程</option>
+                  {
+                    props.defaultCourseOption ?
+                    props.defaultCourseOption
+                    :
+                    <option key="default" value="default" disabled>请选择课程</option>
+                  }
                   {props.courseOptions}
                 </select>
                 <label htmlFor="course">请选择课程 <span className="required">*</span></label>
