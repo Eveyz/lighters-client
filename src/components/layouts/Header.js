@@ -50,13 +50,13 @@ const Header = props => {
       path = <li><Link to="/admin/dashboard">管理员面板</Link></li>
     } else if(state.current_user.userTokenData.identity === "teacher") {
       // teachers
-      path = _.isEmpty(state.current_user.userTokenData.identityData) ? <li><Link to={`/teachers/new`}>我的主页</Link></li> : <li><Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/dashboard`}>我的主页</Link></li>;
+      path = _.isEmpty(state.current_teacher) ? <li><Link to={`/teachers/new`}>我的主页</Link></li> : <li><Link to={`/teachers/${state.current_teacher._id}/dashboard`}>我的主页</Link></li>;
       accountDropdown = <div className="dp-content">
                           {
                             false ?
                             <React.Fragment>
-                              <Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/profile`} target="_blank"><div>我的资料</div></Link>
-                              <Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/edit`}><div>编辑个人资料</div></Link>
+                              <Link to={`/teachers/${state.current_user.userTokenData.id}/profile`} target="_blank"><div>我的资料</div></Link>
+                              <Link to={`/teachers/${state.current_user.userTokenData.id}/edit`}><div>编辑个人资料</div></Link>
                               <a href="#!"><div>账号设置</div></a>
                             </React.Fragment>
                             : ""
@@ -65,13 +65,13 @@ const Header = props => {
                         </div>;
     } else {
       // students
-      path = _.isEmpty(state.current_user.userTokenData.identityData) ? <li><Link to={`/students/new`}>我的主页</Link></li> : <li><Link to={`/students/${state.current_user.userTokenData.identityData._id}/dashboard`}>我的主页</Link></li>;
+      path = _.isEmpty(state.current_student) ? <li><Link to={`/students/new`}>我的主页</Link></li> : <li><Link to={`/students/${state.current_student.id}/dashboard`}>我的主页</Link></li>;
       accountDropdown = <div className="dp-content">
                           {
                             false ? 
                             <React.Fragment>
-                              <Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/profile`} target="_blank"><div>我的资料</div></Link>
-                              <Link to={`/teachers/${state.current_user.userTokenData.identityData._id}/edit`}><div>编辑个人资料</div></Link>
+                              <Link to={`/teachers/${state.current_teacher._id}/profile`} target="_blank"><div>我的资料</div></Link>
+                              <Link to={`/teachers/${state.current_student.id}/edit`}><div>编辑个人资料</div></Link>
                               <a href="#!"><div>账号设置</div></a>
                             </React.Fragment>
                             : ""

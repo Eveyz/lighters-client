@@ -57,7 +57,7 @@ const ReportRow = props => {
     setSubmit(true)
     let url = `/reports/copy_report?course_id=${course_id}&student_id=${student_id}&teacher_id=${teacher_id}&report_id=${report_id}`;
     axios.get(url).then((response) => {
-      if(course_id === props.course._id) {
+      if(course_id === props.course._id && student_id === props.student._id) {
         // only add to report list for rendering if copy targeted course is the same with current course
         props.addToReportList(response.data)
       }

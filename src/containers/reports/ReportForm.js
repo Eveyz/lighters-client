@@ -151,12 +151,12 @@ const ReportForm = props => {
           setIsLoading(false)
           history.push({
             pathname: path,
-            state: { student: props.location.state.student }
+            state: { student: props.student, course: props.course, teacher: props.teacher }
           })
           window.Materialize.toast('成功添加反馈表', 2000, 'green');
         })
         .catch((err) => {
-          console.log("there was an error while adding a new report")
+          console.log("there was an error while adding a new report: ", err)
         })
     } else if(props.action === "EDIT") {
       // this.props.updateReport(this.props.report._id, report, path)

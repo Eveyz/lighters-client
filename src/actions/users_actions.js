@@ -74,7 +74,7 @@ export const login = (user, setState) => {
       }
       setAuthToken(token);
       let userToken = jwtDecode(token);
-      setState({auth: true, current_user: userToken})
+      setState({auth: true, current_user: userToken, current_teacher: response.data.teacher, current_student: response.data.student})
 
       // redirect to own page
       if(userToken.userTokenData.identity === "admin") {
