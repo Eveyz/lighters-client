@@ -14,10 +14,11 @@ const AdminStudentNewForm = props => {
   const [student, setStudent] = useState(props.student || {})
 
   useEffect(() => {
+    M.AutoInit()
     M.updateTextFields()
   }, [])
 
-  const submit = (values) => {
+  const submitForm = (values) => {
     setIsSubmitting(true)
     if(props.action === "NEW") {
       axios.post(`/admin/createStudent`, values)
@@ -29,11 +30,7 @@ const AdminStudentNewForm = props => {
           console.log(err);
         })
     } else {
-      const data = {
-        _id: props.student._id,
-        student: values
-      }
-      axios.put(`/admin/updateStudent`, data)
+      axios.put(`/students/${props.student._id}`, values)
         .then((response) => {
           setIsSubmitting(false)
           history.push(`/admin/students/all`);
@@ -59,7 +56,7 @@ const AdminStudentNewForm = props => {
         city: props.student.city || ""
       }}
       onSubmit={(values, { setSubmitting }) => {
-        submit(values);
+        submitForm(values);
       }}
       validationSchema={Yup.object().shape({
         // firstname: Yup.string().required('此项为必填项!'),
@@ -78,9 +75,10 @@ const AdminStudentNewForm = props => {
           errors,
           handleChange,
           handleBlur,
+          handleSubmit
         } = props;
         return (
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="row no-margin">
               <div className="input-field col s12 m6">
                 <input 
