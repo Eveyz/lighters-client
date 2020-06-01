@@ -69,12 +69,14 @@ export const login = (user, setState) => {
       const token = response.data.token;
       try {
         sessionStorage.setItem('jwtToken', token);
+        sessionStorage.setItem('current_teacher', JSON.stringify(response.data.teacher));
+        sessionStorage.setItem('current_student', JSON.stringify(response.data.student));
       } catch(err) {
         throw(err);
       }
       setAuthToken(token);
       let userToken = jwtDecode(token);
-      setState({auth: true, current_user: userToken, current_teacher: response.data.teacher, current_student: response.data.student})
+      setState({auth: true, current_user: userToken})
 
       // redirect to own page
       if(userToken.userTokenData.identity === "admin") {

@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Loading from './Loading'
-
 export default function asyncComponent(importComponent) {
   class AsyncComponent extends React.Component {
     constructor(props) {
@@ -23,7 +21,7 @@ export default function asyncComponent(importComponent) {
     render() {
       const C = this.state.component
 
-      return C ? <C {...this.props} /> : <Loading />
+      return C ? <C {...this.props} /> : ""
     }
 
   }

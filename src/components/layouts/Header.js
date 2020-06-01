@@ -29,7 +29,7 @@ const Header = props => {
     sessionStorage.clear()
     setAuthToken(false)
     history.push("/")
-    setState(state => ({ auth: false, current_user: null }))
+    setState(state => ({ auth: false, current_user: null, current_course: null, current_teacher: null, current_student: null, current_report: null }))
     M.toast({ html: "Log out successfully", classes: "green", displayLength: 1000 })
   }
 

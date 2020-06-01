@@ -158,7 +158,7 @@ const ReportRow = props => {
       <td>{ props.report.course_date }</td>
       <td>{ props.student.englishname }</td>
       <td>{ props.student.age }</td>
-      <td>{ props.course_name }</td>
+      <td>{ props.course.name }</td>
       <td>
         <Link to={`/reports/${props.report._id}/view`} target="_blank">
           <i className="material-icons cyan-text clickable tooltipped" data-position="bottom" data-tooltip="查看反馈表">visibility</i>

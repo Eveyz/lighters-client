@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import _ from 'lodash'
 
 import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
@@ -11,17 +12,61 @@ const ShowTeacher = props => {
 
   const [isLoading, setIsLoading] = useState(true)
   const [teacher, setTeacher] = useState(null)
+  const [reports, setReports] = useState({})
 
   useEffect(() => {
-    axios.get(`/teachers/${props.match.params._id}`)
+    axios.get(`/teachers/${props.match.params._id}/profile`)
     .then((response) => {
-        setTeacher(response.data)
+        console.log(response.data)
+        setTeacher(response.data.teacher)
+        setReports(response.data.reports)
         setIsLoading(false)
       })
       .catch((err) => {
         console.log(err)
       })
   }, [])
+
+  var report_list = []
+  if(!_.isEmpty(reports)) {
+    var len = Object.keys(reports).length
+    report_list = Array(len).fill("")
+    var index = 0
+    for(const month in reports) {
+      var report_row =  <div key={`${month}`} className="card r-box-shadow">
+                          <div className="card-content">
+                            <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>{month}</b></span>
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>课程名称</th>
+                                  <th>上课时间</th>
+                                  <th>上课情况</th>
+                                  <th>课时</th>
+                                  <th>更多</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {
+                                  reports[month].map((r, idx) => {
+                                    return  <tr key={idx}>
+                                              <td>{r.course_id.name}</td>
+                                              <td>{r.course_date}</td>
+                                              <td>{r.situation}</td>
+                                              <td>{r.credit}</td>
+                                              <td><Link target="_blank" to={`/reports/${r._id}/view`}>查看</Link></td>
+                                            </tr>
+                                  })
+                                }
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+      report_list[len - index] = report_row
+      index += 1
+    }
+  }
 
   return (
     <div>
@@ -45,6 +90,9 @@ const ShowTeacher = props => {
             </div>
           </div>
           <Link to={`/admin/teachers/${teacher._id}/edit`} className="btn">编辑</Link>
+          {
+            report_list.length > 0 ? report_list : ""
+          }
         </div>
       }
       <Footer />

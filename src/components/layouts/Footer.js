@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import QRCode from '../../images/qrcode.jpg';
+import QRCode from '../../images/qrcode-new.jpg';
 
 class Footer extends Component {
   render() {
@@ -34,7 +34,9 @@ class Footer extends Component {
         </div>
         <div className="footer-copyright">
           <div className="container">
-          © 2019 Lighters, Inc.
+          © 2020 Lighters, Inc.
+          <br/>
+          粤ICP备20044743
           <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
           </div>
         </div>
