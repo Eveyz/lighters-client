@@ -29,13 +29,13 @@ const ShowTeacher = props => {
 
   var report_list = []
   if(!_.isEmpty(reports)) {
-    var len = Object.keys(reports).length
-    report_list = Array(len).fill("")
-    var index = 0
+    // var len = Object.keys(reports).length
+    // report_list = Array(len).fill("")
+    // var index = 0
     for(const month in reports) {
       var report_row =  <div key={`${month}`} className="card r-box-shadow">
                           <div className="card-content">
-                            <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>{month}</b></span>
+                            <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>{month}({reports[month].length})</b></span>
                             <table>
                               <thead>
                                 <tr>
@@ -63,8 +63,9 @@ const ShowTeacher = props => {
                             </table>
                           </div>
                         </div>
-      report_list[len - index] = report_row
-      index += 1
+      // report_list[len - index] = report_row
+      // index += 1
+      report_list.push(report_row)
     }
   }
 

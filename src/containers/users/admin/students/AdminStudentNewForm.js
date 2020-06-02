@@ -21,7 +21,7 @@ const AdminStudentNewForm = props => {
   const submitForm = (values) => {
     setIsSubmitting(true)
     if(props.action === "NEW") {
-      axios.post(`/admin/createStudent`, values)
+      axios.post(`/admin/createStudent`, { student: values})
         .then((response) => {
           setIsSubmitting(false)
           history.push(`/admin/students/all`);
