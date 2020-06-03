@@ -17,13 +17,13 @@ const ShowStudent = props => {
 
   useEffect(() => {
     axios.get(`/students/${props.match.params._id}`)
-      .then(res => {
-        setStudent(res.data)
-        setIsLoading(false)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    .then(res => {
+      setStudent(res.data)
+      setIsLoading(false)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }, [])
 
   if(isLoading) return <Loading />
@@ -43,31 +43,25 @@ const ShowStudent = props => {
 
   const cls = student.tuition_amount < 0 ? "red-text" : "green-text"
 
-  var coursesHistory = <h5 className="center">没有上课记录</h5>
+  var reports_history = <h5 className="center">没有上课记录</h5>
   
   var charges = []
-  if(student.courses) {
-    if(student.courses.length > 0) {
-      var coursesList = []
-      student.courses.forEach((course, index) => {
-        _(course.reports).sortBy((report) => {
-          return report.course_date
-        }).value().forEach((report, idx) => {
-          const charge = (getStudentReportCredit(report.situation) * course.course_rate).toFixed(2)
-          charges.push(charge)
-          coursesList.push(<tr key={`course-${index}-report-${idx}`}>
-                              <td>{course.name}</td>
-                              <td>{report.teacher_id.lastname + report.teacher_id.firstname}</td>
-                              <td>{report.course_date}</td>
-                              <td>{course.course_rate}</td>
-                              <td>{report.situation}</td>
-                              <td>{charge}</td>
-                            </tr>)
-        })
-      })
-    }
+  if(student.reports.length > 0) {
+    var reports_list = []
+    student.reports.forEach((report, idx) => {
+      const charge = (getStudentReportCredit(report.situation) * report.course_id.course_rate).toFixed(2)
+      charges.push(charge)
+      reports_list.push(<tr key={`report-${idx}`}>
+                          <td>{report.course_id.name}</td>
+                          <td>{report.teacher_id.lastname + report.teacher_id.firstname}</td>
+                          <td>{report.course_date}</td>
+                          <td>{report.course_id.course_rate}</td>
+                          <td>{report.situation}</td>
+                          <td>{charge}</td>
+                        </tr>)
+    })
 
-    coursesHistory = <table className="highlight">
+    reports_history = <table className="highlight">
                       <thead>
                         <tr>
                           <th>课程名称</th>
@@ -80,7 +74,7 @@ const ShowStudent = props => {
                       </thead>
 
                       <tbody>
-                        {coursesList}
+                        {reports_list}
                       </tbody>
                     </table>
   }
@@ -154,8 +148,8 @@ const ShowStudent = props => {
         <div className="col s12 m12">
           <div className="card r-box-shadow">
             <div className="card-content">
-              <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>上课记录</b></span>
-              {coursesHistory}
+              <span className="card-title blue-grey-text" style={{fontWeight: "400"}}><b>上课记录({student.reports.length})</b></span>
+              {reports_history}
               <h5>余额总计(元): <span className={ remain < 0 ? "red-text" : "green-text"}>{remain.toFixed(2)}</span></h5>
             </div>
           </div>
