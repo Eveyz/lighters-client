@@ -18,7 +18,7 @@ class Theme extends React.Component {
         <img 
           className="theme-img clickable" 
           alt={`${this.props.src}`} 
-          src={require(`${process.env.REACT_APP_IMAGE_PATH}${this.props.src}`)}
+          src={`${process.env.REACT_APP_IMAGE_PATH}${this.props.src}`}
           onClick={this.selectTheme}
         />
       </div>
