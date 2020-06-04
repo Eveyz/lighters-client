@@ -61,7 +61,7 @@ const Course = props => {
     <div className="col s12 m3">
       <div className="card r-box-shadow">
         <div className="card-image">
-          <img src={require(`../../images/classroom/${image}`)} alt="course_background" />
+          <img src={`${process.env.REACT_APP_IMAGE_PATH}${image}`} alt="course_background" />
         </div>
         <div className="card-content">
           <h6 className="text-overflow" style={{fontWeight: "400", marginTop: "0px"}}><b>{ props.course.name }</b></h6>

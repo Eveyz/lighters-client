@@ -59,7 +59,7 @@ class StudentCourseList extends React.Component {
           return  <div key={idx} className="col s12 m6">
                     <div className="card r-box-shadow">
                       <div className="card-image">
-                        <img src={require(`../../images/classroom/${image}`)} alt="course_background" />
+                        <img src={`${process.env.REACT_APP_IMAGE_PATH}${image}`} alt="course_background" />
                         <span className="card-title text-overflow" style={{fontWeight: "400"}}><b>{ course.name }</b></span>
                       </div>
                       <div className="card-content">
