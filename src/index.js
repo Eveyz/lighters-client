@@ -16,6 +16,8 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min.js';
 import App from './components/App';
 
+require('dotenv').config()
+
 // Build the middleware for intercepting and dispatching navigation actions
 // const middleware = routerMiddleware(history)
 
