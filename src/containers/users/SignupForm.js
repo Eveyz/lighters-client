@@ -48,7 +48,7 @@ const SignupForm = props => {
     backgroundSize: "cover"
   };
 
-  var defaultValue = state.current_user.identity === "TEACHER" ? "teacher" : "student";
+  var defaultValue = state.current_user === "TEACHER" ? "teacher" : "student";
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
   return (

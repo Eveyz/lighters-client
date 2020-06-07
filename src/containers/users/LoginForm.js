@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,6 +12,7 @@ const LoginForm = props => {
 
   // eslint-disable-next-line
   const [state, setState] = useContext(AppContext)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const bg_style = {
     backgroundImage: "linear-gradient(to right top, #ffc107, #ffb700, #ffad00, #ffa200, #ff9800)",
@@ -19,7 +20,8 @@ const LoginForm = props => {
   }
 
   const submit = (values) => {
-    login(values, setState)
+    setIsSubmitting(true)
+    login(values, setState, setIsSubmitting)
   }
 
   return (
@@ -63,6 +65,10 @@ const LoginForm = props => {
                               {errors.email && touched.email && <FlashMessage props={{status: "error", msg: errors.email}} />}
                               {errors.password && touched.password && <FlashMessage props={{status: "error", msg: errors.password}} />}
 
+                              {
+                                isSubmitting ? <div className="center loader"></div> : ""
+                              }
+
                               <div className="row no-margin">
                                 <div className="input-field col m12 s12">
                                   <input 
@@ -73,6 +79,7 @@ const LoginForm = props => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     className="validate"
+                                    disabled={isSubmitting}
                                   />
                                   <label htmlFor="username">用户名 <span className="required">*</span></label>
                                 </div>
@@ -89,6 +96,7 @@ const LoginForm = props => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     className="validate"
+                                    disabled={isSubmitting}
                                   />
                                   <label htmlFor="email">密码 <span className="required">*</span></label>
                                 </div>
@@ -109,7 +117,7 @@ const LoginForm = props => {
                               <br/>
                               <div className="row no-margin">
                                 <div className="input-field col m12 s12">
-                                  <button type="submit" className="btn">登录</button>
+                                  <button type="submit" disabled={isSubmitting} className="btn">登录</button>
                                 </div>
                               </div>
 
@@ -120,7 +128,7 @@ const LoginForm = props => {
                       
                       <div className="row no-margin">
                         <div className="input-field col m12 s12">
-                          <Link to="/signup">注册</Link>
+                          <Link to="/login">注册</Link>
                           <br/>
                           <Link to="/password/reset">忘记密码</Link>
                         </div>

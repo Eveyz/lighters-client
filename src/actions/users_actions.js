@@ -61,7 +61,7 @@ export function resetToken() {
   };
 }
 
-export const login = (user, setState) => {
+export const login = (user, setState, setIsSubmitting) => {
   axios.post("/users/authenticate", user)
     .then((response) => {
       sessionStorage.clear()
@@ -77,6 +77,7 @@ export const login = (user, setState) => {
       setAuthToken(token);
       let userToken = jwtDecode(token);
       setState({auth: true, current_user: userToken})
+      setIsSubmitting(false)
 
       // redirect to own page
       if(userToken.userTokenData.identity === "admin") {
@@ -108,6 +109,7 @@ export const login = (user, setState) => {
       }
     })
     .catch((err) => {
+      setIsSubmitting(false)
       window.Materialize.toast(`${err.response.data.msg}`, 3000, 'red');
     })
 };
