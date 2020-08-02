@@ -47,10 +47,14 @@ export const editCourse = (course) => {
   }
 }
 
-export const updateCourse = (course_id, field) => {
+export const updateCourse = (course_id, field, back) => {
   axios.put(`/courses/${course_id}`, field)
     .then((response) => {
-      history.push('/admin/courses/all')
+      if(back) {
+        history.push('/admin/courses/all')
+      } else {
+        window.location.reload()
+      }
       window.Materialize.toast('成功更新课程', 1000, 'green')
     })
     .catch((err) => {

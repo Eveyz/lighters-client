@@ -60,7 +60,7 @@ const CourseForm = props => {
     if(props.type === "ADD") {
       addCourse(course);
     } else if (props.type === "EDIT") {
-      updateCourse(courseID, course);
+      updateCourse(courseID, course, true);
     }
   }
 

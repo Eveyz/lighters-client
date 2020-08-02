@@ -64,6 +64,13 @@ export function resetToken() {
 export const login = (user, setState, setIsSubmitting) => {
   axios.post("/users/authenticate", user)
     .then((response) => {
+      console.log(response)
+      if(!response.data.success) {
+        window.Materialize.toast(`${response.data.msg}`, 3000, 'red');
+        setIsSubmitting(false)
+        setState({auth: false, current_user: null})
+        return
+      }
       sessionStorage.clear()
       // response.data should be able to return the token we get from the api and we store the token
       const token = response.data.token;
@@ -110,7 +117,7 @@ export const login = (user, setState, setIsSubmitting) => {
     })
     .catch((err) => {
       setIsSubmitting(false)
-      window.Materialize.toast(`${err.response.data.msg}`, 3000, 'red');
+      window.Materialize.toast(`${err}`, 3000, 'red');
     })
 };
 
