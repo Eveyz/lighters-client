@@ -64,7 +64,6 @@ export function resetToken() {
 export const login = (user, setState, setIsSubmitting) => {
   axios.post("/users/authenticate", user)
     .then((response) => {
-      console.log(response)
       if(!response.data.success) {
         window.Materialize.toast(`${response.data.msg}`, 3000, 'red');
         setIsSubmitting(false)
