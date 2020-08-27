@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import history from '../../../history'
@@ -7,9 +7,18 @@ import axios from 'axios'
 const ActivateForm = props => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const emailRef = useRef(null)
+  const passRef = useRef(null)
+  const passConRef = useRef(null)
+
   const submit = (values) => {
     setIsSubmitting(true)
-    axios.post(`/users/${values.id}/activate`, values)
+    axios.post(`/users/${props.id}/activate`, {
+      id: props.id,
+      email: emailRef.current.value,
+      password: passRef.current.value,
+      passwordCon: passConRef.current.value
+    })
       .then((response) => {
         setIsSubmitting(false)
         history.push('/login')
@@ -30,9 +39,6 @@ const ActivateForm = props => {
         password: "",
         passwordCon: "",
         id: props.id
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        submit(values);
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string().email('邮箱格式不正确!').required('此项为必填项!'),
@@ -56,6 +62,7 @@ const ActivateForm = props => {
                   type="text"
                   name="email" 
                   id="email" 
+                  ref={emailRef}
                   className="validate"
                   onChange={handleChange} 
                   onBlur={handleBlur} 
@@ -76,7 +83,8 @@ const ActivateForm = props => {
                 <input 
                   type="password"
                   name="password" 
-                  id="password" 
+                  id="password"
+                  ref={passRef}
                   className="validate"
                   onChange={handleChange} 
                   onBlur={handleBlur} 
@@ -97,7 +105,8 @@ const ActivateForm = props => {
                 <input 
                   type="password"
                   name="passwordCon" 
-                  id="passwordCon" 
+                  id="passwordCon"
+                  ref={passConRef}
                   className="validate"
                   onChange={handleChange} 
                   onBlur={handleBlur} 
@@ -120,6 +129,7 @@ const ActivateForm = props => {
                   className="col m12 s12" 
                   style={buttonStyle}
                   type="button"
+                  onClick={submit}
                 >
                   <span style={{color: "white", fontSize: "20px"}}><b>激活</b></span>
                 </button>

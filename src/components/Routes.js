@@ -62,6 +62,7 @@ const Routes = props => {
         setAuthToken(token)
       }
     }
+    // console.log(context)
   }, [])
 
   return(
