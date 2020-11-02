@@ -12,32 +12,29 @@ const Transactions = props => {
   const [isLoading, setIsLoading] = useState(true)
   const [mode, setMode] = useState("TRANSACTION_LIST")
   const [transactions, setTransactions] = useState([])
+  const [total, setTotal] = useState(0)
+  const [sum, setSum] = useState(0)
+  const [page, setPage] = useState(0)
+  const [perPage, setPerPage] = useState(10)
+
+  const fetchData = async (skip, limit) => {
+    const transactions_res = await axios.get(`/transactions/all?skip=${skip}&limit=${limit}`)
+    let ts = transactions_res.data
+    setTransactions(ts['transactions'])
+    setTotal(ts['total'])
+    setIsLoading(false)
+  }
 
   useEffect(() => {
-
-    async function fetData() {
-      const transactions_res = await axios.get(`/transactions?`)
-      const paychecks_res = await axios.get(`/paychecks?paid=${true}`)
-      let transactions = transactions_res.data
-      let paychecks = paychecks_res.data
-  
-      paychecks.forEach((pc, idx) => {
-        if(pc.amount !== 0) {
-          transactions.push({
-            src: 'Lighters',
-            dest: pc.teacher_id.lastname + pc.teacher_id.firstname,
-            amount: pc.amount ? pc.amount.toFixed(2) : 0,
-            created_at: pc.updated_at,
-            status: "OUT",
-            memo: pc.memo
-          })
-        }
-      })
-      setTransactions(transactions)
+    async function fetData(skip, limit) {
+      const transactions_res = await axios.get(`/transactions/all?skip=${skip}&limit=${limit}`)
+      let ts = transactions_res.data
+      setTransactions(ts['transactions'])
+      setTotal(ts['total'])
+      setSum(ts['sum'])
       setIsLoading(false)
     }
-    fetData()
-
+    fetData(0, 10)
   }, [])
 
   const addMode = () => {
@@ -57,6 +54,17 @@ const Transactions = props => {
     })
   }
 
+  const changePage = async (skip) => {
+    setPage(skip)
+    await fetchData(skip, perPage)
+  }
+
+  const changePerPage = async (limit) => {
+    setPerPage(limit)
+    setPage(0)
+    await fetchData(0, limit)
+  }
+
   if(isLoading) {
     return <Loading />
   }
@@ -71,18 +79,10 @@ const Transactions = props => {
         // content = <TransactionForm transaction={this.props.transaction} />
         break;
       case "TRANSACTION_LIST":
-        content = transactions.length > 0 ? <TransactionList transactions={sortTransactionsByDate(transactions)} /> : <h6 className="airbnb-font bold">当前没有交易明细</h6>
+        content = transactions.length > 0 ? <TransactionList total={total} page={page} perPage={perPage} changePage={changePage} changePerPage={changePerPage} transactions={transactions} /> : <h6 className="airbnb-font bold">当前没有交易明细</h6>
         break;
       default:
         break;
-    }
-
-    let sum = 0
-    if(transactions.length > 0) {
-      transactions.forEach((t, idx) => {
-        if(t.status === "IN") sum += t.amount
-        else sum -= t.amount
-      })
     }
 
     let header = mode === "TRANSACTION_LIST" ? 

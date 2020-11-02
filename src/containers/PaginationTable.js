@@ -4,22 +4,17 @@ import TablePagination from '@material-ui/core/TablePagination'
 
 const PaginationTable = props => {
 
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
-
   const handleChangePage = (event, newPage) => {
-    setPage(newPage)
+    props.handleChangePage(newPage, props.type)
   }
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value)
-    setPage(0)
+    props.handleChangeRowsPerPage(event.target.value, props.type)
   }
 
-  const rows = props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
   const { children } = props
   const childrenWithProps = React.Children.map(children, child =>
-    React.cloneElement(child, { rows: rows })
+    React.cloneElement(child, { rows: props.rows })
   )
 
   return (
@@ -28,9 +23,9 @@ const PaginationTable = props => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={props.rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
+        count={props.total}
+        rowsPerPage={props.limit}
+        page={props.skip}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />

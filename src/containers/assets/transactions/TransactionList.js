@@ -22,34 +22,18 @@ const columns = [
 
 const TransactionList = props => {
 
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
-
   const handleChangePage = (event, newPage) => {
-    setPage(newPage)
+    props.changePage(newPage)
   }
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value)
-    setPage(0)
+    props.changePerPage(event.target.value)
   }
 
   return(
     <div>
       <h6 className="airbnb-font bold">支出明细列表</h6>
       <hr/>
-      {/* <MaterialTable
-        columns={[
-          { field: 'created_at', title: '时间' },
-          { field: 'src', title: '从' },
-          { field: 'dest', title: '目的地' },
-          { field: 'amount', title: '金额(元)' },
-          { field: 'status', title: '状态' },
-          { field: 'memo', title: '备忘录' },
-        ]}
-        data={props.transactions}
-        title="支出明细列表"
-      /> */}
 
       <TableContainer>
         <Table stickyHeader aria-label="sticky table">
@@ -67,7 +51,7 @@ const TransactionList = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.transactions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((transaction, idx) => {
+            {props.transactions.map((transaction, idx) => {
               return (
                 <TableRow hover tabIndex={-1} key={idx}>
                   {columns.map((column) => {
@@ -88,9 +72,9 @@ const TransactionList = props => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={props.transactions.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
+        count={props.total}
+        rowsPerPage={props.perPage}
+        page={props.page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
