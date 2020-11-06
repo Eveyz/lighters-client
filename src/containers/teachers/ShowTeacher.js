@@ -90,7 +90,12 @@ const ShowTeacher = props => {
                 <h6>英文名字: {teacher.englishname}</h6>
                 <h6>级别: {teacher.level}级</h6>
                 <h6>性别: {teacher.gender}</h6>
-                <h6>上次升级时间: {getLocalTime(ts.created_at)}</h6>
+                {
+                  ts ?
+                  <h6>上次升级时间: {getLocalTime(ts.created_at)}</h6>
+                  :
+                  ""
+                }
                 <br/>
                 <Link to={`/admin/teachers/${teacher._id}/edit`} className="btn">编辑</Link>
               </div>
