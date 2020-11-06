@@ -14,7 +14,7 @@ import { getLocalTime } from '../../../ultis'
 const columns = [
   { id: 'created_at', label: '时间', minWidth: 170, format: (value) => getLocalTime(value), },
   { id: 'src', label: '从', minWidth: 100 },
-  { id: 'dest', label: '目的地', minWidth: 100 },
+  { id: 'dest', label: '到', minWidth: 100 },
   { id: 'amount', label: '金额(元)', minWidth: 100 },
   { id: 'status', label: '状态', minWidth: 100 },
   { id: 'memo', label: '备忘录', minWidth: 200 },

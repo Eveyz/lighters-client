@@ -7,12 +7,14 @@ import Header from '../../components/layouts/Header';
 import Footer from '../../components/layouts/Footer';
 import Breadcrumb from '../../components/layouts/Breadcrumb';
 import Loading from '../../components/Loading'
+import { getLocalTime } from '../../ultis'
 
 const ShowTeacher = props => {
 
   const [isLoading, setIsLoading] = useState(true)
   const [teacher, setTeacher] = useState(null)
   const [reports, setReports] = useState({})
+  const [ts, setTs] = useState(null)
 
   useEffect(() => {
     axios.get(`/teachers/${props.match.params._id}/profile`)
@@ -20,6 +22,7 @@ const ShowTeacher = props => {
         console.log(response.data)
         setTeacher(response.data.teacher)
         setReports(response.data.reports)
+        setTs(response.data.teacher_level)
         setIsLoading(false)
       })
       .catch((err) => {
@@ -87,10 +90,12 @@ const ShowTeacher = props => {
                 <h6>英文名字: {teacher.englishname}</h6>
                 <h6>级别: {teacher.level}级</h6>
                 <h6>性别: {teacher.gender}</h6>
+                <h6>上次升级时间: {getLocalTime(ts.created_at)}</h6>
+                <br/>
+                <Link to={`/admin/teachers/${teacher._id}/edit`} className="btn">编辑</Link>
               </div>
             </div>
           </div>
-          <Link to={`/admin/teachers/${teacher._id}/edit`} className="btn">编辑</Link>
           {
             report_list.length > 0 ? report_list : ""
           }
