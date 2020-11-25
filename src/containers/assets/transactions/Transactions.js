@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Row, Col, Card } from 'react-materialize'
 
-import { sortTransactionsByDate } from '../../../ultis'
+// import { sortTransactionsByDate } from '../../../ultis'
 import TransactionForm from './TransactionForm'
 import TransactionList from './TransactionList'
 import Loading from '../../../components/Loading'

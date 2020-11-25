@@ -6,7 +6,7 @@ import PaginationTable from '../../PaginationTable'
 import ProfitList from './ProfitList'
 import CompensationList from './CompensationList'
 import Loading from '../../../components/Loading'
-import { getStudentReportCredit } from '../../../ultis'
+// import { getStudentReportCredit } from '../../../ultis'
 
 const Profit = props => {
 

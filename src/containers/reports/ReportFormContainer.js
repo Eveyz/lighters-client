@@ -11,6 +11,7 @@ const ReportFormContainer = props => {
 
   const [isLoading, setIsLoading] = useState(true)
   const [report, setReport] = useState({})
+  const [reportBackup, setReportBackup] = useState({})
 
   useEffect(() => {
     if(props.match.params.report_id) {
@@ -26,6 +27,15 @@ const ReportFormContainer = props => {
       setIsLoading(false)
     }
   }, [])
+
+  const recoverReport = () => {
+    try {
+      var report_backup = JSON.parse(localStorage.getItem("report"))
+      setReportBackup(report_backup)
+    } catch (exception) {
+      console.log("Not able to recover report")
+    }
+  }
 
   if(isLoading) {
     return <Loading />
