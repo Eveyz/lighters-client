@@ -12,11 +12,6 @@ class TeacherPaycheckList extends React.Component {
   render() {
     let paycheckList = this.props.paychecks.map((pc, idx) => {
       var extraBonus = 0
-      if(pc.compensations.length > 0) {
-        pc.compensations.forEach(c => {
-          extraBonus += c.amount
-        })
-      }
       return  <li key={idx}>
                 <div className="collapsible-header">
                   <div style={{width: "33.3%"}}>{pc.month}</div>

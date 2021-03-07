@@ -57,7 +57,7 @@ const Routes = props => {
   
   useEffect(() => {
     if(!axios.defaults.headers.common['authorization']) {
-      let token = sessionStorage.getItem("jwtToken");
+      let token = localStorage.getItem("jwtToken");
       if(token) {
         setAuthToken(token)
       }

@@ -26,7 +26,7 @@ const Header = props => {
   }, [])
 
   const logout = () => {
-    sessionStorage.clear()
+    localStorage.clear()
     setAuthToken(false)
     history.push("/")
     setState(state => ({ auth: false, current_user: null, current_course: null, current_teacher: null, current_student: null, current_report: null }))

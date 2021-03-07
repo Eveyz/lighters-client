@@ -54,7 +54,7 @@ const CourseForm = props => {
       // course_hours: hoursInput.current.value,
       course_rate: courseRate.current.value,
       // timeInput: timeInput.current.value,
-      teachers: [teacher]
+      teachers: teacher ? [teacher] : []
     };
 
     if(props.type === "ADD") {

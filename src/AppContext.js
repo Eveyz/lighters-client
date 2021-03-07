@@ -8,14 +8,14 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     var token, current_student, current_teacher
-    token = sessionStorage.getItem('jwtToken') || null
+    token = localStorage.getItem('jwtToken') || null
     try {
-      current_teacher = JSON.parse(sessionStorage.getItem('current_teacher'))
+      current_teacher = JSON.parse(localStorage.getItem('current_teacher'))
     } catch (e) {
       current_teacher = {}
     }
     try {
-      current_student = JSON.parse(sessionStorage.getItem('current_student'))
+      current_student = JSON.parse(localStorage.getItem('current_student'))
     } catch(e) {
       current_student = {}
     }

@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  let token = sessionStorage.getItem("jwtToken");
+  let token = localStorage.getItem("jwtToken");
   return {
     loadUserFromToken: () => {
       if(!token || token === "") {//if there is no token, dont bother

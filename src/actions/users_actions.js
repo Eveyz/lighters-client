@@ -70,13 +70,13 @@ export const login = (user, setState, setIsSubmitting) => {
         setState({auth: false, current_user: null})
         return
       }
-      sessionStorage.clear()
+      localStorage.clear()
       // response.data should be able to return the token we get from the api and we store the token
       const token = response.data.token;
       try {
-        sessionStorage.setItem('jwtToken', token);
-        sessionStorage.setItem('current_teacher', JSON.stringify(response.data.teacher));
-        sessionStorage.setItem('current_student', JSON.stringify(response.data.student));
+        localStorage.setItem('jwtToken', token);
+        localStorage.setItem('current_teacher', JSON.stringify(response.data.teacher));
+        localStorage.setItem('current_student', JSON.stringify(response.data.student));
       } catch(err) {
         throw(err);
       }
@@ -126,7 +126,7 @@ export const signup = (user) => {
       .then(function(response) {
         // response.data should be able to return the token we get from the api and we store the token
         const token = response.data.token;
-        sessionStorage.setItem('jwtToken', token);
+        localStorage.setItem('jwtToken', token);
         setAuthToken(token)
         let userToken = jwtDecode(token);
         dispatch(setCurrentUser(userToken));
@@ -155,7 +155,7 @@ export const userFromToken = (token) => {
       .then(function(response) {
         // response.data should be able to return the token we get from the api and we store the token
         const token = response.data.token;
-        sessionStorage.setItem('jwtToken', token);
+        localStorage.setItem('jwtToken', token);
         let userToken = jwtDecode(token);
         dispatch(setCurrentUser(userToken));
         dispatch({type: USER_FROM_TOKEN_SUCCESS, payload: response.data})
@@ -175,7 +175,7 @@ export const userFromToken = (token) => {
 
 export const logout = () => {
   return dispatch => {
-    sessionStorage.clear()
+    localStorage.clear()
     // dispatch(setCurrentUser({}));
     setAuthToken(false);
     // history.push('/');
@@ -185,7 +185,7 @@ export const logout = () => {
 
 export const sessionExpired = () => {
   return dispatch => {
-    sessionStorage.clear()
+    localStorage.clear()
     dispatch(setCurrentUser({}))
     setAuthToken(false)
     history.push('/login');
@@ -221,7 +221,7 @@ export const adminInit = (token) => {
         dispatch({type: SET_LOADING_STATUS, payload: false});
       })
       .catch(function(err){
-        sessionStorage.clear()
+        localStorage.clear()
         // history.push('/login');
         window.location.replace('/login');
         // dispatch(setCurrentUser({}));

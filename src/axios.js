@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let token = sessionStorage.getItem("jwtToken");
+let token = localStorage.getItem("jwtToken");
 const ax = axios.create({
   headers: {
     'Authorization': `Bearer ${token}`,
