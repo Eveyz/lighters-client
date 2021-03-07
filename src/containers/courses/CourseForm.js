@@ -46,6 +46,9 @@ const CourseForm = props => {
     e.preventDefault();
     let courseID = props.course ? props.course._id : null;
     let teacher = teachersSelect.current.value !== "default" ? teachersSelect.current.value : null;
+    console.log(teachersSelect.current)
+    console.log(teachersSelect.current.value)
+    console.log(teacher)
     const course = {
       name: nameInput.current.value,
       level: levelInput.current.value,
