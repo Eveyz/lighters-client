@@ -49,6 +49,7 @@ const AdminTeacherEdit = asyncComponent(() => import('../containers/users/admin/
 const AdminStudentNew = asyncComponent(() => import('../containers/users/admin/students/AdminStudentNew'));
 const AdminStudentEdit = asyncComponent(() => import('../containers/users/admin/students/AdminStudentEdit'));
 const ActivateUser = asyncComponent(() => import('../containers/users/activate/ActivateUser'));
+const ViewEvaluation = asyncComponent(() => import('../components/evaluations/Evaluation'));
 
 const Routes = props => {
 
@@ -80,6 +81,7 @@ const Routes = props => {
       <PrivateRoute exact path="/users/:_id/activate" context={context} component={ActivateUser} />
       {/* <PrivateRoute exact path="/books/:_id/show" context={context} component={ViewBook} /> */}
       <PrivateRoute exact path="/reports/:_id/view" context={context} component={ViewReport} />
+      <PrivateRoute exact path="/evaluations/:_id" context={context} component={ViewEvaluation} />
       <AdminRoute exact path="/admin/dashboard" context={context} component={Dashboard} />
       <AdminRoute exact path="/admin/courses/all" context={context} component={TableCourseList} />
       <AdminRoute exact path="/courses/add_course" context={context} component={AddCourse} />

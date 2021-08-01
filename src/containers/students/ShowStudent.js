@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import {DataGrid} from '@material-ui/data-grid'
 
 import Header from '../../components/layouts/Header'
 import Footer from '../../components/layouts/Footer'
 import Breadcrumb from '../../components/layouts/Breadcrumb'
 import Loading from '../../components/Loading'
+import StudentEvaluation from './StudentEvaluaton'
 
 import { getStudentReportCredit, getLocalTime } from '../../ultis'
 
@@ -59,7 +61,6 @@ const ShowStudent = props => {
                           <td>{charge}</td>
                         </tr>)
     })
-
     reports_history = <table className="highlight">
                       <thead>
                         <tr>
@@ -136,6 +137,7 @@ const ShowStudent = props => {
             </div>
           </div>
         </div>
+        <StudentEvaluation student={student} evaluations={student.evaluations} />
         <div className="col s12 m12">
           <div className="card r-box-shadow">
             <div className="card-content">

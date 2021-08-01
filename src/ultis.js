@@ -170,6 +170,15 @@ export const getLocalTime = (date) => {
   return `${d.toLocaleDateString()}-${d.toLocaleTimeString('en-US', { hour12: false })}`
 }
 
+export const getLocalDate = (date) => {
+  var d = new Date(date)
+  return `${d.toLocaleDateString()}`
+}
+
+export const getLocalDateFormat = (date) => {
+  return date ? date.split('T')[0] : ""
+}
+
 export const ACTIONS = Object.freeze({ "NEW": 1, "EDIT": 2 })
 
 export const CLASS_TYPE = ["一对一", "一对二", "一对三", "一对四", "一对五"]
