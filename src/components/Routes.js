@@ -50,6 +50,7 @@ const AdminStudentNew = asyncComponent(() => import('../containers/users/admin/s
 const AdminStudentEdit = asyncComponent(() => import('../containers/users/admin/students/AdminStudentEdit'));
 const ActivateUser = asyncComponent(() => import('../containers/users/activate/ActivateUser'));
 const ViewEvaluation = asyncComponent(() => import('../components/evaluations/Evaluation'));
+const Notification = asyncComponent(() => import('../containers/notifications/notification'));
 
 const Routes = props => {
 
@@ -97,6 +98,7 @@ const Routes = props => {
       <AdminRoute exact path="/admin/teachers/:_id/edit" context={context} component={AdminTeacherEdit} />
       <AdminRoute exact path="/admin/students/new" context={context} component={AdminStudentNew} />
       <AdminRoute exact path="/admin/students/:_id/edit" context={context} component={AdminStudentEdit} />
+      <AdminRoute exact path="/admin/notifications" context={context} component={Notification} />
       <AdminRoute exact path="/assets" context={context} component={AssetsDashboard} />
       <AdminRoute exact path="/assets/level_salaries" context={context} component={AssetsDashboard} />
       <AdminRoute exact path="/assets/teacher_salaries" context={context} component={AssetsDashboard} />

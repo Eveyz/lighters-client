@@ -15,7 +15,7 @@ const Dashboard = props => {
   const [counts, setCounts] = useState({})
 
   useEffect(() => {
-    axios.get("/users/admin/init",)
+    axios.get("/users/admin/init")
     .then(res => {
       setCounts(res.data)
       setIsLoading(false)
@@ -95,8 +95,19 @@ const Dashboard = props => {
                           </div>
                         </div>
                       </Link>
+                      <Link to="/admin/notifications">
+                        <div className="col s12 m6">
+                          <div className="card r-box-shadow link" style={{borderTop: "6px solid #9b59b6"}}>
+                            <div className="card-content" style={{padding: "30px"}}>
+                              <span className="card-title black-text r-font-color" style={{fontWeight: "400"}}><b>通知</b></span>
+                              <p>{counts.notifications} 个未查看通知</p>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
 
                     </div>
+
                     <br/>
                     <br/>
                   </div>;
