@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {DataGrid} from '@material-ui/data-grid'
 
 import Header from '../../components/layouts/Header'
 import Footer from '../../components/layouts/Footer'
