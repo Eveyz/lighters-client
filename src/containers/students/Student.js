@@ -58,7 +58,7 @@ const Student = props => {
         <td><Link to={`/students/${props.student._id}/view`}><span className="airbnb-font">{props.student.englishname}</span></Link></td>
         <td>{props.student.lastname + props.student.firstname}</td>
         <td>{props.student.age}</td>
-        <td className={cls}>{props.student.tuition_amount}</td>
+        <td className={cls}>{props.student.tuition_amount.toFixed(2)}</td>
         <td>{props.student.gender}</td>
         <td>{props.student.city}</td>
         <td>{props.student.systemid}</td>
@@ -81,7 +81,7 @@ const Student = props => {
       <td><Link to={`/students/${props.student._id}/view`}><span className="airbnb-font">{props.student.englishname}</span></Link></td>
       <td>{props.student.lastname + props.student.firstname}</td>
       <td>{props.student.age}</td>
-      <td className={cls}>{props.student.tuition_amount}</td>
+      <td className={cls}>{props.student.tuition_amount.toFixed(2)}</td>
       <td>{props.student.gender}</td>
       <td>{props.student.city}</td>
       <td><button className={classes} onClick={() => { if (window.confirm('确定要更新学生?')) updateStudent()}} disabled={props.student.tuition_amount >= 0 ? false : true}>{action}</button></td>
