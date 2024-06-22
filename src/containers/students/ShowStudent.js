@@ -49,13 +49,14 @@ const ShowStudent = props => {
   if(student.reports.length > 0) {
     var reports_list = []
     student.reports.forEach((report, idx) => {
-      const charge = (getStudentReportCredit(report.situation) * report.course_id.course_rate).toFixed(2)
+      const cr = report.course_rate ? report.course_rate : report.course_id.course_rate 
+      const charge = (getStudentReportCredit(report.situation) * cr).toFixed(2)
       charges.push(charge)
       reports_list.push(<tr key={`report-${idx}`}>
                           <td>{report.course_id.name}</td>
                           <td>{report.teacher_id.lastname + report.teacher_id.firstname}</td>
                           <td>{report.course_date}</td>
-                          <td>{report.course_id.course_rate}</td>
+                          <td>{cr}</td>
                           <td>{report.situation}</td>
                           <td>{charge}</td>
                         </tr>)
